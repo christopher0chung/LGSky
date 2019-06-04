@@ -343,12 +343,12 @@ Prefab:
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 2}
       propertyPath: preview2D
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 81430364140143098, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 2}
@@ -41798,7 +41798,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1281379653}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf7a38b59bb0a1847abcc8d1da331f62, type: 3}
   m_Name: 
@@ -42417,6 +42417,11 @@ GameObject:
   - component: {fileID: 1556383672}
   - component: {fileID: 1556383673}
   - component: {fileID: 1556383674}
+  - component: {fileID: 1556383679}
+  - component: {fileID: 1556383678}
+  - component: {fileID: 1556383677}
+  - component: {fileID: 1556383676}
+  - component: {fileID: 1556383675}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -42483,6 +42488,65 @@ MonoBehaviour:
   nativeInputOverrideUpdateRate: 0
   nativeInputUpdateRate: 0
   customProfiles: []
+--- !u!114 &1556383675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a9caa1cb6fa134c9fddd27c0790270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftBoundVector: {x: 0, y: 0, z: 0}
+  rightBoundVector: {x: 0, y: 0, z: 0}
+  leftInVector: {x: 0, y: 0, z: 0}
+  rightInVector: {x: 0, y: 0, z: 0}
+--- !u!114 &1556383676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c621e5d59781e8a449e3f29c1ac607e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1556383677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42bda61272ca954897586680b7c4090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1556383678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba0275c4ce58254ca0f30ab2e7cd464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1556383679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fabd12905a406c64b88a4cd48e3de881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1570698674
 GameObject:
   m_ObjectHideFlags: 0
@@ -43337,6 +43401,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2136931267}
   - component: {fileID: 2136931268}
+  - component: {fileID: 2136931270}
+  - component: {fileID: 2136931269}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -43436,3 +43502,75 @@ MonoBehaviour:
   e_JumpEnergy_Actual: 0
   leftStation: 1
   rightStation: 3
+--- !u!114 &2136931269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2136931266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ef0716bf7b5df49b5897a282f7673a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 0}
+  shipAS: {fileID: 0}
+  moveVel: 0
+  xBoundClose: 0
+  xBoundFar: 0
+  zBoundClose: 0
+  zBoundFar: 0
+  leftBoundVector: {x: 0, y: 0, z: 0}
+  rightBoundVector: {x: 0, y: 0, z: 0}
+  leftInVector: {x: 0, y: 0, z: 0}
+  rightInVector: {x: 0, y: 0, z: 0}
+  shieldMat: {fileID: 0}
+  shield_FwdVector: {x: 0, y: 0, z: 0, w: 0}
+  shield_CoverageDotProductThreshold: 0
+  gun_Turret: {fileID: 0}
+  gun_Elevator: {fileID: 0}
+  gun_Object: {fileID: 0}
+  gun_ShotSFX: {fileID: 0}
+  gun_FireTimeInterval: 0
+  gun_FireFirstShotDelay: 0
+  gun_RelBrg: 0
+  gun_Elevation: 0
+  gun_ShootTimer: 0
+  sword_Turret: {fileID: 0}
+  sword_Elevator: {fileID: 0}
+  sword_Object: {fileID: 0}
+  sword_RelBrg: 0
+  sword_Elevation: 0
+  rocket_RelBrg: 0
+  rocket_Elevation: 0
+--- !u!114 &2136931270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2136931266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7db21e3220d1941a31a8c60729ce21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  station1_Axis_X: 0
+  station1_Axis_Y: 0
+  station1_Action_OnPress: 0
+  station1_Action_IsPressed: 0
+  station1_Action_OnRelease: 0
+  station1_Cancel_OnPress: 0
+  station1_Cancel_IsPressed: 0
+  station1_Cancel_OnRelease: 0
+  station1_SwitchUp_OnPress: 0
+  station1_SwitchDown_OnPress: 0
+  station2_Axis_X: 0
+  station2_Axis_Y: 0
+  station2_Action_OnPress: 0
+  station2_Action_IsPressed: 0
+  station2_Action_OnRelease: 0
+  station2_Cancel_OnPress: 0
+  station2_Cancel_IsPressed: 0
+  station2_Cancel_OnRelease: 0
+  station2_SwitchUp_OnPress: 0
+  station2_SwitchDown_OnPress: 0
