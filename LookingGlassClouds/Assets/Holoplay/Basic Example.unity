@@ -36932,12 +36932,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameModel: {fileID: 2136931268}
+  energyModel: {fileID: 2136931269}
   left: {fileID: 1309491457}
   right: {fileID: 549578111}
   barLeft: {fileID: 1181136231}
   barRight: {fileID: 1135102150}
   barTop: {fileID: 2030046739}
   barBottom: {fileID: 919623491}
+  color_Charge: {r: 0, g: 0.5321255, b: 1, a: 1}
+  color_Hold: {r: 1, g: 0.8399382, b: 0, a: 1}
+  color_Discharge: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1151078773
 GameObject:
   m_ObjectHideFlags: 0
@@ -41798,7 +41802,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1281379653}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf7a38b59bb0a1847abcc8d1da331f62, type: 3}
   m_Name: 
@@ -42417,6 +42421,14 @@ GameObject:
   - component: {fileID: 1556383672}
   - component: {fileID: 1556383673}
   - component: {fileID: 1556383674}
+  - component: {fileID: 1556383681}
+  - component: {fileID: 1556383682}
+  - component: {fileID: 1556383680}
+  - component: {fileID: 1556383679}
+  - component: {fileID: 1556383678}
+  - component: {fileID: 1556383677}
+  - component: {fileID: 1556383676}
+  - component: {fileID: 1556383675}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -42483,6 +42495,124 @@ MonoBehaviour:
   nativeInputOverrideUpdateRate: 0
   nativeInputUpdateRate: 0
   customProfiles: []
+--- !u!114 &1556383675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c41cf2be894fe145a4c398b47d287be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModel: {fileID: 2136931268}
+  energyModel: {fileID: 2136931269}
+  chargingScalar: 0.02
+--- !u!114 &1556383676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c2752d418ab3d941ad84c82cdb948bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModel: {fileID: 2136931268}
+  inputModel: {fileID: 2136931270}
+  player: {fileID: 1281379657}
+  xBoundClose: 5.25
+  xBoundFar: 11
+  zBoundClose: -0.5
+  zBoundFar: 10
+--- !u!114 &1556383677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cefb9df15a447448d1c0720f664331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModel: {fileID: 2136931268}
+  inputModel: {fileID: 2136931270}
+  swordPivot: {fileID: 1044952314}
+--- !u!114 &1556383678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b45cf15e374d54aa09d0d505ebb507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModel: {fileID: 2136931268}
+  inputModel: {fileID: 2136931270}
+  player: {fileID: 1281379657}
+  rocket: {fileID: 1604264315199044, guid: e73bb97eae2d4b545a3c01a87a7c8759, type: 2}
+--- !u!114 &1556383679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76987006bc6b1d644bb3d3fc18b5af88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModel: {fileID: 2136931268}
+  inputModel: {fileID: 2136931270}
+  shieldMat: {fileID: 2100000, guid: 49a3856d6ab82cc4bb47f372542994b5, type: 2}
+--- !u!114 &1556383680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587697d39cf82ce4f865a4ac126f794d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModel: {fileID: 2136931268}
+  inputModel: {fileID: 2136931270}
+  bullet: {fileID: 1252724231533214, guid: c02194737f113564c8acf56c0497ddec, type: 2}
+  _bullets: []
+  _bulletTimes: []
+  player: {fileID: 1281379657}
+--- !u!114 &1556383681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8175afda8af08ab429a42d75caa7ceda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  inputModel: {fileID: 2136931270}
+--- !u!114 &1556383682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e946f43790e8944a83995aa7db81add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModel: {fileID: 2136931268}
+  inputModel: {fileID: 2136931270}
 --- !u!1 &1570698674
 GameObject:
   m_ObjectHideFlags: 0
@@ -43337,6 +43467,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2136931267}
   - component: {fileID: 2136931268}
+  - component: {fileID: 2136931269}
+  - component: {fileID: 2136931270}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -43373,66 +43505,117 @@ MonoBehaviour:
   outsideColor_Base: {r: 0, g: 0, b: 0, a: 0}
   hitHDRIntensity_Base: 0
   hitHDRIntensity_Boost: 0
-  cutoff_Base: 0
+  cutoff_Base: 0.8
   cutoff_Base_Upgrade: 0
-  cutoff_Boost: 0
+  cutoff_Boost: 0.5
   cuttof_Boost_Upgrade: 0
-  shieldForwardDirection: {x: 0, y: 0, z: 0}
+  shieldForwardDirection: {x: 0, y: 0, z: 0, w: 0}
   contractAndDialationRate: 0
   contractAndDialationRate_Upgrade: 0
   colorCoolDownLerpFraction: 0
+  e_Shield_Passive: 10
+  e_Shield_Active: 20
   e_BlockedShotEnergyHit_Base: 0
   e_BlockedShotEnergyHit_Boost: 0
-  e_ShieldEnergy_Actual: 0
   blockedShot_Base: {fileID: 0}
   blockedShot_Boost: {fileID: 0}
   gunOn: 0
-  spinUpTime: 0
-  spinUpTime_Upgrade: 0
+  t_SpinUpTime: 0
+  t_SpinUpTime_Upgrade: 0
   t_TimeBetweenShots: 0
   t_TimeBetweenShots_Upgrade: 0
   gunTurretReticleColor: {r: 0, g: 0, b: 0, a: 0}
   gunFiringReticleHDRBoost: 0
   bulletColor: {r: 0, g: 0, b: 0, a: 0}
-  gunShot: {fileID: 0}
-  e_GunEnergyRate_Passive: 0
-  e_GunEnergyRate_Firing: 0
-  e_GunEnergy_Actual: 0
+  gunShot: {fileID: 8300000, guid: 581f3d7a16d01494d96048e031213b27, type: 3}
+  e_Gun_Passive: 10
+  e_Gun_Active: 10
   d_GunDamage_Base: 0
   d_GunDamage_Upgrade: 0
   rocketsOn: 0
   someCannonFloat: 0
-  e_RocketEnergyRate_Passive: 0
-  e_RocketEnergyRate_Fire: 0
-  e_RocketEnergy_Actual: 0
-  t_RocketCooldown: 0
+  e_Rockets_Passive: 30
+  e_Rockets_Active: 30
+  t_RocketCooldown: 10
   d_ExplosionBallDamage: 0
   d_ExplosionBallSize_Base: 0
   d_ExplosionBallSize_Upgrade: 0
   pilotOn: 0
-  somePilotFloat: 0
-  e_Flying: 0
+  flySpeed: 1
+  boostDist: 3
+  e_Pilot_Passive: 5
+  e_Flying: 15
   e_Flying_UpgradeDiscount: 0
-  e_Jump: 0
-  e_Jump_UpgradeDiscount: 0
-  e_PilotEnergy_Actual: 0
-  t_JumpCooldown: 0
+  e_Pilot_Boost: 40
+  t_BoostCooldown: 0
   swordOn: 0
   someRepairFloat: 0
-  e_SwordEnergyRate_Base: 0
-  e_SwordEnergyRate_Boost: 0
-  e_SwordEnergyRate_Boost_UpgradeDiscount: 0
-  e_SwordEnergy_Actual: 0
+  e_SwordEnergyRate_Passive: 8
+  e_SwordEnergyRate_Active: 42
+  e_SwordEnergyRate_Active_UpgradeDiscount: 0
   d_SwordDamage: 0
   d_SwordRange_Base: 0
   d_SwordRange_Upgrade: 0
-  e_ReactorEnergyRate: 0
-  e_ReactorEnergyRate_Upgrade: 0
+  e_Reactor_Base: 100
+  e_Reactor_Upgrade: 0
   e_ShutdownThreshold: 0
   e_ShutdownThreshold_Upgrade: 0
-  e_ReactorEnergy_Actual: 0
+  e_ChargeJumpThreshold: 50
   t_shutDownTime: 0
-  e_JumpActivateThreshold: 0
-  e_JumpEnergy_Actual: 0
+  e_JumpActivateThreshold: 99
   leftStation: 1
   rightStation: 3
+--- !u!114 &2136931269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2136931266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5442c45a18a669f43aa8beecd9afdf4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jump_Actual: 0
+  reactor_Actual: 0
+  guns_Actual: 0
+  rockets_Actual: 0
+  sword_Actual: 0
+  shield_Actual: 0
+  pilot_Actual: 0
+  jump_Apparent: 0
+  reactor_Apparent: 0
+  guns_Apparent: 0
+  rockets_Apparent: 0
+  sword_Apparent: 0
+  shield_Apparent: 0
+  pilot_Apparent: 0
+--- !u!114 &2136931270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2136931266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c6953b78541144785d9b44be53c717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  L_X: 0
+  L_Y: 0
+  L_Mag: 0
+  L_Brg: 0
+  L_Action_OnDown: 0
+  L_Action_Down: 0
+  L_Action_OnUp: 0
+  L_SwapUp_OnDown: 0
+  L_SwapDown_OnDown: 0
+  R_X: 0
+  R_Y: 0
+  R_Mag: 0
+  R_Brg: 0
+  R_Action_OnDown: 0
+  R_Action_Down: 0
+  R_Action_OnUp: 0
+  R_SwapUp_OnDown: 0
+  R_SwapDown_OnDown: 0
