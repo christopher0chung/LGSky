@@ -92,6 +92,8 @@ public class Debug_InControlTest : MonoBehaviour {
     }
 
 	void Update () {
+        float nothing = 0;
+
         var inputDevice = InputManager.ActiveDevice;
         leftStickX = inputDevice.LeftStickX;
         leftStickY = inputDevice.LeftStickY;
