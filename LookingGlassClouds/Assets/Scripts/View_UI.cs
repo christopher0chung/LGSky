@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class View_UI: MonoBehaviour {
 
     public Model_Game gameModel;
+    public Model_Energy energyModel;
 
     public SpriteRenderer left;
     public SpriteRenderer right;
@@ -14,6 +15,10 @@ public class View_UI: MonoBehaviour {
     public Transform barRight;
     public Transform barTop;
     public Transform barBottom;
+
+    public Color color_Charge;
+    public Color color_Hold;
+    public Color color_Discharge;
 
     private Vector3 vertBarMinSize = new Vector3(.2f, .1f, .2f);
     private Vector3 vertBarMaxSize = new Vector3(.2f, 2.95f, .2f);
@@ -34,6 +39,21 @@ public class View_UI: MonoBehaviour {
     private float scratchFloatRight;
     private float scratchFloatBottom;
     private float scratchFloatTop;
+
+    private float _gunsOld;
+    private float _pilotOld;
+    private float _rocketsOld;
+    private float _shieldsOld;
+    private float _swordOld;
+    private float _reactorOld;
+    private float _jumpOld;
+
+    #region Materials
+    Material barTopMat;
+    Material barBotMat;
+    Material barLeftMat;
+    Material barRightMat;
+    #endregion
 
     #region Icons
     private Stations _l;
@@ -69,6 +89,11 @@ public class View_UI: MonoBehaviour {
     {
         left.sprite = Resources.Load<Sprite>("UI/" + _l.ToString());
         right.sprite = Resources.Load<Sprite>("UI/" + _r.ToString());
+
+        barTopMat = barTop.GetComponent<MeshRenderer>().material;
+        barBotMat = barBottom.GetComponent<MeshRenderer>().material;
+        barLeftMat = barLeft.GetComponent<MeshRenderer>().material;
+        barRightMat = barRight.GetComponent<MeshRenderer>().material;
     }
 
     void Update () {
@@ -77,33 +102,33 @@ public class View_UI: MonoBehaviour {
 
         // Left
         if (_left == Stations.Guns)
-            scratchFloatLeft = gameModel.e_GunEnergy_Actual / 100;
+            scratchFloatLeft = energyModel.guns_Apparent / 100;
         else if (_left == Stations.Pilot)
-            scratchFloatLeft = gameModel.e_PilotEnergy_Actual / 100;
+            scratchFloatLeft = energyModel.pilot_Apparent / 100;
         else if (_left == Stations.Rockets)
-            scratchFloatLeft = gameModel.e_RocketEnergy_Actual / 100;
+            scratchFloatLeft = energyModel.rockets_Apparent / 100;
         else if (_left == Stations.Shield)
-            scratchFloatLeft = gameModel.e_ShieldEnergy_Actual / 100;
+            scratchFloatLeft = energyModel.shield_Apparent / 100;
         else if (_left == Stations.Sword)
-            scratchFloatLeft = gameModel.e_SwordEnergy_Actual / 100;
+            scratchFloatLeft = energyModel.sword_Apparent / 100;
 
         // Right
         if (_right == Stations.Guns)
-            scratchFloatRight = gameModel.e_GunEnergy_Actual / 100;
+            scratchFloatRight = energyModel.guns_Apparent / 100;
         else if (_right == Stations.Pilot)
-            scratchFloatRight = gameModel.e_PilotEnergy_Actual / 100;
+            scratchFloatRight = energyModel.pilot_Apparent / 100;
         else if (_right == Stations.Rockets)
-            scratchFloatRight = gameModel.e_RocketEnergy_Actual / 100;
+            scratchFloatRight = energyModel.rockets_Apparent / 100;
         else if (_right == Stations.Shield)
-            scratchFloatRight = gameModel.e_ShieldEnergy_Actual / 100;
+            scratchFloatRight = energyModel.shield_Apparent / 100;
         else if (_right == Stations.Sword)
-            scratchFloatRight = gameModel.e_SwordEnergy_Actual / 100;
+            scratchFloatRight = energyModel.sword_Apparent / 100;
 
         // Bottom
-        scratchFloatBottom = gameModel.e_ReactorEnergy_Actual / 100;
+        scratchFloatBottom = energyModel.reactor_Apparent / 100;
 
         // Top
-        scratchFloatTop = gameModel.e_JumpEnergy_Actual / 100;
+        scratchFloatTop = energyModel.jump_Apparent / 100;
 
         // Clamp
         scratchFloatLeft = Mathf.Clamp01(scratchFloatLeft);
@@ -123,5 +148,86 @@ public class View_UI: MonoBehaviour {
 
         barTop.localPosition = Vector3.Lerp(topMinPos, topMaxPos, scratchFloatTop);
         barTop.localScale = Vector3.Lerp(horzBarMinSize, horzBarMaxSize, scratchFloatTop);
+
+        BarColors();
     }
+
+    void BarColors()
+    {
+        _CheckAndApplyColorStd(_reactorOld, energyModel.reactor_Apparent, barBotMat);
+        _CheckAndApplyColorStd(_jumpOld, energyModel.jump_Apparent, barTopMat);
+        
+        // Left
+        if (_left == Stations.Guns)
+            _CheckAndApplyColorInv(_gunsOld, energyModel.guns_Apparent, barLeftMat);
+        else if (_left == Stations.Pilot)
+            _CheckAndApplyColorInv(_pilotOld, energyModel.pilot_Apparent, barLeftMat);
+        else if (_left == Stations.Rockets)
+            _CheckAndApplyColorInv(_rocketsOld, energyModel.rockets_Apparent, barLeftMat);
+        else if (_left == Stations.Shield)
+            _CheckAndApplyColorInv(_shieldsOld, energyModel.shield_Apparent, barLeftMat);
+        else if (_left == Stations.Sword)
+            _CheckAndApplyColorInv(_swordOld, energyModel.sword_Apparent, barLeftMat);
+        // Right
+        if (_right == Stations.Guns)
+            _CheckAndApplyColorInv(_gunsOld, energyModel.guns_Apparent, barRightMat);
+        else if (_right == Stations.Pilot)
+            _CheckAndApplyColorInv(_pilotOld, energyModel.pilot_Apparent, barRightMat);
+        else if (_right == Stations.Rockets)
+            _CheckAndApplyColorInv(_rocketsOld, energyModel.rockets_Apparent, barRightMat);
+        else if (_right == Stations.Shield)
+            _CheckAndApplyColorInv(_shieldsOld, energyModel.shield_Apparent, barRightMat);
+        else if (_right == Stations.Sword)
+            _CheckAndApplyColorInv(_swordOld, energyModel.sword_Apparent, barRightMat);
+
+        _gunsOld = energyModel.guns_Apparent;
+        _pilotOld = energyModel.pilot_Apparent;
+        _rocketsOld = energyModel.rockets_Apparent;
+        _shieldsOld = energyModel.shield_Apparent;
+        _swordOld = energyModel.sword_Apparent;
+        _reactorOld = energyModel.reactor_Apparent;
+        _jumpOld = energyModel.jump_Apparent;
+    }
+
+    private void _CheckAndApplyColorStd(float oldVal, float newVal, Material bar)
+    {
+        float del = newVal - oldVal;
+
+        if (Mathf.Abs(del) <= .01f)
+        {
+            bar.SetColor("_Color0", color_Hold);
+            bar.SetColor("_Color1", color_Hold);
+        }
+        else if (del <= 0)
+        {
+            bar.SetColor("_Color0", color_Discharge);
+            bar.SetColor("_Color1", color_Discharge);
+        }
+        else
+        {
+            bar.SetColor("_Color0", color_Charge);
+            bar.SetColor("_Color1", color_Charge);
+        }
+    }
+    private void _CheckAndApplyColorInv(float oldVal, float newVal, Material bar)
+    {
+        float del = newVal - oldVal;
+
+        if (Mathf.Abs(del) <= .01f)
+        {
+            bar.SetColor("_Color0", color_Hold);
+            bar.SetColor("_Color1", color_Hold);
+        }
+        else if (del <= 0)
+        {
+            bar.SetColor("_Color0", color_Charge);
+            bar.SetColor("_Color1", color_Charge);
+        }
+        else
+        {
+            bar.SetColor("_Color0", color_Discharge);
+            bar.SetColor("_Color1", color_Discharge);
+        }
+    }
+
 }
