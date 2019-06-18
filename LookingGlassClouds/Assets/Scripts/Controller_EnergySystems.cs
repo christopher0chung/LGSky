@@ -110,6 +110,20 @@ public class Controller_EnergySystems : MonoBehaviour {
         _rightStationOld = gameModel.rightStation;
     }
 
+    void GunCooldownWhenInactive()
+    {
+        if (gameModel.leftStation != Stations.Guns && gameModel.rightStation != Stations.Guns)
+        {
+            _CooldownGuns();
+        }
+    }
+
+    private void _CooldownGuns()
+    {
+        energyModel.gun_OpCost -= Time.deltaTime * gameModel.e_Gun_Active * 1.5f;
+        energyModel.gun_OpCost = Mathf.Clamp(energyModel.gun_OpCost, 0, 100 - gameModel.e_Gun_Passive);
+    }
+
     #region FSM
 
     protected class State_Base : SCG_FSM<Controller_EnergySystems>.State
@@ -128,12 +142,14 @@ public class Controller_EnergySystems : MonoBehaviour {
         {
             if (Context.gameModel.gunOn)
             {
-                Context.energyModel.guns_Actual = Context.gameModel.e_Gun_Passive + Context.gameModel.e_Gun_Active;
+                Context.energyModel.gun_OpCost += Time.deltaTime * Context.gameModel.e_Gun_Active;
             }
             else
             {
-                Context.energyModel.guns_Actual = Context.gameModel.e_Gun_Passive;
+                Context._CooldownGuns();
             }
+            Context.energyModel.guns_Actual = Context.gameModel.e_Gun_Passive + Context.energyModel.gun_OpCost;
+
         }
 
         public override void OnExit()

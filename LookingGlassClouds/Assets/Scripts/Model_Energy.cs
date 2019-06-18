@@ -19,4 +19,6 @@ public class Model_Energy : MonoBehaviour {
     public float sword_Apparent;
     public float shield_Apparent;
     public float pilot_Apparent;
+
+    public float gun_OpCost;
 }

@@ -77,6 +77,12 @@ public class Model_Game : MonoBehaviour {
     [Header("Stations")]
     public Stations leftStation;
     public Stations rightStation;
+    [Header("Enemies")]
+    public GameObject swarmBoyPrefab;
+    public GameObject anotherPrefab;
+    [Header("Assets")]
+    public GameObject bulletPrefab;
+    public GameObject bulletExplosionPrefab;
 }
 
 public enum Stations { Pilot, Guns, Rockets, Shield, Sword }

@@ -42429,6 +42429,8 @@ GameObject:
   - component: {fileID: 1556383677}
   - component: {fileID: 1556383676}
   - component: {fileID: 1556383675}
+  - component: {fileID: 1556383683}
+  - component: {fileID: 1556383684}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -42461,7 +42463,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boid: {fileID: 1590054166158366, guid: 52e61e175d37eef4183b032c400ab87a, type: 2}
-  boidsPerFlock: 28000000280000002800000028000000280000002800000028000000280000002800000028000000
   _weightRandom: 0.307
   _weightSeparation: 0.971
   _weightAlightment: 0.879
@@ -42583,9 +42584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameModel: {fileID: 2136931268}
   inputModel: {fileID: 2136931270}
-  bullet: {fileID: 1252724231533214, guid: c02194737f113564c8acf56c0497ddec, type: 2}
-  _bullets: []
-  _bulletTimes: []
+  assetManager: {fileID: 1556383684}
   player: {fileID: 1281379657}
 --- !u!114 &1556383681
 MonoBehaviour:
@@ -42613,6 +42612,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameModel: {fileID: 2136931268}
   inputModel: {fileID: 2136931270}
+--- !u!114 &1556383683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a7b06e27038c8408a8a23f7405028e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelGame: {fileID: 2136931268}
+  activeEnemies: []
+  pendingDestroy: []
+--- !u!114 &1556383684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556383671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfb3b69d0814724397d19999145784d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModel: {fileID: 2136931268}
 --- !u!1 &1570698674
 GameObject:
   m_ObjectHideFlags: 0
@@ -43520,16 +43545,16 @@ MonoBehaviour:
   blockedShot_Base: {fileID: 0}
   blockedShot_Boost: {fileID: 0}
   gunOn: 0
-  t_SpinUpTime: 0
+  t_SpinUpTime: 0.3
   t_SpinUpTime_Upgrade: 0
-  t_TimeBetweenShots: 0
+  t_TimeBetweenShots: 0.05
   t_TimeBetweenShots_Upgrade: 0
   gunTurretReticleColor: {r: 0, g: 0, b: 0, a: 0}
   gunFiringReticleHDRBoost: 0
   bulletColor: {r: 0, g: 0, b: 0, a: 0}
   gunShot: {fileID: 8300000, guid: 581f3d7a16d01494d96048e031213b27, type: 3}
   e_Gun_Passive: 10
-  e_Gun_Active: 10
+  e_Gun_Active: 7
   d_GunDamage_Base: 0
   d_GunDamage_Upgrade: 0
   rocketsOn: 0
@@ -43565,6 +43590,14 @@ MonoBehaviour:
   e_JumpActivateThreshold: 99
   leftStation: 1
   rightStation: 3
+  swarmBoyPrefab: {fileID: 1590054166158366, guid: 52e61e175d37eef4183b032c400ab87a,
+    type: 2}
+  anotherPrefab: {fileID: 1590054166158366, guid: 52e61e175d37eef4183b032c400ab87a,
+    type: 2}
+  bulletPrefab: {fileID: 1252724231533214, guid: c02194737f113564c8acf56c0497ddec,
+    type: 2}
+  bulletExplosionPrefab: {fileID: 1907972874928844, guid: 6a74db026bc9cae43a74c58e56dce26e,
+    type: 2}
 --- !u!114 &2136931269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43590,6 +43623,7 @@ MonoBehaviour:
   sword_Apparent: 0
   shield_Apparent: 0
   pilot_Apparent: 0
+  gun_OpCost: 0
 --- !u!114 &2136931270
 MonoBehaviour:
   m_ObjectHideFlags: 0

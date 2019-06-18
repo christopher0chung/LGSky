@@ -6,10 +6,7 @@ public class Controller_Gun : MonoBehaviour {
 
     public Model_Game gameModel;
     public Model_Input inputModel;
-
-    public GameObject bullet;
-    public List<GameObject> _bullets;
-    public List<float> _bulletTimes;
+    public Manager_GameAssets assetManager;
 
     public Transform player;
     private Transform swivel;
@@ -30,8 +27,6 @@ public class Controller_Gun : MonoBehaviour {
         reticle = pitcher.GetChild(0).GetComponent<MeshRenderer>();
         gun = player.GetChild(1);
         gunPointer = gun.GetChild(0).GetComponent<MeshRenderer>();
-        _bullets = new List<GameObject>();
-        _bulletTimes = new List<float>();
         myAS = player.GetComponent<AudioSource>();
     }
 	
@@ -55,8 +50,6 @@ public class Controller_Gun : MonoBehaviour {
             reticle.enabled = false;
             gunPointer.enabled = false;
         }
-
-        _BulletsUpdate();
 	}
 
     #region Guns
@@ -77,32 +70,18 @@ public class Controller_Gun : MonoBehaviour {
             if (shootTimer - gameModel.t_SpinUpTime >= gameModel.t_TimeBetweenShots)
             {
                 shootTimer -= gameModel.t_TimeBetweenShots;
+                GameObject bullet;
                 if (leftRightBarrel)
-                    _bullets.Add(Instantiate(bullet, player.position + Vector3.left * .1f, Quaternion.identity, null));
+                    bullet = assetManager.Make(MyGameAsset.Bullet, player.position + Vector3.left * .1f);
                 else
-                    _bullets.Add(Instantiate(bullet, player.position + Vector3.right * .1f, Quaternion.identity, null));
+                    bullet = assetManager.Make(MyGameAsset.Bullet, player.position + Vector3.right * .1f);
+                bullet.GetComponent<Rigidbody>().AddForce(gun.forward * 30, ForceMode.Impulse);
                 leftRightBarrel = !leftRightBarrel;
-                _bulletTimes.Add(0);
-                _bullets[_bullets.Count - 1].GetComponent<Rigidbody>().AddForce(gun.forward * 30, ForceMode.Impulse);
                 myAS.PlayOneShot(gameModel.gunShot);
             }
         }
         if (release)
             shootTimer = 0;
-    }
-    private void _BulletsUpdate()
-    {
-        for (int i = 0; i < _bulletTimes.Count; i++)
-        {
-            _bulletTimes[i] += Time.deltaTime;
-            if (_bulletTimes[i] >= 2.2f)
-            {
-                _bulletTimes.RemoveAt(i);
-                GameObject bulletToDestroy = _bullets[i];
-                _bullets.RemoveAt(i);
-                Destroy(bulletToDestroy);
-            }
-        }
     }
     #endregion
 }
