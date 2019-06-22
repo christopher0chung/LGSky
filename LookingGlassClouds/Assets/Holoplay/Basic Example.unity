@@ -343,12 +343,12 @@ Prefab:
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 2}
       propertyPath: preview2D
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 81430364140143098, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 2}
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldMat: {fileID: 2100000, guid: 49a3856d6ab82cc4bb47f372542994b5, type: 2}
-  ding: {fileID: 8300000, guid: 82071e8344830024c8a1c20b347af366, type: 3}
+  ding: {fileID: 8300000, guid: e5e538c4134bc8c4195bb0b8d351717f, type: 3}
 --- !u!82 &43402366
 AudioSource:
   m_ObjectHideFlags: 0
@@ -467,7 +467,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.2
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -5794,7 +5794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &888525667
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -42559,6 +42559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameModel: {fileID: 2136931268}
   inputModel: {fileID: 2136931270}
+  assetManager: {fileID: 1556383684}
   player: {fileID: 1281379657}
   rocket: {fileID: 1604264315199044, guid: e73bb97eae2d4b545a3c01a87a7c8759, type: 2}
 --- !u!114 &1556383679
@@ -42642,9 +42643,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameModel: {fileID: 2136931268}
-  bExplosion_Active: []
-  bExplosion_Inactive: []
-  bExplosion_Times: []
+  rExplosion_Active: []
+  rExplosion_Inactive: []
+  rExplosion_Times: []
 --- !u!1 &1570698674
 GameObject:
   m_ObjectHideFlags: 0
@@ -43554,7 +43555,7 @@ MonoBehaviour:
   gunOn: 0
   t_SpinUpTime: 0.3
   t_SpinUpTime_Upgrade: 0
-  t_TimeBetweenShots: 0.07
+  t_TimeBetweenShots: 0.04
   t_TimeBetweenShots_Upgrade: 0
   gunTurretReticleColor: {r: 0, g: 0, b: 0, a: 0}
   gunFiringReticleHDRBoost: 0
@@ -43571,7 +43572,7 @@ MonoBehaviour:
   d_ExplosionBallDamage: 0
   d_ExplosionBallSize_Base: 0
   d_ExplosionBallSize_Upgrade: 0
-  rocketCountMax: 20
+  rocketCountMax: 40
   t_RocketTurnTimeNormalized: 0.3
   pilotOn: 0
   flySpeed: 1

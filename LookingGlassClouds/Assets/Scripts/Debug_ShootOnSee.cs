@@ -12,7 +12,7 @@ public class Debug_ShootOnSee : MonoBehaviour {
 
     void Start()
     {
-        whoAmILookingFor = GameObject.FindGameObjectWithTag("Player").transform;
+        whoAmILookingFor = ServiceLocator.instance.Player;
     }
 
 	void Update () {
@@ -23,7 +23,7 @@ public class Debug_ShootOnSee : MonoBehaviour {
         {
             GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity, null);
 
-            Vector3 shootDir = Quaternion.Euler(Random.insideUnitSphere * 7) *Vector3.Normalize(whoAmILookingFor.position - transform.position);
+            Vector3 shootDir = Quaternion.Euler(Random.insideUnitSphere * 3) *Vector3.Normalize(whoAmILookingFor.position - transform.position);
             newBullet.GetComponent<Rigidbody>().AddForce(shootDir * 7, ForceMode.Impulse);
             haveIFired = true;
         }

@@ -6,6 +6,7 @@ public class Controller_Rockets : MonoBehaviour {
 
     public Model_Game gameModel;
     public Model_Input inputModel;
+    public Manager_GameAssets assetManager;
 
     public Transform player;
     private Transform rocketAim;
@@ -58,14 +59,17 @@ public class Controller_Rockets : MonoBehaviour {
 
     private void _Rockets(bool shoot)
     {
-        gameModel.rocketsOn = shoot;
+        if (rocketIncrementor >= 1)
+            gameModel.rocketsOn = true;
+        else
+            gameModel.rocketsOn = false;
 
         if (shoot)
             rocketIncrementor = 1;
 
         if (rocketIncrementor > 0)
         {
-            GameObject g = Instantiate(rocket, transform.position, Quaternion.identity);
+            GameObject g = assetManager.Make(MyGameAsset.Rocket, player.position);
             g.GetComponent<Debug_RocketFlight>().ultimatePath = rocketPitch.up;
             rocketIncrementor++;
             if (rocketIncrementor >= gameModel.rocketCountMax)

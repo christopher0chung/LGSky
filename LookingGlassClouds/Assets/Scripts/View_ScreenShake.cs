@@ -42,6 +42,11 @@ public class View_ScreenShake : MonoBehaviour {
     private Vector3 originalEuler;
     public Vector3 offsetEuler;
 
+    void Awake()
+    {
+        SCG_EventManager.instance.Register<Event_EnemyBulletHit>(PlayerHitEventHandler);
+    }
+
     void Start()
     {
         originalEuler = cameraXfm.localEulerAngles;
@@ -52,9 +57,17 @@ public class View_ScreenShake : MonoBehaviour {
         cameraXfm.localEulerAngles = originalEuler;
     }
 
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
+    void PlayerHitEventHandler(SCG_Event e)
+    {
+        Event_EnemyBulletHit bH = e as Event_EnemyBulletHit;
+
+        if (bH != null)
             shakeInitiate = true;
+    }
+
+	void Update () {
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //    shakeInitiate = true;
 
         if (shakeInitiate)
             Shake();
@@ -75,7 +88,7 @@ public class View_ScreenShake : MonoBehaviour {
             shakeCounter++;
             shakeMagDec = (float)(temp_ShakeCount - shakeCounter) / (float)temp_ShakeCount;
             offsetEuler = new Vector3(Random.Range(-maxShakeMag, maxShakeMag) * shakeMagDec, Random.Range(-maxShakeMag, maxShakeMag) / 2 * shakeMagDec, 0);
-            Debug.Log(offsetEuler);
+            //Debug.Log(offsetEuler);
         }
 
         if (shakeCounter >= temp_ShakeCount)

@@ -59,4 +59,16 @@ public class ServiceLocator
             return _c;
         }
     }
+
+    private Transform _p;
+
+    public Transform Player
+    {
+        get
+        {
+            if (_p == null)
+                _p = View.Find("Player");
+            return _p;
+        }
+    }
 }

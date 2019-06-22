@@ -7,52 +7,45 @@ public class Manager_GameAssets : MonoBehaviour {
     public Model_Game gameModel;
 
     List<GameObject> bullets_Active;
-    //List<GameObject> bullets_BufferA2I;
     List<GameObject> bullets_Inactive;
     List<float> bullets_Times;
 
-    public List<GameObject> bExplosion_Active;
-    //List<GameObject> bExplosion_BufferA2I;
-    public List<GameObject> bExplosion_Inactive;
-    public List<float> bExplosion_Times;
+    List<GameObject> bExplosion_Active;
+    List<GameObject> bExplosion_Inactive;
+    List<float> bExplosion_Times;
 
     List<GameObject> rockets_Active;
-    //List<GameObject> rockets_BufferA2I;
     List<GameObject> rockets_Inactive;
     List<float> rockets_Times;
 
-    List<GameObject> rExplosion_Active;
-    //List<GameObject> rExplosion_BufferA2I;
-    List<GameObject> rExplosion_Inactive;
-    List<float> rExplosion_Times;
+    public List<GameObject> rExplosion_Active;
+    public List<GameObject> rExplosion_Inactive;
+    public List<float> rExplosion_Times;
 
     void Awake()
     {
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EffectsEventHandler);
+        SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EffectsEventHandler);
     }
 
 	void Start () {
 
         bullets_Active = new List<GameObject>();
-        //bullets_BufferA2I = new List<GameObject>();
         bullets_Inactive = new List<GameObject>();
         bullets_Times = new List<float>();
         _PrepInactive(gameModel.bulletPrefab, bullets_Inactive, 100);
 
         bExplosion_Active = new List<GameObject>();
-        //bExplosion_BufferA2I = new List<GameObject>();
         bExplosion_Inactive = new List<GameObject>();
         bExplosion_Times = new List<float>();
         _PrepInactive(gameModel.bulletExplosionPrefab, bExplosion_Inactive, 50);
 
         rockets_Active = new List<GameObject>();
-        //rockets_BufferA2I = new List<GameObject>();
         rockets_Inactive = new List<GameObject>();
         rockets_Times = new List<float>();
         _PrepInactive(gameModel.rocketPrefab, rockets_Inactive, 40);
 
         rExplosion_Active = new List<GameObject>();
-        //rExplosion_BufferA2I = new List<GameObject>();
         rExplosion_Inactive = new List<GameObject>();
         rExplosion_Times = new List<float>();
         _PrepInactive(gameModel.rocketExplosionPrefab, rExplosion_Inactive, 40);
@@ -121,6 +114,8 @@ public class Manager_GameAssets : MonoBehaviour {
         {
             if (_IsGOActiveCheck(rH.rocket.gameObject, rockets_Active))
             {
+                Debug.Log("Rocket hit registered by GAManager");
+
                 Make(MyGameAsset.RocketExplosion, rH.location);
 
                 int indexOfRocket = rockets_Active.IndexOf(rH.rocket.gameObject);

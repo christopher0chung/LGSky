@@ -64,7 +64,7 @@ public class Manager_Enemy : MonoBehaviour {
         }
     }
 
-    public void LateUpdate()
+    public void FixedUpdate()
     {
         if (pendingDestroy.Count > 0)
         {

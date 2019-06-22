@@ -110,6 +110,7 @@ public class Asset_BoidsManager : MonoBehaviour {
                 {
                     b.IfTrackingRemoveFromTracker(boid);
                 }
+                Debug.Log("Destruction Notice");
             }
         }
     }

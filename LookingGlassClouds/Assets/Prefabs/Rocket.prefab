@@ -37,7 +37,6 @@ GameObject:
   - component: {fileID: 4157344419646088}
   - component: {fileID: 33170206818320374}
   - component: {fileID: 23581886830995012}
-  - component: {fileID: 65381511549566878}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -53,10 +52,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4633008313648306}
-  - component: {fileID: 136442597394168230}
   - component: {fileID: 114990345952680984}
   - component: {fileID: 82771255166832414}
   - component: {fileID: 114482681228587730}
+  - component: {fileID: 54507017461456736}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -74,7 +73,6 @@ GameObject:
   - component: {fileID: 4607367366740224}
   - component: {fileID: 33418877169163320}
   - component: {fileID: 23158857038746278}
-  - component: {fileID: 65587010739994004}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -92,7 +90,6 @@ GameObject:
   - component: {fileID: 4740840519534400}
   - component: {fileID: 33814868721647464}
   - component: {fileID: 23523279402694254}
-  - component: {fileID: 65269791121253716}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -108,6 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4329688815879968}
+  - component: {fileID: 136236017624933128}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -324,42 +322,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761350434094326}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65269791121253716
-BoxCollider:
+--- !u!54 &54507017461456736
+Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1761350434094326}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_GameObject: {fileID: 1604264315199044}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65381511549566878
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1330616936180862}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65587010739994004
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1732938120256252}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Mass: 0.0001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!82 &82771255166832414
 AudioSource:
   m_ObjectHideFlags: 1
@@ -589,23 +566,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95dfc41816bc514c98a6fcf74ba3996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameAssets: {fileID: 0}
+  gameModel: {fileID: 0}
   ultimatePath: {x: 0, y: 0, z: 0}
   basePath: {x: 0, y: 0, z: 1}
   rocketSpeed: 15
   windingRadiusMax: 3
   windTime: 0.18
+  offsetTgt: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
   explosionBall: {fileID: 1072131116702380, guid: a809f8bfe28c669448a528c453a11ff5,
     type: 2}
---- !u!136 &136442597394168230
+--- !u!136 &136236017624933128
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1604264315199044}
+  m_GameObject: {fileID: 1803090535563094}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.23
-  m_Height: 1
+  m_Radius: 0.15
+  m_Height: 1.5
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.37}

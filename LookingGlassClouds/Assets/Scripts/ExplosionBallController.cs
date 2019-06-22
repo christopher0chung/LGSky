@@ -5,8 +5,10 @@ using UnityEngine;
 public class ExplosionBallController : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
         transform.localScale = Vector3.zero;
+        timer = 0;
+        GetComponent<AudioSource>().Play();
 	}
 
     float maxSize = 2;

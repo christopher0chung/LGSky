@@ -46,3 +46,8 @@ public class Event_PlayerRocketHit : SCG_Event
         this.rocket = rocket;
     }
 }
+
+public class Event_EnemyBulletHit : SCG_Event
+{
+    public Event_EnemyBulletHit() { }
+}

@@ -14,6 +14,8 @@ public class Asset_Boid : MonoBehaviour {
 
     public Vector3 POI;
 
+    private Vector3 _lastPos;
+
     #region Private Variables
 
     private SCG_FSM<Asset_Boid> _fsm;
@@ -46,6 +48,10 @@ public class Asset_Boid : MonoBehaviour {
 	}
 	
 	void Update () {
+
+        if (Vector3.Distance(transform.position, _lastPos) <= .001f)
+            SCG_EventManager.instance.Fire(new Event_EnemyDeath(this.gameObject.GetComponent<Enemy_Base>(), transform.position));
+        _lastPos = transform.position;
 
         _fsm.Update();
 
