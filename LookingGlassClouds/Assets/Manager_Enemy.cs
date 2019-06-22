@@ -6,7 +6,7 @@ using UnityEngine;
 public class Manager_Enemy : MonoBehaviour {
     private Asset_BoidsManager bm;
 
-    public Model_Game modelGame;
+    public Model_Game gameModel;
 
     public List<Enemy_Base> activeEnemies;
     public List<Enemy_Base> pendingDestroy;
@@ -43,9 +43,12 @@ public class Manager_Enemy : MonoBehaviour {
             List<Asset_Boid> flockOfSwarmBoys = new List<Asset_Boid>();
             for (int i = 0; i < count; i++)
             {
-                GameObject g = GameObject.Instantiate(modelGame.swarmBoyPrefab, position, Quaternion.identity, null);
-                activeEnemies.Add(g.GetComponent<Enemy_Base>());
-                g.GetComponent<Enemy_Base>().SetHitPoint(100);
+                Debug.Assert(gameModel.swarmBoyPrefab != null, "Where is SwarmBoyPrefab?");
+                GameObject g = Instantiate<GameObject>(gameModel.swarmBoyPrefab, position, Quaternion.identity, null);
+                Debug.Assert(g != null, "Where's my G?!");
+                Enemy_Base enemy = g.GetComponent<Enemy_Base>();
+                enemy.SetHitPoint(100);
+                activeEnemies.Add(enemy);
                 flockOfSwarmBoys.Add(g.GetComponent<Asset_Boid>());
             }
 

@@ -6,11 +6,17 @@ public class Behavior_Bullet : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Enemy_Base e = other.gameObject.GetComponent<Enemy_Base>();
-        if (e != null)
+
+        if (other.tag != "Enemy")
+            return;
+        else
         {
-            Debug.Log("Hit!");
-            SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, 40, transform.position, this));
+            Enemy_Base e = other.gameObject.GetComponent<Enemy_Base>();
+            if (e != null)
+            {
+                //Debug.Log("Hit!");
+                SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, 40, transform.position, this));
+            }
         }
     }
 }

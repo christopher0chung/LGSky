@@ -40,13 +40,14 @@ public class Model_Game : MonoBehaviour {
     public float d_GunDamage_Upgrade;
     [Header("Rockets")]
     public bool rocketsOn;
-    public float someCannonFloat;
     public float e_Rockets_Passive;
     public float e_Rockets_Active;
     public float t_RocketCooldown;
     public float d_ExplosionBallDamage;
     public float d_ExplosionBallSize_Base;
     public float d_ExplosionBallSize_Upgrade;
+    public int rocketCountMax;
+    public float t_RocketTurnTimeNormalized;
     [Header("Pilot")]
     public bool pilotOn;
     public float flySpeed;
@@ -83,6 +84,8 @@ public class Model_Game : MonoBehaviour {
     [Header("Assets")]
     public GameObject bulletPrefab;
     public GameObject bulletExplosionPrefab;
+    public GameObject rocketPrefab;
+    public GameObject rocketExplosionPrefab;
 }
 
 public enum Stations { Pilot, Guns, Rockets, Shield, Sword }

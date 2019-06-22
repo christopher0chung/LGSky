@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Debug_RocketFlight : MonoBehaviour {
 
+    public Manager_GameAssets gameAssets;
+    public Model_Game gameModel;
     public Vector3 ultimatePath;
     public Vector3 basePath = Vector3.forward;
     public float rocketSpeed;
@@ -20,15 +22,24 @@ public class Debug_RocketFlight : MonoBehaviour {
 
     public GameObject explosionBall;
 
-    private void Start()
+    private void OnEnable()
     {
+        if (gameAssets == null)
+            gameAssets = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+        if (gameModel == null)
+            gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+
+        Debug.Assert(gameAssets != null && gameModel != null, " model or manager unhooked");
+
         basePos = transform.position;
+        turnTimer = 0;
+        timer = 0;
         //basePath = Vector3.Normalize(new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 1));
     }
 
 	void Update () {
 
-        turnTimer += Time.deltaTime/1;
+        turnTimer += Time.deltaTime/gameModel.t_RocketTurnTimeNormalized;
         turnTimer = Mathf.Clamp01(turnTimer);
 
         basePath = Vector3.Lerp(basePath, ultimatePath, Easings.QuinticEaseIn(turnTimer));
@@ -46,19 +57,13 @@ public class Debug_RocketFlight : MonoBehaviour {
             hold = Random.insideUnitCircle;
             offsetTgt = new Vector3(hold.x, hold.y, 0) * windingRadiusMax * cleanUpTimer;
         }
-
-        cleanUpTimer += Time.deltaTime;
-        if (cleanUpTimer >= 10)
-            Destroy(this.gameObject);
 	}
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Boid(Clone)")
+        if (other.gameObject.GetComponent<Enemy_Base>())
         {
-            Instantiate(explosionBall, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            SCG_EventManager.instance.Fire(new Event_PlayerRocketHit(transform.position, this));
         }
-
     }
 }

@@ -36939,9 +36939,13 @@ MonoBehaviour:
   barRight: {fileID: 1135102150}
   barTop: {fileID: 2030046739}
   barBottom: {fileID: 919623491}
+  color_Charged: {r: 0, g: 1, b: 0.2465775, a: 1}
   color_Charge: {r: 0, g: 0.5321255, b: 1, a: 1}
   color_Hold: {r: 1, g: 0.8399382, b: 0, a: 1}
-  color_Discharge: {r: 1, g: 0, b: 0, a: 1}
+  color_Discharge: {r: 1, g: 0.49574798, b: 0, a: 1}
+  color_Danger: {r: 1, g: 0, b: 0, a: 1}
+  flashingTimeOn: 0.2
+  flashingTImeOff: 0.1
 --- !u!1 &1151078773
 GameObject:
   m_ObjectHideFlags: 0
@@ -42623,7 +42627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a7b06e27038c8408a8a23f7405028e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelGame: {fileID: 2136931268}
+  gameModel: {fileID: 2136931268}
   activeEnemies: []
   pendingDestroy: []
 --- !u!114 &1556383684
@@ -42638,6 +42642,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameModel: {fileID: 2136931268}
+  bExplosion_Active: []
+  bExplosion_Inactive: []
+  bExplosion_Times: []
 --- !u!1 &1570698674
 GameObject:
   m_ObjectHideFlags: 0
@@ -43547,7 +43554,7 @@ MonoBehaviour:
   gunOn: 0
   t_SpinUpTime: 0.3
   t_SpinUpTime_Upgrade: 0
-  t_TimeBetweenShots: 0.05
+  t_TimeBetweenShots: 0.07
   t_TimeBetweenShots_Upgrade: 0
   gunTurretReticleColor: {r: 0, g: 0, b: 0, a: 0}
   gunFiringReticleHDRBoost: 0
@@ -43558,13 +43565,14 @@ MonoBehaviour:
   d_GunDamage_Base: 0
   d_GunDamage_Upgrade: 0
   rocketsOn: 0
-  someCannonFloat: 0
   e_Rockets_Passive: 30
   e_Rockets_Active: 30
   t_RocketCooldown: 10
   d_ExplosionBallDamage: 0
   d_ExplosionBallSize_Base: 0
   d_ExplosionBallSize_Upgrade: 0
+  rocketCountMax: 20
+  t_RocketTurnTimeNormalized: 0.3
   pilotOn: 0
   flySpeed: 1
   boostDist: 3
@@ -43597,6 +43605,10 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1252724231533214, guid: c02194737f113564c8acf56c0497ddec,
     type: 2}
   bulletExplosionPrefab: {fileID: 1907972874928844, guid: 6a74db026bc9cae43a74c58e56dce26e,
+    type: 2}
+  rocketPrefab: {fileID: 1604264315199044, guid: e73bb97eae2d4b545a3c01a87a7c8759,
+    type: 2}
+  rocketExplosionPrefab: {fileID: 1072131116702380, guid: a809f8bfe28c669448a528c453a11ff5,
     type: 2}
 --- !u!114 &2136931269
 MonoBehaviour:

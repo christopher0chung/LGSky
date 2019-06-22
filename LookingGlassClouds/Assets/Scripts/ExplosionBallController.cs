@@ -25,8 +25,5 @@ public class ExplosionBallController : MonoBehaviour {
             transform.localScale = Vector3.one * maxSize;
         else
             transform.localScale = Vector3.one * Mathf.Lerp(maxSize, 0, (timer - .8f) * 5);
-
-        if (timer >= 1.1f)
-            Destroy(gameObject);
     }
 }

@@ -16,9 +16,14 @@ public class View_UI: MonoBehaviour {
     public Transform barTop;
     public Transform barBottom;
 
+    public Color color_Charged;
     public Color color_Charge;
     public Color color_Hold;
     public Color color_Discharge;
+    public Color color_Danger;
+
+    public float flashingTimeOn;
+    public float flashingTImeOff;
 
     private Vector3 vertBarMinSize = new Vector3(.2f, .1f, .2f);
     private Vector3 vertBarMaxSize = new Vector3(.2f, 2.95f, .2f);
@@ -55,6 +60,16 @@ public class View_UI: MonoBehaviour {
     Material barRightMat;
     #endregion
 
+    #region MeshRenderers
+    MeshRenderer topRenderer;
+    MeshRenderer bottomRenderer;
+    #endregion
+
+    #region Internal Variables
+    float _flashingTimer;
+    bool _flashingOnOff;
+    #endregion
+
     #region Icons
     private Stations _l;
     private Stations _left
@@ -89,6 +104,9 @@ public class View_UI: MonoBehaviour {
     {
         left.sprite = Resources.Load<Sprite>("UI/" + _l.ToString());
         right.sprite = Resources.Load<Sprite>("UI/" + _r.ToString());
+
+        topRenderer = barTop.GetComponent<MeshRenderer>();
+        bottomRenderer = barBottom.GetComponent<MeshRenderer>();
 
         barTopMat = barTop.GetComponent<MeshRenderer>().material;
         barBotMat = barBottom.GetComponent<MeshRenderer>().material;
@@ -150,6 +168,10 @@ public class View_UI: MonoBehaviour {
         barTop.localScale = Vector3.Lerp(horzBarMinSize, horzBarMaxSize, scratchFloatTop);
 
         BarColors();
+
+        _UpdateFlashingParams();
+        _CheckAndApplyFlashing(scratchFloatTop, .1f, .99f, topRenderer);
+        _CheckAndApplyFlashing(scratchFloatBottom, .25f, 1, bottomRenderer);
     }
 
     void BarColors()
@@ -230,4 +252,25 @@ public class View_UI: MonoBehaviour {
         }
     }
 
+    private void _UpdateFlashingParams()
+    {
+        _flashingTimer += Time.deltaTime;
+        if (_flashingOnOff && _flashingTimer >= flashingTimeOn)
+        {
+            _flashingOnOff = false;
+            _flashingTimer -= flashingTimeOn;
+        }
+        else if (!_flashingOnOff && _flashingTimer >= flashingTImeOff)
+        {
+            _flashingOnOff = true;
+            _flashingTimer -= flashingTImeOff;
+        }
+    }
+    private void _CheckAndApplyFlashing(float currentVal, float lowThreshold, float highThreshold, MeshRenderer renderer)
+    {
+        if (currentVal <= lowThreshold || currentVal >= highThreshold)
+            renderer.enabled = _flashingOnOff;
+        else
+            renderer.enabled = true;
+    }
 }

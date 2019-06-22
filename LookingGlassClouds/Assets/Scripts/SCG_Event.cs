@@ -34,3 +34,15 @@ public class Event_EnemyDeath : SCG_Event
         location = where;
     }
 }
+
+public class Event_PlayerRocketHit : SCG_Event
+{
+    public Vector3 location;
+    public Debug_RocketFlight rocket;
+
+    public Event_PlayerRocketHit (Vector3 where, Debug_RocketFlight rocket)
+    {
+        location = where;
+        this.rocket = rocket;
+    }
+}

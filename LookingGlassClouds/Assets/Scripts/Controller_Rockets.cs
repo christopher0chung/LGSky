@@ -26,13 +26,13 @@ public class Controller_Rockets : MonoBehaviour {
 	    if (gameModel.leftStation == Stations.Rockets)
         {
             pointerReticle.enabled = true;
-            _RocketAim(inputModel.L_Brg, inputModel.L_Mag);
+            _RocketStationAim(inputModel.L_Brg, inputModel.L_Mag);
             _Rockets(inputModel.L_Action_OnDown);
         }
         else if(gameModel.rightStation == Stations.Rockets)
         {
             pointerReticle.enabled = true;
-            _RocketAim(inputModel.R_Brg, inputModel.R_Mag);
+            _RocketStationAim(inputModel.R_Brg, inputModel.R_Mag);
             _Rockets(inputModel.R_Action_OnDown);
         }
         else
@@ -47,7 +47,7 @@ public class Controller_Rockets : MonoBehaviour {
 
     private int rocketIncrementor;
 
-    private void _RocketAim(float brg, float dec)
+    private void _RocketStationAim(float brg, float dec)
     {
         if (dec != 0)
             rocketAim.eulerAngles = new Vector3(0, -brg, 0);
@@ -68,7 +68,7 @@ public class Controller_Rockets : MonoBehaviour {
             GameObject g = Instantiate(rocket, transform.position, Quaternion.identity);
             g.GetComponent<Debug_RocketFlight>().ultimatePath = rocketPitch.up;
             rocketIncrementor++;
-            if (rocketIncrementor >= 40)
+            if (rocketIncrementor >= gameModel.rocketCountMax)
                 rocketIncrementor = 0;
         }
     }
