@@ -19,6 +19,12 @@ public class Controller_EnergySystems : MonoBehaviour {
     private Stations _leftStationOld;
     private Stations _rightStationOld;
 
+    void Awake()
+    {
+        SCG_EventManager.instance.Register<Event_EnemyBulletHit>(PlayerHitEventHandler);
+        SCG_EventManager.instance.Register<Event_EnemyBulletBlock>(PlayerBlockEventHandler);
+    }
+
     void Start()
     {
         _fsm_left = new SCG_FSM<Controller_EnergySystems>(this);
@@ -33,28 +39,96 @@ public class Controller_EnergySystems : MonoBehaviour {
         _fsm_left.Update();
         _fsm_right.Update();
 
-        ReactorLoad();
+        //Get Values
+        OperationalReactorLoad();
+        TransientOverTime();
+
+        //Calculate and set
+        OverloadCalculation();
+        SetModel();
 
         ChargeJump();
         ApparentToActual();
     }
 
-    void ReactorLoad()
+    #region Handlers
+    void PlayerHitEventHandler(SCG_Event e)
     {
-        float reactorLoad = gameModel.e_Reactor_Base;
+        Event_EnemyBulletHit eBH = e as Event_EnemyBulletHit;
+
+        if (eBH != null)
+        {
+            energyModel.reactor_Transient -= 5;
+        }
+        transientTimer = 0;
+    }
+
+    void PlayerBlockEventHandler(SCG_Event e)
+    {
+        Event_EnemyBulletBlock eBB = e as Event_EnemyBulletBlock;
+
+        if (eBB != null)
+        {
+            if (energyModel.shieldOn)
+                energyModel.reactor_Transient += gameModel.e_BlockedShotEnergyHit_Boost;
+            else
+                energyModel.reactor_Transient += gameModel.e_BlockedShotEnergyHit_Base;
+        }
+
+        transientTimer = 0;
+    }
+    #endregion
+
+    private float transientTimer;
+    private float transientNormalizedTime;
+    private float nTimePos;
+    private float nTimeNeg;
+
+    void TransientOverTime()
+    {
+        // the closer the 
+        if (transientTimer == 0) // if timer is reset by an event on this frame, recalc new transient normalized time
+        {
+            if (energyModel.reactor_Transient <= 0) // positive transient
+                transientNormalizedTime = Mathf.Clamp01((100 - energyModel.reactor_Actual) / 100) * 5;
+            else                                    // negative transient
+                transientNormalizedTime = Mathf.Clamp01(energyModel.reactor_Actual / 100) * 5;
+        }
+
+        transientTimer += Time.deltaTime / transientNormalizedTime;
+        transientTimer = Mathf.Clamp01(transientTimer);
+
+        energyModel.reactor_Transient = Mathf.Lerp(energyModel.reactor_Transient, 0, Easings.QuadraticEaseInOut(transientTimer));
+    }
+
+    float _tempReactorLoad;
+
+    void OperationalReactorLoad()
+    {
+        _tempReactorLoad = gameModel.e_Reactor_Base;
 
         if (gameModel.leftStation == Stations.Guns || gameModel.rightStation == Stations.Guns)
-            reactorLoad -= energyModel.guns_Actual;
+            _tempReactorLoad -= energyModel.guns_Actual;
         if (gameModel.leftStation == Stations.Pilot || gameModel.rightStation == Stations.Pilot)
-            reactorLoad -= energyModel.pilot_Actual;
+            _tempReactorLoad -= energyModel.pilot_Actual;
         if (gameModel.leftStation == Stations.Rockets || gameModel.rightStation == Stations.Rockets)
-            reactorLoad -= energyModel.rockets_Actual;
+            _tempReactorLoad -= energyModel.rockets_Actual;
         if (gameModel.leftStation == Stations.Shield || gameModel.rightStation == Stations.Shield)
-            reactorLoad -= energyModel.shield_Actual;
+            _tempReactorLoad -= energyModel.shield_Actual;
         if (gameModel.leftStation == Stations.Sword || gameModel.rightStation == Stations.Sword)
-            reactorLoad -= energyModel.sword_Actual;
+            _tempReactorLoad -= energyModel.sword_Actual;
+    }
 
-        energyModel.reactor_Actual = reactorLoad;
+    void OverloadCalculation()
+    {
+        Vector2 transientOverload = _TransientOverload(_tempReactorLoad, energyModel.reactor_Transient);
+        energyModel.reactor_Transient = transientOverload.x;
+        energyModel.jump_Actual += transientOverload.y;
+    }
+
+    void SetModel()
+    {
+        energyModel.reactor_Actual = _tempReactorLoad + energyModel.reactor_Transient;
     }
 
     void ChargeJump()
@@ -120,8 +194,32 @@ public class Controller_EnergySystems : MonoBehaviour {
 
     private void _CooldownGuns()
     {
-        energyModel.gun_OpCost -= Time.deltaTime * gameModel.e_Gun_Active * 1.5f;
+        energyModel.gun_OpCost -= Time.deltaTime * gameModel.e_Gun_Active * 4.5f;
         energyModel.gun_OpCost = Mathf.Clamp(energyModel.gun_OpCost, 0, 100 - gameModel.e_Gun_Passive);
+    }
+
+    private Vector2 _TransientOverload(float reactor, float transient)
+    {
+        // return.x is the new transient value that is clamped to not exceed reactor's available power
+        // return.y is the amount in excess of reactor
+        Vector2 toReturn;
+        toReturn.x = transient;
+        toReturn.y = 0;
+
+        if (transient < 0 && Mathf.Abs(transient) > reactor)
+        {
+            // If the transient is negative and dips below the reactor's avaiable power
+            toReturn.x = -reactor;                  // the value to set transient cannot exceed the present capacity
+            toReturn.y = transient + reactor;       // the sum of the two will be equal to the negative transient in excess of the current capacity
+        }
+        else if (transient > 0 && transient + reactor > 100)
+        {
+            // If the transient is positive and would cause the total capacity to exceed the max (100)
+            toReturn.x = 100 - reactor;             // the value to set transient so total equals max (100)
+            toReturn.y = transient + reactor - 100; // the value above 100
+        }
+
+        return toReturn;
     }
 
     #region FSM
@@ -140,7 +238,7 @@ public class Controller_EnergySystems : MonoBehaviour {
 
         public override void Update()
         {
-            if (Context.gameModel.gunOn)
+            if (Context.energyModel.gunsOn)
             {
                 Context.energyModel.gun_OpCost += Time.deltaTime * Context.gameModel.e_Gun_Active;
             }
@@ -176,7 +274,7 @@ public class Controller_EnergySystems : MonoBehaviour {
             jumpLerp = Mathf.Clamp01(jumpTimer / Context.gameModel.t_BoostCooldown);
             jumpLoad = Mathf.Lerp(Context.gameModel.e_Pilot_Boost, 0, jumpLerp);
 
-            if (Context.gameModel.pilotOn)
+            if (Context.energyModel.pilotOn)
             {
                 Context.energyModel.pilot_Actual = Context.gameModel.e_Pilot_Passive + Context.gameModel.e_Flying + jumpLoad;
             }
@@ -205,7 +303,7 @@ public class Controller_EnergySystems : MonoBehaviour {
 
         public override void Update()
         {
-            if (Context.gameModel.rocketsOn)
+            if (Context.energyModel.rocketsOn)
                 rocketsTimer = 0;
 
             rocketsTimer += Time.deltaTime;
@@ -230,7 +328,7 @@ public class Controller_EnergySystems : MonoBehaviour {
 
         public override void Update()
         {
-            if (Context.gameModel.shieldOn)
+            if (Context.energyModel.shieldOn)
             {
                 Context.energyModel.shield_Actual = Context.gameModel.e_Shield_Passive + Context.gameModel.e_Shield_Active;
             }
@@ -255,7 +353,7 @@ public class Controller_EnergySystems : MonoBehaviour {
 
         public override void Update()
         {
-            if (Context.gameModel.swordOn)
+            if (Context.energyModel.swordOn)
             {
                 Context.energyModel.sword_Actual = Context.gameModel.e_SwordEnergyRate_Passive + Context.gameModel.e_SwordEnergyRate_Active;
             }

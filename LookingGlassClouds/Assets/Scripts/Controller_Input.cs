@@ -8,17 +8,61 @@ public class Controller_Input : MonoBehaviour {
     public PlayerMode mode;
     public Model_Input inputModel;
 
+    private InputDevice device0;
+    private InputDevice device1;
+
+    void Start()
+    {
+        mode = PlayerMode.None;
+        InputManager.OnDeviceDetached += OnDeviceDetached;
+    }
+
 	void Update () {
+
+        ManageDevices();
 
         if (mode == PlayerMode.Single)
             ReadForSingle();
-        else
+        else if (mode == PlayerMode.Coop)
             ReadForCoop();
+        else
+            return;
 	}
+
+    void ManageDevices()
+    {
+        var inputDevice = InputManager.ActiveDevice;
+
+        if (JoinButtonWasPressedOnDevice(inputDevice))
+        {
+            if (device0 == null && device1 == null)
+            {
+                device0 = inputDevice;
+                mode = PlayerMode.Single;
+            }
+            else if (device0 == null && device1 != null)
+            {
+                device0 = inputDevice;
+                mode = PlayerMode.Coop;
+            }
+            else if (device0 != null && device1 == null)
+            {
+                device1 = inputDevice;
+                mode = PlayerMode.Coop;
+            }
+            else if (device0 != null && device1 != null)
+                return;
+        }
+    }
 
     void ReadForSingle()
     {
-        var inputDevice = InputManager.ActiveDevice;
+        InputDevice inputDevice;
+
+        if (device0 != null)
+            inputDevice = device0;
+        else 
+            inputDevice = device1;
 
         inputModel.L_X = inputDevice.LeftStickX;
         inputModel.L_Y = inputDevice.LeftStickY;
@@ -47,8 +91,50 @@ public class Controller_Input : MonoBehaviour {
 
     void ReadForCoop()
     {
+        inputModel.L_X = device0.LeftStickX;
+        inputModel.L_Y = device0.LeftStickY;
 
+        inputModel.L_Mag = Mathf.Sqrt((inputModel.L_X * inputModel.L_X) + (inputModel.L_Y * inputModel.L_Y)) * 90;
+        inputModel.L_Brg = (Mathf.Atan2(inputModel.L_Y, inputModel.L_X) * Mathf.Rad2Deg + 630) % 360;
+
+        inputModel.L_Action_OnDown = (device0.LeftTrigger.WasPressed || device0.RightTrigger.WasPressed || device0.Action1.WasPressed);
+        inputModel.L_Action_Down = (device0.LeftTrigger.IsPressed || device0.RightTrigger.IsPressed || device0.Action1.IsPressed);
+        inputModel.L_Action_OnUp = (device0.LeftTrigger.WasReleased || device0.RightTrigger.WasReleased || device0.Action1.WasReleased);
+
+        inputModel.L_SwapUp_OnDown = device0.LeftBumper.WasPressed;
+        inputModel.L_SwapDown_OnDown = device0.RightBumper.WasPressed;
+
+        inputModel.R_X = device1.LeftStickX;
+        inputModel.R_Y = device1.LeftStickY;
+
+        inputModel.R_Mag = Mathf.Sqrt((inputModel.R_X * inputModel.R_X) + (inputModel.R_Y * inputModel.R_Y)) * 90;
+        inputModel.R_Brg = (Mathf.Atan2(inputModel.R_Y, inputModel.R_X) * Mathf.Rad2Deg + 630) % 360;
+
+        inputModel.R_Action_OnDown = (device1.LeftTrigger.WasPressed || device1.RightTrigger.WasPressed || device1.Action1.WasPressed);
+        inputModel.R_Action_Down = (device1.LeftTrigger.IsPressed || device1.RightTrigger.IsPressed || device1.Action1.IsPressed);
+        inputModel.R_Action_OnUp = (device1.LeftTrigger.WasReleased || device1.RightTrigger.WasReleased || device1.Action1.WasReleased);
+
+        inputModel.R_SwapUp_OnDown = device1.LeftBumper.WasPressed;
+        inputModel.R_SwapDown_OnDown = device1.RightBumper.WasPressed;
+    }
+
+    bool JoinButtonWasPressedOnDevice(InputDevice inputDevice)
+    {
+        return inputDevice.Action1.WasPressed || inputDevice.Action2.WasPressed || inputDevice.Action3.WasPressed || inputDevice.Action4.WasPressed;
+    }
+
+    void OnDeviceDetached(InputDevice inputDevice)
+    {
+        if (inputDevice == device0)
+            device0 = null;
+        if (inputDevice == device1)
+            device1 = null;
+
+        if (device0 == null && device1 == null)
+            mode = PlayerMode.None;
+        else if ((device0 == null && device1 != null) || (device0 != null && device1 == null))
+            mode = PlayerMode.Single;
     }
 }
 
-public enum PlayerMode { Single, Coop }
+public enum PlayerMode { None, Single, Coop }

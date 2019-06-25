@@ -5,6 +5,7 @@ using UnityEngine;
 public class Controller_Shield : MonoBehaviour {
 
     public Model_Game gameModel;
+    public Model_Energy energyModel;
     public Model_Input inputModel;
     public Material shieldMat;
 
@@ -37,12 +38,14 @@ public class Controller_Shield : MonoBehaviour {
 
     private void _ShieldSize(bool on)
     {
-        gameModel.shieldOn = on;
+        energyModel.shieldOn = on;
 
         if (on)
-            shieldMat.SetFloat("_Cutoff", gameModel.cutoff_Boost);
-        else 
-            shieldMat.SetFloat("_Cutoff", gameModel.cutoff_Base);
+            energyModel.shieldSize_Cutoff = gameModel.cutoff_Boost;
+        else
+            energyModel.shieldSize_Cutoff = gameModel.cutoff_Base;
+
+        shieldMat.SetFloat("_Cutoff", energyModel.shieldSize_Cutoff);
     }
 
     #endregion

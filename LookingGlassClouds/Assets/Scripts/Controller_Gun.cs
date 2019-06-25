@@ -5,6 +5,7 @@ using UnityEngine;
 public class Controller_Gun : MonoBehaviour {
 
     public Model_Game gameModel;
+    public Model_Energy energyModel;
     public Model_Input inputModel;
     public Manager_GameAssets assetManager;
 
@@ -58,12 +59,15 @@ public class Controller_Gun : MonoBehaviour {
         swivel.eulerAngles = new Vector3(0, -brg, 0);
         pitcher.localEulerAngles = new Vector3(dec, 0, 0);
 
-        gun.rotation = Quaternion.RotateTowards(gun.rotation, pitcher.GetChild(0).rotation, 85 * Time.deltaTime);
+        if (energyModel.gunsOn)
+            gun.rotation = Quaternion.RotateTowards(gun.rotation, pitcher.GetChild(0).rotation, 55 * Time.deltaTime);
+        else
+            gun.rotation = Quaternion.RotateTowards(gun.rotation, pitcher.GetChild(0).rotation, 320 * Time.deltaTime);
     }
 
     private void _FiringController(bool shoot, bool release)
     {
-        gameModel.gunOn = shoot;
+        energyModel.gunsOn = shoot;
         if (shoot)
         {
             shootTimer += Time.deltaTime;

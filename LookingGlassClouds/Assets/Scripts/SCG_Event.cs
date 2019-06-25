@@ -51,3 +51,8 @@ public class Event_EnemyBulletHit : SCG_Event
 {
     public Event_EnemyBulletHit() { }
 }
+
+public class Event_EnemyBulletBlock : SCG_Event
+{
+    public Event_EnemyBulletBlock() { }
+}

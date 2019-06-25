@@ -5,6 +5,7 @@ using UnityEngine;
 public class Controller_Sword : MonoBehaviour {
 
     public Model_Game gameModel;
+    public Model_Energy energyModel;
     public Model_Input inputModel;
 
     public Transform swordPivot;
@@ -41,7 +42,7 @@ public class Controller_Sword : MonoBehaviour {
 
     private void _Sword(float brg, float dec, bool extend)
     {
-        gameModel.swordOn = extend;
+        energyModel.swordOn = extend;
 
         swordPivot.eulerAngles = new Vector3(0, -brg, 0);
         swordPivot2.localEulerAngles = new Vector3(dec, 0, 0);

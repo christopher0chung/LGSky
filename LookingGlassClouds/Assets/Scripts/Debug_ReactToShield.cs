@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Debug_ReactToShield : MonoBehaviour {
 
+    public Model_Game gameModel;
+    public Model_Energy energyModel;
+
     public Material shieldMat;
 
     private Color c0;
@@ -43,8 +46,9 @@ public class Debug_ReactToShield : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        float collisionDot = Vector3.Dot(shieldMat.GetVector("_Forward"), Vector3.Normalize(other.transform.position - transform.position));
-        float dotThresh = shieldMat.GetFloat("_Cutoff");
+        float collisionDot = Vector3.Dot(gameModel.shieldForwardDirection, Vector3.Normalize(other.transform.position - transform.position));
+        Debug.Log(collisionDot);
+        float dotThresh = energyModel.shieldSize_Cutoff;
 
         if (other.gameObject.name == "EnemyBullet(Clone)" && collisionDot >= dotThresh)
         {
@@ -52,6 +56,7 @@ public class Debug_ReactToShield : MonoBehaviour {
             workingColorC0 = c0 * 2;
             workingColorC1 = c1 * 2;
             myAS.PlayOneShot(ding);
+            SCG_EventManager.instance.Fire(new Event_EnemyBulletBlock());
         }
     }
 

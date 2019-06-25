@@ -5,6 +5,7 @@ using UnityEngine;
 public class Controller_Rockets : MonoBehaviour {
 
     public Model_Game gameModel;
+    public Model_Energy energyModel;
     public Model_Input inputModel;
     public Manager_GameAssets assetManager;
 
@@ -60,9 +61,9 @@ public class Controller_Rockets : MonoBehaviour {
     private void _Rockets(bool shoot)
     {
         if (rocketIncrementor >= 1)
-            gameModel.rocketsOn = true;
+            energyModel.rocketsOn = true;
         else
-            gameModel.rocketsOn = false;
+            energyModel.rocketsOn = false;
 
         if (shoot)
             rocketIncrementor = 1;

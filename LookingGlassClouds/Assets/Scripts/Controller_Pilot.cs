@@ -5,6 +5,7 @@ using UnityEngine;
 public class Controller_Pilot : MonoBehaviour {
 
     public Model_Game gameModel;
+    public Model_Energy energyModel;
     public Model_Input inputModel;
 
     public Transform player;
@@ -51,9 +52,9 @@ public class Controller_Pilot : MonoBehaviour {
         inputDirNorm = Vector3.Normalize(inputDirRaw);
 
         if (Vector3.Magnitude(inputDirNorm) >= .05f)
-            gameModel.pilotOn = true;
+            energyModel.pilotOn = true;
         else
-            gameModel.pilotOn = false;
+            energyModel.pilotOn = false;
 
         if (player.position.x <= -xBoundCalc && Vector3.Dot(inputDirNorm, leftInVector) > 0)
             moveDir = inputDirRaw;

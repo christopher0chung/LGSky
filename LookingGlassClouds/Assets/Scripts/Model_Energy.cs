@@ -20,5 +20,15 @@ public class Model_Energy : MonoBehaviour {
     public float shield_Apparent;
     public float pilot_Apparent;
 
+    public bool gunsOn;
+    public bool rocketsOn;
+    public bool swordOn;
+    public bool shieldOn;
+    public bool pilotOn;
+
     public float gun_OpCost;
+
+    public float reactor_Transient;
+
+    public float shieldSize_Cutoff;
 }

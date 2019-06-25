@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Model_Game : MonoBehaviour {
 
+    [Header("Global")]
+    public float worldSpeed_fwd;
     [Header("Shield")]
-    public bool shieldOn;
+    //public bool shieldOn;
     public Color insideColor_Base;
     public Color outsideColor_Base;
     public float hitHDRIntensity_Base;
@@ -13,7 +15,8 @@ public class Model_Game : MonoBehaviour {
     public float cutoff_Base;
     public float cutoff_Base_Upgrade;
     public float cutoff_Boost;
-    public float cuttof_Boost_Upgrade;
+    public float cutoff_Boost_Upgrade;
+    //public float cutoff_Current;
     public Vector4 shieldForwardDirection;
     public float contractAndDialationRate;
     public float contractAndDialationRate_Upgrade;
@@ -25,7 +28,7 @@ public class Model_Game : MonoBehaviour {
     public AudioClip blockedShot_Base;
     public AudioClip blockedShot_Boost;
     [Header("Gun")]
-    public bool gunOn;
+    //public bool gunOn;
     public float t_SpinUpTime;
     public float t_SpinUpTime_Upgrade;
     public float t_TimeBetweenShots;
@@ -39,7 +42,7 @@ public class Model_Game : MonoBehaviour {
     public float d_GunDamage_Base;
     public float d_GunDamage_Upgrade;
     [Header("Rockets")]
-    public bool rocketsOn;
+    //public bool rocketsOn;
     public float e_Rockets_Passive;
     public float e_Rockets_Active;
     public float t_RocketCooldown;
@@ -49,7 +52,7 @@ public class Model_Game : MonoBehaviour {
     public int rocketCountMax;
     public float t_RocketTurnTimeNormalized;
     [Header("Pilot")]
-    public bool pilotOn;
+    //public bool pilotOn;
     public float flySpeed;
     public float boostDist;
     public float e_Pilot_Passive;
@@ -58,7 +61,7 @@ public class Model_Game : MonoBehaviour {
     public float e_Pilot_Boost;
     public float t_BoostCooldown;
     [Header("Sword")]
-    public bool swordOn;
+    //public bool swordOn;
     public float someRepairFloat;
     public float e_SwordEnergyRate_Passive;
     public float e_SwordEnergyRate_Active;
