@@ -40,12 +40,12 @@ public class Controller_Input : MonoBehaviour {
                 device0 = inputDevice;
                 mode = PlayerMode.Single;
             }
-            else if (device0 == null && device1 != null)
+            else if (device0 == null && device1 != null && device1 != inputDevice)
             {
                 device0 = inputDevice;
                 mode = PlayerMode.Coop;
             }
-            else if (device0 != null && device1 == null)
+            else if (device0 != null && device1 == null && device0 != inputDevice)
             {
                 device1 = inputDevice;
                 mode = PlayerMode.Coop;

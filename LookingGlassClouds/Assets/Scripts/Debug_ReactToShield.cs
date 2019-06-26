@@ -18,6 +18,13 @@ public class Debug_ReactToShield : MonoBehaviour {
     private AudioSource myAS;
     public AudioClip ding;
 
+    private Transform player;
+
+    public LayerMask layerMask;
+    private RaycastHit rCH;
+
+    //public GameObject marker;
+
     void Start()
     {
         c0 = shieldMat.GetColor("_Color0");
@@ -27,6 +34,8 @@ public class Debug_ReactToShield : MonoBehaviour {
         workingColorC1 = c1;
 
         myAS = GetComponent<AudioSource>();
+
+        player = ServiceLocator.instance.Player;
     }
 
     void Update()
@@ -36,6 +45,8 @@ public class Debug_ReactToShield : MonoBehaviour {
 
         shieldMat.SetColor("_Color0", workingColorC0);
         shieldMat.SetColor("_Color1", workingColorC1);
+
+        transform.position = player.position;
     }
 
     void OnDisable()
@@ -44,11 +55,21 @@ public class Debug_ReactToShield : MonoBehaviour {
         shieldMat.SetColor("_Color1", c1);
     }
 
-    public void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        float collisionDot = Vector3.Dot(gameModel.shieldForwardDirection, Vector3.Normalize(other.transform.position - transform.position));
-        Debug.Log(collisionDot);
+        Vector3 behind = other.transform.position - other.transform.forward;
+
+        Physics.Raycast(behind, other.transform.forward, out rCH, Mathf.Infinity, layerMask, QueryTriggerInteraction.Collide);
+
+        Vector3 contactPoint = rCH.point;
+
+        //Instantiate(marker, contactPoint, Quaternion.identity, null);
+
+        float collisionDot = Vector3.Dot(Vector3.Normalize(gameModel.shieldForwardDirection), Vector3.Normalize(contactPoint - transform.position));
+
         float dotThresh = energyModel.shieldSize_Cutoff;
+
+        Debug.Log("On Trigger Enter, the cDot is: " + collisionDot + " --- dotThresh is: " + dotThresh);
 
         if (other.gameObject.name == "EnemyBullet(Clone)" && collisionDot >= dotThresh)
         {
@@ -58,6 +79,6 @@ public class Debug_ReactToShield : MonoBehaviour {
             myAS.PlayOneShot(ding);
             SCG_EventManager.instance.Fire(new Event_EnemyBulletBlock());
         }
+        else Debug.Log("Missed shot by a dot-product value of: " + (dotThresh - collisionDot));
     }
-
 }

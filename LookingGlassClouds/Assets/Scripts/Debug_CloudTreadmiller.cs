@@ -50,7 +50,7 @@ public class Debug_CloudTreadmiller : MonoBehaviour {
 
     public void BlendNormals(View_StaticProceduralMesh forwardOne, View_StaticProceduralMesh aftOne)
     {
-        Debug.Log("Debug_NormalStitcher's BlendNormals called");
+        //Debug.Log("Debug_NormalStitcher's BlendNormals called");
         for (int i = 0; i <= forwardOne.chunkVertexDimensions; i++)
         {
             int forwardEdgeOffset = forwardOne.chunkVertexDimensions * (forwardOne.chunkVertexDimensions + 1);

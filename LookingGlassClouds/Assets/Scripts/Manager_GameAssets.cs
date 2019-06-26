@@ -147,7 +147,6 @@ public class Manager_GameAssets : MonoBehaviour {
             {
                 _bullet = _Make_GenericNewObj(gameModel.bulletPrefab, bullets_Active, bullets_Times, where);
             }
-            Debug.Log(_bullet);
             return _bullet;
         }
         else if (type == MyGameAsset.BulletExplosion)
