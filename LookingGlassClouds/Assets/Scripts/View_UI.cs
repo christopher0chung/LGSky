@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class View_UI: MonoBehaviour {
 
     public Model_Game gameModel;
@@ -52,6 +53,8 @@ public class View_UI: MonoBehaviour {
     private float _swordOld;
     private float _reactorOld;
     private float _jumpOld;
+
+    private AudioSource myAS;
 
     #region Materials
     Material barTopMat;
@@ -112,6 +115,8 @@ public class View_UI: MonoBehaviour {
         barBotMat = barBottom.GetComponent<MeshRenderer>().material;
         barLeftMat = barLeft.GetComponent<MeshRenderer>().material;
         barRightMat = barRight.GetComponent<MeshRenderer>().material;
+
+        myAS = GetComponent<AudioSource>();
     }
 
     void Update () {
@@ -172,6 +177,8 @@ public class View_UI: MonoBehaviour {
         _UpdateFlashingParams();
         _CheckAndApplyFlashing(scratchFloatTop, .1f, .99f, topRenderer);
         _CheckAndApplyFlashing(scratchFloatBottom, .25f, 1, bottomRenderer);
+
+        _CheckAndPlayAlarm(energyModel.jump_Actual);
     }
 
     void BarColors()
@@ -272,5 +279,38 @@ public class View_UI: MonoBehaviour {
             renderer.enabled = _flashingOnOff;
         else
             renderer.enabled = true;
+    }
+
+    private float alarmSetPoint = 10;
+    private float desiredVolume;
+    private float _j;
+    private float _jCheck
+    {
+        get
+        {
+            return _j;
+        }
+        set
+        {
+            if (value != _j)
+            {
+                if (_j >= alarmSetPoint && value < alarmSetPoint)
+                {
+                    myAS.Stop();
+                    myAS.Play();
+                    desiredVolume = 1;
+                }
+                else if (_j < alarmSetPoint && value >= alarmSetPoint)
+                {
+                    desiredVolume = 0;
+                }
+                _j = value;
+            }
+        }
+    }
+    private void _CheckAndPlayAlarm(float currentJump)
+    {
+        _jCheck = currentJump;
+        myAS.volume = Mathf.Lerp(myAS.volume, desiredVolume, .08f);
     }
 }

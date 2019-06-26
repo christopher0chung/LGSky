@@ -22,7 +22,8 @@ public class Controller_Shield : MonoBehaviour {
         }
         else
         {
-            shieldMat.SetFloat("_Cutoff", 1);
+            energyModel.shieldSize_Cutoff = 1.1f;
+            shieldMat.SetFloat("_Cutoff", 1.1f);
         }
     }
 

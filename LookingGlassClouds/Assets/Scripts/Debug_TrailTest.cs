@@ -22,6 +22,8 @@ public class Debug_TrailTest : MonoBehaviour {
     public int numberOfPoints = 10;
     public float spread = .2f;
 
+    public float spreadOverFramesFactor;
+
     void Start()
     {
         tr = transform;
@@ -75,6 +77,8 @@ public class Debug_TrailTest : MonoBehaviour {
         for (i = 1; i < currentNumberOfPoints; i++)
         {
             tempVec = positions[i];
+            directions[i].x *= spreadOverFramesFactor;
+            directions[i].y *= spreadOverFramesFactor;
             tempVec += directions[i] * Time.deltaTime;
             positions[i] = tempVec;
 

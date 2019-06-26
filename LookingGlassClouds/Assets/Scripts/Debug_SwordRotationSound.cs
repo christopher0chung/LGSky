@@ -26,7 +26,7 @@ public class Debug_SwordRotationSound : MonoBehaviour {
         if (delAng > soundVal)
             soundVal = Mathf.Clamp01(delAng);
         else
-            soundVal = Mathf.Lerp(soundVal, 0, .15f);
+            soundVal = Mathf.Lerp(soundVal, 0, .06f);
 
         mySource.volume = soundVal / 2;
     }
