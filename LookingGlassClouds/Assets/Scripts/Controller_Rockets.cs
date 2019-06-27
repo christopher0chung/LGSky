@@ -16,7 +16,8 @@ public class Controller_Rockets : SCG_Controller {
     private Transform rocketAim;
     private Transform rocketPitch;
 
-    private MeshRenderer pointerReticle;
+    private List<MeshRenderer> reticleRenderers;
+    //private MeshRenderer pointerReticle;
 
     void Awake()
     {
@@ -33,7 +34,8 @@ public class Controller_Rockets : SCG_Controller {
     void Start () {
         rocketAim = player.GetChild(2);
         rocketPitch = player.GetChild(2).GetChild(0);
-        pointerReticle = rocketPitch.GetChild(0).GetComponent<MeshRenderer>();
+        //pointerReticle = rocketPitch.GetChild(0).GetComponent<MeshRenderer>();
+        reticleRenderers = new List<MeshRenderer>(rocketPitch.GetComponentsInChildren<MeshRenderer>());
     }
 	
 	// Update is called once per frame
@@ -46,24 +48,32 @@ public class Controller_Rockets : SCG_Controller {
         {
 	        if (gameModel.leftStation == Stations.Rockets)
             {
-                pointerReticle.enabled = true;
+                //pointerReticle.enabled = true;
+                foreach (MeshRenderer m in reticleRenderers)
+                    m.enabled = true;
                 _RocketStationAim(inputModel.L_Brg, inputModel.L_Mag);
                 _Rockets(inputModel.L_Action_OnDown);
             }
             else if(gameModel.rightStation == Stations.Rockets)
             {
-                pointerReticle.enabled = true;
+                //pointerReticle.enabled = true;
+                foreach (MeshRenderer m in reticleRenderers)
+                    m.enabled = true;
                 _RocketStationAim(inputModel.R_Brg, inputModel.R_Mag);
                 _Rockets(inputModel.R_Action_OnDown);
             }
             else
             {
-                pointerReticle.enabled = false;
+                //pointerReticle.enabled = false;
+                foreach (MeshRenderer m in reticleRenderers)
+                    m.enabled = false;
             }
         }
         else
         {
-            pointerReticle.enabled = false;
+            //pointerReticle.enabled = false;
+            foreach (MeshRenderer m in reticleRenderers)
+                m.enabled = false;
         }
     }
 

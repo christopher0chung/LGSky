@@ -17,6 +17,7 @@ public class Controller_Pilot : SCG_Controller {
     private Transform player;
 
     public GameObject jumpReticleParent;
+    public Behavior_PilotJumpParticles jumpParts;
 
     public float xBoundClose;
     public float xBoundFar;
@@ -151,6 +152,8 @@ public class Controller_Pilot : SCG_Controller {
     {
         if (jump && energyModel.pilot_JumpCooldownTimeRemaining == 0)
         {
+            jumpParts.Play(player.position, moveDir);
+
             player.position += moveDir * gameModel.boostDist;
             energyModel.pilot_JumpCooldownTimeRemaining = gameModel.t_BoostCooldown;
             energyModel.pilot_JumpOpCost += gameModel.e_Pilot_Boost;

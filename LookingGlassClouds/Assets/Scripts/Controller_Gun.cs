@@ -13,7 +13,6 @@ public class Controller_Gun : SCG_Controller {
 
     private Transform swivel;
     private Transform pitcher;
-    private MeshRenderer reticle;
     private Transform gun;
     private MeshRenderer gunPointer;
 
@@ -37,7 +36,6 @@ public class Controller_Gun : SCG_Controller {
     void Start () {
         swivel = player.GetChild(0);
         pitcher = swivel.GetChild(0);
-        reticle = pitcher.GetChild(0).GetComponent<MeshRenderer>();
         gun = player.GetChild(1);
         gunPointer = gun.GetChild(0).GetComponent<MeshRenderer>();
         myAS = player.GetComponent<AudioSource>();
@@ -50,25 +48,25 @@ public class Controller_Gun : SCG_Controller {
             {
                 _CalculateAndMoveGunPointer(inputModel.L_Brg, inputModel.L_Mag);
                 _FiringController(inputModel.L_Action_Down, inputModel.L_Action_OnUp);
-                reticle.enabled = true;
+                pitcher.gameObject.SetActive(true);
                 gunPointer.enabled = true;
             }
             else if (gameModel.rightStation == Stations.Guns)
             {
                 _CalculateAndMoveGunPointer(inputModel.R_Brg, inputModel.R_Mag);
                 _FiringController(inputModel.R_Action_Down, inputModel.R_Action_OnUp);
-                reticle.enabled = true;
+                pitcher.gameObject.SetActive(true);
                 gunPointer.enabled = true;
             }
             else
             {
-                reticle.enabled = false;
+                pitcher.gameObject.SetActive(false);
                 gunPointer.enabled = false;
             }
         }
         else
         {
-            reticle.enabled = false;
+            pitcher.gameObject.SetActive(false);
             gunPointer.enabled = false;
         }
 	}

@@ -26,7 +26,7 @@ public class Controller_Respawn : MonoBehaviour {
     }
 
 	void Start () {
-        Transform player = ServiceLocator.instance.Player.Find("ShipModel3");
+        Transform player = ServiceLocator.instance.Player.Find("ShipModel2");
 
         _myAS = GetComponent<AudioSource>();
 
