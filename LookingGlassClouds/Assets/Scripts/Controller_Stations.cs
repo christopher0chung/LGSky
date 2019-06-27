@@ -9,12 +9,12 @@ public class Controller_Stations : MonoBehaviour {
     private List<Stations> unassignedStations = new List<Stations>();
 
 	void Update () {
-        _MaintainStations(inputModel.L_SwapUp_OnDown, inputModel.R_SwapUp_OnDown, inputModel.L_SwapDown_OnDown, inputModel.L_SwapDown_OnDown);
+        _MaintainStations(inputModel.L_SwapUp_OnDown, inputModel.R_SwapUp_OnDown, inputModel.L_SwapDown_OnDown, inputModel.R_SwapDown_OnDown);
 	}
     #region Switchers
     private void _MaintainStations(bool left, bool right, bool altLeft, bool altRight)
     {
-        if (left || right)
+        if (left || right || altLeft || altRight)
         {
             // populate list
             unassignedStations = new List<Stations>();
