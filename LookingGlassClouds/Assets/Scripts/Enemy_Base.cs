@@ -10,6 +10,8 @@ public class Enemy_Base : MonoBehaviour {
     void Awake()
     {
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EventHandler);
+        SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EventHandler);
+        SCG_EventManager.instance.Register<Event_ExplosionBallHit>(EventHandler);
     }
 
     public void SetHitPoint(float max)
@@ -26,11 +28,38 @@ public class Enemy_Base : MonoBehaviour {
         {
             if (p.enemyHit == this)
             {
-                Debug.Log("Starting with " + hitpoints_Current);
+                //Debug.Log("Starting with " + hitpoints_Current);
                 hitpoints_Current -= p.enemyDamageTaken;
-                Debug.Log("Ending up with " + hitpoints_Current);
+                //Debug.Log("Ending up with " + hitpoints_Current);
                 if (hitpoints_Current <= 0)
                     SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
+            }
+        }
+
+        Event_PlayerSwordHit s = e as Event_PlayerSwordHit;
+
+        if (s != null)
+        {
+            if (s.enemyHit == this)
+            {
+                hitpoints_Current -= s.enemyDamageTaken;
+                if (hitpoints_Current <= 0)
+                    SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
+            }
+        }
+
+        Event_ExplosionBallHit x = e as Event_ExplosionBallHit;
+
+        if (x != null)
+        {
+            if (x != null)
+            {
+                if (x.enemyHit == this)
+                {
+                    hitpoints_Current -= x.enemyDamageTaken;
+                    if (hitpoints_Current <= 0)
+                        SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
+                }
             }
         }
     }

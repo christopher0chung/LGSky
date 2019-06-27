@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller_Gun : MonoBehaviour {
+public class Controller_Gun : SCG_Controller {
 
-    public Model_Game gameModel;
-    public Model_Energy energyModel;
-    public Model_Input inputModel;
-    public Manager_GameAssets assetManager;
+    private Model_Game gameModel;
+    private Model_Energy energyModel;
+    private Model_Input inputModel;
+    private Model_Play playModel;
+    private Transform player;
+    private Manager_GameAssets assetManager;
 
-    public Transform player;
     private Transform swivel;
     private Transform pitcher;
     private MeshRenderer reticle;
@@ -22,6 +23,17 @@ public class Controller_Gun : MonoBehaviour {
 
     private float shootTimer;
 
+    void Awake()
+    {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        energyModel = ServiceLocator.instance.Model.GetComponent<Model_Energy>();
+        inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+        player = ServiceLocator.instance.Player;
+
+        assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+    }
+
     void Start () {
         swivel = player.GetChild(0);
         pitcher = swivel.GetChild(0);
@@ -32,19 +44,27 @@ public class Controller_Gun : MonoBehaviour {
     }
 	
 	void Update () {
-        if (gameModel.leftStation == Stations.Guns)
+        if (playModel.currentPlayerState == PlayerState.Alive)
         {
-            _CalculateAndMoveGunPointer(inputModel.L_Brg, inputModel.L_Mag);
-            _FiringController(inputModel.L_Action_Down, inputModel.L_Action_OnUp);
-            reticle.enabled = true;
-            gunPointer.enabled = true;
-        }
-        else if (gameModel.rightStation == Stations.Guns)
-        {
-            _CalculateAndMoveGunPointer(inputModel.R_Brg, inputModel.R_Mag);
-            _FiringController(inputModel.R_Action_Down, inputModel.R_Action_OnUp);
-            reticle.enabled = true;
-            gunPointer.enabled = true;
+            if (gameModel.leftStation == Stations.Guns)
+            {
+                _CalculateAndMoveGunPointer(inputModel.L_Brg, inputModel.L_Mag);
+                _FiringController(inputModel.L_Action_Down, inputModel.L_Action_OnUp);
+                reticle.enabled = true;
+                gunPointer.enabled = true;
+            }
+            else if (gameModel.rightStation == Stations.Guns)
+            {
+                _CalculateAndMoveGunPointer(inputModel.R_Brg, inputModel.R_Mag);
+                _FiringController(inputModel.R_Action_Down, inputModel.R_Action_OnUp);
+                reticle.enabled = true;
+                gunPointer.enabled = true;
+            }
+            else
+            {
+                reticle.enabled = false;
+                gunPointer.enabled = false;
+            }
         }
         else
         {

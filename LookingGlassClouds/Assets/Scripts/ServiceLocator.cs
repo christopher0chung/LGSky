@@ -72,3 +72,7 @@ public class ServiceLocator
         }
     }
 }
+
+public class SCG_Model : MonoBehaviour { }
+public class SCG_View : MonoBehaviour { }
+public class SCG_Controller: MonoBehaviour { }

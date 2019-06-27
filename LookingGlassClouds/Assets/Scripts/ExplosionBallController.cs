@@ -28,4 +28,19 @@ public class ExplosionBallController : MonoBehaviour {
         else
             transform.localScale = Vector3.one * Mathf.Lerp(maxSize, 0, (timer - .8f) * 5);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag != "Enemy")
+            return;
+        else
+        {
+            Enemy_Base e = other.gameObject.GetComponent<Enemy_Base>();
+            if (e != null)
+            {
+                //Debug.Log("Hit!");
+                SCG_EventManager.instance.Fire(new Event_ExplosionBallHit(e, 100, e.transform.position));
+            }
+        }
+    }
 }

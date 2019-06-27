@@ -31,4 +31,10 @@ public class Model_Energy : MonoBehaviour {
     public float reactor_Transient;
 
     public float shieldSize_Cutoff;
+
+    public float pilot_JumpCooldownTimeRemaining;
+    public float pilot_EngineOpCost;
+    public float pilot_JumpOpCost;
+
+    public float rocket_OpCost;
 }

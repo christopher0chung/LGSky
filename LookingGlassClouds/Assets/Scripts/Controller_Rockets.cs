@@ -2,18 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller_Rockets : MonoBehaviour {
+public class Controller_Rockets : SCG_Controller {
 
-    public Model_Game gameModel;
-    public Model_Energy energyModel;
-    public Model_Input inputModel;
-    public Manager_GameAssets assetManager;
+    // Rockets also sets energy
 
-    public Transform player;
+    private Model_Game gameModel;
+    private Model_Energy energyModel;
+    private Model_Input inputModel;
+    private Model_Play playModel;
+    private Manager_GameAssets assetManager;
+    private Transform player;
+
     private Transform rocketAim;
     private Transform rocketPitch;
 
     private MeshRenderer pointerReticle;
+
+    void Awake()
+    {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        energyModel = ServiceLocator.instance.Model.GetComponent<Model_Energy>();
+        inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+        player = ServiceLocator.instance.Player;
+
+        assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+    }
 
     // Use this for initialization
     void Start () {
@@ -25,17 +39,27 @@ public class Controller_Rockets : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-	    if (gameModel.leftStation == Stations.Rockets)
+        playModel.rocket_reloadProgress -= Time.deltaTime / gameModel.t_RocketCooldown;
+        playModel.rocket_reloadProgress = Mathf.Clamp01(playModel.rocket_reloadProgress);
+
+        if (playModel.currentPlayerState == PlayerState.Alive)
         {
-            pointerReticle.enabled = true;
-            _RocketStationAim(inputModel.L_Brg, inputModel.L_Mag);
-            _Rockets(inputModel.L_Action_OnDown);
-        }
-        else if(gameModel.rightStation == Stations.Rockets)
-        {
-            pointerReticle.enabled = true;
-            _RocketStationAim(inputModel.R_Brg, inputModel.R_Mag);
-            _Rockets(inputModel.R_Action_OnDown);
+	        if (gameModel.leftStation == Stations.Rockets)
+            {
+                pointerReticle.enabled = true;
+                _RocketStationAim(inputModel.L_Brg, inputModel.L_Mag);
+                _Rockets(inputModel.L_Action_OnDown);
+            }
+            else if(gameModel.rightStation == Stations.Rockets)
+            {
+                pointerReticle.enabled = true;
+                _RocketStationAim(inputModel.R_Brg, inputModel.R_Mag);
+                _Rockets(inputModel.R_Action_OnDown);
+            }
+            else
+            {
+                pointerReticle.enabled = false;
+            }
         }
         else
         {
@@ -65,8 +89,12 @@ public class Controller_Rockets : MonoBehaviour {
         else
             energyModel.rocketsOn = false;
 
-        if (shoot)
+        if (shoot && playModel.rocket_reloadProgress == 0)
+        {
             rocketIncrementor = 1;
+            energyModel.rocket_OpCost += gameModel.e_Rockets_Active;
+            playModel.rocket_reloadProgress = 1;
+        }
 
         if (rocketIncrementor > 0)
         {

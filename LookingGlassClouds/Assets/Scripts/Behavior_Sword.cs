@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Behavior_Bullet : MonoBehaviour {
+public class Behavior_Sword : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
@@ -13,8 +13,8 @@ public class Behavior_Bullet : MonoBehaviour {
             Enemy_Base e = other.gameObject.GetComponent<Enemy_Base>();
             if (e != null)
             {
-                //Debug.Log("Hit!");
-                SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, 40, transform.position, this));
+                Debug.Log("The sword hit " + e.gameObject.name);
+                SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, 60, e.transform.position));
             }
         }
     }

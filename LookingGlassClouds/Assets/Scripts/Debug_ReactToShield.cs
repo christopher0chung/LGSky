@@ -69,7 +69,7 @@ public class Debug_ReactToShield : MonoBehaviour {
 
         float dotThresh = energyModel.shieldSize_Cutoff;
 
-        Debug.Log("On Trigger Enter, the cDot is: " + collisionDot + " --- dotThresh is: " + dotThresh);
+        //Debug.Log("On Trigger Enter, the cDot is: " + collisionDot + " --- dotThresh is: " + dotThresh);
 
         if (other.gameObject.name == "EnemyBullet(Clone)" && collisionDot >= dotThresh)
         {
@@ -79,6 +79,6 @@ public class Debug_ReactToShield : MonoBehaviour {
             myAS.PlayOneShot(ding);
             SCG_EventManager.instance.Fire(new Event_EnemyBulletBlock());
         }
-        else Debug.Log("Missed shot by a dot-product value of: " + (dotThresh - collisionDot));
+        //else Debug.Log("Missed shot by a dot-product value of: " + (dotThresh - collisionDot));
     }
 }

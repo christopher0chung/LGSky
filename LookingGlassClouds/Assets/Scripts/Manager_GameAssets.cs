@@ -26,6 +26,8 @@ public class Manager_GameAssets : MonoBehaviour {
     {
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EffectsEventHandler);
+        SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EffectsEventHandler);
+        SCG_EventManager.instance.Register<Event_ExplosionBallHit>(EffectsEventHandler);
     }
 
 	void Start () {
@@ -74,7 +76,7 @@ public class Manager_GameAssets : MonoBehaviour {
 
         if (rockets_Times.Count > 0)
         {
-            int numOverLimit = _UpdateAndCheckForOverTime(rockets_Times, 10f);
+            int numOverLimit = _UpdateAndCheckForOverTime(rockets_Times, 3);
             for (int i = 0; i < numOverLimit; i++)
             {
                 Debug.Assert(rockets_Active.Count == rockets_Times.Count, "Active element and tracking mismatch: rockets");
@@ -105,6 +107,7 @@ public class Manager_GameAssets : MonoBehaviour {
 
                 int indexOfBullet = bullets_Active.IndexOf(bH.bullet.gameObject);
                 _StowActiveBullet(indexOfBullet);
+                return;
             }
         }
 
@@ -120,7 +123,24 @@ public class Manager_GameAssets : MonoBehaviour {
 
                 int indexOfRocket = rockets_Active.IndexOf(rH.rocket.gameObject);
                 _StowActiveNonPhysicsManagedGO(rockets_Active, rockets_Times, rockets_Inactive, indexOfRocket);
+                return;
             }
+        }
+
+        Event_PlayerSwordHit sH = e as Event_PlayerSwordHit;
+
+        if (sH != null)
+        {
+            Make(MyGameAsset.BulletExplosion, sH.location);
+            return;
+        }
+
+        Event_ExplosionBallHit x = e as Event_ExplosionBallHit;
+
+        if (x != null)
+        {
+            Make(MyGameAsset.BulletExplosion, x.location);
+            return;
         }
     }
 

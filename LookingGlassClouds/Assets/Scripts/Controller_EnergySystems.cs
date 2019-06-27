@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller_EnergySystems : MonoBehaviour {
+public class Controller_EnergySystems : SCG_Controller {
 
-    public Model_Game gameModel;
-    public Model_Energy energyModel;
+    private Model_Game gameModel;
+    private Model_Energy energyModel;
+    private Model_Play playModel;
 
     [Header("Temp Tuning Var")]
     public float chargingScalar;
@@ -21,6 +22,10 @@ public class Controller_EnergySystems : MonoBehaviour {
 
     void Awake()
     {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        energyModel = ServiceLocator.instance.Model.GetComponent<Model_Energy>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+
         SCG_EventManager.instance.Register<Event_EnemyBulletHit>(PlayerHitEventHandler);
         SCG_EventManager.instance.Register<Event_EnemyBulletBlock>(PlayerBlockEventHandler);
     }
@@ -35,19 +40,25 @@ public class Controller_EnergySystems : MonoBehaviour {
 
     void Update()
     {
-        StationSwapCheck();
-        _fsm_left.Update();
-        _fsm_right.Update();
+        if (playModel.currentPlayerState == PlayerState.Alive)
+        {
+            StationSwapCheck();
+            _fsm_left.Update();
+            _fsm_right.Update();
+            CooldownSystems();
 
-        //Get Values
-        OperationalReactorLoad();
-        TransientOverTime();
+            //Get Values
+            OperationalReactorLoad();
+            TransientOverTime();
 
-        //Calculate and set
-        OverloadCalculation();
-        SetModel();
+            //Calculate and set
+            OverloadCalculation();
+            SetModel();
 
-        ChargeJump();
+            ChargeJump();
+        }
+        else _ClearOpCosts();
+
         ApparentToActual();
     }
 
@@ -58,7 +69,7 @@ public class Controller_EnergySystems : MonoBehaviour {
 
         if (eBH != null)
         {
-            energyModel.reactor_Transient -= 5;
+            energyModel.reactor_Transient -= gameModel.enemyBulletDamage;
         }
         transientTimer = 0;
     }
@@ -184,18 +195,40 @@ public class Controller_EnergySystems : MonoBehaviour {
         _rightStationOld = gameModel.rightStation;
     }
 
-    void GunCooldownWhenInactive()
+    void CooldownSystems()
     {
-        if (gameModel.leftStation != Stations.Guns && gameModel.rightStation != Stations.Guns)
-        {
-            _CooldownGuns();
-        }
+        _CooldownGuns();
+        _CooldownEngines();
+        _CooldownRockets();
     }
 
     private void _CooldownGuns()
     {
-        energyModel.gun_OpCost -= Time.deltaTime * gameModel.e_Gun_Active * 4.5f;
-        energyModel.gun_OpCost = Mathf.Clamp(energyModel.gun_OpCost, 0, 100 - gameModel.e_Gun_Passive);
+        if (!energyModel.gunsOn)
+        {
+            energyModel.gun_OpCost -= Time.deltaTime * gameModel.e_Gun_CooldownRate;
+            energyModel.gun_OpCost = Mathf.Clamp(energyModel.gun_OpCost, 0, 100 - gameModel.e_Gun_Passive);
+        }
+    }
+
+    private void _CooldownEngines()
+    {
+        if (!energyModel.pilotOn)
+        {
+            Debug.Log("Pilot is off");
+
+            energyModel.pilot_EngineOpCost -= Time.deltaTime * gameModel.e_FlyingCooldownRate;
+            energyModel.pilot_EngineOpCost = Mathf.Clamp(energyModel.pilot_EngineOpCost, 0, 100);
+
+            energyModel.pilot_JumpOpCost -= Time.deltaTime * gameModel.e_BoostCooldownRate;
+            energyModel.pilot_JumpOpCost = Mathf.Clamp(energyModel.pilot_JumpOpCost, 0, 100);
+        }
+    }
+
+    private void _CooldownRockets()
+    {
+        energyModel.rocket_OpCost -= Time.deltaTime * gameModel.e_RocketCooldownRate;
+        energyModel.rocket_OpCost = Mathf.Clamp(energyModel.rocket_OpCost, 0, 100);
     }
 
     private Vector2 _TransientOverload(float reactor, float transient)
@@ -222,6 +255,14 @@ public class Controller_EnergySystems : MonoBehaviour {
         return toReturn;
     }
 
+    private void _ClearOpCosts()
+    {
+        energyModel.gun_OpCost = 0;
+        energyModel.pilot_EngineOpCost = 0;
+        energyModel.pilot_JumpOpCost = 0;
+        energyModel.rocket_OpCost = 0;
+    }
+
     #region FSM
 
     protected class State_Base : SCG_FSM<Controller_EnergySystems>.State
@@ -242,10 +283,6 @@ public class Controller_EnergySystems : MonoBehaviour {
             {
                 Context.energyModel.gun_OpCost += Time.deltaTime * Context.gameModel.e_Gun_Active;
             }
-            else
-            {
-                Context._CooldownGuns();
-            }
             Context.energyModel.guns_Actual = Context.gameModel.e_Gun_Passive + Context.energyModel.gun_OpCost;
 
         }
@@ -258,30 +295,22 @@ public class Controller_EnergySystems : MonoBehaviour {
 
     protected class Pilot : State_Base
     {
-        private float jumpLoad;
-        private float jumpTimer;
-        private float jumpLerp;
-
         public override void OnEnter()
         {
             Context.energyModel.pilot_Actual = Context.gameModel.e_Pilot_Passive;
-            jumpTimer = 100;
         }
 
         public override void Update()
         {
-            jumpTimer += Time.deltaTime;
-            jumpLerp = Mathf.Clamp01(jumpTimer / Context.gameModel.t_BoostCooldown);
-            jumpLoad = Mathf.Lerp(Context.gameModel.e_Pilot_Boost, 0, jumpLerp);
-
             if (Context.energyModel.pilotOn)
             {
-                Context.energyModel.pilot_Actual = Context.gameModel.e_Pilot_Passive + Context.gameModel.e_Flying + jumpLoad;
+                Context.energyModel.pilot_JumpOpCost +=
+                    Context.playModel.pilot_flyMag * Context.gameModel.e_Flying * Time.deltaTime;
             }
-            else
-            {
-                Context.energyModel.guns_Actual = Context.gameModel.e_Gun_Passive + jumpLoad;
-            }
+            Context.energyModel.pilot_Actual =
+                Context.gameModel.e_Pilot_Passive +
+                Context.energyModel.pilot_EngineOpCost +
+                Context.energyModel.pilot_JumpOpCost;
         }
 
         public override void OnExit()
@@ -292,10 +321,6 @@ public class Controller_EnergySystems : MonoBehaviour {
 
     protected class Rockets : State_Base
     {
-        private float rocketsLoad;
-        private float rocketsTimer;
-        private float rocketsLerp;
-
         public override void OnEnter()
         {
             Context.energyModel.rockets_Actual = Context.gameModel.e_Rockets_Passive;
@@ -303,14 +328,7 @@ public class Controller_EnergySystems : MonoBehaviour {
 
         public override void Update()
         {
-            if (Context.energyModel.rocketsOn)
-                rocketsTimer = 0;
-
-            rocketsTimer += Time.deltaTime;
-            rocketsLerp = Mathf.Clamp01(rocketsTimer / Context.gameModel.t_RocketCooldown);
-            rocketsLoad = Mathf.Lerp(Context.gameModel.e_Rockets_Active, 0, rocketsLerp);
-
-            Context.energyModel.rockets_Actual = Context.gameModel.e_Rockets_Passive + rocketsLoad;
+            Context.energyModel.rockets_Actual = Context.gameModel.e_Rockets_Passive + Context.energyModel.rocket_OpCost;
         }
 
         public override void OnExit()

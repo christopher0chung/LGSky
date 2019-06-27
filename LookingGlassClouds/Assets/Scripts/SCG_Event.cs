@@ -23,6 +23,20 @@ public class Event_PlayerBulletHit : SCG_Event
     }
 }
 
+public class Event_PlayerSwordHit : SCG_Event
+{
+    public Enemy_Base enemyHit;
+    public float enemyDamageTaken;
+    public Vector3 location;
+
+    public Event_PlayerSwordHit(Enemy_Base enemyHit, float damage, Vector3 where)
+    {
+        this.enemyHit = enemyHit;
+        enemyDamageTaken = damage;
+        location = where;
+    }
+}
+
 public class Event_EnemyDeath : SCG_Event
 {
     public Enemy_Base enemyToBeDestroyed;
@@ -44,6 +58,20 @@ public class Event_PlayerRocketHit : SCG_Event
     {
         location = where;
         this.rocket = rocket;
+    }
+}
+
+public class Event_ExplosionBallHit : SCG_Event
+{
+    public Enemy_Base enemyHit;
+    public float enemyDamageTaken;
+    public Vector3 location;
+
+    public Event_ExplosionBallHit(Enemy_Base enemyHit, float damage, Vector3 where)
+    {
+        this.enemyHit = enemyHit;
+        enemyDamageTaken = damage;
+        location = where;
     }
 }
 

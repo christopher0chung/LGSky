@@ -6,15 +6,17 @@ public class Debug_ShipGetHit : MonoBehaviour {
 
     public GameObject explosion;
     private Manager_GameAssets gAManager;
+    private Model_Play playModel;
 
     void Awake()
     {
         gAManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name== "EnemyBullet(Clone)")
+        if (other.gameObject.name== "EnemyBullet(Clone)" && playModel.currentPlayerState == PlayerState.Alive)
         {
             //Instantiate(explosion, transform.position, Quaternion.identity);
             gAManager.Make(MyGameAsset.BulletExplosion, transform.position);

@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller_Sword : MonoBehaviour {
+public class Controller_Sword : SCG_Controller {
 
-    public Model_Game gameModel;
-    public Model_Energy energyModel;
-    public Model_Input inputModel;
+    private Model_Game gameModel;
+    private Model_Energy energyModel;
+    private Model_Input inputModel;
+    private Model_Play playModel;
 
     public Transform swordPivot;
     private Transform swordPivot2;
     private Transform swd;
     private Collider swdColl;
+
+    void Awake()
+    {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        energyModel = ServiceLocator.instance.Model.GetComponent<Model_Energy>();
+        inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+    }
 
     void Start()
     {
@@ -21,10 +30,18 @@ public class Controller_Sword : MonoBehaviour {
     }
 
 	void Update () {
-        if (gameModel.leftStation == Stations.Sword)
-            _Sword(inputModel.L_Brg, inputModel.L_Mag, inputModel.L_Action_Down);
-        else if (gameModel.rightStation == Stations.Sword)
-            _Sword(inputModel.R_Brg, inputModel.R_Mag, inputModel.R_Action_Down);
+        if (playModel.currentPlayerState == PlayerState.Alive)
+        {
+            if (gameModel.leftStation == Stations.Sword)
+                _Sword(inputModel.L_Brg, inputModel.L_Mag, inputModel.L_Action_Down);
+            else if (gameModel.rightStation == Stations.Sword)
+                _Sword(inputModel.R_Brg, inputModel.R_Mag, inputModel.R_Action_Down);
+            else
+            {
+                swd.localScale = Vector3.zero;
+                swdColl.enabled = false;
+            }
+        }
         else
         {
             swd.localScale = Vector3.zero;

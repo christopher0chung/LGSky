@@ -2,23 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller_Shield : MonoBehaviour {
+public class Controller_Shield : SCG_Controller {
 
-    public Model_Game gameModel;
-    public Model_Energy energyModel;
-    public Model_Input inputModel;
+    private Model_Game gameModel;
+    private Model_Energy energyModel;
+    private Model_Input inputModel;
+    private Model_Play playModel;
+
     public Material shieldMat;
 
+    void Awake()
+    {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        energyModel = ServiceLocator.instance.Model.GetComponent<Model_Energy>();
+        inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+    }
+
 	void Update () {
-        if (gameModel.leftStation == Stations.Shield)
+        if (playModel.currentPlayerState == PlayerState.Alive)
         {
-            _ShieldCalculateAndMove(inputModel.L_X, inputModel.L_Y);
-            _ShieldSize(inputModel.L_Action_Down);
-        }
-        else if (gameModel.rightStation == Stations.Shield)
-        {
-            _ShieldCalculateAndMove(inputModel.R_X, inputModel.R_Y);
-            _ShieldSize(inputModel.R_Action_Down);
+            if (gameModel.leftStation == Stations.Shield)
+            {
+                _ShieldCalculateAndMove(inputModel.L_X, inputModel.L_Y);
+                _ShieldSize(inputModel.L_Action_Down);
+            }
+            else if (gameModel.rightStation == Stations.Shield)
+            {
+                _ShieldCalculateAndMove(inputModel.R_X, inputModel.R_Y);
+                _ShieldSize(inputModel.R_Action_Down);
+            }
+            else
+            {
+                energyModel.shieldSize_Cutoff = 1.1f;
+                shieldMat.SetFloat("_Cutoff", 1.1f);
+            }
         }
         else
         {
