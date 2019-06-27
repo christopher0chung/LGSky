@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Behavior_Bullet : MonoBehaviour {
 
+    Model_Game gameModel;
+
+    void Awake()
+    {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Enemy")
@@ -14,7 +21,7 @@ public class Behavior_Bullet : MonoBehaviour {
             if (e != null)
             {
                 //Debug.Log("Hit!");
-                SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, 40, transform.position, this));
+                SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, gameModel.d_GunDamage_Base, transform.position, this));
             }
         }
     }

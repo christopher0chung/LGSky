@@ -80,9 +80,9 @@ public class Controller_Gun : SCG_Controller {
         pitcher.localEulerAngles = new Vector3(dec, 0, 0);
 
         if (energyModel.gunsOn)
-            gun.rotation = Quaternion.RotateTowards(gun.rotation, pitcher.GetChild(0).rotation, 55 * Time.deltaTime);
+            gun.rotation = Quaternion.RotateTowards(gun.rotation, pitcher.GetChild(0).rotation, gameModel.s_GunMoveFiring * Time.deltaTime);
         else
-            gun.rotation = Quaternion.RotateTowards(gun.rotation, pitcher.GetChild(0).rotation, 320 * Time.deltaTime);
+            gun.rotation = Quaternion.RotateTowards(gun.rotation, pitcher.GetChild(0).rotation, gameModel.s_GunMovePassive * Time.deltaTime);
     }
 
     private void _FiringController(bool shoot, bool release)

@@ -45,15 +45,14 @@ public class Model_Game : MonoBehaviour {
     public float t_SpinUpTime_Upgrade;
     public float t_TimeBetweenShots;
     public float t_TimeBetweenShots_Upgrade;
-    public Color gunTurretReticleColor;
-    public float gunFiringReticleHDRBoost;
-    public Color bulletColor;
     public AudioClip gunShot;
     public float e_Gun_Passive;
     public float e_Gun_Active;
     public float e_Gun_CooldownRate;
     public float d_GunDamage_Base;
     public float d_GunDamage_Upgrade;
+    public float s_GunMoveFiring;
+    public float s_GunMovePassive;
     #endregion
     [Header("Rockets")]
     #region Rockets
