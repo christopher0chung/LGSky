@@ -913,13 +913,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a5a4ed9a70d3c8b4c9e99cf31b99d884, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -59114,19 +59114,18 @@ MonoBehaviour:
   e_BlockedShotEnergyHit_Boost: 0.15
   blockedShot_Base: {fileID: 0}
   blockedShot_Boost: {fileID: 0}
-  t_SpinUpTime: 0.3
+  t_SpinUpTime: 0.05
   t_SpinUpTime_Upgrade: 0
-  t_TimeBetweenShots: 0.04
+  t_TimeBetweenShots: 0.06
   t_TimeBetweenShots_Upgrade: 0
-  gunTurretReticleColor: {r: 0, g: 0, b: 0, a: 0}
-  gunFiringReticleHDRBoost: 0
-  bulletColor: {r: 0, g: 0, b: 0, a: 0}
   gunShot: {fileID: 8300000, guid: 581f3d7a16d01494d96048e031213b27, type: 3}
   e_Gun_Passive: 10
   e_Gun_Active: 7
   e_Gun_CooldownRate: 21
-  d_GunDamage_Base: 0
+  d_GunDamage_Base: 100
   d_GunDamage_Upgrade: 0
+  s_GunMoveFiring: 150
+  s_GunMovePassive: 320
   e_Rockets_Passive: 30
   e_Rockets_Active: 30
   e_RocketCooldownRate: 3

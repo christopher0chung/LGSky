@@ -9,10 +9,10 @@ public class Controller_Stations : MonoBehaviour {
     private List<Stations> unassignedStations = new List<Stations>();
 
 	void Update () {
-        _MaintainStations(inputModel.L_SwapUp_OnDown, inputModel.R_SwapUp_OnDown);
+        _MaintainStations(inputModel.L_SwapUp_OnDown, inputModel.R_SwapUp_OnDown, inputModel.L_SwapDown_OnDown, inputModel.L_SwapDown_OnDown);
 	}
     #region Switchers
-    private void _MaintainStations(bool left, bool right)
+    private void _MaintainStations(bool left, bool right, bool altLeft, bool altRight)
     {
         if (left || right)
         {
@@ -59,6 +59,40 @@ public class Controller_Stations : MonoBehaviour {
                         next = 0;
                     if (unassignedStations.Contains((Stations)next))
                         gameModel.rightStation = (Stations)next;
+                }
+            }
+            else if (altLeft)
+            {
+                int prev = (int)gameModel.leftStation - 1;
+                if (prev < 0)
+                    prev = 4;
+
+                if (unassignedStations.Contains((Stations)prev))
+                    gameModel.leftStation = (Stations)prev;
+                else
+                {
+                    prev--;
+                    if (prev < 0)
+                        prev = 4;
+                    if (unassignedStations.Contains((Stations)prev))
+                        gameModel.leftStation = (Stations)prev;
+                }
+            }
+            else if (altRight)
+            {
+                int prev = (int)gameModel.rightStation - 1;
+                if (prev < 0)
+                    prev = 4;
+
+                if (unassignedStations.Contains((Stations)prev))
+                    gameModel.rightStation = (Stations)prev;
+                else
+                {
+                    prev--;
+                    if (prev < 0)
+                        prev = 4;
+                    if (unassignedStations.Contains((Stations)prev))
+                        gameModel.rightStation = (Stations)prev;
                 }
             }
         }
