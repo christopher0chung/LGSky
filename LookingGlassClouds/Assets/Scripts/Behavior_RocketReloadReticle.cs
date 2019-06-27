@@ -37,19 +37,27 @@ public class Behavior_RocketReloadReticle : MonoBehaviour {
 	void Update () {
         currentFloat = (1 - playModel.rocket_reloadProgress) * max;
         currentInts = (int)currentFloat;
-
-        if (gameModel.leftStation == Stations.Rockets || gameModel.rightStation == Stations.Rockets)
+        
+        if (playModel.currentPlayerState == PlayerState.Alive)
         {
-            for (int i = 0; i < currentInts; i++)
+            if (gameModel.leftStation == Stations.Rockets || gameModel.rightStation == Stations.Rockets)
             {
-                dots[i].SetActive(true);
-            }
-            if (currentInts != max)
-            {
-                for (int i = currentInts; i < max; i++)
+                for (int i = 0; i < currentInts; i++)
                 {
-                    dots[i].SetActive(false);
+                    dots[i].SetActive(true);
                 }
+                if (currentInts != max)
+                {
+                    for (int i = currentInts; i < max; i++)
+                    {
+                        dots[i].SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                foreach (GameObject g in dots)
+                    g.SetActive(false);
             }
         }
         else
