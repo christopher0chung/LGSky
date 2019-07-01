@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flyDir: {x: 0, y: 0, z: 0}
+  flightSpeed: 5
 --- !u!114 &114226750524858582
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -84,3 +84,15 @@ public class Event_EnemyBulletBlock : SCG_Event
 {
     public Event_EnemyBulletBlock() { }
 }
+
+public class Event_EnemyMineHit : SCG_Event
+{
+    public Enemy_Base enemyToBeDestroyed;
+    public Vector3 location;
+
+    public Event_EnemyMineHit(Enemy_Base enemyToBeDestroyed, Vector3 where)
+    {
+        this.enemyToBeDestroyed = enemyToBeDestroyed;
+        location = where;
+    }
+}

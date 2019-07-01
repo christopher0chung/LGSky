@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Debug_RotationSound : MonoBehaviour {
 
+    Model_Game gameModel;
     AudioSource mySource;
-
-    public Debug_InControlTest d;
-
     Quaternion lastRot;
     public float delAng;
 
@@ -15,13 +13,14 @@ public class Debug_RotationSound : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
         mySource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        delAng = Quaternion.Angle(Quaternion.LookRotation(d.fwdShield), lastRot) * Time.deltaTime;
-        lastRot = Quaternion.LookRotation(d.fwdShield);
+        delAng = Quaternion.Angle(Quaternion.LookRotation(gameModel.shieldForwardDirection), lastRot) * Time.deltaTime;
+        lastRot = Quaternion.LookRotation(gameModel.shieldForwardDirection);
 
         if (delAng > soundVal)
             soundVal = Mathf.Clamp01(delAng);

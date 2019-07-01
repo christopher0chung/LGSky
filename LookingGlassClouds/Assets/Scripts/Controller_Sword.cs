@@ -11,7 +11,7 @@ public class Controller_Sword : SCG_Controller {
 
     public Transform swordPivot;
     private Transform swordPivot2;
-    private Transform swd;
+    public Transform swd;
     private Collider swdColl;
 
     void Awake()
@@ -25,7 +25,6 @@ public class Controller_Sword : SCG_Controller {
     void Start()
     {
         swordPivot2 = swordPivot.GetChild(0);
-        swd = swordPivot2.GetChild(0);
         swdColl = swd.GetComponent<Collider>();
     }
 

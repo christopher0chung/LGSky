@@ -8,6 +8,8 @@ public class Debug_ShipGetHit : MonoBehaviour {
     private Manager_GameAssets gAManager;
     private Model_Play playModel;
 
+    public List<string> namesOfThingsThatCanHitMe;
+
     void Awake()
     {
         gAManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
@@ -16,7 +18,7 @@ public class Debug_ShipGetHit : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name== "EnemyBullet(Clone)" && playModel.currentPlayerState == PlayerState.Alive)
+        if (namesOfThingsThatCanHitMe.Contains(other.name) && playModel.currentPlayerState == PlayerState.Alive)
         {
             //Instantiate(explosion, transform.position, Quaternion.identity);
             gAManager.Make(MyGameAsset.BulletExplosion, transform.position);

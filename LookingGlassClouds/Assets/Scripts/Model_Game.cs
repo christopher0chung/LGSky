@@ -111,12 +111,17 @@ public class Model_Game : MonoBehaviour {
     #endregion
     [Header("Enemy Stats")]
     #region Enemy Stats
-    public float enemyBulletDamage;
+    public float m_EnemyBulletDamage;
+    public float m_LockingBaddyPotshotTime;
+    public float hp_SwarmBoy;
+    public float hp_RingDude;
+    public float hp_Mine;
     #endregion
     [Header("Enemy Object Refs")]
     #region Enemy Object Refs
     public GameObject swarmBoyPrefab;
-    public GameObject anotherPrefab;
+    public GameObject ringDudePrefab;
+    public GameObject minePrefab;
     #endregion
     [Header("Asset Object Refs")]
     #region Asset Object Refs
@@ -124,6 +129,8 @@ public class Model_Game : MonoBehaviour {
     public GameObject bulletExplosionPrefab;
     public GameObject rocketPrefab;
     public GameObject rocketExplosionPrefab;
+    public GameObject deathExplosionPrefab;
+    public GameObject mineExplosionPrefab;
     #endregion
 }
 

@@ -7,9 +7,11 @@ public class Debug_PointToFwd : MonoBehaviour {
     public Vector3 flyDir;
 
     Vector3 lastPos;
+
+    public float flightSpeed;
 	
 	void Update () {
-        transform.position += flyDir * Time.deltaTime * 5;
+        transform.position += flyDir * Time.deltaTime * flightSpeed;
         transform.rotation = Quaternion.LookRotation(flyDir);
 	}
 

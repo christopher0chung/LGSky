@@ -22,12 +22,22 @@ public class Manager_GameAssets : MonoBehaviour {
     List<GameObject> rExplosion_Inactive;
     List<float> rExplosion_Times;
 
+    List<GameObject> dExplosion_Active;
+    List<GameObject> dExplosion_Inactive;
+    List<float> dExplosion_Times;
+
+    List<GameObject> mExplosion_Active;
+    List<GameObject> mExplosion_Inactive;
+    List<float> mExplosion_Times;
+
     void Awake()
     {
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_ExplosionBallHit>(EffectsEventHandler);
+        SCG_EventManager.instance.Register<Event_EnemyDeath>(EffectsEventHandler);
+        SCG_EventManager.instance.Register<Event_EnemyMineHit>(EffectsEventHandler);
     }
 
 	void Start () {
@@ -51,6 +61,16 @@ public class Manager_GameAssets : MonoBehaviour {
         rExplosion_Inactive = new List<GameObject>();
         rExplosion_Times = new List<float>();
         _PrepInactive(gameModel.rocketExplosionPrefab, rExplosion_Inactive, 40);
+
+        dExplosion_Active = new List<GameObject>();
+        dExplosion_Inactive = new List<GameObject>();
+        dExplosion_Times = new List<float>();
+        _PrepInactive(gameModel.deathExplosionPrefab, dExplosion_Inactive, 30);
+
+        mExplosion_Active = new List<GameObject>();
+        mExplosion_Inactive = new List<GameObject>();
+        mExplosion_Times = new List<float>();
+        _PrepInactive(gameModel.mineExplosionPrefab, mExplosion_Inactive, 5);
     }
 
 	void Update () {
@@ -93,6 +113,27 @@ public class Manager_GameAssets : MonoBehaviour {
                 _StowActiveNonPhysicsManagedGO(rExplosion_Active, rExplosion_Times, rExplosion_Inactive, 0);
             }
         }
+
+        if (dExplosion_Times.Count > 0)
+        {
+            int numOverLimit = _UpdateAndCheckForOverTime(dExplosion_Times, 1.5f);
+            for (int i = 0; i < numOverLimit; i++)
+            {
+                Debug.Assert(dExplosion_Active.Count == dExplosion_Times.Count, "Active element and tracking mismatch: dExplosion");
+                _StowActiveNonPhysicsManagedGO(dExplosion_Active, dExplosion_Times, dExplosion_Inactive, 0);
+            }
+        }
+
+        if (mExplosion_Times.Count > 0)
+        {
+            int numOverLimit = _UpdateAndCheckForOverTime(mExplosion_Times, .5f);
+            for (int i = 0; i < numOverLimit; i++)
+            {
+                Debug.Assert(mExplosion_Active.Count == mExplosion_Times.Count, "Active element and tracking mismatch: dExplosion");
+                _StowActiveNonPhysicsManagedGO(mExplosion_Active, mExplosion_Times, mExplosion_Inactive, 0);
+            }
+        }
+
     }
 
     void EffectsEventHandler(SCG_Event e)
@@ -141,6 +182,22 @@ public class Manager_GameAssets : MonoBehaviour {
         {
             Make(MyGameAsset.BulletExplosion, x.location);
             return;
+        }
+
+        Event_EnemyDeath eD = e as Event_EnemyDeath;
+
+        if (eD != null)
+        {
+            GameObject g = Make(MyGameAsset.DeathExplosion, eD.location);
+            g.GetComponent<Behavior_DeathExplosionTimer>().RestartTimer();
+        }
+
+        Event_EnemyMineHit m = e as Event_EnemyMineHit;
+
+        if (m != null)
+        {
+            GameObject g = Make(MyGameAsset.MineExplosion, m.location);
+            g.GetComponent<Behavior_DeathExplosionParent>().Explode();
         }
     }
 
@@ -199,7 +256,7 @@ public class Manager_GameAssets : MonoBehaviour {
         else if (type == MyGameAsset.RocketExplosion)
         {
             GameObject _rExplosion;
-            if (rExplosion_Times.Count >= 1)
+            if (rExplosion_Inactive.Count >= 1)
             {
                 _rExplosion = _Make_GenericActivate(rExplosion_Inactive, rExplosion_Active, rExplosion_Times, where);
             }
@@ -208,6 +265,32 @@ public class Manager_GameAssets : MonoBehaviour {
                 _rExplosion = _Make_GenericNewObj(gameModel.rocketExplosionPrefab, rExplosion_Active, rExplosion_Times, where);
             }
             return _rExplosion;
+        }
+        else if (type == MyGameAsset.DeathExplosion)
+        {
+            GameObject _dExplosion;
+            if (dExplosion_Inactive.Count >= 1)
+            {
+                _dExplosion = _Make_GenericActivate(dExplosion_Inactive, dExplosion_Active, dExplosion_Times, where);
+            }
+            else
+            {
+                _dExplosion = _Make_GenericNewObj(gameModel.deathExplosionPrefab, dExplosion_Active, dExplosion_Times, where);
+            }
+            return _dExplosion;
+        }
+        else if (type == MyGameAsset.MineExplosion)
+        {
+            GameObject _mExplosion;
+            if (mExplosion_Inactive.Count >= 1)
+            {
+                _mExplosion = _Make_GenericActivate(mExplosion_Inactive, mExplosion_Active, mExplosion_Times, where);
+            }
+            else
+            {
+                _mExplosion = _Make_GenericNewObj(gameModel.mineExplosionPrefab, mExplosion_Active, mExplosion_Times, where);
+            }
+            return _mExplosion;
         }
         else return null;
     }
@@ -282,4 +365,4 @@ public class Manager_GameAssets : MonoBehaviour {
     }
 }
 
-public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion }
+public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion }

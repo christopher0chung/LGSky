@@ -105,7 +105,7 @@ public class Controller_Pilot : SCG_Controller {
 
         if (player.position.x <= -xBoundCalc && Vector3.Dot(inputDirNorm, leftInVector) > 0)
             moveDir = inputDirRaw;
-        else if (player.position.x <= -xBoundCalc && Vector3.Dot(inputDirNorm, leftInVector) > 0)
+        else if (player.position.x <= -xBoundCalc && Vector3.Dot(inputDirNorm, rightInVector) > 0)
             moveDir = inputDirRaw;
 
         else if (player.position.z <= zBoundClose && Vector3.Dot(inputDirNorm, Vector3.forward) > 0)

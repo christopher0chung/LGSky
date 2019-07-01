@@ -4,14 +4,39 @@ using UnityEngine;
 
 public class Enemy_Base : MonoBehaviour {
 
+    private float _h = 1;
+    public float hitpoints_Current
+    {
+        get
+        {
+            return _h;
+        }
+        set
+        {
+            if (value != _h)
+            {
+                _h = value;
+                if (_h <= 0)
+                {
+                    if (hitpoints_Current <= 0)
+                        SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
+                }
+            }
+        }
+    }
     public float hitpoints_Max;
-    public float hitpoints_Current;
 
     void Awake()
     {
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_ExplosionBallHit>(EventHandler);
+        this.tag = "Enemy";
+        if (GetComponent<Rigidbody>() == null)
+        {
+            Rigidbody r = gameObject.AddComponent<Rigidbody>();
+            r.isKinematic = true;
+        }
     }
 
     public void SetHitPoint(float max)
@@ -28,11 +53,7 @@ public class Enemy_Base : MonoBehaviour {
         {
             if (p.enemyHit == this)
             {
-                //Debug.Log("Starting with " + hitpoints_Current);
                 hitpoints_Current -= p.enemyDamageTaken;
-                //Debug.Log("Ending up with " + hitpoints_Current);
-                if (hitpoints_Current <= 0)
-                    SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
             }
         }
 
@@ -43,8 +64,6 @@ public class Enemy_Base : MonoBehaviour {
             if (s.enemyHit == this)
             {
                 hitpoints_Current -= s.enemyDamageTaken;
-                if (hitpoints_Current <= 0)
-                    SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
             }
         }
 
@@ -57,10 +76,13 @@ public class Enemy_Base : MonoBehaviour {
                 if (x.enemyHit == this)
                 {
                     hitpoints_Current -= x.enemyDamageTaken;
-                    if (hitpoints_Current <= 0)
-                        SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
                 }
             }
         }
+    }
+
+    public void FireDestructionEvent()
+    {
+        hitpoints_Current = 0;
     }
 }

@@ -69,7 +69,7 @@ public class Controller_EnergySystems : SCG_Controller {
 
         if (eBH != null)
         {
-            energyModel.reactor_Transient -= gameModel.enemyBulletDamage;
+            energyModel.reactor_Transient -= gameModel.m_EnemyBulletDamage;
         }
         transientTimer = 0;
     }
@@ -215,7 +215,7 @@ public class Controller_EnergySystems : SCG_Controller {
     {
         if (!energyModel.pilotOn)
         {
-            Debug.Log("Pilot is off");
+            //Debug.Log("Pilot is off");
 
             energyModel.pilot_EngineOpCost -= Time.deltaTime * gameModel.e_FlyingCooldownRate;
             energyModel.pilot_EngineOpCost = Mathf.Clamp(energyModel.pilot_EngineOpCost, 0, 100);
