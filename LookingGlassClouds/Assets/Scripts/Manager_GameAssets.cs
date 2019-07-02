@@ -7,27 +7,27 @@ public class Manager_GameAssets : MonoBehaviour {
     public Model_Game gameModel;
 
     List<GameObject> bullets_Active;
-    List<GameObject> bullets_Inactive;
+    public List<GameObject> bullets_Inactive;
     List<float> bullets_Times;
 
     List<GameObject> bExplosion_Active;
-    List<GameObject> bExplosion_Inactive;
+    public List<GameObject> bExplosion_Inactive;
     List<float> bExplosion_Times;
 
     List<GameObject> rockets_Active;
-    List<GameObject> rockets_Inactive;
+    public List<GameObject> rockets_Inactive;
     List<float> rockets_Times;
 
     List<GameObject> rExplosion_Active;
-    List<GameObject> rExplosion_Inactive;
+    public List<GameObject> rExplosion_Inactive;
     List<float> rExplosion_Times;
 
     List<GameObject> dExplosion_Active;
-    List<GameObject> dExplosion_Inactive;
+    public List<GameObject> dExplosion_Inactive;
     List<float> dExplosion_Times;
 
     List<GameObject> mExplosion_Active;
-    List<GameObject> mExplosion_Inactive;
+    public List<GameObject> mExplosion_Inactive;
     List<float> mExplosion_Times;
 
     void Awake()

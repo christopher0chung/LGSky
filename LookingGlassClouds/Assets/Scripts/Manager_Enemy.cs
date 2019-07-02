@@ -94,9 +94,7 @@ public class Manager_Enemy : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
-            Spawn(EnemyType.Mines, Vector3.forward * 30 + Vector3.up * ServiceLocator.instance.Player.position.y, 1);
-            Spawn(EnemyType.Mines, Vector3.forward * 30 + Vector3.up * ServiceLocator.instance.Player.position.y + Vector3.right * 7, 1);
-            Spawn(EnemyType.Mines, Vector3.forward * 30 + Vector3.up * ServiceLocator.instance.Player.position.y + Vector3.right * -7, 1);
+            Spawn(EnemyType.Mines, Vector3.forward * 30 + ServiceLocator.instance.Player.position, 1);
         }
     }
 
