@@ -31,6 +31,7 @@ public class Enemy_Base : MonoBehaviour {
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_ExplosionBallHit>(EventHandler);
+        SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EventHandler);
         this.tag = "Enemy";
         if (GetComponent<Rigidbody>() == null)
         {
@@ -71,12 +72,19 @@ public class Enemy_Base : MonoBehaviour {
 
         if (x != null)
         {
-            if (x != null)
+            if (x.enemyHit == this)
             {
-                if (x.enemyHit == this)
-                {
-                    hitpoints_Current -= x.enemyDamageTaken;
-                }
+                hitpoints_Current -= x.enemyDamageTaken;
+            }
+        }
+
+        Event_PlayerRocketHit r = e as Event_PlayerRocketHit;
+
+        if (r != null)
+        {
+            if (r.enemyHit == this)
+            {
+                hitpoints_Current -= r.damageTaken;
             }
         }
     }

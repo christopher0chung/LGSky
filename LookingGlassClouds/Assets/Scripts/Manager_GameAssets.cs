@@ -116,7 +116,7 @@ public class Manager_GameAssets : MonoBehaviour {
 
         if (dExplosion_Times.Count > 0)
         {
-            int numOverLimit = _UpdateAndCheckForOverTime(dExplosion_Times, 1.5f);
+            int numOverLimit = _UpdateAndCheckForOverTime(dExplosion_Times, 2f);
             for (int i = 0; i < numOverLimit; i++)
             {
                 Debug.Assert(dExplosion_Active.Count == dExplosion_Times.Count, "Active element and tracking mismatch: dExplosion");
@@ -189,7 +189,7 @@ public class Manager_GameAssets : MonoBehaviour {
         if (eD != null)
         {
             GameObject g = Make(MyGameAsset.DeathExplosion, eD.location);
-            g.GetComponent<Behavior_DeathExplosionTimer>().RestartTimer();
+            g.GetComponent<Behavior_DeathExplosionTimer>().Explode();
         }
 
         Event_EnemyMineHit m = e as Event_EnemyMineHit;

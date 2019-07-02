@@ -23,6 +23,8 @@ public class Debug_ReactToShield : MonoBehaviour {
     public LayerMask layerMask;
     private RaycastHit rCH;
 
+    public List<string> bulletNames;
+
     //public GameObject marker;
 
     void Start()
@@ -71,7 +73,7 @@ public class Debug_ReactToShield : MonoBehaviour {
 
         //Debug.Log("On Trigger Enter, the cDot is: " + collisionDot + " --- dotThresh is: " + dotThresh);
 
-        if (other.gameObject.name == "EnemyBullet(Clone)" && collisionDot >= dotThresh)
+        if (bulletNames.Contains(other.gameObject.name) && collisionDot >= dotThresh)
         {
             Destroy(other.gameObject);
             workingColorC0 = c0 * 2;

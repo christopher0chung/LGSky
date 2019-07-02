@@ -44,7 +44,8 @@ public class Controller_Rockets : SCG_Controller {
         playModel.rocket_reloadProgress -= Time.deltaTime / gameModel.t_RocketCooldown;
         playModel.rocket_reloadProgress = Mathf.Clamp01(playModel.rocket_reloadProgress);
 
-        if (playModel.currentPlayerState == PlayerState.Alive)
+        if (playModel.currentPlayerState == PlayerState.Alive ||
+            playModel.currentPlayerState == PlayerState.Respawning)
         {
 	        if (gameModel.leftStation == Stations.Rockets)
             {

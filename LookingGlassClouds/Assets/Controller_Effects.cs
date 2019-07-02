@@ -8,7 +8,8 @@ public class Controller_Effects : MonoBehaviour {
     public float scanTime;
     private float timerScan = 1;
 
-    public GameObject lights;
+    public GameObject normalLight;
+    public GameObject spinningLight;
     private List<GameObject> activeLights;
 
     void Awake()
@@ -21,6 +22,8 @@ public class Controller_Effects : MonoBehaviour {
             Scan();
         if (Input.GetKeyDown(KeyCode.I))
             Light(Random.Range(-10, 10));
+        if (Input.GetKeyDown(KeyCode.O))
+            SpinningLight();
         ScanUpdate();
         LightUpdate();
 	}
@@ -43,7 +46,13 @@ public class Controller_Effects : MonoBehaviour {
     public void Light(float x)
     {
         Vector3 startPos = new Vector3(x, -5f, -10);
-        activeLights.Add(Instantiate<GameObject>(lights, startPos, Quaternion.identity, null));
+        activeLights.Add(Instantiate<GameObject>(normalLight, startPos, Quaternion.identity, null));
+    }
+
+    public void SpinningLight()
+    {
+        Vector3 startPos = new Vector3(0, -5f, -10);
+        activeLights.Add(Instantiate<GameObject>(spinningLight, startPos, Quaternion.identity, null));
     }
 
     private void LightUpdate()

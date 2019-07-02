@@ -51,11 +51,15 @@ public class Event_EnemyDeath : SCG_Event
 
 public class Event_PlayerRocketHit : SCG_Event
 {
+    public Enemy_Base enemyHit;
+    public float damageTaken;
     public Vector3 location;
     public Debug_RocketFlight rocket;
 
-    public Event_PlayerRocketHit (Vector3 where, Debug_RocketFlight rocket)
+    public Event_PlayerRocketHit (Enemy_Base enemyHit, float damage, Vector3 where, Debug_RocketFlight rocket)
     {
+        this.enemyHit = enemyHit;
+        damageTaken = damage;
         location = where;
         this.rocket = rocket;
     }

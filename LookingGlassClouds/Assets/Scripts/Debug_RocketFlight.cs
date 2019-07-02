@@ -68,10 +68,11 @@ public class Debug_RocketFlight : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Enemy_Base>())
+        Enemy_Base e = other.gameObject.GetComponent<Enemy_Base>();
+        if (e != null)
         {
             Debug.Log("Rocket trigger entered");
-            SCG_EventManager.instance.Fire(new Event_PlayerRocketHit(transform.position, this));
+            SCG_EventManager.instance.Fire(new Event_PlayerRocketHit(e, gameModel.d_RocketDamage, transform.position, this));
         }
     }
 }

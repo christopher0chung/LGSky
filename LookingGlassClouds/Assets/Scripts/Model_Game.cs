@@ -61,6 +61,7 @@ public class Model_Game : MonoBehaviour {
     public float e_Rockets_Active;
     public float e_RocketCooldownRate;
     public float t_RocketCooldown;
+    public float d_RocketDamage;
     public float d_ExplosionBallDamage;
     public float d_ExplosionBallSize_Base;
     public float d_ExplosionBallSize_Upgrade;

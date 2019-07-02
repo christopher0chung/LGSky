@@ -42,7 +42,8 @@ public class Controller_Gun : SCG_Controller {
     }
 	
 	void Update () {
-        if (playModel.currentPlayerState == PlayerState.Alive)
+        if (playModel.currentPlayerState == PlayerState.Alive ||
+            playModel.currentPlayerState == PlayerState.Respawning)
         {
             if (gameModel.leftStation == Stations.Guns)
             {

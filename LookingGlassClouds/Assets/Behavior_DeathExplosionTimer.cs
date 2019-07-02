@@ -37,10 +37,10 @@ public class Behavior_DeathExplosionTimer : MonoBehaviour {
 
         timer = 0;
         _ps.Play();
-        //_ps_Debris.Emit(20);
+        _ps.Emit(10);
     }
 
-    public void RestartTimer()
+    public void Explode()
     {
         Awake();
     }

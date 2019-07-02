@@ -576,6 +576,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 512
+  bulletNames:
+  - EnemyBullet(Clone)
+  - EnemyBullet_PotShot(Clone)
 --- !u!82 &43402366
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13109,7 +13112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yMag: 7
-  yPd: 5
+  yPd: 8
   yOffset: 0
   tOffset: 0
 --- !u!4 &845968806
@@ -61810,7 +61813,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scan: {fileID: 845968804}
   scanTime: 2
-  lights: {fileID: 1161839838595548, guid: 33ce441266de3624e873c3b67d63a6dd, type: 2}
+  normalLight: {fileID: 1161839838595548, guid: 33ce441266de3624e873c3b67d63a6dd,
+    type: 2}
+  spinningLight: {fileID: 1929084630531090, guid: c3c5edefc5ba0e74388fb7459bf63585,
+    type: 2}
 --- !u!1 &1564287800
 GameObject:
   m_ObjectHideFlags: 0
@@ -69435,15 +69441,16 @@ MonoBehaviour:
   e_Rockets_Active: 30
   e_RocketCooldownRate: 3
   t_RocketCooldown: 6
-  d_ExplosionBallDamage: 0
+  d_RocketDamage: 50
+  d_ExplosionBallDamage: 200
   d_ExplosionBallSize_Base: 0
   d_ExplosionBallSize_Upgrade: 0
   rocketCountMax: 20
   t_RocketTurnTimeNormalized: 0.3
-  flySpeed: 1.5
+  flySpeed: 2
   boostDist: 4
   e_Pilot_Passive: 5
-  e_Flying: 15
+  e_Flying: 8
   e_Flying_UpgradeDiscount: 0
   e_Pilot_Boost: 40
   e_FlyingCooldownRate: 45

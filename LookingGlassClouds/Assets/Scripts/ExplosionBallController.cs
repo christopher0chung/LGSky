@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class ExplosionBallController : MonoBehaviour {
 
+    Model_Game gameModel;
+
+    void Awake()
+    {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+    }
+
 	// Use this for initialization
 	void OnEnable () {
         transform.localScale = Vector3.zero;
@@ -29,7 +36,7 @@ public class ExplosionBallController : MonoBehaviour {
             transform.localScale = Vector3.one * Mathf.Lerp(maxSize, 0, (timer - .8f) * 5);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.tag != "Enemy")
             return;
@@ -39,7 +46,7 @@ public class ExplosionBallController : MonoBehaviour {
             if (e != null)
             {
                 //Debug.Log("Hit!");
-                SCG_EventManager.instance.Fire(new Event_ExplosionBallHit(e, 100, e.transform.position));
+                SCG_EventManager.instance.Fire(new Event_ExplosionBallHit(e, gameModel.d_ExplosionBallDamage * Time.fixedDeltaTime, e.transform.position));
             }
         }
     }
