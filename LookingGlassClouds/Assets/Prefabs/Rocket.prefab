@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 82771255166832414}
   - component: {fileID: 114482681228587730}
   - component: {fileID: 54507017461456736}
+  - component: {fileID: 136660665527568060}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -122,7 +123,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4329688815879968}
-  - component: {fileID: 136236017624933128}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -650,12 +650,12 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   explosionBall: {fileID: 1072131116702380, guid: a809f8bfe28c669448a528c453a11ff5,
     type: 2}
---- !u!136 &136236017624933128
+--- !u!136 &136660665527568060
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1803090535563094}
+  m_GameObject: {fileID: 1604264315199044}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1

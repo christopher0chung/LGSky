@@ -197,7 +197,7 @@ public class Manager_GameAssets : MonoBehaviour {
         if (m != null)
         {
             GameObject g = Make(MyGameAsset.MineExplosion, m.location);
-            g.GetComponent<Behavior_DeathExplosionParent>().Explode();
+            //g.GetComponent<Behavior_DeathExplosionParent>().Explode();
         }
     }
 
@@ -205,7 +205,7 @@ public class Manager_GameAssets : MonoBehaviour {
     {
         for (int i = 0; i < num; i++)
         {
-            GameObject g = Instantiate(managedObject, Vector3.zero, Quaternion.identity);
+            GameObject g = Instantiate(managedObject, Vector3.zero, Quaternion.identity, transform);
             inactive.Add(g);
             g.SetActive(false);
         }
@@ -290,6 +290,7 @@ public class Manager_GameAssets : MonoBehaviour {
             {
                 _mExplosion = _Make_GenericNewObj(gameModel.mineExplosionPrefab, mExplosion_Active, mExplosion_Times, where);
             }
+            _mExplosion.GetComponent<Behavior_DeathExplosionParent>().Explode();
             return _mExplosion;
         }
         else return null;
@@ -308,7 +309,7 @@ public class Manager_GameAssets : MonoBehaviour {
 
     private GameObject _Make_GenericNewObj (GameObject prefab, List<GameObject> active, List<float> managedTimes, Vector3 location)
     {
-        GameObject _managedGO = Instantiate(prefab, location, Quaternion.identity);
+        GameObject _managedGO = Instantiate(prefab, location, Quaternion.identity, transform);
         active.Add(_managedGO);
         managedTimes.Add(0);
         return _managedGO;

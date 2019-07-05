@@ -30,14 +30,14 @@ public class Controller_Effects : MonoBehaviour {
 
     public void Scan()
     {
-        scanTime = 0;
+        timerScan = 0;
     }
 
     private void ScanUpdate()
     {
-        scanTime += Time.deltaTime / timerScan;
-        scanTime = Mathf.Clamp01(scanTime);
-        if (scanTime == 1)
+        timerScan += Time.deltaTime / scanTime;
+        timerScan = Mathf.Clamp01(timerScan);
+        if (timerScan == 1)
             scan.SetActive(false);
         else
             scan.SetActive(true);

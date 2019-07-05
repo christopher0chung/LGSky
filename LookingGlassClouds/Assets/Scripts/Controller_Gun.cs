@@ -94,11 +94,13 @@ public class Controller_Gun : SCG_Controller {
             {
                 shootTimer -= gameModel.t_TimeBetweenShots;
                 GameObject bullet;
+
+                Vector3 rando = Random.insideUnitCircle;
                 if (leftRightBarrel)
                     bullet = assetManager.Make(MyGameAsset.Bullet, player.position + Vector3.left * .1f);
                 else
                     bullet = assetManager.Make(MyGameAsset.Bullet, player.position + Vector3.right * .1f);
-                bullet.GetComponent<Rigidbody>().AddForce(gun.forward * 30, ForceMode.Impulse);
+                bullet.GetComponent<Rigidbody>().AddForce(gun.forward * 30 + rando * 4, ForceMode.Impulse);
                 leftRightBarrel = !leftRightBarrel;
                 myAS.PlayOneShot(gameModel.gunShot);
             }

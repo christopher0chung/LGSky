@@ -46,7 +46,7 @@ public class Manager_Enemy : MonoBehaviour {
             for (int i = 0; i < count; i++)
             {
                 Debug.Assert(gameModel.swarmBoyPrefab != null, "Where is SwarmBoyPrefab?");
-                GameObject g = Instantiate<GameObject>(gameModel.swarmBoyPrefab, position, Quaternion.identity, null);
+                GameObject g = Instantiate<GameObject>(gameModel.swarmBoyPrefab, position, Quaternion.identity, transform);
                 Debug.Assert(g != null, "Where's my G?!");
                 Enemy_Base enemy = g.GetComponent<Enemy_Base>();
                 enemy.SetHitPoint(gameModel.hp_SwarmBoy);
@@ -60,7 +60,7 @@ public class Manager_Enemy : MonoBehaviour {
         {
             for (int i = 0; i < count; i++)
             {
-                GameObject g = Instantiate<GameObject>(gameModel.ringDudePrefab, position + UnityEngine.Random.insideUnitSphere * 10, Quaternion.identity, null);
+                GameObject g = Instantiate<GameObject>(gameModel.ringDudePrefab, position + UnityEngine.Random.insideUnitSphere * 10, Quaternion.identity, transform);
                 Enemy_Base enemy = g.GetComponent<Enemy_Base>();
                 enemy.SetHitPoint(gameModel.hp_RingDude);
                 activeEnemies.Add(enemy);
@@ -73,7 +73,7 @@ public class Manager_Enemy : MonoBehaviour {
         }
         else if (type == EnemyType.Mines)
         {
-            GameObject g = Instantiate<GameObject>(gameModel.minePrefab, position, Quaternion.identity, null);
+            GameObject g = Instantiate<GameObject>(gameModel.minePrefab, position, Quaternion.identity, transform);
             Enemy_Base enemy = g.GetComponent<Enemy_Base>();
             enemy.SetHitPoint(gameModel.hp_Mine);
             activeEnemies.Add(enemy);
