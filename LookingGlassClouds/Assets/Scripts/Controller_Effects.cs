@@ -11,10 +11,12 @@ public class Controller_Effects : MonoBehaviour {
     public GameObject normalLight;
     public GameObject spinningLight;
     private List<GameObject> activeLights;
+    private List<GameObject> lightsToDestroy;
 
     void Awake()
     {
         activeLights = new List<GameObject>();
+        lightsToDestroy = new List<GameObject>();
     }
 
 	void Update () {
@@ -24,8 +26,9 @@ public class Controller_Effects : MonoBehaviour {
             Light(Random.Range(-10, 10));
         if (Input.GetKeyDown(KeyCode.O))
             SpinningLight();
-        ScanUpdate();
-        LightUpdate();
+
+        _ScanUpdate();
+        _LightUpdate();
 	}
 
     public void Scan()
@@ -33,7 +36,7 @@ public class Controller_Effects : MonoBehaviour {
         timerScan = 0;
     }
 
-    private void ScanUpdate()
+    private void _ScanUpdate()
     {
         timerScan += Time.deltaTime / scanTime;
         timerScan = Mathf.Clamp01(timerScan);
@@ -55,8 +58,19 @@ public class Controller_Effects : MonoBehaviour {
         activeLights.Add(Instantiate<GameObject>(spinningLight, startPos, Quaternion.identity, null));
     }
 
-    private void LightUpdate()
+    private void _LightUpdate()
     {
+        if (lightsToDestroy.Count > 0)
+        {
+            for (int i = lightsToDestroy.Count - 1; i >=0; i--)
+            {
+                GameObject g = lightsToDestroy[i]; 
+                if (activeLights.Contains(g))
+                    activeLights.Remove(g);
+                lightsToDestroy.Remove(g);
+                Destroy(g);
+            }
+        }
         if (activeLights.Count > 0)
         {
             foreach(GameObject g in activeLights)
@@ -64,8 +78,7 @@ public class Controller_Effects : MonoBehaviour {
                 g.transform.position += Vector3.forward * 8 * Time.deltaTime;
                 if (g.transform.position.z >= 25)
                 {
-                    activeLights.Remove(g);
-                    Destroy(g);
+                    lightsToDestroy.Add(g);
                 }
             }
         }

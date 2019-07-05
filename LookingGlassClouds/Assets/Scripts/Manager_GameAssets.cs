@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Manager_GameAssets : MonoBehaviour {
 
-    public Model_Game gameModel;
+    private Model_Game gameModel;
 
     List<GameObject> bullets_Active;
     public List<GameObject> bullets_Inactive;
@@ -30,14 +30,20 @@ public class Manager_GameAssets : MonoBehaviour {
     public List<GameObject> mExplosion_Inactive;
     List<float> mExplosion_Times;
 
+    List<GameObject> mslExplosion_Active;
+    List<GameObject> mslExplosion_Inactive;
+    List<float> mslExplosion_Times;
+
     void Awake()
     {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_ExplosionBallHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_EnemyMineHit>(EffectsEventHandler);
+        SCG_EventManager.instance.Register<Event_EnemyMissileHit>(EffectsEventHandler);
     }
 
 	void Start () {
@@ -71,6 +77,11 @@ public class Manager_GameAssets : MonoBehaviour {
         mExplosion_Inactive = new List<GameObject>();
         mExplosion_Times = new List<float>();
         _PrepInactive(gameModel.mineExplosionPrefab, mExplosion_Inactive, 5);
+
+        mslExplosion_Active = new List<GameObject>();
+        mslExplosion_Inactive = new List<GameObject>();
+        mslExplosion_Times = new List<float>();
+        _PrepInactive(gameModel.missileExplosionPrefab, mslExplosion_Inactive, 15);
     }
 
 	void Update () {
@@ -129,11 +140,20 @@ public class Manager_GameAssets : MonoBehaviour {
             int numOverLimit = _UpdateAndCheckForOverTime(mExplosion_Times, .5f);
             for (int i = 0; i < numOverLimit; i++)
             {
-                Debug.Assert(mExplosion_Active.Count == mExplosion_Times.Count, "Active element and tracking mismatch: dExplosion");
+                Debug.Assert(mExplosion_Active.Count == mExplosion_Times.Count, "Active element and tracking mismatch: mExplosion");
                 _StowActiveNonPhysicsManagedGO(mExplosion_Active, mExplosion_Times, mExplosion_Inactive, 0);
             }
         }
 
+        if (mslExplosion_Times.Count > 0)
+        {
+            int numOverLimit = _UpdateAndCheckForOverTime(mExplosion_Times, 1.5f);
+            for (int i = 0; i < numOverLimit; i++)
+            {
+                Debug.Assert(mslExplosion_Active.Count == mslExplosion_Times.Count, "Active element and tracking mismatch: mslExplosion");
+                _StowActiveNonPhysicsManagedGO(mslExplosion_Active, mslExplosion_Times, mslExplosion_Inactive, 0);
+            }
+        }
     }
 
     void EffectsEventHandler(SCG_Event e)
@@ -199,15 +219,12 @@ public class Manager_GameAssets : MonoBehaviour {
             GameObject g = Make(MyGameAsset.MineExplosion, m.location);
             //g.GetComponent<Behavior_DeathExplosionParent>().Explode();
         }
-    }
 
-    private void _PrepInactive(GameObject managedObject, List<GameObject> inactive, int num)
-    {
-        for (int i = 0; i < num; i++)
+        Event_EnemyMissileHit msl = e as Event_EnemyMissileHit;
+
+        if (msl != null)
         {
-            GameObject g = Instantiate(managedObject, Vector3.zero, Quaternion.identity, transform);
-            inactive.Add(g);
-            g.SetActive(false);
+            GameObject g = Make(MyGameAsset.MissileExplosion, msl.location);
         }
     }
 
@@ -293,7 +310,32 @@ public class Manager_GameAssets : MonoBehaviour {
             _mExplosion.GetComponent<Behavior_DeathExplosionParent>().Explode();
             return _mExplosion;
         }
+        else if (type == MyGameAsset.MissileExplosion)
+        {
+            GameObject _mslExplosion;
+            if (mslExplosion_Inactive.Count >= 1)
+            {
+                _mslExplosion = _Make_GenericActivate(mslExplosion_Inactive, mslExplosion_Active, mslExplosion_Times, where);
+            }
+            else
+            {
+                _mslExplosion = _Make_GenericNewObj(gameModel.missileExplosionPrefab, mslExplosion_Active, mslExplosion_Times, where);
+            }
+            _mslExplosion.GetComponent<ParticleSystem>().Play();
+            return _mslExplosion;
+        }
         else return null;
+    }
+
+    #region Generic
+    private void _PrepInactive(GameObject managedObject, List<GameObject> inactive, int num)
+    {
+        for (int i = 0; i < num; i++)
+        {
+            GameObject g = Instantiate(managedObject, Vector3.zero, Quaternion.identity, transform);
+            inactive.Add(g);
+            g.SetActive(false);
+        }
     }
 
     private GameObject _Make_GenericActivate(List<GameObject> inactive, List<GameObject> active, List<float> managedTimes, Vector3 location)
@@ -364,6 +406,7 @@ public class Manager_GameAssets : MonoBehaviour {
             return true;
         else return false;
     }
+    #endregion
 }
 
-public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion }
+public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion, MissileExplosion }

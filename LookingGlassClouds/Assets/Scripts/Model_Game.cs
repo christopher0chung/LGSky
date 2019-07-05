@@ -117,12 +117,14 @@ public class Model_Game : MonoBehaviour {
     public float hp_SwarmBoy;
     public float hp_RingDude;
     public float hp_Mine;
+    public float hp_Missile;
     #endregion
     [Header("Enemy Object Refs")]
     #region Enemy Object Refs
     public GameObject swarmBoyPrefab;
     public GameObject ringDudePrefab;
     public GameObject minePrefab;
+    public GameObject missilePrefab;
     #endregion
     [Header("Asset Object Refs")]
     #region Asset Object Refs
@@ -132,6 +134,7 @@ public class Model_Game : MonoBehaviour {
     public GameObject rocketExplosionPrefab;
     public GameObject deathExplosionPrefab;
     public GameObject mineExplosionPrefab;
+    public GameObject missileExplosionPrefab;
     #endregion
 }
 

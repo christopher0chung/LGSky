@@ -28,13 +28,12 @@ public class Behavior_BaddyMissile : MonoBehaviour {
     private float overFlightTimer;
 
     // Use this for initialization
-    void Start() {
-        if (lr == null)
-            lr = GetComponent<LineRenderer>();
-    }
 
     public void FireMissile(Vector3 start, Vector3 stop, Vector3 startDir, Vector3 stopDir)
     {
+        if (lr == null)
+            lr = GetComponent<LineRenderer>();
+
         position0 = start;
         position1 = stop;
         direction0 = Vector3.Normalize(startDir) * firingStrength;
@@ -61,24 +60,19 @@ public class Behavior_BaddyMissile : MonoBehaviour {
         tracking = true;
     }
 
-    public void ResetMissile()
-    {
-
-    }
-
     void Update() {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            //int i = Random.Range(0, 20);
-            //if (i == 0)
-            //{
-            Vector3 p1 = ServiceLocator.instance.Player.position;
-            Vector3 p0 = p1 + Vector3.forward * startDist + Random.insideUnitSphere * 3;
-            Vector3 d0 = -Vector3.forward;
-            Vector3 d1 = new Vector3(Random.Range(-1.00f, 1.00f), Random.Range(-1.00f, 0.00f), Random.Range(-1.00f, .25f));
-            FireMissile(p0, p1, d0, d1);
-            //}
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    //int i = Random.Range(0, 20);
+        //    //if (i == 0)
+        //    //{
+        //    Vector3 p1 = ServiceLocator.instance.Player.position;
+        //    Vector3 p0 = p1 + Vector3.forward * startDist + Random.insideUnitSphere * 3;
+        //    Vector3 d0 = -Vector3.forward;
+        //    Vector3 d1 = new Vector3(Random.Range(-1.00f, 1.00f), Random.Range(-1.00f, 0.00f), Random.Range(-1.00f, .25f));
+        //    FireMissile(p0, p1, d0, d1);
+        //    //}
+        //}
 
         if (going)
         {
@@ -135,13 +129,12 @@ public class Behavior_BaddyMissile : MonoBehaviour {
         Debug.Log(other.name);
         if (other.name == "Player")
         {
-            Debug.Log("Recognize I hit player");
-            GameObject g = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>().Make(MyGameAsset.MineExplosion, ServiceLocator.instance.Player.position);
-            if (g != null)
-                Debug.Log("Something was made... " + g.name);
+            //Debug.Log("Recognize I hit player");
+            //GameObject g = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>().Make(MyGameAsset.MineExplosion, ServiceLocator.instance.Player.position);
+            //if (g != null)
+            //    Debug.Log("Something was made... " + g.name);
+            SCG_EventManager.instance.Fire(new Event_EnemyMissileHit(GetComponent<Enemy_Base>(), transform.position));
+            GetComponent<Enemy_Base>().FireDestructionEvent();
         }
-
-        if (other.name == "Bullet(Clone)" || other.name == "Rocket(Clone)" || other.name == "Sword")
-            Destroy(this.gameObject);
     }
 }

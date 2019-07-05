@@ -6,7 +6,7 @@ using UnityEngine;
 public class Manager_Enemy : MonoBehaviour {
     private Asset_BoidsManager bm;
 
-    public Model_Game gameModel;
+    private Model_Game gameModel;
 
     public List<Enemy_Base> activeEnemies;
     public List<Enemy_Base> pendingDestroy;
@@ -15,6 +15,8 @@ public class Manager_Enemy : MonoBehaviour {
 
     public void Awake()
     {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+
         activeEnemies = new List<Enemy_Base>();
         pendingDestroy = new List<Enemy_Base>();
 
@@ -78,7 +80,23 @@ public class Manager_Enemy : MonoBehaviour {
             enemy.SetHitPoint(gameModel.hp_Mine);
             activeEnemies.Add(enemy);
         }
+        else if (type == EnemyType.Missiles)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                GameObject g = Instantiate<GameObject>(gameModel.missilePrefab, position, Quaternion.identity, transform);
+                Enemy_Base enemy = g.GetComponent<Enemy_Base>();
+                enemy.SetHitPoint(gameModel.hp_Missile);
+                activeEnemies.Add(enemy);
 
+                Behavior_BaddyMissile bm = g.GetComponent<Behavior_BaddyMissile>();
+                Vector3 p1 = ServiceLocator.instance.Player.position;
+                Vector3 p0 = position;
+                Vector3 d0 = -Vector3.forward;
+                Vector3 d1 = new Vector3(UnityEngine.Random.Range(-1.00f, 1.00f), UnityEngine.Random.Range(-1.00f, 0.00f), UnityEngine.Random.Range(-1.00f, .25f));
+                bm.FireMissile(p0, p1, d0, d1);
+            }
+        }
     }
 
 
@@ -96,6 +114,10 @@ public class Manager_Enemy : MonoBehaviour {
         {
             Spawn(EnemyType.Mines, Vector3.forward * 30 + ServiceLocator.instance.Player.position, 1);
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Spawn(EnemyType.Missiles, Vector3.forward * 30 + ServiceLocator.instance.Player.position, 15);
+        }
     }
 
     public void FixedUpdate()
@@ -112,4 +134,4 @@ public class Manager_Enemy : MonoBehaviour {
     }
 }
 
-public enum EnemyType { SwarmBoys, RingDudes, Mines }
+public enum EnemyType { SwarmBoys, RingDudes, Mines, Missiles }

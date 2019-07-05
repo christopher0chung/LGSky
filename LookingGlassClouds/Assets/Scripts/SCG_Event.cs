@@ -100,3 +100,15 @@ public class Event_EnemyMineHit : SCG_Event
         location = where;
     }
 }
+
+public class Event_EnemyMissileHit : SCG_Event
+{
+    public Enemy_Base enemyToBeDestroyed;
+    public Vector3 location;
+
+    public Event_EnemyMissileHit(Enemy_Base enemyToBeDestroyed, Vector3 where)
+    {
+        this.enemyToBeDestroyed = enemyToBeDestroyed;
+        location = where;
+    }
+}

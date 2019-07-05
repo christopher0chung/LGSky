@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 120246873334741540}
   - component: {fileID: 135436186398767672}
   - component: {fileID: 54820363839213394}
+  - component: {fileID: 114718905354405060}
   m_Layer: 0
   m_Name: BaddyMissile
   m_TagString: Untagged
@@ -319,9 +320,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d1472693848dd4a8d7c5076b401bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firingStrength: 10
-  closingStrength: 50
-  startDist: 25
+  firingStrength: 20
+  closingStrength: 70
+  startDist: 30
+--- !u!114 &114718905354405060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216793017042446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980fe93fd86c43c49ab80ca5dd77f743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitpoints_Max: 0
 --- !u!114 &114789639544616200
 MonoBehaviour:
   m_ObjectHideFlags: 1
