@@ -135,7 +135,7 @@ public class Controller_Waves : MonoBehaviour {
                     {
                         for (int i = 1; i < num; i++)
                         {
-                            Vector3 offset = Random.insideUnitCircle * 20;
+                            Vector3 offset = Random.insideUnitCircle * num * 2;
                             offset.z = offset.y;
                             offset.y = 0;
                             enemies.Spawn(EnemyType.Mines, ServiceLocator.instance.Player.position + dqPos + offset, num);
@@ -159,53 +159,53 @@ public class Controller_Waves : MonoBehaviour {
                 }
                 else if (rng == 2)
                 {
-                    // temp uses 0
                     Vector3 dqPos = nextMineLoc.Dequeue();
-                    enemies.Spawn(EnemyType.Mines, ServiceLocator.instance.Player.position + dqPos, num);
 
-                    if (num > 1)
+                    for (int i = 0; i < num; i++)
                     {
-                        for (int i = 1; i < num; i++)
-                        {
-                            Vector3 offset = Random.insideUnitCircle * 20;
-                            offset.z = offset.y;
-                            offset.y = 0;
-                            enemies.Spawn(EnemyType.Mines, ServiceLocator.instance.Player.position + dqPos + offset, num);
-                        }
+                        float divisor = num - 1;
+                        enemies.Spawn(EnemyType.Mines,
+                            ServiceLocator.instance.Player.position +
+                            dqPos +
+                            Vector3.right * -num * 1.5f +
+                            Vector3.right * 3 * num * i / divisor
+                            + Vector3.forward * Mathf.Abs((num / 2) - i) * 2
+                            ,
+                            1);
                     }
                 }
                 else if (rng == 3)
                 {
-                    // temp uses 0
                     Vector3 dqPos = nextMineLoc.Dequeue();
-                    enemies.Spawn(EnemyType.Mines, ServiceLocator.instance.Player.position + dqPos, num);
 
-                    if (num > 1)
+                    for (int i = 0; i < num; i++)
                     {
-                        for (int i = 1; i < num; i++)
-                        {
-                            Vector3 offset = Random.insideUnitCircle * 20;
-                            offset.z = offset.y;
-                            offset.y = 0;
-                            enemies.Spawn(EnemyType.Mines, ServiceLocator.instance.Player.position + dqPos + offset, num);
-                        }
+                        float divisor = num - 1;
+                        enemies.Spawn(EnemyType.Mines,
+                            ServiceLocator.instance.Player.position +
+                            dqPos +
+                            Vector3.right * -num * 1.5f +
+                            Vector3.right * 3 * num * i / divisor
+                            + Vector3.forward * i * 2
+                            ,
+                            1);
                     }
                 }
                 else if (rng == 4)
                 {
-                    // temp uses 0
                     Vector3 dqPos = nextMineLoc.Dequeue();
-                    enemies.Spawn(EnemyType.Mines, ServiceLocator.instance.Player.position + dqPos, num);
 
-                    if (num > 1)
+                    for (int i = 0; i < num; i++)
                     {
-                        for (int i = 1; i < num; i++)
-                        {
-                            Vector3 offset = Random.insideUnitCircle * 20;
-                            offset.z = offset.y;
-                            offset.y = 0;
-                            enemies.Spawn(EnemyType.Mines, ServiceLocator.instance.Player.position + dqPos + offset, num);
-                        }
+                        float divisor = num - 1;
+                        enemies.Spawn(EnemyType.Mines,
+                            ServiceLocator.instance.Player.position +
+                            dqPos +
+                            Vector3.right * -num * 1.5f +
+                            Vector3.right * 3 * num * i / divisor
+                            + Vector3.forward * -i * 2
+                            ,
+                            1);
                     }
                 }
             }

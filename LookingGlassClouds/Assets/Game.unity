@@ -175,6 +175,35 @@ Transform:
   m_Father: {fileID: 1434328323}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5234286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5234287}
+  m_Layer: 0
+  m_Name: RocketPlane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5234287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 5234286}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 71813369}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &16533181
 Prefab:
   m_ObjectHideFlags: 0
@@ -343,12 +372,12 @@ Prefab:
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 2}
       propertyPath: preview2D
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1770150239514932, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 2}
       propertyPath: m_IsActive
@@ -932,6 +961,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 56323783}
   m_Mesh: {fileID: 4300004, guid: 4868585d17f1c6c4482f16f7e052e0c7, type: 3}
+--- !u!4 &71813369 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb,
+    type: 3}
+  m_PrefabInternal: {fileID: 1008485531}
 --- !u!1 &94642466
 GameObject:
   m_ObjectHideFlags: 0
@@ -44584,6 +44618,88 @@ Transform:
   m_Father: {fileID: 845968806}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 90.00001}
+--- !u!1001 &1008485531
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5234287}
+    m_Modifications:
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_Name
+      value: RocketPlaneModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d537a928e975b344082c8e067f5774aa, type: 2}
+    - target: {fileID: 2300002, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5571d25d847f8b14988a0bc7be755984, type: 2}
+    - target: {fileID: 2300000, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c20bf9aa0a8204c43923cb0a660b297f, type: 2}
+    - target: {fileID: 2300000, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0b1b2926157558e408a05e3e40edf202, type: 2}
+    - target: {fileID: 2300004, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d470b03ffb0bdf4298c848e7a230f64, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5bc1ff72f0bea7a448a02842d844cfdb, type: 3}
+  m_IsPrefabAsset: 0
 --- !u!1 &1029835718
 GameObject:
   m_ObjectHideFlags: 0
@@ -61833,30 +61949,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fad328c9fdfcc4f9d6b805bd01f70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveType: 02000000020000000200000002000000020000000200000002000000020000000200000002000000
-  waveTimeInMinutes:
-  - 0
-  - 0.1
-  - 0.2
-  - 0.3
-  - 0.4
-  - 0.5
-  - 0.6
-  - 0.7
-  - 0.8
-  - 0.9
-  waveNumber: 0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
-  waveOrigins:
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 30}
+  waveType: 
+  waveTimeInMinutes: []
+  waveNumber: 
+  waveOrigins: []
 --- !u!1 &1564287800
 GameObject:
   m_ObjectHideFlags: 0

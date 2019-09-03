@@ -33,7 +33,7 @@ public class Manager_Enemy : MonoBehaviour {
         {
             if (activeEnemies.Contains(d.enemyToBeDestroyed))
             {
-                Debug.Log("Active Enemy Being Destroyed");
+                //Debug.Log("Active Enemy Being Destroyed");
                 activeEnemies.Remove(d.enemyToBeDestroyed);
                 pendingDestroy.Add(d.enemyToBeDestroyed);
             }
