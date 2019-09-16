@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: ShipMat_MetalAlt
   m_Shader: {fileID: 4800000, guid: 529c6ec4ad1a2394095f1d0e95abe1be, type: 3}
   m_ShaderKeywords: 
@@ -77,7 +78,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _BaseColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
+    - _BaseColor: {r: 0.12437701, g: 0.17880602, b: 0.4056604, a: 1}
     - _Color: {r: 0.26406196, g: 0.8113208, b: 0.80546004, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowColor: {r: 0.08676029, g: 0, b: 0.5849056, a: 1}
+    - _ShadowColor: {r: 0.58431375, g: 0, b: 0.5647845, a: 1}
