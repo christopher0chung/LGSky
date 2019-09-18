@@ -6,8 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class View_UI_Canvas : MonoBehaviour
 {
-    public Model_Game gameModel;
-    public Model_Energy energyModel;
+    private Model_Game gameModel;
+    private Model_Energy energyModel;
 
     public Image left;
     public Image right;
@@ -69,6 +69,12 @@ public class View_UI_Canvas : MonoBehaviour
         }
     }
     #endregion
+
+    private void Awake()
+    {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        energyModel = ServiceLocator.instance.Model.GetComponent<Model_Energy>();
+    }
 
     void Start()
     {

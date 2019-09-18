@@ -37,4 +37,7 @@ public class Model_Energy : MonoBehaviour {
     public float pilot_JumpOpCost;
 
     public float rocket_OpCost;
+
+    public bool leftLocked;
+    public bool rightLocked;
 }

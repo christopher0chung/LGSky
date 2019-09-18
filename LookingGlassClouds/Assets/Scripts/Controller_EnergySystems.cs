@@ -47,6 +47,10 @@ public class Controller_EnergySystems : SCG_Controller {
             _fsm_right.Update();
             CooldownSystems();
 
+            //Lockdown check
+            LockdownCheck();
+            LockdownRelease();
+
             //Get Values
             OperationalReactorLoad();
             TransientOverTime();
@@ -119,15 +123,15 @@ public class Controller_EnergySystems : SCG_Controller {
         _tempReactorLoad = gameModel.e_Reactor_Base;
 
         if (gameModel.leftStation == Stations.Guns || gameModel.rightStation == Stations.Guns)
-            _tempReactorLoad -= energyModel.guns_Actual;
+            _tempReactorLoad -= energyModel.guns_Actual / 2;
         if (gameModel.leftStation == Stations.Pilot || gameModel.rightStation == Stations.Pilot)
-            _tempReactorLoad -= energyModel.pilot_Actual;
+            _tempReactorLoad -= energyModel.pilot_Actual / 2;
         if (gameModel.leftStation == Stations.Rockets || gameModel.rightStation == Stations.Rockets)
-            _tempReactorLoad -= energyModel.rockets_Actual;
+            _tempReactorLoad -= energyModel.rockets_Actual / 2;
         if (gameModel.leftStation == Stations.Shield || gameModel.rightStation == Stations.Shield)
-            _tempReactorLoad -= energyModel.shield_Actual;
+            _tempReactorLoad -= energyModel.shield_Actual / 2;
         if (gameModel.leftStation == Stations.Sword || gameModel.rightStation == Stations.Sword)
-            _tempReactorLoad -= energyModel.sword_Actual;
+            _tempReactorLoad -= energyModel.sword_Actual / 2;
     }
 
     void OverloadCalculation()
@@ -135,6 +139,64 @@ public class Controller_EnergySystems : SCG_Controller {
         Vector2 transientOverload = _TransientOverload(_tempReactorLoad, energyModel.reactor_Transient);
         energyModel.reactor_Transient = transientOverload.x;
         energyModel.jump_Actual += transientOverload.y;
+    }
+
+    void LockdownCheck()
+    {
+        if (gameModel.leftStation == Stations.Guns && energyModel.guns_Actual == 100)
+            energyModel.leftLocked = true;
+        else if (gameModel.leftStation == Stations.Pilot && energyModel.pilot_Actual == 100)
+            energyModel.leftLocked = true;
+        else if (gameModel.leftStation == Stations.Rockets && energyModel.rockets_Actual == 100)
+            energyModel.leftLocked = true;
+        else if (gameModel.leftStation == Stations.Shield && energyModel.shield_Actual == 100)
+            energyModel.leftLocked = true;
+        else if (gameModel.leftStation == Stations.Sword && energyModel.sword_Actual == 100)
+            energyModel.leftLocked = true;
+
+        if (gameModel.rightStation == Stations.Guns && energyModel.guns_Actual == 100)
+            energyModel.rightLocked = true;
+        else if (gameModel.rightStation == Stations.Pilot && energyModel.pilot_Actual == 100)
+            energyModel.rightLocked = true;
+        else if (gameModel.rightStation == Stations.Rockets && energyModel.rockets_Actual == 100)
+            energyModel.rightLocked = true;
+        else if (gameModel.rightStation == Stations.Shield && energyModel.shield_Actual == 100)
+            energyModel.rightLocked = true;
+        else if (gameModel.rightStation == Stations.Sword && energyModel.sword_Actual == 100)
+            energyModel.rightLocked = true;
+    }
+
+    void LockdownRelease()
+    {
+        float lockdownRelease = 25;
+
+        if (energyModel.leftLocked)
+        {
+            if (gameModel.leftStation == Stations.Guns && energyModel.guns_Actual == lockdownRelease)
+                energyModel.leftLocked = false;
+            else if (gameModel.leftStation == Stations.Pilot && energyModel.pilot_Actual == lockdownRelease)
+                energyModel.leftLocked = false;
+            else if (gameModel.leftStation == Stations.Rockets && energyModel.rockets_Actual == lockdownRelease)
+                energyModel.leftLocked = false;
+            else if (gameModel.leftStation == Stations.Shield && energyModel.shield_Actual == lockdownRelease)
+                energyModel.leftLocked = false;
+            else if (gameModel.leftStation == Stations.Sword && energyModel.sword_Actual == lockdownRelease)
+                energyModel.leftLocked = false;
+        }
+
+        if (energyModel.rightLocked)
+        {
+            if (gameModel.rightStation == Stations.Guns && energyModel.guns_Actual <= lockdownRelease)
+                energyModel.rightLocked = false;
+            else if (gameModel.rightStation == Stations.Pilot && energyModel.pilot_Actual == lockdownRelease)
+                energyModel.rightLocked = false;
+            else if (gameModel.rightStation == Stations.Rockets && energyModel.rockets_Actual == lockdownRelease)
+                energyModel.rightLocked = false;
+            else if (gameModel.rightStation == Stations.Shield && energyModel.shield_Actual == lockdownRelease)
+                energyModel.rightLocked = false;
+            else if (gameModel.rightStation == Stations.Sword && energyModel.sword_Actual == lockdownRelease)
+                energyModel.rightLocked = false;
+        }
     }
 
     void SetModel()

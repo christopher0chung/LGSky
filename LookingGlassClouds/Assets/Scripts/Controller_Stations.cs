@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class Controller_Stations : MonoBehaviour {
 
-    public Model_Game gameModel;
-    public Model_Input inputModel;
+    private Model_Game gameModel;
+    private Model_Input inputModel;
+    private Model_Energy energyModel;
     private List<Stations> unassignedStations = new List<Stations>();
 
-	void Update () {
+    private void Awake()
+    {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
+        energyModel = ServiceLocator.instance.Model.GetComponent<Model_Energy>();
+    }
+
+    void Update () {
         _MaintainStations(inputModel.L_SwapUp_OnDown, inputModel.R_SwapUp_OnDown, inputModel.L_SwapDown_OnDown, inputModel.R_SwapDown_OnDown);
 	}
     #region Switchers
@@ -27,7 +35,7 @@ public class Controller_Stations : MonoBehaviour {
             unassignedStations.Remove(gameModel.leftStation);
             unassignedStations.Remove(gameModel.rightStation);
 
-            if (left)
+            if (left && !energyModel.leftLocked)
             {
                 int next = (int)gameModel.leftStation + 1;
                 if (next >= 5)
@@ -44,7 +52,7 @@ public class Controller_Stations : MonoBehaviour {
                         gameModel.leftStation = (Stations)next;
                 }
             }
-            else if (right)
+            else if (right && !energyModel.rightLocked)
             {
                 int next = (int)gameModel.rightStation + 1;
                 if (next >= 5)
@@ -61,7 +69,7 @@ public class Controller_Stations : MonoBehaviour {
                         gameModel.rightStation = (Stations)next;
                 }
             }
-            else if (altLeft)
+            else if (altLeft && !energyModel.leftLocked)
             {
                 int prev = (int)gameModel.leftStation - 1;
                 if (prev < 0)
@@ -78,7 +86,7 @@ public class Controller_Stations : MonoBehaviour {
                         gameModel.leftStation = (Stations)prev;
                 }
             }
-            else if (altRight)
+            else if (altRight && !energyModel.rightLocked)
             {
                 int prev = (int)gameModel.rightStation - 1;
                 if (prev < 0)
