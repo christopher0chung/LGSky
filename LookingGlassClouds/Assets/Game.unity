@@ -46988,8 +46988,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54359199cd9e0524a955445a3de3ac99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameModel: {fileID: 2136931268}
-  energyModel: {fileID: 2136931269}
   left: {fileID: 752314796}
   right: {fileID: 326363800}
   jumpBar: {fileID: 1474723596}
@@ -72603,6 +72601,8 @@ MonoBehaviour:
   pilot_EngineOpCost: 0
   pilot_JumpOpCost: 0
   rocket_OpCost: 0
+  leftLocked: 0
+  rightLocked: 0
 --- !u!114 &2136931270
 MonoBehaviour:
   m_ObjectHideFlags: 0
