@@ -1,0 +1,66 @@
+Goal of the game:
+- High score chase
+- Points are scored for:
+	- Enemies killed
+	- Levels cleared
+	- Damage avoided/blocked
+- Fixed points are deducted for:
+	- Time spent beating each level
+	- Each LOCKDOWN
+	- Total damage taken
+- Scaled points are deducted for:
+	- Each death - 10% of total removed at the time of death
+
+Setup:
+- One or two players are in control of each ship's two STATIONS
+- Each ship has (3) lives
+- Game is over when lives are reduced to 0
+
+Levels:
+- Each level, players will face waves of ENEMIES in growing numbers and increasing intensity until their JUMP CAPACITOR is fully charged, and the ship can jump clear of the level.
+- The JUMP CAPACITOR is charged by the REACTOR.
+- The REACTOR will charge the JUMP CAPACITOR faster the ship's TOTAL HEAT LOAD is lower, and slower when the TOTAL HEAT LOAD is higher.
+
+Game Controls:
+- Each ship has two STATIONS. 
+	- In single player, each station is mapped to the a controller's Left and Right Joysticks, and respective Trigger and Bumper used as inputs.
+	- In two player, a station is mapped to a single controller with the Left Thumbstick, Both Bumpers, and Right Trigger / A Button used as inputs.
+- Thumbsticks are used as directional input.
+- Bumpers are used to SHIFT a STATION's CONTROLLED SYSTEM.
+- Triggers and A Button are used to actuate the CONTROLLED SYSTEM's PRIMARY FUNCTION.
+
+STATION:
+- Each STATION can access a single CONTROLLED SYSTEM at a time.
+- Both STATIONS cannot access the same CONTROLLED SYSTEM at the same time.
+- OPERATING / LOCKED DOWN
+	- A STATION will become LOCKED DOWN if its CONTROLLED SYSTEM OVERHEATS.
+	- A STATION will return to operation when the OVERHEATED system reboots.
+	- When OPERATING:
+		- The STATION can actuate its CONTROLLED SYSTEM's PRIMARY FUNCTION.
+		- The STATION can SHIFT access to a different CONTROLLED SYSTEM.
+	- When LOCKED DOWN:
+		- The STATION cannot actuate its CONTROLLED SYSTEM's PRIMARY FUNCTION.
+		- The STATION cannot SHIFT access to a different CONTROLLED SYSTEM.
+
+CONTROLLED SYSTEM:
+- The ship has 5 CONTROLLED SYSTEMs - Auto Guns, Thermal Lance, Energy Shield, Maneuvering Thrusters, and Swarm Rockets
+- CONTROLLED SYSTEMs, whether being accessed by a STATION or not, will contribute to the ship's TOTAL HEAT load.
+- OVERHEATED CONTROLLED SYSTEMS4
+
+
+Managing HEAT:
+	- Each STATION's CONTROLLED SYSTEM will be represented by a CONTROLLED SYSTEM ICON, and a meter indicating HEAT.
+	- As a STATION uses its CONTROLLED SYSTEM's PRIMARY FUNCTION, its HEAT load will go up.
+	- While any CONTROLLED SYSTEM's PRIMARY FUNCTION is inactive, its HEAT load will go down. This is also true for CONTROLLED STATIONS not accessed by any STATION.
+	- If any CONTROLLED SYSTEM's HEAT reaches the OVERHEAT limit, the station will be LOCKED DOWN until the HEAT reduces to that CONTROLLED SYSTEM's REBOOT THRESHOLD.
+	- During that time, the REACTOR will charge the JUMP CAPACITOR at a rate commensurate with the real time HEAT load of all OPERATING CONTROLLED SYSTEMS, and the max HEAT of any 
+
+
+
+
+
+
+		- The REACTOR will see the real-time HEAT load for that station.
+
+		- The REACTOR will see the max HEAT load for that station until the station returns to OPERATING.
+	
