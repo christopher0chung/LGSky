@@ -1,0 +1,15 @@
+Thanks for participating in our beta program! This release is an experimental version of the HoloPlay SDK, and as such the features included are subject to change or be removed in future releases.
+
+Changes:
+
+1.1.0
+
+View Interpolation:
+A performance boost that utilizes a compute shader to draw fewer views and interpolate between them. Read more about it here: https://blog.lookingglassfactory.com/holoplay-sdk-for-unity-1-1-0-update-6295398b2e3b
+
+How to use:
+View Interpolation: this field is where you select how many views to render normally. The options are Every Other, Every 4th, Every 8th, 4 Views, and 2 Views. We saw the best results with Every Other and Every 4th, with diminishing returns from increasing the interpolation any further.
+
+Fill Gaps: Boolean which will run an additional process to attempt to make a best-guess at filling in some of the gaps where not enough information was available to interpolate properly. This was not usually necessary in our usage, but is included in case you may find it useful.
+
+Blend Views: Specular highlights and reflections are dependent on the viewing angle, and so we get some artifacts if we merely mix adjacent views without attempting a smooth transition. This option will mitigate that effect at the (minor) cost of some performance.
