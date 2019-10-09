@@ -22,7 +22,7 @@ public class Behavior_Sword : MonoBehaviour {
             if (e != null)
             {
                 Debug.Log("The sword hit " + e.gameObject.name);
-                SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, gameModel.d_SwordDamage, e.transform.position));
+                SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, gameModel.d_LanceDamage, e.transform.position));
             }
         }
     }

@@ -428,18 +428,18 @@ public class Controller_EnergySystems : SCG_Controller {
     {
         public override void OnEnter()
         {
-            Context.energyModel.sword_Actual = Context.gameModel.e_SwordEnergyRate_Passive;
+            Context.energyModel.sword_Actual = Context.gameModel.e_LanceEnergyRate_Passive;
         }
 
         public override void Update()
         {
             if (Context.energyModel.swordOn)
             {
-                Context.energyModel.sword_Actual = Context.gameModel.e_SwordEnergyRate_Passive + Context.gameModel.e_SwordEnergyRate_Active;
+                Context.energyModel.sword_Actual = Context.gameModel.e_LanceEnergyRate_Passive + Context.gameModel.e_LanceEnergyRate_Active;
             }
             else
             {
-                Context.energyModel.sword_Actual = Context.gameModel.e_SwordEnergyRate_Passive;
+                Context.energyModel.sword_Actual = Context.gameModel.e_LanceEnergyRate_Passive;
             }
         }
 
