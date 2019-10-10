@@ -17,8 +17,8 @@ Setup:
 - Game is over when lives are reduced to 0
 
 Levels:
-- Each level, players will face waves of ENEMIES in growing numbers and increasing intensity until their JUMP CAPACITOR is fully charged, and the ship can jump clear of the level.
-- The JUMP CAPACITOR is charged by the REACTOR.
+- Each level, players will face waves of ENEMIES in growing numbers and increasing intensity until the ship can jump clear of the level.
+- The ship can jump when its JUMP CAPACITOR is fully charged by the REACTOR.
 - The REACTOR will charge the JUMP CAPACITOR faster the ship's TOTAL HEAT LOAD is lower, and slower when the TOTAL HEAT LOAD is higher.
 
 Game Controls:
@@ -44,23 +44,33 @@ STATION:
 
 CONTROLLED SYSTEM:
 - The ship has 5 CONTROLLED SYSTEMs - Auto Guns, Thermal Lance, Energy Shield, Maneuvering Thrusters, and Swarm Rockets
-- CONTROLLED SYSTEMs, whether being accessed by a STATION or not, will contribute to the ship's TOTAL HEAT load.
-- OVERHEATED CONTROLLED SYSTEMS4
-
+- CONTROLLED SYSTEMs will contribute to the ship's TOTAL HEAT load, whether being accessed by a STATION or not.
+- OVERHEATED CONTROLLED SYSTEMS will contribute their max HEAT load to the TOTAL HEAT load until the system is REBOOTED.
+- OVERHEATED CONTROLLED SYSTEMS will reboot when their HEAT load goes down below their REBOOT THRESHOLD.
+- When a CONTROLLED SYSTEM is able to REBOOT:
+	- It will resume contributing its true heat load
+	- The LOCKED DOWN STATION will return to OPERATIONAL.
 
 Managing HEAT:
-	- Each STATION's CONTROLLED SYSTEM will be represented by a CONTROLLED SYSTEM ICON, and a meter indicating HEAT.
-	- As a STATION uses its CONTROLLED SYSTEM's PRIMARY FUNCTION, its HEAT load will go up.
-	- While any CONTROLLED SYSTEM's PRIMARY FUNCTION is inactive, its HEAT load will go down. This is also true for CONTROLLED STATIONS not accessed by any STATION.
-	- If any CONTROLLED SYSTEM's HEAT reaches the OVERHEAT limit, the station will be LOCKED DOWN until the HEAT reduces to that CONTROLLED SYSTEM's REBOOT THRESHOLD.
-	- During that time, the REACTOR will charge the JUMP CAPACITOR at a rate commensurate with the real time HEAT load of all OPERATING CONTROLLED SYSTEMS, and the max HEAT of any 
+- Each STATION's CONTROLLED SYSTEM will be represented by a CONTROLLED SYSTEM ICON, and a meter indicating HEAT.
+- As a STATION uses its CONTROLLED SYSTEM's PRIMARY FUNCTION, its HEAT load will go up.
+- While any CONTROLLED SYSTEM's PRIMARY FUNCTION is inactive, its HEAT load will go down. This is also true for CONTROLLED STATIONS not accessed by any STATION.
+- If any CONTROLLED SYSTEM's HEAT reaches the OVERHEAT limit, its accessing STATION will be LOCKED DOWN until the HEAT reduces to its CONTROLLED SYSTEM's REBOOT THRESHOLD.
+- Until an OVERHEATED system is able to reboot, it will report its max HEAT load.
+- CONTROL STATIONS have different internal behavior relative to its HEAT load:
+	- Auto Guns: as its HEAT load goes up, the rate of fire will go up, and the shot dispersion will go up.
+	- Thermal Lance: as its HEAT load goes up, the lance range will go up.
+	- Enery Shield: as its HEAT load goes up, shield size will go down.
+	- Maneuvering Thrusters: as its HEAT load goes up, the ship's speed will go up, and jump distance will go down.
+	- Swarm Rockets: as its HEAT load goes up, the number of rockets will go up.
 
 
 
-
-
-
-		- The REACTOR will see the real-time HEAT load for that station.
-
-		- The REACTOR will see the max HEAT load for that station until the station returns to OPERATING.
+Notes on Controllers:
+- Requires explicit execution order
+- Sequence
+	Input
+	ControlledSystems (Individual)
+	Heat
+	Stations
 	

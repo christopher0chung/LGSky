@@ -31,10 +31,10 @@ public class Model_Game : MonoBehaviour {
     public float contractAndDialationRate;
     public float contractAndDialationRate_Upgrade;
     public float colorCoolDownLerpFraction;
-    //public float e_Shield_Passive;
-    //public float e_Shield_Active;
-    //public float e_BlockedShotEnergyHit_Base;
-    //public float e_BlockedShotEnergyHit_Boost;
+    public float e_Shield_Passive;
+    public float e_Shield_Active;
+    public float e_BlockedShotEnergyHit_Base;
+    public float e_BlockedShotEnergyHit_Boost;
     public AudioClip blockedShot_Base;
     public AudioClip blockedShot_Boost;
     #endregion
@@ -46,9 +46,9 @@ public class Model_Game : MonoBehaviour {
     public float t_TimeBetweenShots;
     public float t_TimeBetweenShots_Upgrade;
     public AudioClip gunShot;
-    //public float e_Gun_Passive;
-    //public float e_Gun_Active;
-    //public float e_Gun_CooldownRate;
+    public float e_Gun_Passive;
+    public float e_Gun_Active;
+    public float e_Gun_CooldownRate;
     public float d_GunDamage_Base;
     public float d_GunDamage_Upgrade;
     public float s_GunMoveFiring;
@@ -56,10 +56,10 @@ public class Model_Game : MonoBehaviour {
     #endregion
     [Header("Rockets")]
     #region Rockets
-    //public bool rocketsOn;
-    //public float e_Rockets_Passive;
-    //public float e_Rockets_Active;
-    //public float e_RocketCooldownRate;
+    public bool rocketsOn;
+    public float e_Rockets_Passive;
+    public float e_Rockets_Active;
+    public float e_RocketCooldownRate;
     public float t_RocketCooldown;
     public float d_RocketDamage;
     public float d_ExplosionBallDamage;
@@ -73,21 +73,21 @@ public class Model_Game : MonoBehaviour {
     //public bool pilotOn;
     public float flySpeed;
     public float boostDist;
-    //public float e_Pilot_Passive;
-    //public float e_Flying;
-    //public float e_Flying_UpgradeDiscount;
-    //public float e_Pilot_Boost;
-    //public float e_FlyingCooldownRate;
-    //public float e_BoostCooldownRate;
+    public float e_Pilot_Passive;
+    public float e_Flying;
+    public float e_Flying_UpgradeDiscount;
+    public float e_Pilot_Boost;
+    public float e_FlyingCooldownRate;
+    public float e_BoostCooldownRate;
     public float t_BoostCooldown;
     #endregion
     [Header("Sword")]
     #region Sword
     //public bool swordOn;
     public float someRepairFloat;
-    //public float e_LanceEnergyRate_Passive;
-    //public float e_LanceEnergyRate_Active;
-    //public float e_LanceEnergyRate_Active_UpgradeDiscount;
+    public float e_LanceEnergyRate_Passive;
+    public float e_LanceEnergyRate_Active;
+    public float e_LanceEnergyRate_Active_UpgradeDiscount;
     public float d_LanceDamage;
     public float d_LanceRange_Base;
     public float d_LanceRange_Upgrade;

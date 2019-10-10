@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using InControl;
 
-public class Controller_Input : MonoBehaviour {
+public class Controller_Input : SCG_Controller {
 
     public PlayerMode mode;
     public Model_Input inputModel;
@@ -11,13 +11,21 @@ public class Controller_Input : MonoBehaviour {
     private InputDevice device0;
     private InputDevice device1;
 
+    private void Awake()
+    {
+        inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
+    }
+
     void Start()
     {
         mode = PlayerMode.None;
         InputManager.OnDeviceDetached += OnDeviceDetached;
+
+        priority = 0;
+        Schedule(this);
     }
 
-	void Update () {
+	public override void ScheduledUpdate () {
 
         ManageDevices();
 
@@ -68,7 +76,10 @@ public class Controller_Input : MonoBehaviour {
         inputModel.L_Y = inputDevice.LeftStickY;
 
         inputModel.L_Mag = Mathf.Sqrt((inputModel.L_X * inputModel.L_X) + (inputModel.L_Y * inputModel.L_Y)) * 90;
-        inputModel.L_Brg = (Mathf.Atan2(inputModel.L_Y, inputModel.L_X) * Mathf.Rad2Deg + 630) % 360;
+        if (inputModel.L_Mag == 0)
+            inputModel.L_Brg = 0;
+        else
+            inputModel.L_Brg = (Mathf.Atan2(inputModel.L_Y, inputModel.L_X) * Mathf.Rad2Deg + 630) % 360;
 
         inputModel.L_Action_OnDown = inputDevice.LeftTrigger.WasPressed;
         inputModel.L_Action_Down = inputDevice.LeftTrigger.IsPressed;
@@ -80,7 +91,10 @@ public class Controller_Input : MonoBehaviour {
         inputModel.R_Y = inputDevice.RightStickY;
 
         inputModel.R_Mag = Mathf.Sqrt((inputModel.R_X * inputModel.R_X) + (inputModel.R_Y * inputModel.R_Y)) * 90;
-        inputModel.R_Brg = (Mathf.Atan2(inputModel.R_Y, inputModel.R_X) * Mathf.Rad2Deg + 630) % 360;
+        if (inputModel.R_Mag == 0)
+            inputModel.R_Brg = 0;
+        else
+            inputModel.R_Brg = (Mathf.Atan2(inputModel.R_Y, inputModel.R_X) * Mathf.Rad2Deg + 630) % 360;
 
         inputModel.R_Action_OnDown = inputDevice.RightTrigger.WasPressed;
         inputModel.R_Action_Down = inputDevice.RightTrigger.IsPressed;
@@ -95,7 +109,10 @@ public class Controller_Input : MonoBehaviour {
         inputModel.L_Y = device0.LeftStickY;
 
         inputModel.L_Mag = Mathf.Sqrt((inputModel.L_X * inputModel.L_X) + (inputModel.L_Y * inputModel.L_Y)) * 90;
-        inputModel.L_Brg = (Mathf.Atan2(inputModel.L_Y, inputModel.L_X) * Mathf.Rad2Deg + 630) % 360;
+        if (inputModel.L_Mag == 0)
+            inputModel.L_Brg = 0;
+        else
+            inputModel.L_Brg = (Mathf.Atan2(inputModel.L_Y, inputModel.L_X) * Mathf.Rad2Deg + 630) % 360;
 
         inputModel.L_Action_OnDown = (device0.LeftTrigger.WasPressed || device0.RightTrigger.WasPressed || device0.Action1.WasPressed);
         inputModel.L_Action_Down = (device0.LeftTrigger.IsPressed || device0.RightTrigger.IsPressed || device0.Action1.IsPressed);
@@ -108,7 +125,10 @@ public class Controller_Input : MonoBehaviour {
         inputModel.R_Y = device1.LeftStickY;
 
         inputModel.R_Mag = Mathf.Sqrt((inputModel.R_X * inputModel.R_X) + (inputModel.R_Y * inputModel.R_Y)) * 90;
-        inputModel.R_Brg = (Mathf.Atan2(inputModel.R_Y, inputModel.R_X) * Mathf.Rad2Deg + 630) % 360;
+        if (inputModel.R_Mag == 0)
+            inputModel.R_Brg = 0;
+        else;
+            inputModel.R_Brg = (Mathf.Atan2(inputModel.R_Y, inputModel.R_X) * Mathf.Rad2Deg + 630) % 360;
 
         inputModel.R_Action_OnDown = (device1.LeftTrigger.WasPressed || device1.RightTrigger.WasPressed || device1.Action1.WasPressed);
         inputModel.R_Action_Down = (device1.LeftTrigger.IsPressed || device1.RightTrigger.IsPressed || device1.Action1.IsPressed);

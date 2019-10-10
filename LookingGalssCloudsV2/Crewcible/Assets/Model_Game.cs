@@ -2,95 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Model_Game : MonoBehaviour {
+public class Model_Game : SCG_Model {
 
     [Header("Global")]
     #region Global
     public float worldSpeed_fwd;
     #endregion
-    [Header("Ship")]
+    [Header("Ship SFX")]
     #region Ship
-    public AudioClip shipExplodeSound;
-    public AudioClip respawnSound;
-    public AudioClip pilotBoost;
-    public AudioClip pilotThruster;
+    public AudioClip sfx_ShipExplode;
+    public AudioClip sfx_Respawn;
+    public AudioClip sfx_Thrusters_Jets;
+    public AudioClip sfx_Thrusters_Dash;
+    public AudioClip sfx_Shield_Block;
+    public AudioClip sfx_Shield_Activate;
+    public AudioClip sfx_Gun_Shot;
     #endregion
     [Header("Shield")]
     #region Shield
     //public bool shieldOn;
-    public Color insideColor_Base;
-    public Color outsideColor_Base;
-    public float hitHDRIntensity_Base;
-    public float hitHDRIntensity_Boost;
-    public float cutoff_Base;
-    public float cutoff_Base_Upgrade;
-    public float cutoff_Boost;
-    public float cutoff_Boost_Upgrade;
-    //public float cutoff_Current;
+    public Color c_Shield_Inside;
+    public Color c_Shield_Outside;
+    public float f_Shield_HDRIntensity_Base;
+    public float f_Shield_HDRIntensity_Boost;
+    public float f_Shield_Cutoff_Min;
+    public float f_Shield_Cutoff_Max;
     public Vector4 shieldForwardDirection;
-    public float contractAndDialationRate;
-    public float contractAndDialationRate_Upgrade;
-    public float colorCoolDownLerpFraction;
-    //public float e_Shield_Passive;
-    //public float e_Shield_Active;
-    //public float e_BlockedShotEnergyHit_Base;
-    //public float e_BlockedShotEnergyHit_Boost;
-    public AudioClip blockedShot_Base;
-    public AudioClip blockedShot_Boost;
+    public float s_Shield_Grow;
+    public float s_Shield_Contract;
+    public float s_Shield_HitFlashNormalize;
     #endregion
     [Header("Gun")]
     #region Gun
-    //public bool gunOn;
-    public float t_SpinUpTime;
-    public float t_SpinUpTime_Upgrade;
-    public float t_TimeBetweenShots;
-    public float t_TimeBetweenShots_Upgrade;
-    public AudioClip gunShot;
-    //public float e_Gun_Passive;
-    //public float e_Gun_Active;
-    //public float e_Gun_CooldownRate;
-    public float d_GunDamage_Base;
-    public float d_GunDamage_Upgrade;
-    public float s_GunMoveFiring;
-    public float s_GunMovePassive;
+    public float t_Guns_SpinUpTime;
+    public float t_Guns_TimeBetweenShots;
+    public float d_Guns_Damage;
+    public float s_Guns_TurnSpeed_Activated;
+    public float s_Guns_TurnSpeed_Inactivated;
     #endregion
     [Header("Rockets")]
     #region Rockets
-    //public bool rocketsOn;
-    //public float e_Rockets_Passive;
-    //public float e_Rockets_Active;
-    //public float e_RocketCooldownRate;
-    public float t_RocketCooldown;
-    public float d_RocketDamage;
-    public float d_ExplosionBallDamage;
-    public float d_ExplosionBallSize_Base;
-    public float d_ExplosionBallSize_Upgrade;
-    public int rocketCountMax;
-    public float t_RocketTurnTimeNormalized;
+    public float t_Rockets_Reload;
+    public float d_Rockets_Damage;
+    public float d_Rockets_ExplosionBallDamage;
+    public float f_Rockets_ExplosionBallSize;
+    public int i_Rockets_RocketCountMax;
+    public float s_Rockets_TurnsSPeed;
     #endregion
-    [Header("Pilot")]
+    [Header("Thrusters")]
     #region Pilot
-    //public bool pilotOn;
-    public float flySpeed;
-    public float boostDist;
-    //public float e_Pilot_Passive;
-    //public float e_Flying;
-    //public float e_Flying_UpgradeDiscount;
-    //public float e_Pilot_Boost;
-    //public float e_FlyingCooldownRate;
-    //public float e_BoostCooldownRate;
-    public float t_BoostCooldown;
+    public float s_Thrusters_Speed;
+    public float f_Thrusters_DashDistance;
+    public float t_Thrusters_DashCooldown;
     #endregion
-    [Header("Sword")]
+    [Header("Lance")]
     #region Sword
-    //public bool swordOn;
-    public float someRepairFloat;
-    //public float e_LanceEnergyRate_Passive;
-    //public float e_LanceEnergyRate_Active;
-    //public float e_LanceEnergyRate_Active_UpgradeDiscount;
-    public float d_LanceDamage;
-    public float d_LanceRange_Base;
-    public float d_LanceRange_Upgrade;
+    public float d_Lance_Damage;
+    public float f_Lance_Range;
+    public float s_Lance_Speed;
     #endregion
     [Header("Reactor")]
     #region Reactor
@@ -104,11 +73,6 @@ public class Model_Game : MonoBehaviour {
     [Header("JumpDrive")]
     #region JumpDrive
     public float e_JumpActivateThreshold;
-    #endregion
-    [Header("Stations")]
-    #region Stations
-    public Stations leftStation;
-    public Stations rightStation;
     #endregion
     [Header("Enemy Stats")]
     #region Enemy Stats
@@ -138,5 +102,5 @@ public class Model_Game : MonoBehaviour {
     #endregion
 }
 
-public enum Stations { Pilot, Guns, Rockets, Shield, Sword }
+public enum Stations { Thrusters, Guns, Rockets, Shield, Lance }
 
