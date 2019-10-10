@@ -86,6 +86,8 @@ public class Controller_Input : SCG_Controller {
         inputModel.L_Action_OnUp = inputDevice.LeftTrigger.WasReleased;
 
         inputModel.L_SwapUp_OnDown = inputDevice.LeftBumper.WasPressed;
+        if (inputDevice.LeftBumper.WasPressed)
+            Debug.Log("LB was pressed");
 
         inputModel.R_X = inputDevice.RightStickX;
         inputModel.R_Y = inputDevice.RightStickY;

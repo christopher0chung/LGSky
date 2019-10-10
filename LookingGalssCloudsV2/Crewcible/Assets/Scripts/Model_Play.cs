@@ -10,6 +10,10 @@ public class Model_Play : SCG_Model
     #region Stations
     public Stations leftStation;
     public Stations rightStation;
+    public List<Stations> unaccessedStations;
+
+    public bool leftStationLocked;
+    public bool rightStationLocked;
     #endregion
 }
 public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory }

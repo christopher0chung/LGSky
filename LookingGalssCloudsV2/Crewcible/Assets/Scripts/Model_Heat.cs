@@ -26,11 +26,11 @@ public class Model_Heat : SCG_Model
     public bool active_Thrusters;
     public bool active_Rockets;
 
-    public bool lockedDown_Guns;
-    public bool lockedDown_Lance;
-    public bool lockedDown_Shield;
-    public bool lockedDown_Thrusters;
-    public bool lockedDown_Rockets;
+    public bool overheated_Guns;
+    public bool overheated_Lance;
+    public bool overheated_Shield;
+    public bool overheated_Thrusters;
+    public bool overheated_Rockets;
 
     [Header("Tuning")]
     public float activationHeat_Guns;

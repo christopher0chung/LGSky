@@ -5,7 +5,6 @@ using UnityEngine;
 public class Controller_Gun : SCG_Controller {
 
     private Model_Game gameModel;
-    //private Model_Energy energyModel;
     private Model_Input inputModel;
     private Model_Play playModel;
     private Model_Heat heatModel;
@@ -29,7 +28,6 @@ public class Controller_Gun : SCG_Controller {
     void Awake()
     {
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
-        //energyModel = ServiceLocator.instance.Model.GetComponent<Model_Energy>();
         heatModel = ServiceLocator.instance.Model.GetComponent<Model_Heat>();
         inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
