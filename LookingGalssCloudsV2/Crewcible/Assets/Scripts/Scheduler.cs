@@ -19,14 +19,20 @@ public class Scheduler : MonoBehaviour
             scheduledControllers.Add(controller);
         else if (scheduledControllers.Count >= 1)
         {
+            Debug.Log("attempting to schedule priority " + controller.priority + " controller");
             for (int i = 0; i < scheduledControllers.Count; i++)
             {
                 if (controller.priority <= scheduledControllers[i].priority)
                 {
                     scheduledControllers.Insert(i, controller);
+                    Debug.Log(controller.priority + " is inserted at " + i);
                     return;
                 }
+
             }
+            // Fall back
+            // If there isn't a higher priority item already present, add it to the end.
+            scheduledControllers.Add(controller);
         }
     }
 
