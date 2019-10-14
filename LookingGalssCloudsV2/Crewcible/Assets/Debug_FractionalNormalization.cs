@@ -33,6 +33,8 @@ public class Debug_FractionalNormalization : MonoBehaviour
             float ratio = tempB / tempA;
 
             scratch = Mathf.Lerp(scratch, 0, .03f / ratio);
+            //ratio is fraction of time -> divide by time
+            //same as mult by deltaTime
             b.Add(scratch);
         }
     }
