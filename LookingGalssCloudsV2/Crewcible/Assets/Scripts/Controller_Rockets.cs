@@ -36,10 +36,13 @@ public class Controller_Rockets : SCG_Controller {
         rocketPitch = rocketAim.Find("RocketReticle_Pitcher");
         //pointerReticle = rocketPitch.GetChild(0).GetComponent<MeshRenderer>();
         reticleRenderers = new List<MeshRenderer>(rocketPitch.GetComponentsInChildren<MeshRenderer>());
+
+        priority = 3;
+        Schedule(this);
     }
 	
 	// Update is called once per frame
-	void Update ()
+	public override void ScheduledUpdate ()
     {
         playModel.rocketReloadProgress -= Time.deltaTime / gameModel.t_Rockets_Reload;
         playModel.rocketReloadProgress = Mathf.Clamp01(playModel.rocketReloadProgress);

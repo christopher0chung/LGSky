@@ -19,7 +19,13 @@ public class Controller_Shield : SCG_Controller {
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
     }
 
-	void Update () {
+    private void Start()
+    {
+        priority = 2;
+        Schedule(this);
+    }
+
+    public override void ScheduledUpdate () {
         if (playModel.currentPlayerState == PlayerState.Alive ||
             playModel.currentPlayerState == PlayerState.Respawning)
         {
