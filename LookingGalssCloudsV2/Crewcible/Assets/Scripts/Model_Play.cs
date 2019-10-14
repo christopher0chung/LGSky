@@ -15,5 +15,11 @@ public class Model_Play : SCG_Model
     public bool leftStationLocked;
     public bool rightStationLocked;
     #endregion
+
+    [Header("Temp")]
+    #region Temp Values
+    public Vector4 shieldDirection;
+    public float shieldSize;
+    #region
 }
 public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory }

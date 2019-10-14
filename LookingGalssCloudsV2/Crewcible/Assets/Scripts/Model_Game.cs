@@ -27,7 +27,7 @@ public class Model_Game : SCG_Model {
     public float f_Shield_HDRIntensity_Boost;
     public float f_Shield_Cutoff_Min;
     public float f_Shield_Cutoff_Max;
-    public Vector4 shieldForwardDirection;
+    //public Vector4 shieldForwardDirection;
     public float s_Shield_Grow;
     public float s_Shield_Contract;
     public float s_Shield_HitFlashNormalize;
