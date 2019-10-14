@@ -47,7 +47,6 @@ public class Controller_Shield : SCG_Controller {
     }
 
     #region Shield
-
     private void _ShieldCalculateAndMove(float inputX, float inputY)
     {
         playModel.shieldDirection.x = inputX;
