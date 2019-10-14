@@ -20,6 +20,8 @@ public class Model_Play : SCG_Model
     #region Temp Values
     public Vector4 shieldDirection;
     public float shieldSize;
+
+    public float rocketReloadProgress;
     #endregion
 }
 public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory }

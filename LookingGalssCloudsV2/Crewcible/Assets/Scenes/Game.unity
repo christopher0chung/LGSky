@@ -181,7 +181,7 @@ PrefabInstance:
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
       propertyPath: preview2D
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
@@ -251,7 +251,7 @@ PrefabInstance:
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
@@ -345,6 +345,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 696756876}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &174868666 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+    type: 3}
+  m_PrefabInstance: {fileID: 706254396}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &242427032
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +397,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &248265147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 248265148}
+  m_Layer: 0
+  m_Name: RocketReticle_Swivel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &248265148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248265147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 174868666}
+  m_Father: {fileID: 1998150511}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &249627565
 GameObject:
@@ -574,6 +611,8 @@ GameObject:
   - component: {fileID: 513998423}
   - component: {fileID: 513998425}
   - component: {fileID: 513998426}
+  - component: {fileID: 513998428}
+  - component: {fileID: 513998427}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -670,6 +709,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 1000
+--- !u!114 &513998427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513998420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61160958cb121ea408ed025acdf9f68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 1000
+  reticleRenderers: []
+  rocket: {fileID: 0}
+--- !u!114 &513998428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513998420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8242ecd59d742dd4dbca5263839874b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 1000
+  shieldMat: {fileID: 2100000, guid: 6d2bda46a4ef8684983316b4ffda8d3c, type: 2}
 --- !u!1 &538823852
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,6 +946,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerShip
       objectReference: {fileID: 0}
+    - target: {fileID: 2013744490878062015, guid: 2af6c75028dedf042b85b18ddc3efda2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2af6c75028dedf042b85b18ddc3efda2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -992,12 +1065,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 95b7024dc8a75f54c867e3dd2a4df3ca, type: 2}
-    - target: {fileID: 2013744490878062015, guid: 2af6c75028dedf042b85b18ddc3efda2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 6d2bda46a4ef8684983316b4ffda8d3c, type: 2}
     - target: {fileID: 8812070424443134670, guid: 2af6c75028dedf042b85b18ddc3efda2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1011,6 +1079,105 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 696756876}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &706254396
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 248265148}
+    m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_Name
+      value: RocketReticle_Pitcher
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6054058774237248251, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 000a2af7f97850947889477888fb1f10, type: 2}
+    - target: {fileID: -6054058774237248251, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1256f6e0adb07be45ac91781f0b113e8, type: 2}
+    - target: {fileID: 4063835366044962077, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 000a2af7f97850947889477888fb1f10, type: 2}
+    - target: {fileID: 4063835366044962077, guid: 4aee9d1e727980e4dbce9702e31abf89,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1256f6e0adb07be45ac91781f0b113e8, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4aee9d1e727980e4dbce9702e31abf89, type: 3}
 --- !u!1 &744602102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,9 +1573,8 @@ MonoBehaviour:
   c_Shield_Outside: {r: 0, g: 0, b: 0, a: 0}
   f_Shield_HDRIntensity_Base: 0
   f_Shield_HDRIntensity_Boost: 0
-  f_Shield_Cutoff_Min: 0
-  f_Shield_Cutoff_Max: 0
-  shieldForwardDirection: {x: 0, y: 0, z: 0, w: 0}
+  f_Shield_Cutoff_Min: 0.85
+  f_Shield_Cutoff_Max: 0.6
   s_Shield_Grow: 0
   s_Shield_Contract: 0
   s_Shield_HitFlashNormalize: 0
@@ -1525,6 +1691,9 @@ MonoBehaviour:
   unaccessedStations: 
   leftStationLocked: 0
   rightStationLocked: 0
+  shieldDirection: {x: 0, y: 0, z: 0, w: 0}
+  shieldSize: 0
+  rocketReloadProgress: 0
 --- !u!1 &1337798016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,6 +1930,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1237504831}
+  - {fileID: 248265148}
   m_Father: {fileID: 574251083}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
