@@ -11,12 +11,16 @@ public class Controller_Shield : SCG_Controller {
 
     public Material shieldMat;
 
+    private MeshRenderer shieldLinesRenderer;
+
     void Awake()
     {
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
         heatModel = ServiceLocator.instance.Model.GetComponent<Model_Heat>();
         inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+
+        shieldLinesRenderer = ServiceLocator.instance.Player.Find("ShipParent").Find("PlayerShip").Find("ShieldEdges").GetComponent<MeshRenderer>();
     }
 
     private void Start()
@@ -33,22 +37,30 @@ public class Controller_Shield : SCG_Controller {
             {
                 _ShieldCalculateAndMove(inputModel.L_X, inputModel.L_Y);
                 _ShieldSize(inputModel.L_Action_Down);
+
+                shieldLinesRenderer.enabled = true;
             }
             else if (playModel.rightStation == Stations.Shield)
             {
                 _ShieldCalculateAndMove(inputModel.R_X, inputModel.R_Y);
                 _ShieldSize(inputModel.R_Action_Down);
+
+                shieldLinesRenderer.enabled = true;
             }
             else
             {
                 playModel.shieldSize = 1.1f;
                 shieldMat.SetFloat("_Cutoff", 1.1f);
+
+                shieldLinesRenderer.enabled = false;
             }
         }
         else
         {
             playModel.shieldSize = 1.1f;
             shieldMat.SetFloat("_Cutoff", 1.1f);
+
+            shieldLinesRenderer.enabled = false;
         }
     }
 
