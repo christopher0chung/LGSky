@@ -71,7 +71,7 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Guns))
-                heatModel.heat_Guns -= heatModel.cooldownRate_Guns;
+                heatModel.heat_Guns -= heatModel.cooldownRate_Guns * Time.deltaTime;
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -85,7 +85,7 @@ public class Controller_Heat : SCG_Controller
                         heatModel.heat_Guns += heatModel.activationHeat_Guns;
                 }
                 else
-                    heatModel.heat_Guns -= heatModel.cooldownRate_Guns;
+                    heatModel.heat_Guns -= heatModel.cooldownRate_Guns * Time.deltaTime;
 
                 //Clamping
                 if (heatModel.heat_Guns >= 100)
@@ -102,7 +102,7 @@ public class Controller_Heat : SCG_Controller
         // if locked down, charge 100 until less than reboot threshold
         else
         {
-            heatModel.heat_Guns -= heatModel.cooldownRate_Guns;
+            heatModel.heat_Guns -= heatModel.cooldownRate_Guns * Time.deltaTime;
             if (heatModel.heat_Guns <= heatModel.rebootThreshold_Guns)
             {
                 heatModel.overheated_Guns = false;
@@ -122,7 +122,7 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Shield))
-                heatModel.heat_Shield -= heatModel.cooldownRate_Shield;
+                heatModel.heat_Shield -= heatModel.cooldownRate_Shield * Time.deltaTime;
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -136,7 +136,7 @@ public class Controller_Heat : SCG_Controller
                         heatModel.heat_Shield += heatModel.activationHeat_Shield;
                 }
                 else
-                    heatModel.heat_Shield -= heatModel.cooldownRate_Shield;
+                    heatModel.heat_Shield -= heatModel.cooldownRate_Shield * Time.deltaTime;
 
                 //Clamping
                 if (heatModel.heat_Shield >= 100)
@@ -153,7 +153,7 @@ public class Controller_Heat : SCG_Controller
         // if locked down, charge 100 until less than reboot threshold
         else
         {
-            heatModel.heat_Shield -= heatModel.cooldownRate_Shield;
+            heatModel.heat_Shield -= heatModel.cooldownRate_Shield * Time.deltaTime;
             if (heatModel.heat_Shield <= heatModel.rebootThreshold_Shield)
             {
                 heatModel.overheated_Shield = false;
@@ -173,7 +173,7 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Lance))
-                heatModel.heat_Lance -= heatModel.cooldownRate_Lance;
+                heatModel.heat_Lance -= heatModel.cooldownRate_Lance * Time.deltaTime;
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -187,7 +187,7 @@ public class Controller_Heat : SCG_Controller
                         heatModel.heat_Lance += heatModel.activationHeat_Lance;
                 }
                 else
-                    heatModel.heat_Lance -= heatModel.cooldownRate_Lance;
+                    heatModel.heat_Lance -= heatModel.cooldownRate_Lance * Time.deltaTime;
 
                 //Clamping
                 if (heatModel.heat_Lance >= 100)
@@ -204,7 +204,7 @@ public class Controller_Heat : SCG_Controller
         // if locked down, charge 100 until less than reboot threshold
         else
         {
-            heatModel.heat_Lance -= heatModel.cooldownRate_Lance;
+            heatModel.heat_Lance -= heatModel.cooldownRate_Lance * Time.deltaTime;
             if (heatModel.heat_Lance <= heatModel.rebootThreshold_Lance)
             {
                 heatModel.overheated_Lance = false;
@@ -224,7 +224,7 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Rockets))
-                heatModel.heat_Rockets -= heatModel.cooldownRate_Rockets;
+                heatModel.heat_Rockets -= heatModel.cooldownRate_Rockets * Time.deltaTime;
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -238,7 +238,7 @@ public class Controller_Heat : SCG_Controller
                         heatModel.heat_Rockets += heatModel.activationHeat_Rockets;
                 }
                 else
-                    heatModel.heat_Rockets -= heatModel.cooldownRate_Rockets;
+                    heatModel.heat_Rockets -= heatModel.cooldownRate_Rockets * Time.deltaTime;
 
                 //Clamping
                 if (heatModel.heat_Rockets >= 100)
@@ -255,7 +255,7 @@ public class Controller_Heat : SCG_Controller
         // if locked down, charge 100 until less than reboot threshold
         else
         {
-            heatModel.heat_Rockets -= heatModel.cooldownRate_Rockets;
+            heatModel.heat_Rockets -= heatModel.cooldownRate_Rockets * Time.deltaTime;
             if (heatModel.heat_Rockets <= heatModel.rebootThreshold_Rockets)
             {
                 heatModel.overheated_Rockets = false;
@@ -275,7 +275,7 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Thrusters))
-                heatModel.heat_Thrusters -= heatModel.cooldownRate_Thrusters;
+                heatModel.heat_Thrusters -= heatModel.cooldownRate_Thrusters * Time.deltaTime;
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -285,11 +285,11 @@ public class Controller_Heat : SCG_Controller
                 {
                     heatModel.heat_Thrusters += heatModel.sustainedHeatRate_Thrusters * Time.deltaTime;
 
-                    if (heatModel.active_Thrusters && !_last_Thrusters)
-                        heatModel.heat_Thrusters += heatModel.activationHeat_Thrusters;
+                    //if (heatModel.active_Thrusters && !_last_Thrusters)
+                    //    heatModel.heat_Thrusters += heatModel.activationHeat_Thrusters;
                 }
                 else
-                    heatModel.heat_Thrusters -= heatModel.cooldownRate_Thrusters;
+                    heatModel.heat_Thrusters -= heatModel.cooldownRate_Thrusters * Time.deltaTime;
 
                 //Clamping
                 if (heatModel.heat_Thrusters >= 100)
@@ -306,7 +306,7 @@ public class Controller_Heat : SCG_Controller
         // if locked down, charge 100 until less than reboot threshold
         else
         {
-            heatModel.heat_Thrusters -= heatModel.cooldownRate_Thrusters;
+            heatModel.heat_Thrusters -= heatModel.cooldownRate_Thrusters * Time.deltaTime;
             if (heatModel.heat_Thrusters <= heatModel.rebootThreshold_Thrusters)
             {
                 heatModel.overheated_Thrusters = false;

@@ -22,6 +22,7 @@ public class Model_Play : SCG_Model
     public float shieldSize;
 
     public float rocketReloadProgress;
+    public float dashReloadProgress;
     #endregion
 }
 public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory }
