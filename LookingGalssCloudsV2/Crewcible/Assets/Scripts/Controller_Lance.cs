@@ -33,7 +33,7 @@ public class Controller_Lance : SCG_Controller
         lanceBloom = lance.GetChild(2).GetComponent<ParticleSystem>();
         lanceCollider = lance.GetComponent<Collider>();
 
-        priority = 4;
+        priority = 2;
         Schedule(this);
     }
 

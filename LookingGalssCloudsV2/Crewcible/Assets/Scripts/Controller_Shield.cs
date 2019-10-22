@@ -25,7 +25,7 @@ public class Controller_Shield : SCG_Controller {
 
     private void Start()
     {
-        priority = 2;
+        priority = 4;
         Schedule(this);
     }
 

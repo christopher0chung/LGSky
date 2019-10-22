@@ -52,3 +52,14 @@ public class Scheduler : MonoBehaviour
         }
     }
 }
+
+//Controller priority map
+//0 - Input                 Reads inputs which is the basis of all actions
+//1 - Guns                  Respond to inputs in alphabetical order
+//2 - Lance
+//3 - Rockets
+//4 - Shield
+//5 - Thrusters
+//6 - Heat                  Accounting based on input based actions
+//7 - Stations              Requires heat based lockout to prevent swaps
+//8 - Asset Manager         Cleans up at the end
