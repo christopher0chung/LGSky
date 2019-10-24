@@ -9,7 +9,7 @@ public class Controller_Gun : SCG_Controller {
     private Model_Play playModel;
     private Model_Heat heatModel;
     private Transform player;
-    //private Manager_GameAssets assetManager;
+    private Manager_GameAssets assetManager;
 
     public Transform swivel;
     public Transform pitcher;
@@ -33,7 +33,7 @@ public class Controller_Gun : SCG_Controller {
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
         player = ServiceLocator.instance.Player;
 
-        //assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+        assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
     }
 
     void Start () {
@@ -124,14 +124,17 @@ public class Controller_Gun : SCG_Controller {
                 shootTimer -= gameModel.t_Guns_TimeBetweenShots;
                 GameObject bullet;
 
-                Vector3 rando = Random.insideUnitCircle;
+                Vector3 rando = Random.insideUnitCircle * gameModel.f_Guns_BulletDispersion;
+
+
                 if (leftRightBarrel)
-                //    bullet = assetManager.Make(MyGameAsset.Bullet, player.position + Vector3.left * .1f);
-                //else
-                //    bullet = assetManager.Make(MyGameAsset.Bullet, player.position + Vector3.right * .1f);
-                //bullet.GetComponent<Rigidbody>().AddForce(turret.forward * 30 + rando * 4, ForceMode.Impulse);
+                    bullet = assetManager.Make(MyGameAsset.Bullet, guns.position - guns.right * .1f + guns.up * .7f);
+                else
+                    bullet = assetManager.Make(MyGameAsset.Bullet, guns.position + guns.right * .1f + guns.up * .7f);
+
+                bullet.GetComponent<Rigidbody>().AddForce(guns.up * 30 + rando * 4, ForceMode.Impulse);
                 leftRightBarrel = !leftRightBarrel;
-                myAS.PlayOneShot(gameModel.sfx_Gun_Shot);
+                //myAS.PlayOneShot(gameModel.sfx_Gun_Shot);
             }
         }
         if (release)

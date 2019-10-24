@@ -39,6 +39,7 @@ public class Model_Game : SCG_Model {
     public float d_Guns_Damage;
     public float s_Guns_TurnSpeed_Activated;
     public float s_Guns_TurnSpeed_Inactivated;
+    public float f_Guns_BulletDispersion;
     #endregion
     [Header("Rockets")]
     #region Rockets

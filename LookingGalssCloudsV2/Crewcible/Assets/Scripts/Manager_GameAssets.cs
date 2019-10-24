@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manager_GameAssets : MonoBehaviour {
+public class Manager_GameAssets : SCG_Controller {
 
     private Model_Game gameModel;
 
@@ -82,9 +82,12 @@ public class Manager_GameAssets : MonoBehaviour {
         mslExplosion_Inactive = new List<GameObject>();
         mslExplosion_Times = new List<float>();
         _PrepInactive(gameModel.missileExplosionPrefab, mslExplosion_Inactive, 15);
+
+        priority = 8;
+        Schedule(this);
     }
 
-	void Update () {
+	public override void ScheduledUpdate () {
 		if (bullets_Times.Count > 0)
         {
             int numOverLimit = _UpdateAndCheckForOverTime(bullets_Times, 2);
@@ -241,6 +244,7 @@ public class Manager_GameAssets : MonoBehaviour {
             {
                 _bullet = _Make_GenericNewObj(gameModel.bulletPrefab, bullets_Active, bullets_Times, where);
             }
+            Debug.Log(_bullet.name);
             return _bullet;
         }
         else if (type == MyGameAsset.BulletExplosion)
