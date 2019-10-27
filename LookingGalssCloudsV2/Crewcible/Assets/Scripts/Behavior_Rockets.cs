@@ -9,6 +9,7 @@ public class Behavior_Rockets : MonoBehaviour
     private Model_Play playModel;
     private Model_Input inputModel;
     private Transform rocketChild;
+    private TrailRenderer trail;
 
     public float xAngTgt;
     public float yAngTgt;
@@ -40,6 +41,10 @@ public class Behavior_Rockets : MonoBehaviour
             inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
         if (rocketChild == null)
             rocketChild = transform.GetChild(0);
+        if (trail == null)
+            trail = transform.GetChild(1).GetComponent<TrailRenderer>();
+
+        trail.Clear();
 
         transform.position = ServiceLocator.instance.Player.position + Vector3.forward;
         transform.rotation = Quaternion.identity;
@@ -49,7 +54,7 @@ public class Behavior_Rockets : MonoBehaviour
         nextRot = Quaternion.Euler(Random.Range(-gameModel.f_Rockets_Spread, gameModel.f_Rockets_Spread), Random.Range(-gameModel.f_Rockets_Spread, gameModel.f_Rockets_Spread), Random.Range(-gameModel.f_Rockets_Spread, gameModel.f_Rockets_Spread));
         rollover = Random.Range(.3f, .5f);
         timer = Random.Range(0, rollover);
-        inputError = Random.Range(.9f, 1.1f);
+        inputError = Random.Range(.8f, 1.2f);
 
         xAngTgt = 0;
         xAng = 0;
