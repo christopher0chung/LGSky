@@ -108,7 +108,7 @@ public class Controller_Gun : SCG_Controller {
 
     private void _ResetGunPos()
     {
-        Debug.Log("In here");
+        //Debug.Log("In here");
         turret.rotation = Quaternion.Slerp(turret.rotation, Quaternion.identity, .75f * Time.deltaTime);
         guns.localRotation = Quaternion.Slerp(guns.localRotation, Quaternion.Euler(90, 0, 0), .75f * Time.deltaTime);
     }

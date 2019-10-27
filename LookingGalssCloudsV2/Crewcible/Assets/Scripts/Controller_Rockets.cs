@@ -10,14 +10,11 @@ public class Controller_Rockets : SCG_Controller {
     private Model_Heat heatModel;
     private Model_Input inputModel;
     private Model_Play playModel;
-    //private Manager_GameAssets assetManager;
+    private Manager_GameAssets assetManager;
     private Transform player;
 
     private Transform rocketAim;
     private Transform rocketPitch;
-
-    public List<MeshRenderer> reticleRenderers;
-    //private MeshRenderer pointerReticle;
 
     void Awake()
     {
@@ -27,15 +24,13 @@ public class Controller_Rockets : SCG_Controller {
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
         player = ServiceLocator.instance.Player;
 
-        //assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+        assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
     }
 
     // Use this for initialization
     void Start () {
         rocketAim = player.Find("Reticles").Find("RocketReticle_Swivel");
         rocketPitch = rocketAim.Find("RocketReticle_Pitcher");
-        //pointerReticle = rocketPitch.GetChild(0).GetComponent<MeshRenderer>();
-        reticleRenderers = new List<MeshRenderer>(rocketPitch.GetComponentsInChildren<MeshRenderer>());
 
         priority = 3;
         Schedule(this);
@@ -52,38 +47,20 @@ public class Controller_Rockets : SCG_Controller {
         {
 	        if (playModel.leftStation == Stations.Rockets)
             {
-                //pointerReticle.enabled = true;
-                foreach (MeshRenderer m in reticleRenderers)
-                    m.enabled = true;
                 _RocketStationAim(inputModel.L_Brg, inputModel.L_Mag);
                 _Rockets(inputModel.L_Action_OnDown);
             }
             else if(playModel.rightStation == Stations.Rockets)
             {
-                //pointerReticle.enabled = true;
-                foreach (MeshRenderer m in reticleRenderers)
-                    m.enabled = true;
                 _RocketStationAim(inputModel.R_Brg, inputModel.R_Mag);
                 _Rockets(inputModel.R_Action_OnDown);
             }
-            else
-            {
-                //pointerReticle.enabled = false;
-                foreach (MeshRenderer m in reticleRenderers)
-                    m.enabled = false;
-            }
-        }
-        else
-        {
-            //pointerReticle.enabled = false;
-            foreach (MeshRenderer m in reticleRenderers)
-                m.enabled = false;
         }
     }
 
     #region Rockets
 
-    public GameObject rocket;
+    //public GameObject rocket;
 
     private int rocketIncrementor;
 
@@ -99,7 +76,7 @@ public class Controller_Rockets : SCG_Controller {
     private void _Rockets(bool shoot)
     {
         // From point of fire until reload complete, rockets will be charged the continuous heat penalty
-        if (playModel.rocketReloadProgress >= 0)
+        if (playModel.rocketReloadProgress >= 0.1f)
             heatModel.active_Rockets = true;
         else
             heatModel.active_Rockets = false;
@@ -118,8 +95,9 @@ public class Controller_Rockets : SCG_Controller {
         // Once rockets start to fire...
         if (rocketIncrementor > 0)
         {
-            //GameObject g = assetManager.Make(MyGameAsset.Rocket, player.position);
-            //g.GetComponent<Debug_RocketFlight>().ultimatePath = rocketPitch.up;
+            GameObject g = assetManager.Make(MyGameAsset.Rocket, player.position);
+            g.GetComponent<Behavior_Rockets>().Restart();
+            //g.GetComponent<Behavior_Rocket>().ultimatePath = rocketPitch.up;
             rocketIncrementor++;
             if (rocketIncrementor >= gameModel.i_Rockets_RocketCountMax)
                 rocketIncrementor = 0;

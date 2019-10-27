@@ -110,7 +110,7 @@ public class Manager_GameAssets : SCG_Controller {
 
         if (rockets_Times.Count > 0)
         {
-            int numOverLimit = _UpdateAndCheckForOverTime(rockets_Times, 3);
+            int numOverLimit = _UpdateAndCheckForOverTime(rockets_Times, gameModel.t_Rockets_Lifetime);
             for (int i = 0; i < numOverLimit; i++)
             {
                 Debug.Assert(rockets_Active.Count == rockets_Times.Count, "Active element and tracking mismatch: rockets");
