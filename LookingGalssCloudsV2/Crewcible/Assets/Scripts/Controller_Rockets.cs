@@ -13,9 +13,6 @@ public class Controller_Rockets : SCG_Controller {
     private Manager_GameAssets assetManager;
     private Transform player;
 
-    private Transform rocketAim;
-    private Transform rocketPitch;
-
     void Awake()
     {
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
@@ -29,9 +26,6 @@ public class Controller_Rockets : SCG_Controller {
 
     // Use this for initialization
     void Start () {
-        rocketAim = player.Find("Reticles").Find("RocketReticle_Swivel");
-        rocketPitch = rocketAim.Find("RocketReticle_Pitcher");
-
         priority = 3;
         Schedule(this);
     }
@@ -47,12 +41,10 @@ public class Controller_Rockets : SCG_Controller {
         {
 	        if (playModel.leftStation == Stations.Rockets)
             {
-                _RocketStationAim(inputModel.L_Brg, inputModel.L_Mag);
                 _Rockets(inputModel.L_Action_OnDown);
             }
             else if(playModel.rightStation == Stations.Rockets)
             {
-                _RocketStationAim(inputModel.R_Brg, inputModel.R_Mag);
                 _Rockets(inputModel.R_Action_OnDown);
             }
         }
@@ -63,15 +55,6 @@ public class Controller_Rockets : SCG_Controller {
     //public GameObject rocket;
 
     private int rocketIncrementor;
-
-    private void _RocketStationAim(float brg, float dec)
-    {
-        if (dec != 0)
-            rocketAim.eulerAngles = new Vector3(0, -brg, 0);
-        else
-            rocketAim.eulerAngles = Vector3.zero;
-        rocketPitch.localEulerAngles = new Vector3(dec, 0, 0);
-    }
 
     private void _Rockets(bool shoot)
     {

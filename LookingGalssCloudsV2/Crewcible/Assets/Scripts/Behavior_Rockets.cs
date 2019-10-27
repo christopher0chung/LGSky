@@ -8,7 +8,6 @@ public class Behavior_Rockets : MonoBehaviour
     public Model_Game gameModel;
     private Model_Play playModel;
     private Model_Input inputModel;
-    private Transform rocketReticle;
     private Transform rocketChild;
 
     public float xAngTgt;
@@ -37,8 +36,6 @@ public class Behavior_Rockets : MonoBehaviour
             gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
         if (playModel == null)
             playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
-        if (rocketReticle == null)
-            rocketReticle = ServiceLocator.instance.Player.Find("Reticles").Find("RocketReticle_Swivel").Find("RocketReticle_Pitcher");
         if (inputModel == null)
             inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
         if (rocketChild == null)
