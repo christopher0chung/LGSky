@@ -106,7 +106,7 @@ public class Behavior_Rockets : MonoBehaviour
         if (e != null)
         {
             Debug.Log("Rocket trigger entered");
-            //SCG_EventManager.instance.Fire(new Event_PlayerRocketHit(e, gameModel.d_Rockets_Damage, transform.position, this));
+            SCG_EventManager.instance.Fire(new Event_PlayerRocketHit(e, gameModel.d_Rockets_Damage, transform.position, this));
         }
     }
 }

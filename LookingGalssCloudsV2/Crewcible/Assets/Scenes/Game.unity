@@ -222,7 +222,7 @@ PrefabInstance:
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
       propertyPath: nearClipFactor
-      value: 1.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
@@ -287,7 +287,7 @@ PrefabInstance:
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
       propertyPath: near clip plane
-      value: 55.80127
+      value: 5.8012695
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
@@ -6779,7 +6779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4eba5aac497e447a2fb98dd0a0ba96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldSpeed_fwd: 0
+  worldSpeed_fwd: 30
   sfx_ShipExplode: {fileID: 8300000, guid: 8a7782ff107db3240a9ef411943a328c, type: 3}
   sfx_Respawn: {fileID: 8300000, guid: 8a7782ff107db3240a9ef411943a328c, type: 3}
   sfx_Thrusters_Jets: {fileID: 8300000, guid: 8a7782ff107db3240a9ef411943a328c, type: 3}
@@ -6802,10 +6802,12 @@ MonoBehaviour:
   s_Guns_TurnSpeed_Activated: 50
   s_Guns_TurnSpeed_Inactivated: 100
   f_Guns_BulletDispersion: 0.6
+  t_Rockets_FireRate: 0.1
   t_Rockets_Reload: 1
   d_Rockets_Damage: 1
   d_Rockets_ExplosionBallDamage: 1
-  f_Rockets_ExplosionBallSize: 1
+  f_Rockets_ExplosionBallSize: 10
+  t_Rockets_ExplosionBallLifetime: 1.8
   i_Rockets_RocketCountMax: 30
   s_Rockets_FlySpeed: 15
   s_Rockets_TurnRate: 180
@@ -6841,7 +6843,7 @@ MonoBehaviour:
     type: 3}
   rocketPrefab: {fileID: 6984282539661657522, guid: 1ee69adef42827040bc6c140e4a8cf43,
     type: 3}
-  rocketExplosionPrefab: {fileID: 5498060485610712103, guid: 9a97d66a3b41eaf4d97b0becadb5659e,
+  rocketExplosionPrefab: {fileID: 7412472563005531303, guid: bbde8abf049a8a84fa5f699e5f8e3836,
     type: 3}
   deathExplosionPrefab: {fileID: 5498060485610712103, guid: 9a97d66a3b41eaf4d97b0becadb5659e,
     type: 3}

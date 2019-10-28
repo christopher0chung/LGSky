@@ -43,18 +43,17 @@ public class Model_Game : SCG_Model {
     #endregion
     [Header("Rockets")]
     #region Rockets
+    public float t_Rockets_FireRate;
     public float t_Rockets_Reload;
     public float d_Rockets_Damage;
     public float d_Rockets_ExplosionBallDamage;
     public float f_Rockets_ExplosionBallSize;
+    public float t_Rockets_ExplosionBallLifetime;
     public int i_Rockets_RocketCountMax;
     public float s_Rockets_FlySpeed;
-    //public float s_Rockets_TurnSpeed;//
     public float s_Rockets_TurnRate;
     public float f_Rockets_Spread;
     public float t_Rockets_Lifetime;
-    //public float f_Rockets_WindingRate;
-    //public float f_Rockets_SpinRate;
     #endregion
     [Header("Thrusters")]
     #region Pilot

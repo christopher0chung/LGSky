@@ -56,6 +56,8 @@ public class Controller_Rockets : SCG_Controller {
 
     private int rocketIncrementor;
 
+    private float rocketTimer;
+
     private void _Rockets(bool shoot)
     {
         // From point of fire until reload complete, rockets will be charged the continuous heat penalty
@@ -73,15 +75,23 @@ public class Controller_Rockets : SCG_Controller {
             rocketIncrementor = 1;
             heatModel.heat_Rockets += heatModel.activationHeat_Rockets;
             playModel.rocketReloadProgress = 1;
+            rocketTimer = 0;
         }
 
         // Once rockets start to fire...
         if (rocketIncrementor > 0)
         {
-            GameObject g = assetManager.Make(MyGameAsset.Rocket, player.position);
-            g.GetComponent<Behavior_Rockets>().Restart();
-            //g.GetComponent<Behavior_Rocket>().ultimatePath = rocketPitch.up;
-            rocketIncrementor++;
+            rocketTimer += Time.deltaTime;
+            if (rocketTimer >= gameModel.t_Rockets_FireRate)
+            {
+                rocketTimer -= gameModel.t_Rockets_FireRate;
+
+                GameObject g = assetManager.Make(MyGameAsset.Rocket, player.position);
+                g.GetComponent<Behavior_Rockets>().Restart();
+                //g.GetComponent<Behavior_Rocket>().ultimatePath = rocketPitch.up;
+                rocketIncrementor++;
+            }
+
             if (rocketIncrementor >= gameModel.i_Rockets_RocketCountMax)
                 rocketIncrementor = 0;
         }

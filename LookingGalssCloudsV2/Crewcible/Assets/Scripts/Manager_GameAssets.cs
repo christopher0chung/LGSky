@@ -114,13 +114,14 @@ public class Manager_GameAssets : SCG_Controller {
             for (int i = 0; i < numOverLimit; i++)
             {
                 Debug.Assert(rockets_Active.Count == rockets_Times.Count, "Active element and tracking mismatch: rockets");
+                Make(MyGameAsset.RocketExplosion, rockets_Active[0].transform.position);
                 _StowActiveNonPhysicsManagedGO(rockets_Active, rockets_Times, rockets_Inactive, 0);
             }
         }
 
         if (rExplosion_Times.Count > 0)
         {
-            int numOverLimit = _UpdateAndCheckForOverTime(rExplosion_Times, 1);
+            int numOverLimit = _UpdateAndCheckForOverTime(rExplosion_Times, gameModel.t_Rockets_ExplosionBallLifetime);
             for (int i = 0; i < numOverLimit; i++)
             {
                 Debug.Assert(rExplosion_Active.Count == rExplosion_Times.Count, "Active element and tracking mismatch: rExplosion");
