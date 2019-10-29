@@ -9,7 +9,6 @@ public class Behavior_Rockets : MonoBehaviour
     private Model_Play playModel;
     private Model_Input inputModel;
     private Transform rocketChild;
-    private TrailRenderer trail;
 
     public float xAngTgt;
     public float yAngTgt;
@@ -23,6 +22,8 @@ public class Behavior_Rockets : MonoBehaviour
     float rollover;
 
     float inputError;
+
+    float inputDelayTimer;
 
     private void Awake()
     {
@@ -41,10 +42,6 @@ public class Behavior_Rockets : MonoBehaviour
             inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
         if (rocketChild == null)
             rocketChild = transform.GetChild(0);
-        if (trail == null)
-            trail = transform.GetChild(1).GetComponent<TrailRenderer>();
-
-        trail.Clear();
 
         transform.position = ServiceLocator.instance.Player.position + Vector3.forward;
         transform.rotation = Quaternion.identity;
@@ -54,28 +51,32 @@ public class Behavior_Rockets : MonoBehaviour
         nextRot = Quaternion.Euler(Random.Range(-gameModel.f_Rockets_Spread, gameModel.f_Rockets_Spread), Random.Range(-gameModel.f_Rockets_Spread, gameModel.f_Rockets_Spread), Random.Range(-gameModel.f_Rockets_Spread, gameModel.f_Rockets_Spread));
         rollover = Random.Range(.3f, .5f);
         timer = Random.Range(0, rollover);
-        inputError = Random.Range(.8f, 1.2f);
+        inputError = Random.Range(1 - gameModel.f_Rockets_InputError, 1 + gameModel.f_Rockets_InputError);
 
         xAngTgt = 0;
         xAng = 0;
         yAngTgt = 0;
         yAng = 0;
+        inputDelayTimer = 0;
     }
 
     void Update()
     {
-
-        if(playModel.leftStation == Stations.Rockets || playModel.rightStation == Stations.Rockets)
+        inputDelayTimer += Time.deltaTime;
+        if (inputDelayTimer >= gameModel.t_Rockets_InputDelayTime)
         {
-            if (playModel.leftStation == Stations.Rockets)
+            if(playModel.leftStation == Stations.Rockets || playModel.rightStation == Stations.Rockets)
             {
-                xAngTgt = 60 * inputModel.L_Y * inputError;
-                yAngTgt += gameModel.s_Rockets_TurnRate * inputModel.L_X * inputError * Time.deltaTime;
-            }
-            else
-            {
-                xAngTgt = 60 * inputModel.R_Y * inputError;
-                yAngTgt += gameModel.s_Rockets_TurnRate * inputModel.R_X * inputError * Time.deltaTime;
+                if (playModel.leftStation == Stations.Rockets)
+                {
+                    xAngTgt = 60 * inputModel.L_Y * inputError;
+                    yAngTgt += gameModel.s_Rockets_TurnRate * inputModel.L_X * inputError * Time.deltaTime;
+                }
+                else
+                {
+                    xAngTgt = 60 * inputModel.R_Y * inputError;
+                    yAngTgt += gameModel.s_Rockets_TurnRate * inputModel.R_X * inputError * Time.deltaTime;
+                }
             }
         }
 
@@ -90,14 +91,11 @@ public class Behavior_Rockets : MonoBehaviour
         xAng = Mathf.Lerp(xAng, xAngTgt, .05f);
         yAng = Mathf.Lerp(yAng, yAngTgt, .05f);
 
-
-
-
         transform.rotation = Quaternion.Slerp(transform.rotation, nextRot, .05f);
 
         rocketChild.localRotation = Quaternion.Euler(xAng, yAng, 0);
 
-        transform.position += rocketChild.forward * Time.deltaTime * gameModel.s_Rockets_FlySpeed;
+        transform.position += (rocketChild.forward * gameModel.s_Rockets_FlySpeed - Vector3.forward * gameModel.worldSpeed_fwd) * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)

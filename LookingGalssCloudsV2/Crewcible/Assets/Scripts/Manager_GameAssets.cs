@@ -90,7 +90,7 @@ public class Manager_GameAssets : SCG_Controller {
 	public override void ScheduledUpdate () {
 		if (bullets_Times.Count > 0)
         {
-            int numOverLimit = _UpdateAndCheckForOverTime(bullets_Times, 2);
+            int numOverLimit = _UpdateAndCheckForOverTime(bullets_Times, gameModel.t_Guns_BulletLifetime);
             for (int i = 0; i < numOverLimit; i++)
             {
                 Debug.Assert(bullets_Active.Count == bullets_Times.Count, "Active element and tracking mismatch: bullets");

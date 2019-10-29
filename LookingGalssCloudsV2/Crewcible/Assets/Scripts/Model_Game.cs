@@ -40,6 +40,8 @@ public class Model_Game : SCG_Model {
     public float s_Guns_TurnSpeed_Activated;
     public float s_Guns_TurnSpeed_Inactivated;
     public float f_Guns_BulletDispersion;
+    public float t_Guns_BulletLifetime;
+    public float s_Guns_BulletSpeed;
     #endregion
     [Header("Rockets")]
     #region Rockets
@@ -54,6 +56,8 @@ public class Model_Game : SCG_Model {
     public float s_Rockets_TurnRate;
     public float f_Rockets_Spread;
     public float t_Rockets_Lifetime;
+    public float t_Rockets_InputDelayTime;
+    public float f_Rockets_InputError;
     #endregion
     [Header("Thrusters")]
     #region Pilot

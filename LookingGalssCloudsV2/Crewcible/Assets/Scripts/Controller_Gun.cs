@@ -11,13 +11,13 @@ public class Controller_Gun : SCG_Controller {
     private Transform player;
     private Manager_GameAssets assetManager;
 
-    public Transform swivel;
-    public Transform pitcher;
-    public Transform inputReticle;
+    private Transform swivel;
+    private Transform pitcher;
+    private Transform inputReticle;
 
-    public Transform turret;
-    public Transform guns;
-    public Transform gunPointer;
+    private Transform turret;
+    private Transform guns;
+    private Transform gunPointer;
 
     private AudioSource myAS;
 
@@ -132,7 +132,7 @@ public class Controller_Gun : SCG_Controller {
                 else
                     bullet = assetManager.Make(MyGameAsset.Bullet, guns.position + guns.right * .1f + guns.up * .7f);
 
-                bullet.GetComponent<Rigidbody>().AddForce(guns.up * 30 + rando * 4, ForceMode.Impulse);
+                bullet.GetComponent<Rigidbody>().AddForce(guns.up * gameModel.s_Guns_BulletSpeed + rando, ForceMode.Impulse);
                 leftRightBarrel = !leftRightBarrel;
                 //myAS.PlayOneShot(gameModel.sfx_Gun_Shot);
             }

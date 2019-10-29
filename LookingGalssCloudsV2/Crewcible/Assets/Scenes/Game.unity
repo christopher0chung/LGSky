@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_Fog: 1
+  m_FogColor: {r: 0.09803922, g: 0, b: 0.16078432, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_LinearFogStart: 220
+  m_LinearFogEnd: 240
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -232,7 +232,7 @@ PrefabInstance:
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
       propertyPath: farClipFactor
-      value: 3
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
@@ -258,6 +258,21 @@ PrefabInstance:
         type: 3}
       propertyPath: dofAmount
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
+        type: 3}
+      propertyPath: background.r
+      value: 0.095038466
+      objectReference: {fileID: 0}
+    - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
+        type: 3}
+      propertyPath: background.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda,
+        type: 3}
+      propertyPath: background.b
+      value: 0.16037738
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
@@ -292,7 +307,7 @@ PrefabInstance:
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
       propertyPath: far clip plane
-      value: 168.30127
+      value: 318.30127
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
@@ -313,6 +328,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetTexture
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.095038466
+      objectReference: {fileID: 0}
+    - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.16037738
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
@@ -416,7 +446,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 83aaa20a4f8978f4a8ce7c2c29e85499,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.3
+      value: -8.15
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 83aaa20a4f8978f4a8ce7c2c29e85499,
         type: 3}
@@ -1088,12 +1118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 1000
-  swivel: {fileID: 0}
-  pitcher: {fileID: 0}
-  inputReticle: {fileID: 0}
-  turret: {fileID: 0}
-  guns: {fileID: 0}
-  gunPointer: {fileID: 0}
 --- !u!114 &513998426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,7 +1703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &895251374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6801,18 +6825,22 @@ MonoBehaviour:
   d_Guns_Damage: 1
   s_Guns_TurnSpeed_Activated: 50
   s_Guns_TurnSpeed_Inactivated: 100
-  f_Guns_BulletDispersion: 0.6
-  t_Rockets_FireRate: 0.1
+  f_Guns_BulletDispersion: 1.5
+  t_Guns_BulletLifetime: 4
+  s_Guns_BulletSpeed: 45
+  t_Rockets_FireRate: 0.07
   t_Rockets_Reload: 1
   d_Rockets_Damage: 1
   d_Rockets_ExplosionBallDamage: 1
   f_Rockets_ExplosionBallSize: 10
   t_Rockets_ExplosionBallLifetime: 1.8
   i_Rockets_RocketCountMax: 30
-  s_Rockets_FlySpeed: 15
-  s_Rockets_TurnRate: 180
-  f_Rockets_Spread: 25
-  t_Rockets_Lifetime: 6
+  s_Rockets_FlySpeed: 60
+  s_Rockets_TurnRate: 270
+  f_Rockets_Spread: 5
+  t_Rockets_Lifetime: 5
+  t_Rockets_InputDelayTime: 1
+  f_Rockets_InputError: 0.1
   s_Thrusters_Speed: 10
   f_Thrusters_DashDistance: 10
   t_Thrusters_DashCooldown: 2
@@ -7297,6 +7325,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774472742}
   m_CullTransparentMesh: 0
+--- !u!1 &1849080787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 2af6c75028dedf042b85b18ddc3efda2,
+    type: 3}
+  m_PrefabInstance: {fileID: 696756876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1849080788
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849080787}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &1849080789
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849080787}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1998150510
 GameObject:
   m_ObjectHideFlags: 0
