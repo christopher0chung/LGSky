@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShieldMaterial
-  m_Shader: {fileID: 4800000, guid: 81e685e723457604ebd5c20399d79aa6, type: 3}
+  m_Name: Clouds
+  m_Shader: {fileID: 4800000, guid: 7bb6eb438fb78e042ad0927ab367205d, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 0
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -55,19 +55,29 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _Cutoff: 0.85
+    - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _HighlightOpacity: 1
+    - _HighlightThreshold: 0.83
+    - _LowlightThreshold: 0.65
     - _Metallic: 0
+    - _MidlightOpacity: 0.8
     - _Mode: 0
-    - _NoiseScale: 3.15
     - _OcclusionStrength: 1
+    - _Opacity: 0.796
     - _Parallax: 0.02
+    - _ShadowOpacity: 0.6
+    - _Shininess: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -75,8 +85,10 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color0: {r: 0, g: 1.4142135, b: 0.21629149, a: 0.6862745}
-    - _Color1: {r: 0, g: 1.4142135, b: 1.3643001, a: 0.6862745}
+    - _Color: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Forward: {r: 0, g: 1, b: 0, a: 0}
+    - _Highlight: {r: 0.77599996, g: 0.67253333, b: 0.5173333, a: 0}
+    - _MainColor: {r: 0.3921569, g: 0.3921569, b: 0.3921569, a: 1}
+    - _Midlight: {r: 0.402, g: 0.38396156, b: 0.34788463, a: 0}
+    - _Shadow: {r: 0.1008, g: 0.08026666, b: 0.14, a: 0}
+    - _SpecularColor: {r: 0.3921569, g: 0.3921569, b: 0.3921569, a: 1}

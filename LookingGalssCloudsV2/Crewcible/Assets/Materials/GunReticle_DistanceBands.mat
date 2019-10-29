@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShieldMaterial
-  m_Shader: {fileID: 4800000, guid: 81e685e723457604ebd5c20399d79aa6, type: 3}
+  m_Name: GunReticle_DistanceBands
+  m_Shader: {fileID: 4800000, guid: 344e9e5e951ebe64e8149e6db5b88ce5, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -56,27 +56,43 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _BandMax: 1
+    - _BandMax1: 1
+    - _BandMin: -0.5
+    - _BandMin1: 0.01
     - _BumpScale: 1
-    - _Cutoff: 0.85
+    - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DistanceMultiplier: 0.06
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NoiseScale: 3.15
     - _OcclusionStrength: 1
+    - _OldMax: -6.35
+    - _OldMin: -4.13
     - _Parallax: 0.02
+    - _RadialScalar: 5
+    - _RadialScalar1: 1.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpeedScalar: 25
+    - _SpeedScalar1: -20.14
     - _SrcBlend: 1
+    - _TransAmbient: 0.2
+    - _TransDirect: 1
+    - _TransNormalDistortion: 0
+    - _TransScattering: 2
+    - _TransShadow: 0.747
+    - _Translucency: 10.1
     - _UVSec: 0
+    - _VertexMultiplier: 0
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
+    - _BaseColor: {r: 2, g: 0.87058824, b: 0, a: 0}
+    - _BaseColor1: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color0: {r: 0, g: 1.4142135, b: 0.21629149, a: 0.6862745}
-    - _Color1: {r: 0, g: 1.4142135, b: 1.3643001, a: 0.6862745}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Forward: {r: 0, g: 1, b: 0, a: 0}

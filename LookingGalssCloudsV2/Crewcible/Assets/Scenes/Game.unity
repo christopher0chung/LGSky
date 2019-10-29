@@ -18,7 +18,7 @@ RenderSettings:
   m_FogColor: {r: 0.09803922, g: 0, b: 0.16078432, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 220
+  m_LinearFogStart: 200
   m_LinearFogEnd: 240
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
@@ -971,7 +971,7 @@ Transform:
   m_GameObject: {fileID: 428155672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5.66, z: 0}
-  m_LocalScale: {x: 0.1, y: 5, z: 0.1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 49041385}
   m_RootOrder: 0
@@ -983,7 +983,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428155672}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -7198507788844232278, guid: 4db019a50c969064281b568e23b69c77, type: 3}
 --- !u!23 &428155675
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1001,7 +1001,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 6a1bb10d188503e41bcead605ba6f4cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1601,8 +1601,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744602102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 3, z: 0}
-  m_LocalScale: {x: 0.025, y: 3, z: 0.025}
+  m_LocalPosition: {x: 0.07, y: 0.35, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.8, z: 0.2}
   m_Children: []
   m_Father: {fileID: 752172582}
   m_RootOrder: 1
@@ -1624,7 +1624,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa07844ce8b1e0c4688a003e6626fab6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1652,7 +1652,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744602102}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 7918037774409245328, guid: bbe3fe574b56f8248b538d53f99f0203, type: 3}
 --- !u!1 &752172581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,6 +1684,52 @@ Transform:
   - {fileID: 744602103}
   m_Father: {fileID: 696756877}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &758492302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758492304}
+  - component: {fileID: 758492303}
+  m_Layer: 0
+  m_Name: CloudTreadmill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &758492303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758492302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96c51a74216a2045b4711848b673402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudPrefab: {fileID: 2450357409995878557, guid: 6689dd8fa4b79f341aa647d6bce328fc,
+    type: 3}
+  max: 100
+--- !u!4 &758492304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758492302}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &895251373
 GameObject:
@@ -6821,7 +6867,7 @@ MonoBehaviour:
   s_Shield_Contract: 0
   s_Shield_HitFlashNormalize: 0
   t_Guns_SpinUpTime: 0.15
-  t_Guns_TimeBetweenShots: 0.03
+  t_Guns_TimeBetweenShots: 0.06
   d_Guns_Damage: 1
   s_Guns_TurnSpeed_Activated: 50
   s_Guns_TurnSpeed_Inactivated: 100
@@ -6846,7 +6892,7 @@ MonoBehaviour:
   t_Thrusters_DashCooldown: 2
   d_Lance_Damage: 0
   f_Lance_MinRange: 0.3
-  f_Lance_MaxRange: 0.8
+  f_Lance_MaxRange: 1.5
   s_Lance_ExtendSpeed: 30
   e_Reactor_Base: 0
   e_Reactor_Upgrade: 0
@@ -7035,8 +7081,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352596498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: 3, z: 0}
-  m_LocalScale: {x: 0.025, y: 3, z: 0.025}
+  m_LocalPosition: {x: -0.07, y: 0.35000038, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.8, z: 0.2}
   m_Children: []
   m_Father: {fileID: 752172582}
   m_RootOrder: 0
@@ -7058,7 +7104,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa07844ce8b1e0c4688a003e6626fab6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7086,7 +7132,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352596498}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 7918037774409245328, guid: bbe3fe574b56f8248b538d53f99f0203, type: 3}
 --- !u!1001 &1367530613
 PrefabInstance:
   m_ObjectHideFlags: 0
