@@ -8,12 +8,19 @@ public class CloudTreadmill : MonoBehaviour
 
     public GameObject cloudPrefab;
     public int max;
+
+    public float minZ;
+    public float maxZ;
+    private float delZ;
+
     void Start()
     {
+        delZ = maxZ - minZ;
+
         clouds = new List<Transform>();
         for (int i = 0; i < max; i++)
         {
-            clouds.Add(Instantiate(cloudPrefab, new Vector3(Random.Range(-150, 150), Random.Range(-55f, -40f), Random.Range(-75f, 290f)), Quaternion.Euler(-90, 0, Random.Range(-180, 180))).transform);
+            clouds.Add(Instantiate(cloudPrefab, new Vector3(Random.Range(-150, 150), Random.Range(-55f, -40f), Random.Range(minZ, maxZ)), Quaternion.Euler(-90, 0, Random.Range(-180, 180))).transform);
             clouds[i].localScale = Vector3.one * Random.Range(3.00f, 5.00f);
         }
     }
@@ -24,8 +31,8 @@ public class CloudTreadmill : MonoBehaviour
         foreach(Transform t in clouds)
         {
             t.position += -Vector3.forward * 30 * Time.deltaTime;
-            if (t.position.z <= -75f)
-                t.position += Vector3.forward * 365;
+            if (t.position.z <= minZ)
+                t.position += Vector3.forward * delZ;
         }
     }
 }

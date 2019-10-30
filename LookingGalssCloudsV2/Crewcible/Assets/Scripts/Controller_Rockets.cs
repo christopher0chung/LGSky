@@ -48,6 +48,8 @@ public class Controller_Rockets : SCG_Controller {
                 _Rockets(inputModel.R_Action_OnDown);
             }
         }
+
+        _RocketFiring();
     }
 
     #region Rockets
@@ -77,7 +79,10 @@ public class Controller_Rockets : SCG_Controller {
             playModel.rocketReloadProgress = 1;
             rocketTimer = 0;
         }
+    }
 
+    private void _RocketFiring()
+    {
         // Once rockets start to fire...
         if (rocketIncrementor > 0)
         {

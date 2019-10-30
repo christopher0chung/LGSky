@@ -1716,7 +1716,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloudPrefab: {fileID: 2450357409995878557, guid: 6689dd8fa4b79f341aa647d6bce328fc,
     type: 3}
-  max: 100
+  max: 50
+  minZ: 10
+  maxZ: 250
 --- !u!4 &758492304
 Transform:
   m_ObjectHideFlags: 0
