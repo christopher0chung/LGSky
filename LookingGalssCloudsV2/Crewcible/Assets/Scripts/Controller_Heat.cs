@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Controller_Heat : SCG_Controller
 {
-    public Model_Heat heatModel;
-    public Model_Play playModel;
+    Model_Heat heatModel;
+    Model_Play playModel;
 
     //private List<Stations> _otherStations;
     private bool _last_Guns, _last_Lance, _last_Shield, _last_Thrusters, _last_Rockets;
@@ -60,6 +60,7 @@ public class Controller_Heat : SCG_Controller
         heatModel.heat_Thrusters_Apparent = Mathf.Lerp(heatModel.heat_Thrusters_Apparent, heatModel.heat_Thrusters, .08f);
         heatModel.heat_Rockets_Apparent = Mathf.Lerp(heatModel.heat_Rockets_Apparent, heatModel.heat_Rockets, .08f);
 
+        heatModel.heat_Total_Apparent = Mathf.Lerp(heatModel.heat_Total_Apparent, heatModel.heat_Total, .08f);
     }
     #endregion
 
@@ -71,7 +72,10 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Guns))
+            {
                 heatModel.heat_Guns -= heatModel.cooldownRate_Guns * Time.deltaTime;
+                heatModel.heat_Guns = Mathf.Clamp(heatModel.heat_Guns, 0, 200);
+            }
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -122,7 +126,10 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Shield))
+            {
                 heatModel.heat_Shield -= heatModel.cooldownRate_Shield * Time.deltaTime;
+                heatModel.heat_Shield = Mathf.Clamp(heatModel.heat_Shield, 0, 200);
+            }
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -173,7 +180,10 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Lance))
+            {
                 heatModel.heat_Lance -= heatModel.cooldownRate_Lance * Time.deltaTime;
+                heatModel.heat_Lance = Mathf.Clamp(heatModel.heat_Lance, 0, 200);
+            }
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -224,7 +234,10 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Rockets))
+            {
                 heatModel.heat_Rockets -= heatModel.cooldownRate_Rockets * Time.deltaTime;
+                heatModel.heat_Rockets = Mathf.Clamp(heatModel.heat_Rockets, 0, 200);
+            }
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown
@@ -236,6 +249,8 @@ public class Controller_Heat : SCG_Controller
 
                     if (heatModel.active_Rockets && !_last_Rockets)
                         heatModel.heat_Rockets += heatModel.activationHeat_Rockets;
+
+                    _last_Rockets = heatModel.active_Rockets;
                 }
                 else
                     heatModel.heat_Rockets -= heatModel.cooldownRate_Rockets * Time.deltaTime;
@@ -275,7 +290,10 @@ public class Controller_Heat : SCG_Controller
         {
             // _otherStations means that they're not being accessed, so only behavior is cooldown
             if (playModel.unaccessedStations.Contains(Stations.Thrusters))
+            {
                 heatModel.heat_Thrusters -= heatModel.cooldownRate_Thrusters * Time.deltaTime;
+                heatModel.heat_Thrusters = Mathf.Clamp(heatModel.heat_Thrusters, 0, 200);
+            }
             // if accessed -
             //  when activated - heat goes up by activation cost + sustained
             //  when inactivated - heat goes down by cooldown

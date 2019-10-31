@@ -48,18 +48,18 @@ public class View_RocketReticle : MonoBehaviour
                 rendCW.enabled = true;
                 rendCCW.enabled = false;
 
-                Vector3 rot = CW.rotation.eulerAngles;
+                Vector3 rot = CW.localEulerAngles;
                 rot.y += x * Time.deltaTime * 180;
-                CW.eulerAngles = rot;
+                CW.localEulerAngles = rot;
             }
             else
             {
                 rendCW.enabled = false;
                 rendCCW.enabled = true;
 
-                Vector3 rot = CCW.rotation.eulerAngles;
+                Vector3 rot = CCW.localEulerAngles;
                 rot.y += x * Time.deltaTime * 180;
-                CCW.eulerAngles = rot;
+                CCW.localEulerAngles = rot;
             }
         }
         else

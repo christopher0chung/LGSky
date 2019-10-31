@@ -75,14 +75,23 @@ public class Controller_Shield : SCG_Controller {
 
     private void _ShieldSize(bool on)
     {
-        heatModel.active_Shield = on;
+        if (!heatModel.overheated_Shield)
+        {
+            heatModel.active_Shield = on;
 
-        if (on)
-            playModel.shieldSize = gameModel.f_Shield_Cutoff_Max;
+            if (on)
+                playModel.shieldSize = gameModel.f_Shield_Cutoff_Max;
+            else
+                playModel.shieldSize = gameModel.f_Shield_Cutoff_Min;
+
+            shieldMat.SetFloat("_Cutoff", playModel.shieldSize);
+        }
         else
+        {
             playModel.shieldSize = gameModel.f_Shield_Cutoff_Min;
 
-        shieldMat.SetFloat("_Cutoff", playModel.shieldSize);
+            shieldMat.SetFloat("_Cutoff", playModel.shieldSize);
+        }
     }
     #endregion
 }

@@ -72,7 +72,7 @@ public class Controller_Lance : SCG_Controller
         lanceSwivel.eulerAngles = new Vector3(0, -brg, 0);
         lancePitcher.localEulerAngles = new Vector3(dec, 0, 0);
 
-         if (extend)
+        if (extend && !heatModel.overheated_Lance)
         {
             targetSize.x = targetSize.z = gameModel.f_Lance_MinRange;
             targetSize.y = gameModel.f_Lance_MaxRange;

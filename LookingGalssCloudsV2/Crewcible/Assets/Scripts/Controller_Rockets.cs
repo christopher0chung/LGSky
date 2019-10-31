@@ -68,14 +68,11 @@ public class Controller_Rockets : SCG_Controller {
         else
             heatModel.active_Rockets = false;
 
-        if (heatModel.active_Rockets)
-            heatModel.heat_Rockets += heatModel.sustainedHeatRate_Rockets;
-
         // If player attepts to shoot when reload is complete...
-        if (shoot && playModel.rocketReloadProgress == 0)
+        if (shoot && playModel.rocketReloadProgress == 0 && !heatModel.overheated_Rockets)
         {
             rocketIncrementor = 1;
-            heatModel.heat_Rockets += heatModel.activationHeat_Rockets;
+            //heatModel.heat_Rockets += heatModel.activationHeat_Rockets;
             playModel.rocketReloadProgress = 1;
             rocketTimer = 0;
         }
@@ -84,7 +81,10 @@ public class Controller_Rockets : SCG_Controller {
     private void _RocketFiring()
     {
         // Once rockets start to fire...
-        if (rocketIncrementor > 0)
+        // Will only allow to fire rockets if not overheated
+        // If overheated, the rocket incrementor will be reset
+        // Once not overheated, the incrementor's control is released back to _Rockets()
+        if (rocketIncrementor > 0 && !heatModel.overheated_Rockets)
         {
             rocketTimer += Time.deltaTime;
             if (rocketTimer >= gameModel.t_Rockets_FireRate)
@@ -100,6 +100,8 @@ public class Controller_Rockets : SCG_Controller {
             if (rocketIncrementor >= gameModel.i_Rockets_RocketCountMax)
                 rocketIncrementor = 0;
         }
+        else if (heatModel.overheated_Rockets)
+            rocketIncrementor = 0;
     }
     #endregion
 }

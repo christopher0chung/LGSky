@@ -115,30 +115,38 @@ public class Controller_Gun : SCG_Controller {
 
     private void _FiringController(bool shoot, bool release)
     {
-        heatModel.active_Guns = shoot;
-        if (shoot)
+        if (!heatModel.overheated_Guns)
         {
-            shootTimer += Time.deltaTime;
-            if (shootTimer - gameModel.t_Guns_SpinUpTime >= gameModel.t_Guns_TimeBetweenShots)
+            heatModel.active_Guns = shoot;
+            if (shoot)
             {
-                shootTimer -= gameModel.t_Guns_TimeBetweenShots;
-                GameObject bullet;
+                shootTimer += Time.deltaTime;
+                if (shootTimer - gameModel.t_Guns_SpinUpTime >= gameModel.t_Guns_TimeBetweenShots)
+                {
+                    shootTimer -= gameModel.t_Guns_TimeBetweenShots;
+                    GameObject bullet;
 
-                Vector3 rando = Random.insideUnitCircle * gameModel.f_Guns_BulletDispersion;
+                    Vector3 rando = Random.insideUnitCircle * gameModel.f_Guns_BulletDispersion;
 
 
-                if (leftRightBarrel)
-                    bullet = assetManager.Make(MyGameAsset.Bullet, guns.position - guns.right * .1f + guns.up * .7f);
-                else
-                    bullet = assetManager.Make(MyGameAsset.Bullet, guns.position + guns.right * .1f + guns.up * .7f);
+                    if (leftRightBarrel)
+                        bullet = assetManager.Make(MyGameAsset.Bullet, guns.position - guns.right * .1f + guns.up * .7f);
+                    else
+                        bullet = assetManager.Make(MyGameAsset.Bullet, guns.position + guns.right * .1f + guns.up * .7f);
 
-                bullet.GetComponent<Rigidbody>().AddForce(guns.up * gameModel.s_Guns_BulletSpeed + rando, ForceMode.Impulse);
-                leftRightBarrel = !leftRightBarrel;
-                //myAS.PlayOneShot(gameModel.sfx_Gun_Shot);
+                    bullet.GetComponent<Rigidbody>().AddForce(guns.up * gameModel.s_Guns_BulletSpeed + rando, ForceMode.Impulse);
+                    leftRightBarrel = !leftRightBarrel;
+                    //myAS.PlayOneShot(gameModel.sfx_Gun_Shot);
+                }
             }
+            if (release)
+                shootTimer = 0;
         }
-        if (release)
+        else
+        {
             shootTimer = 0;
+            heatModel.active_Guns = false;
+        }
     }
     #endregion
 }

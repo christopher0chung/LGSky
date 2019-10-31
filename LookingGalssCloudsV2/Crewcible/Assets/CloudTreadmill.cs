@@ -20,7 +20,7 @@ public class CloudTreadmill : MonoBehaviour
         clouds = new List<Transform>();
         for (int i = 0; i < max; i++)
         {
-            clouds.Add(Instantiate(cloudPrefab, new Vector3(Random.Range(-150, 150), Random.Range(-55f, -40f), Random.Range(minZ, maxZ)), Quaternion.Euler(-90, 0, Random.Range(-180, 180))).transform);
+            clouds.Add(Instantiate(cloudPrefab, new Vector3(Random.Range(-190, 190), Random.Range(-80f, -40f), Random.Range(minZ, maxZ)), Quaternion.Euler(-90, 0, Random.Range(-180, 180))).transform);
             clouds[i].localScale = Vector3.one * Random.Range(3.00f, 5.00f);
         }
     }
