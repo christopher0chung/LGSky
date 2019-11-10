@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class View_MainUI : MonoBehaviour
 {
     Model_Heat heatModel;
     Model_Play playModel;
+    Model_Game gameModel;
 
     Sprite gunsIcon;
     Sprite shieldIcon;
@@ -25,10 +27,14 @@ public class View_MainUI : MonoBehaviour
     public Image rightHeat;
     public Image totalHeat;
 
+    [Range(0, 100)]
+    public float warmBreakpoint;
+
     void Start()
     {
         heatModel = ServiceLocator.instance.Model.GetComponent<Model_Heat>();
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
 
         InitializeAssets();
     }
@@ -84,7 +90,7 @@ public class View_MainUI : MonoBehaviour
     private float _amount;
     void UpdateStationHeat()
     {
-         if (playModel.leftStation == Stations.Guns)
+        if (playModel.leftStation == Stations.Guns)
         {
             _amount = Mathf.Clamp01(heatModel.heat_Guns / 100);
             _needleAng = 180 - 270 * _amount;
@@ -172,6 +178,137 @@ public class View_MainUI : MonoBehaviour
 
     void UpdateColor()
     {
+        #region Left
+        if (playModel.leftStation == Stations.Guns)
+        {
+            if (heatModel.heat_Guns < warmBreakpoint)
+                leftHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Guns / warmBreakpoint));
+            else
+                leftHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Guns - warmBreakpoint) / (100 - warmBreakpoint)));
 
+            if (heatModel.overheated_Guns)
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        else if (playModel.leftStation == Stations.Shield)
+        {
+            if (heatModel.heat_Shield < warmBreakpoint)
+                leftHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Shield / warmBreakpoint));
+            else
+                leftHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Shield - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Shield)
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        else if (playModel.leftStation == Stations.Rockets)
+        {
+            if (heatModel.heat_Rockets < warmBreakpoint)
+                leftHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Rockets / warmBreakpoint));
+            else
+                leftHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Rockets - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Rockets)
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        else if (playModel.leftStation == Stations.Lance)
+        {
+            if (heatModel.heat_Lance < warmBreakpoint)
+                leftHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Lance / warmBreakpoint));
+            else
+                leftHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Lance - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Lance)
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        else if (playModel.leftStation == Stations.Thrusters)
+        {
+            if (heatModel.heat_Thrusters < warmBreakpoint)
+                leftHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Thrusters / warmBreakpoint));
+            else
+                leftHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Thrusters - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Thrusters)
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                leftIcon.color = leftNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        #endregion
+
+        #region Right
+        if (playModel.rightStation == Stations.Guns)
+        {
+            if (heatModel.heat_Guns < warmBreakpoint)
+                rightHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Guns / warmBreakpoint));
+            else
+                rightHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Guns - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Guns)
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        else if (playModel.rightStation == Stations.Shield)
+        {
+            if (heatModel.heat_Shield < warmBreakpoint)
+                rightHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Shield / warmBreakpoint));
+            else
+                rightHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Shield - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Shield)
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        else if (playModel.rightStation == Stations.Rockets)
+        {
+            if (heatModel.heat_Rockets < warmBreakpoint)
+                rightHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Rockets / warmBreakpoint));
+            else
+                rightHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Rockets - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Rockets)
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        else if (playModel.rightStation == Stations.Lance)
+        {
+            if (heatModel.heat_Lance < warmBreakpoint)
+                rightHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Lance / warmBreakpoint));
+            else
+                rightHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Lance - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Lance)
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        else if (playModel.rightStation == Stations.Thrusters)
+        {
+            if (heatModel.heat_Thrusters < warmBreakpoint)
+                rightHeat.color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Thrusters / warmBreakpoint));
+            else
+                rightHeat.color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Thrusters - warmBreakpoint) / (100 - warmBreakpoint)));
+
+            if (heatModel.overheated_Thrusters)
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Hot;
+            else
+                rightIcon.color = rightNeedle.GetComponent<Image>().color = gameModel.c_Cool;
+        }
+        #endregion
+
+        #region Total
+        if (heatModel.heat_Total < warmBreakpoint)
+            totalHeat.color = centerNeedle.GetComponent<Image>().color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Total / warmBreakpoint));
+        else
+            totalHeat.color = centerNeedle.GetComponent<Image>().color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Total - warmBreakpoint) / (150 - warmBreakpoint)));
+        #endregion
     }
 }
