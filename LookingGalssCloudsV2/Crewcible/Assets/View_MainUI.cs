@@ -116,9 +116,9 @@ public class View_MainUI : MonoBehaviour
         }
         else if (playModel.leftStation == Stations.Thrusters)
         {
-            _amount = Mathf.Clamp01(heatModel.heat_Lance / 100);
+            _amount = Mathf.Clamp01(heatModel.heat_Thrusters / 100);
             _needleAng = 180 - 270 * _amount;
-            _amount = Mathf.Clamp01(heatModel.heat_Lance_Apparent / 100);
+            _amount = Mathf.Clamp01(heatModel.heat_Thrusters_Apparent / 100);
         }
         _needleRot.z = _needleAng;
         leftNeedle.localEulerAngles = _needleRot;
@@ -151,9 +151,9 @@ public class View_MainUI : MonoBehaviour
         }
         else if (playModel.rightStation == Stations.Thrusters)
         {
-            _amount = Mathf.Clamp01(heatModel.heat_Lance / 100);
+            _amount = Mathf.Clamp01(heatModel.heat_Thrusters / 100);
             _needleAng = 180 + 270 * _amount;
-            _amount = Mathf.Clamp01(heatModel.heat_Lance_Apparent / 100);
+            _amount = Mathf.Clamp01(heatModel.heat_Thrusters_Apparent / 100);
         }
         _needleRot.z = _needleAng;
         rightNeedle.localEulerAngles = _needleRot;

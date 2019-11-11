@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
-  m_Shader: {fileID: 4800000, guid: 344e9e5e951ebe64e8149e6db5b88ce5, type: 3}
-  m_ShaderKeywords: _COLOROVERLAY_ON
-  m_LightmapFlags: 0
-  m_EnableInstancingVariants: 0
+  m_Name: EnemyMat_Body
+  m_Shader: {fileID: 4800000, guid: 7bb6eb438fb78e042ad0927ab367205d, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -39,10 +39,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _FourthTex:
-        m_Texture: {fileID: 2800000, guid: e0f922c44762291498cc62e0917609be, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,63 +55,31 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SecondTex:
-        m_Texture: {fileID: 2800000, guid: e0f922c44762291498cc62e0917609be, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ThirdTex:
-        m_Texture: {fileID: 2800000, guid: e0f922c44762291498cc62e0917609be, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BandMax1: 1
-    - _BandMin1: 0.3
-    - _Bias: 0
-    - _BlendOp: 0
     - _BumpScale: 1
-    - _CameraFadingEnabled: 0
-    - _CameraFarFadeDistance: 2
-    - _CameraNearFadeDistance: 1
-    - _ColorMode: 3
-    - _Cull: 0
-    - _Cutoff: 0.65
+    - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistortionBlend: 0.5
-    - _DistortionEnabled: 0
-    - _DistortionStrength: 1
-    - _DistortionStrengthScaled: 0.1
     - _DstBlend: 0
-    - _EmissionEnabled: 0
-    - _FlipbookMode: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LightingEnabled: 0
+    - _HighlightThreshold: 0.9
+    - _LowlightThreshold: 0.75
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Power: 5
-    - _RadialScalar1: 16
-    - _Scale: 1
+    - _Shininess: 0.03
     - _SmoothnessTextureChannel: 0
-    - _SoftParticlesEnabled: 0
-    - _SoftParticlesFarFadeDistance: 1
-    - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
-    - _SpeedScalar1: 10
     - _SrcBlend: 1
     - _UVSec: 0
-    - _VertexMultiplier: 0.25
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _BaseColor1: {r: 0.39569244, g: 0.7169812, b: 0.47638115, a: 1}
-    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.007843133, g: 0.14117648, b: 0.12642695, a: 0.11764706}
-    - _ColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
-    - _CoreColor: {r: 0, g: 0, b: 0, a: 0}
-    - _EdgeColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive: {r: 0.559, g: 0.45770547, b: 0, a: 1}
-    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _Highlight: {r: 1, g: 0.29400003, b: 0.29963955, a: 1}
+    - _Midlight: {r: 0.65800005, g: 0, b: 0, a: 1}
+    - _Shadow: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 0.3921569, g: 0.3921569, b: 0.3921569, a: 1}
