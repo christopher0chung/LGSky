@@ -22,27 +22,53 @@ public class Test_PeakyShooty : MonoBehaviour
 
     public GameObject bullet;
 
+    private float timer;
+    private float lastApproachTimer;
+    private float approachTimer;
+
     // Start is called before the first frame update
     void Start()
     {
         target = ServiceLocator.instance.Player;
         oldPos = transform.position;
-        newPos = transform.position;
+        newPos = target.position + Vector3.forward * Random.Range(7, 40) + Vector3.right * Random.Range(-33, 33) + Vector3.up * Random.Range(5, 33);
         _tOffset = Random.Range(0.00f, 10.00f);
+        timer = -_tOffset;
         shield = transform.GetChild(1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float t = (Time.time/interval) % 1;
+        approachTimer += Time.deltaTime;
+
+        if (lastApproachTimer <= 7 && approachTimer > 7)
+            Tick();
+        lastApproachTimer = approachTimer;
+
+        if (approachTimer <= 7)
+            Approach();
+        else
+            OnStation();
+    }
+
+    private void Approach()
+    {
+        transform.position = Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseIn(approachTimer / 7));
+        transform.LookAt(target.position);
+    }
+
+    private void OnStation()
+    {
+        timer += Time.deltaTime;
+        float t = ((timer + _tOffset) / interval) % 1;
 
         if (Mathf.Abs(_lastTime - t) > .5f)
             Tick();
 
-        transform.position = Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseInOut(t)) + Vector3.up * 1.3f * Mathf.Sin(Time.time * bobRate + _tOffset);
+        transform.position = Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseInOut(t)) + Vector3.up * 1.3f * Mathf.Sin(timer * bobRate + _tOffset);
 
-        if(t >= shieldFraction)
+        if (t >= shieldFraction)
         {
             float shieldT = (t - shieldFraction) / (1 - shieldFraction);
             shield.localPosition = Vector3.right * 4 * Mathf.Sin(shieldT * Mathf.PI);
