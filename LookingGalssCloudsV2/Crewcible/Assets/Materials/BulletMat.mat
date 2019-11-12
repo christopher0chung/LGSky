@@ -69,7 +69,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Power: 2.39
-    - _Scale: 3
+    - _Scale: 9.52
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -78,6 +78,6 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CoreColor: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 0}
-    - _EdgeColor: {r: 0, g: 3.9999995, b: 0.7301311, a: 0}
+    - _CoreColor: {r: 0, g: 0.7490196, b: 0.34214482, a: 0}
+    - _EdgeColor: {r: 0, g: 1.7176471, b: 0.6566641, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
