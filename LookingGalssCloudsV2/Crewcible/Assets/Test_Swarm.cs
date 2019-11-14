@@ -10,6 +10,7 @@ public class Test_Swarm : MonoBehaviour
 
     private List<GameObject> _swarm;
     private List<BoidDirs> _dirs;
+    private List<bool> _attackMode;
 
     private int indexIterator;
 
@@ -22,6 +23,14 @@ public class Test_Swarm : MonoBehaviour
     [Range(0, 1)] public float w_Target;
 
     public float maskingRange;
+    public float rangeToTargetWeightFactor;
+    public float attackPulloutRange;
+    [Range(0, 1)] public float attackConeScalar;
+    [Range(0, 1)] public float attackPercentage;
+
+    public GameObject bullet;
+
+    float attackTimer;
 
     void Start()
     {
@@ -29,6 +38,7 @@ public class Test_Swarm : MonoBehaviour
 
         _swarm = new List<GameObject>();
         _dirs = new List<BoidDirs>();
+        _attackMode = new List<bool>();
 
         GameObject first = transform.GetChild(0).gameObject;
         _swarm.Add(first);
@@ -36,9 +46,13 @@ public class Test_Swarm : MonoBehaviour
         {
             _swarm.Add(Instantiate(first, transform.position, Quaternion.LookRotation(Random.insideUnitSphere)));
             _dirs.Add(new BoidDirs());
+            _attackMode.Add(false);
 
             if (i == 0)
+            {
                 _dirs.Add(new BoidDirs());
+                _attackMode.Add(false);
+            }
         }
     }
 
@@ -48,49 +62,26 @@ public class Test_Swarm : MonoBehaviour
         //For the indexed boid, calculate params
         //For each boid interpolate towards the next direction
         //Push each boid foward
-
-        if (indexIterator >= _dirs.Count)
-            indexIterator = 0;
-
-        InitializeDirections(_dirs[indexIterator]);
-
-        Vector3 middle = Vector3.zero;
-        int averager = 0;
-
-        foreach(GameObject g in _swarm)
+        for (int i = 0; i < 15; i++)
         {
-            float dist = Vector3.Distance(g.transform.position, _swarm[indexIterator].transform.position);
+            indexIterator++;
+            if (indexIterator >= _dirs.Count)
+                indexIterator = 0;
 
-            if (dist != 0 && dist <= maskingRange)
+            UpdateSwarmerByIndex(indexIterator);
+        }
+
+        CalculateBoidsNewDir();
+
+        attackTimer += Time.deltaTime;
+        if (attackTimer >=5 )
+        {
+            attackTimer -= 5;
+            for (int i = 0; i < _swarm.Count / 4; i++)
             {
-                middle += g.transform.position;
-                averager++;
-                _dirs[indexIterator].alignment += g.transform.forward;
+                _attackMode[Random.Range(0, _swarm.Count)] = true;
             }
         }
-        _dirs[indexIterator].cohesion += Vector3.Normalize(middle/averager - _swarm[indexIterator].transform.position);
-        _dirs[indexIterator].alignment += Vector3.Normalize(_dirs[indexIterator].alignment);
-
-        Vector3 tempTowardsTarget;
-        float distToTarget;
-        for (int i = 0; i < _swarm.Count; i++)
-        {
-            tempTowardsTarget = Vector3.Normalize(target.transform.position - _swarm[i].transform.position);
-            distToTarget = Vector3.Distance(target.transform.position, _swarm[i].transform.position);
-
-            _dirs[i].nextDir = Vector3.Normalize(w_Cohesion * _dirs[i].cohesion +
-                w_Alignment * _dirs[i].alignment +
-                w_Random * _dirs[i].random +
-                w_Target * tempTowardsTarget * distToTarget / 50);
-
-            _swarm[i].transform.rotation = 
-                Quaternion.Slerp(
-                    _swarm[i].transform.rotation, 
-                    Quaternion.LookRotation(_dirs[i].nextDir), 
-                    interpolateFactor * Time.deltaTime);
-            _swarm[i].transform.position += _swarm[i].transform.forward * speed * Time.deltaTime;
-        }
-        indexIterator++;
     }
 
     private void InitializeDirections(BoidDirs d)
@@ -107,5 +98,81 @@ public class Test_Swarm : MonoBehaviour
         public Vector3 random;
 
         public Vector3 nextDir;
+    }
+
+    private void UpdateSwarmerByIndex(int indexIterator)
+    {
+        InitializeDirections(_dirs[indexIterator]);
+
+        Vector3 middle = Vector3.zero;
+
+        int averager = 0;
+
+        foreach (GameObject g in _swarm)
+        {
+            float dist = Vector3.Distance(g.transform.position, _swarm[indexIterator].transform.position);
+
+            if (dist != 0 && dist <= maskingRange)
+            {
+                middle += g.transform.position;
+                averager++;
+                _dirs[indexIterator].alignment += g.transform.forward;
+            }
+        }
+        _dirs[indexIterator].cohesion = Vector3.Normalize(middle / averager - _swarm[indexIterator].transform.position);
+        _dirs[indexIterator].alignment = Vector3.Normalize(_dirs[indexIterator].alignment);
+    }
+
+
+    Vector3 tempTowardsTarget;
+    float distToTarget;
+    private void CalculateBoidsNewDir()
+    {
+        for (int i = 0; i < _swarm.Count; i++)
+        {
+            if (!_attackMode[i])
+                _Flocking(i);
+            else
+                _Attacking(i);
+            _ApplyNewDir(i);
+        }
+    }
+
+    private void _Flocking(int i)
+    {
+        tempTowardsTarget = Vector3.Normalize(target.transform.position - _swarm[i].transform.position);
+        distToTarget = Vector3.Distance(target.transform.position, _swarm[i].transform.position);
+
+        _dirs[i].nextDir = Vector3.Normalize(w_Cohesion * _dirs[i].cohesion +
+            w_Alignment * _dirs[i].alignment +
+            w_Random * _dirs[i].random +
+            w_Target * tempTowardsTarget * distToTarget / rangeToTargetWeightFactor);
+    }
+
+    Vector3 targetBrg;
+    private void _Attacking(int i)
+    {
+        _dirs[i].nextDir = Vector3.Normalize(target.transform.position - _swarm[i].transform.position);
+
+        targetBrg = Vector3.Normalize(target.transform.position - _swarm[i].transform.position);
+
+        if (Vector3.Dot(_swarm[i].transform.forward, targetBrg) >= attackConeScalar)
+        {
+            if (Random.Range(0.00f, 1.00f) <= attackPercentage * Time.deltaTime)
+                Instantiate(bullet, _swarm[i].transform.position, Quaternion.LookRotation(targetBrg));
+        }
+
+        if (Vector3.Distance(target.position, _swarm[i].transform.position) <= attackPulloutRange)
+            _attackMode[i] = false;
+    }
+
+    private void _ApplyNewDir(int i)
+    {
+        _swarm[i].transform.rotation =
+            Quaternion.Slerp(
+                _swarm[i].transform.rotation,
+                Quaternion.LookRotation(_dirs[i].nextDir),
+                interpolateFactor * Time.deltaTime);
+        _swarm[i].transform.position += _swarm[i].transform.forward * speed * Time.deltaTime;
     }
 }
