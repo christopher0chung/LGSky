@@ -8,7 +8,7 @@ public class Test_Swarm : MonoBehaviour
     public float speed;
     public float interpolateFactor;
 
-    private List<GameObject> _swarm;
+    public List<GameObject> _swarm;
     private List<BoidDirs> _dirs;
     private List<bool> _attackMode;
 
@@ -34,6 +34,9 @@ public class Test_Swarm : MonoBehaviour
 
     void Start()
     {
+        SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
+        Debug.Log("Start Stuff");
+
         target = ServiceLocator.instance.Player;
 
         _swarm = new List<GameObject>();
@@ -44,7 +47,7 @@ public class Test_Swarm : MonoBehaviour
         _swarm.Add(first);
         for (int i = 0; i < numberInSwarm - 1; i++)
         {
-            _swarm.Add(Instantiate(first, transform.position, Quaternion.LookRotation(Random.insideUnitSphere)));
+            _swarm.Add(Instantiate(first, transform.position, Quaternion.LookRotation(Random.insideUnitSphere), transform));
             _dirs.Add(new BoidDirs());
             _attackMode.Add(false);
 
@@ -53,6 +56,11 @@ public class Test_Swarm : MonoBehaviour
                 _dirs.Add(new BoidDirs());
                 _attackMode.Add(false);
             }
+        }
+
+        foreach (GameObject g in _swarm)
+        {
+            g.GetComponent<Enemy_Base>().SetHitPoint(1);
         }
     }
 
@@ -68,7 +76,10 @@ public class Test_Swarm : MonoBehaviour
             if (indexIterator >= _dirs.Count)
                 indexIterator = 0;
 
-            UpdateSwarmerByIndex(indexIterator);
+            if (_swarm.Count <= 0)
+                Destroy(this.gameObject);
+            else
+                UpdateSwarmerByIndex(indexIterator);
         }
 
         CalculateBoidsNewDir();
@@ -84,6 +95,7 @@ public class Test_Swarm : MonoBehaviour
         }
     }
 
+    #region Major Functions
     private void InitializeDirections(BoidDirs d)
     {
         d.cohesion = Vector3.zero;
@@ -122,8 +134,30 @@ public class Test_Swarm : MonoBehaviour
         _dirs[indexIterator].cohesion = Vector3.Normalize(middle / averager - _swarm[indexIterator].transform.position);
         _dirs[indexIterator].alignment = Vector3.Normalize(_dirs[indexIterator].alignment);
     }
+    #endregion
 
+    #region Events
+    public void EnemyDeathEventHandler (SCG_Event e)
+    {
+        //Debug.Log("Message Received");
 
+        Event_EnemyDeath d = e as Event_EnemyDeath;
+
+        if (d != null)
+        {
+            if (_swarm.Contains(d.enemyToBeDestroyed.gameObject))
+            {
+                int indexToRemove = _swarm.IndexOf(d.enemyToBeDestroyed.gameObject);
+                _swarm.RemoveAt(indexToRemove);
+                _dirs.RemoveAt(indexToRemove);
+                _attackMode.RemoveAt(indexToRemove);
+                Destroy(d.enemyToBeDestroyed.gameObject);
+            }
+        }
+    }
+    #endregion
+
+    #region Internal
     Vector3 tempTowardsTarget;
     float distToTarget;
     private void CalculateBoidsNewDir()
@@ -175,4 +209,5 @@ public class Test_Swarm : MonoBehaviour
                 interpolateFactor * Time.deltaTime);
         _swarm[i].transform.position += _swarm[i].transform.forward * speed * Time.deltaTime;
     }
+    #endregion
 }

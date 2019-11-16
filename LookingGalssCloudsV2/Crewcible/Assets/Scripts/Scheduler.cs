@@ -62,4 +62,5 @@ public class Scheduler : MonoBehaviour
 //5 - Thrusters
 //6 - Heat                  Accounting based on input based actions
 //7 - Stations              Requires heat based lockout to prevent swaps
-//8 - Asset Manager         Cleans up at the end
+//8 - Jump
+//9 - Asset Manager         Cleans up at the end

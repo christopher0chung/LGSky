@@ -28,8 +28,21 @@ public class Behavior_ExplosionBall : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("OnEnable is working");
+        //Debug.Log("OnEnable is working");
         transform.localScale = Vector3.zero;
         timer = 0;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag != "Enemy")
+            return;
+
+        Debug.Log("enemy in radius");
+
+        Enemy_Base e = other.GetComponent<Enemy_Base>();
+
+        if (e != null)
+            SCG_EventManager.instance.Fire(new Event_ExplosionBallHit(e, gameModel.d_Rockets_ExplosionBallDamage, other.transform.position));
     }
 }

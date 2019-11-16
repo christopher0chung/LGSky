@@ -26,6 +26,8 @@ public class Model_Heat : SCG_Model
     public bool active_Thrusters;
     public bool active_Rockets;
 
+    public bool active_Dash;
+
     public bool overheated_Guns;
     public bool overheated_Lance;
     public bool overheated_Shield;
@@ -56,4 +58,6 @@ public class Model_Heat : SCG_Model
     public float rebootThreshold_Shield;
     public float rebootThreshold_Thrusters;
     public float rebootThreshold_Rockets;
+
+    public float max_HeatTotal;
 }

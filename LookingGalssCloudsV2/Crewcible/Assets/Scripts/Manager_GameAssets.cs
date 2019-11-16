@@ -34,6 +34,10 @@ public class Manager_GameAssets : SCG_Controller {
     List<GameObject> mslExplosion_Inactive;
     List<float> mslExplosion_Times;
 
+    List<GameObject> SFX_Active;
+    List<GameObject> SFX_Inactive;
+    List<float> SFX_Times;
+
     void Awake()
     {
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
@@ -83,7 +87,12 @@ public class Manager_GameAssets : SCG_Controller {
         mslExplosion_Times = new List<float>();
         _PrepInactive(gameModel.missileExplosionPrefab, mslExplosion_Inactive, 15);
 
-        priority = 8;
+        SFX_Active = new List<GameObject>();
+        SFX_Inactive = new List<GameObject>();
+        SFX_Times = new List<float>();
+        _PrepInactive(gameModel.sfxPlayerPrefab, SFX_Inactive, 50);
+
+        priority = 9;
         Schedule(this);
     }
 
@@ -158,6 +167,16 @@ public class Manager_GameAssets : SCG_Controller {
                 _StowActiveNonPhysicsManagedGO(mslExplosion_Active, mslExplosion_Times, mslExplosion_Inactive, 0);
             }
         }
+
+        if (SFX_Times.Count > 0)
+        {
+            int numOverLimit = _UpdateAndCheckForOverTime(SFX_Times, 1.0f);
+            for (int i = 0; i < numOverLimit; i++)
+            {
+                Debug.Assert(SFX_Active.Count == SFX_Times.Count, "Active element and tracking mismatch: sfx");
+                _StowActiveNonPhysicsManagedGO(SFX_Active, SFX_Times, SFX_Inactive, 0);
+            }
+        }
     }
 
     void EffectsEventHandler(SCG_Event e)
@@ -182,7 +201,7 @@ public class Manager_GameAssets : SCG_Controller {
         {
             if (_IsGOActiveCheck(rH.rocket.gameObject, rockets_Active))
             {
-                Debug.Log("Rocket hit registered by GAManager");
+                //Debug.Log("Rocket hit registered by GAManager");
 
                 Make(MyGameAsset.RocketExplosion, rH.location);
 
@@ -212,8 +231,10 @@ public class Manager_GameAssets : SCG_Controller {
 
         if (eD != null)
         {
-            GameObject g = Make(MyGameAsset.DeathExplosion, eD.location);
-            g.GetComponent<Behavior_DeathExplosionTimer>().Explode();
+            //GameObject g = Make(MyGameAsset.DeathExplosion, eD.location);
+            //g.GetComponent<Behavior_DeathExplosionTimer>().Explode();
+            GameObject g = Make(MyGameAsset.SFX, eD.location);
+            g.GetComponent<AudioSource>().PlayOneShot(gameModel.sfx_EnemyLittleExplosion);
         }
 
         Event_EnemyMineHit m = e as Event_EnemyMineHit;
@@ -245,7 +266,7 @@ public class Manager_GameAssets : SCG_Controller {
             {
                 _bullet = _Make_GenericNewObj(gameModel.bulletPrefab, bullets_Active, bullets_Times, where);
             }
-            Debug.Log(_bullet.name);
+            //Debug.Log(_bullet.name);
             return _bullet;
         }
         else if (type == MyGameAsset.BulletExplosion)
@@ -328,6 +349,19 @@ public class Manager_GameAssets : SCG_Controller {
             }
             _mslExplosion.GetComponent<ParticleSystem>().Play();
             return _mslExplosion;
+        }
+        else if (type == MyGameAsset.SFX)
+        {
+            GameObject _sfx;
+            if (SFX_Inactive.Count >= 1)
+            {
+                _sfx = _Make_GenericActivate(SFX_Inactive, SFX_Active, SFX_Times, where);
+            }
+            else
+            {
+                _sfx = _Make_GenericNewObj(gameModel.sfxPlayerPrefab, SFX_Active, SFX_Times, where);
+            }
+            return _sfx;
         }
         else return null;
     }
@@ -414,4 +448,4 @@ public class Manager_GameAssets : SCG_Controller {
     #endregion
 }
 
-public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion, MissileExplosion }
+public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion, MissileExplosion, SFX }

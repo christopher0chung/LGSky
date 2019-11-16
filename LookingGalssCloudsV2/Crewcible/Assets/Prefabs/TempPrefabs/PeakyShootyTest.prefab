@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3588994043257372361}
   - component: {fileID: 8409381449944623272}
+  - component: {fileID: -2311723618791048119}
+  - component: {fileID: 4519466950781114863}
   m_Layer: 0
   m_Name: PeakyShootyTest
   m_TagString: Untagged
@@ -49,6 +51,32 @@ MonoBehaviour:
   bobRate: 4
   shieldFraction: 0.5
   bullet: {fileID: 2918915019362142458, guid: 449c96b3a68e07347a74ee96510ef126, type: 3}
+--- !u!114 &-2311723618791048119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546609878233238746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d139d36895b904a894edf636e8896c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitpoints_Max: 0
+--- !u!135 &4519466950781114863
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546609878233238746}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &611018038978002659
 GameObject:
   m_ObjectHideFlags: 0

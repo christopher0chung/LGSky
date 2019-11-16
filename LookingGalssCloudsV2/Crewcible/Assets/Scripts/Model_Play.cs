@@ -24,5 +24,10 @@ public class Model_Play : SCG_Model
     public float rocketReloadProgress;
     public float dashReloadProgress;
     #endregion
+
+    [Header("Jump")]
+    public float jumpTotal;
+    public float jumpRateMax;
+    public float jumpOverheatPenaltyRate;
 }
 public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory }

@@ -103,7 +103,7 @@ public class Behavior_Rockets : MonoBehaviour
         Enemy_Base e = other.gameObject.GetComponent<Enemy_Base>();
         if (e != null)
         {
-            Debug.Log("Rocket trigger entered");
+            //Debug.Log("Rocket trigger entered");
             SCG_EventManager.instance.Fire(new Event_PlayerRocketHit(e, gameModel.d_Rockets_Damage, transform.position, this));
         }
     }

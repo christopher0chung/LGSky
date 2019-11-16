@@ -18,6 +18,7 @@ public class View_MainUI : MonoBehaviour
 
     public Image leftIcon;
     public Image rightIcon;
+    public Image jumpIcon;
 
     public RectTransform leftNeedle;
     public RectTransform rightNeedle;
@@ -26,6 +27,8 @@ public class View_MainUI : MonoBehaviour
     public Image leftHeat;
     public Image rightHeat;
     public Image totalHeat;
+
+    public RectTransform jumpProgressBar;
 
     [Range(0, 100)]
     public float warmBreakpoint;
@@ -162,20 +165,21 @@ public class View_MainUI : MonoBehaviour
 
     void UpdateTotalHeat()
     {
-        _amount = Mathf.Clamp01(heatModel.heat_Total / 150);
+        _amount = Mathf.Clamp01(heatModel.heat_Total / heatModel.max_HeatTotal);
         _needleAng = 180 - 360 * _amount;
         _needleRot.z = _needleAng;
         centerNeedle.localEulerAngles = _needleRot;
 
-        _amount = Mathf.Clamp01(heatModel.heat_Total_Apparent / 150);
+        _amount = Mathf.Clamp01(heatModel.heat_Total_Apparent / heatModel.max_HeatTotal);
         totalHeat.fillAmount = _amount;
     }
 
     void UpdateJumpProgress()
     {
-
+        jumpProgressBar.localScale = new Vector3(Mathf.Clamp01(playModel.jumpTotal / 100), 1, 1);
     }
 
+    float _lastJumpProgress;
     void UpdateColor()
     {
         #region Left
@@ -309,6 +313,15 @@ public class View_MainUI : MonoBehaviour
             totalHeat.color = centerNeedle.GetComponent<Image>().color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Total / warmBreakpoint));
         else
             totalHeat.color = centerNeedle.GetComponent<Image>().color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Total - warmBreakpoint) / (150 - warmBreakpoint)));
+        #endregion
+
+        #region Jump
+        if (_lastJumpProgress >= playModel.jumpTotal)
+            jumpIcon.color = Color.red;
+        else
+            jumpIcon.color = new Color(1, 1, 1, .5f);
+
+        _lastJumpProgress = playModel.jumpTotal;
         #endregion
     }
 }

@@ -71,6 +71,18 @@ public class ServiceLocator
             return _p;
         }
     }
+
+    private AudioSource _sfx;
+
+    public AudioSource SFX
+    {
+        get
+        {
+            if (_sfx == null)
+                _sfx = Application.gameObject.GetComponent<AudioSource>();
+            return _sfx;
+        }
+    }
 }
 
 public class SCG_Model : MonoBehaviour { }

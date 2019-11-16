@@ -8,7 +8,6 @@ public class Controller_Thrusters : SCG_Controller
 
     //Pilot is the only station controller that can write to the energy model
 
-    private AudioSource _myAS;
     private AudioSource _myEngineAS;
 
     private Model_Game gameModel;
@@ -52,7 +51,6 @@ public class Controller_Thrusters : SCG_Controller
     void Start()
     {
 
-        _myAS = GetComponent<AudioSource>();
         _myEngineAS = MakeEngineAS();
         leftBoundVector = Vector3.Normalize(new Vector3(-xBoundFar - -xBoundClose, 0, zBoundFar - zBoundClose));
         leftInVector = Vector3.Cross(leftBoundVector, Vector3.up);
@@ -189,8 +187,12 @@ public class Controller_Thrusters : SCG_Controller
 
             player.position += moveDir * gameModel.f_Thrusters_DashDistance;
             playModel.dashReloadProgress = gameModel.t_Thrusters_DashCooldown;
-            _myAS.PlayOneShot(gameModel.sfx_Thrusters_Dash);
+            ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_Thrusters_Dash);
+
+            heatModel.active_Dash = true;
         }
+        else
+            heatModel.active_Dash = false;
     }
 
     void BoundarySet()

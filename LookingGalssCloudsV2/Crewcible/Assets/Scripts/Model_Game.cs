@@ -21,6 +21,10 @@ public class Model_Game : SCG_Model {
     public AudioClip sfx_Shield_Activate;
     public AudioClip sfx_Gun_Shot;
     #endregion
+    [Header("Enemy SFX")]
+    #region Enemy
+    public AudioClip sfx_EnemyLittleExplosion;
+    #endregion
     [Header("Shield")]
     #region Shield
     //public bool shieldOn;
@@ -113,6 +117,7 @@ public class Model_Game : SCG_Model {
     public GameObject deathExplosionPrefab;
     public GameObject mineExplosionPrefab;
     public GameObject missileExplosionPrefab;
+    public GameObject sfxPlayerPrefab;
     #endregion
 }
 

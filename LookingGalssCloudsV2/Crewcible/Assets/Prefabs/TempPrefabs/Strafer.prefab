@@ -202,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3931603274430298863}
   - component: {fileID: 3931603274430298856}
+  - component: {fileID: 2736561539130514272}
   m_Layer: 0
   m_Name: Strafer
   m_TagString: Untagged
@@ -238,3 +239,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turret: {fileID: 3931603274470513237}
   bullet: {fileID: 2918915019362142458, guid: 449c96b3a68e07347a74ee96510ef126, type: 3}
+--- !u!114 &2736561539130514272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3931603274430298857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d139d36895b904a894edf636e8896c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitpoints_Max: 0

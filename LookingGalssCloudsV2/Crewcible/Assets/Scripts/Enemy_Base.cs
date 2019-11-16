@@ -19,7 +19,10 @@ public class Enemy_Base : MonoBehaviour {
                 if (_h <= 0)
                 {
                     if (hitpoints_Current <= 0)
+                    {
                         SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
+                        Debug.Log("I should be dead");
+                    }
                 }
             }
         }
@@ -55,6 +58,7 @@ public class Enemy_Base : MonoBehaviour {
             if (p.enemyHit == this)
             {
                 hitpoints_Current -= p.enemyDamageTaken;
+                //Debug.Log("I've been hit. My Life is now at " + hitpoints_Current);
             }
         }
 

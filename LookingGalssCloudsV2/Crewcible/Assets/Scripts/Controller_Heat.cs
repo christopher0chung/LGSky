@@ -48,6 +48,7 @@ public class Controller_Heat : SCG_Controller
         _HeatCalc_Rockets();
         _HeatCalc_Shield();
         _HeatCalc_Thrusters();
+        _HeatCalc_Total();
 
         _lastStatesUpdate();
     }
@@ -309,6 +310,9 @@ public class Controller_Heat : SCG_Controller
                 else
                     heatModel.heat_Thrusters -= heatModel.cooldownRate_Thrusters * Time.deltaTime;
 
+                if (heatModel.active_Dash)
+                    heatModel.heat_Thrusters += heatModel.activationHeat_Thrusters;
+
                 //Clamping
                 if (heatModel.heat_Thrusters >= 100)
                 {
@@ -335,6 +339,11 @@ public class Controller_Heat : SCG_Controller
                 heatModel.heat_Total += 100;
             }
         }
+    }
+
+    private void _HeatCalc_Total()
+    {
+        heatModel.heat_Total = Mathf.Clamp(heatModel.heat_Total, 0, heatModel.max_HeatTotal);
     }
 
     private void _lastStatesUpdate()
