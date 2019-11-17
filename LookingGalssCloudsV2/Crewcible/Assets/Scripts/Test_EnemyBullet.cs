@@ -12,12 +12,17 @@ public class Test_EnemyBullet : MonoBehaviour
 
     Model_Play playModel;
     Model_Game gameModel;
+
+    Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
         target = ServiceLocator.instance.Player;
+
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -28,7 +33,7 @@ public class Test_EnemyBullet : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(target.position - transform.position), 11 * Time.deltaTime);
 
         if (timer <= 6)
-            transform.position += transform.forward * speed * Time.deltaTime;
+            rb.MovePosition(transform.position + transform.forward * speed * Time.deltaTime);
         else
             Destroy(this.gameObject);
     }
@@ -39,11 +44,14 @@ public class Test_EnemyBullet : MonoBehaviour
     {
         if (other.gameObject.name == "Shield")
         {
-            shieldOrientation = playModel.shieldDirection;
-            shieldStrikeVector = Vector3.Normalize(transform.position - other.transform.position);
-            if (Vector3.Dot(shieldOrientation, shieldStrikeVector) <= playModel.shieldSize)
+            shieldOrientation = Vector3.Normalize(playModel.shieldDirection);
+            shieldStrikeVector = Vector3.Normalize(transform.position - target.position);
+            float dot = Vector3.Dot(shieldOrientation, shieldStrikeVector);
+
+            if (dot <= playModel.shieldSize)
             {
                 //Miss
+                Debug.Log(dot + "is less than " + playModel.shieldSize);
             }
             else
             {

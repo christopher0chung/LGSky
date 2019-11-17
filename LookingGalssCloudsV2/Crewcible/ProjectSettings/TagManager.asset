@@ -17,9 +17,9 @@ TagManager:
   - Player
   - ExcludeFromHoloplay
   - ExcludeFromShieldCam
-  - 
-  - 
-  - 
+  - ShowOnGunCam
+  - ShowOnShieldCam
+  - ExcludeFromBoth
   - 
   - 
   - 
