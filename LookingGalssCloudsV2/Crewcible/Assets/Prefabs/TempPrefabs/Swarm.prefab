@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbc3ec260b428e408f07dcc3b041409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberInSwarm: 262
-  speed: 39.04
+  numberInSwarm: 100
+  speed: 40
   interpolateFactor: 2
   _swarm: []
   w_Cohesion: 1

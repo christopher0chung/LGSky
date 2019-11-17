@@ -7,18 +7,30 @@ public class FPS : MonoBehaviour
     Text outputText;
     float delTimeAvg;
 
+    float timer;
+
     // Start is called before the first frame update
     void Start()
     {
         outputText = GetComponent<Text>();
-        delTimeAvg = Time.deltaTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        delTimeAvg = Mathf.Lerp(delTimeAvg, Time.deltaTime, .01f);
+        if (Time.time > 1 && timer <= 1)
+            delTimeAvg = Time.unscaledDeltaTime;
 
-        outputText.text = (1 / delTimeAvg).ToString();
+        timer += Time.unscaledDeltaTime;
+
+
+        if (Time.time > 1)
+        {
+            delTimeAvg = Mathf.Lerp(delTimeAvg, Time.unscaledDeltaTime, .01f);
+
+            outputText.text = (1 / delTimeAvg).ToString();
+        }
+        else
+            outputText.text = "wait...";
     }
 }

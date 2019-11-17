@@ -29,5 +29,8 @@ public class Model_Play : SCG_Model
     public float jumpTotal;
     public float jumpRateMax;
     public float jumpOverheatPenaltyRate;
+
+    [Header("Lives")]
+    public int lives;
 }
 public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory }

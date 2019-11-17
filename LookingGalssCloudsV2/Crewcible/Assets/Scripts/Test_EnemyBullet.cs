@@ -54,7 +54,7 @@ public class Test_EnemyBullet : MonoBehaviour
             if (dot <= playModel.shieldSize)
             {
                 //Miss
-                Debug.Log(dot + "is less than " + playModel.shieldSize);
+                //Debug.Log(dot + "is less than " + playModel.shieldSize);
             }
             else
             {
