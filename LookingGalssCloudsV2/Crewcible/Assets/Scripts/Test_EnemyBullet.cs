@@ -26,14 +26,14 @@ public class Test_EnemyBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        timer += Time.deltaTime;
+        timer += Time.fixedDeltaTime;
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(target.position - transform.position), 11 * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(target.position - transform.position), 11 * Time.fixedDeltaTime);
 
         if (timer <= 6)
-            rb.MovePosition(transform.position + transform.forward * speed * Time.deltaTime);
+            rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
         else
             Destroy(this.gameObject);
     }
@@ -42,6 +42,9 @@ public class Test_EnemyBullet : MonoBehaviour
     Vector3 shieldStrikeVector;
     public void OnTriggerEnter(Collider other)
     {
+        if (playModel.currentPlayerState != PlayerState.Alive)
+            return;
+
         if (other.gameObject.name == "Shield")
         {
             shieldOrientation = Vector3.Normalize(playModel.shieldDirection);
@@ -65,10 +68,5 @@ public class Test_EnemyBullet : MonoBehaviour
             ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_Gun_Shot);
             SCG_EventManager.instance.Fire(new Event_EnemyBulletHit());
         }
-
-
-
-
-
     }
 }

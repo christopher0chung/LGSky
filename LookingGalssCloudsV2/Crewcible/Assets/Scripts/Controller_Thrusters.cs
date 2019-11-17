@@ -95,10 +95,7 @@ public class Controller_Thrusters : SCG_Controller
             thrusterVolume = 0;
             _myEngineAS.volume = 0;
         }
-
-
         _myEngineAS.volume = Mathf.Lerp(_myEngineAS.volume, thrusterVolume, .1f);
-
     }
 
     #region Pilot

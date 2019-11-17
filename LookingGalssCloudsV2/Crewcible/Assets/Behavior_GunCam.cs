@@ -25,4 +25,9 @@ public class Behavior_GunCam : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(gunPointer.forward);
         }
     }
+
+    private void OnDisable()
+    {
+        outputQuad.SetActive(false);
+    }
 }

@@ -47,9 +47,8 @@ public class Controller_Rockets : SCG_Controller {
             {
                 _Rockets(inputModel.R_Action_OnDown);
             }
-        }
-
         _RocketFiring();
+        }
     }
 
     #region Rockets
@@ -100,7 +99,7 @@ public class Controller_Rockets : SCG_Controller {
             if (rocketIncrementor >= gameModel.i_Rockets_RocketCountMax)
                 rocketIncrementor = 0;
         }
-        else if (heatModel.overheated_Rockets)
+        else if (heatModel.overheated_Rockets || playModel.currentPlayerState == PlayerState.Dead)
             rocketIncrementor = 0;
     }
     #endregion

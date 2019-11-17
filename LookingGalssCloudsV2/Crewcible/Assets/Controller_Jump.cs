@@ -33,6 +33,8 @@ public class Controller_Jump : SCG_Controller
             playModel.jumpTotal -= playModel.jumpOverheatPenaltyRate * Time.deltaTime;
         else
             playModel.jumpTotal += playModel.jumpRateMax * heatToChargeConversionFactor.Evaluate(heatModel.heat_Total) * Time.deltaTime;
+
+        playModel.jumpTotal = Mathf.Clamp(playModel.jumpTotal, 0, 100);
     }
 
     public void DamageEventHandler(SCG_Event e)
@@ -40,5 +42,7 @@ public class Controller_Jump : SCG_Controller
         Event_EnemyBulletHit bH = e as Event_EnemyBulletHit;
         if (bH != null)
             playModel.jumpTotal -= gameModel.m_EnemyBulletDamage;
+
+        playModel.jumpTotal = Mathf.Clamp(playModel.jumpTotal, 0, 100);
     }
 }

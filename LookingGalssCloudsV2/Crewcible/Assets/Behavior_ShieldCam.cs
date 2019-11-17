@@ -24,4 +24,9 @@ public class Behavior_ShieldCam : MonoBehaviour
             transform.rotation = Quaternion.LookRotation((Vector3)playModel.shieldDirection);
         }
     }
+
+    private void OnDisable()
+    {
+        outputQuad.SetActive(false);
+    }
 }
