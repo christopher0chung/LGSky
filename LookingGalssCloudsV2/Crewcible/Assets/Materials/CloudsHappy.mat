@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TextMat
-  m_Shader: {fileID: 4800000, guid: 55f15356a2e33ab48923e54eacd2f870, type: 3}
+  m_Name: CloudsHappy
+  m_Shader: {fileID: 4800000, guid: 7bb6eb438fb78e042ad0927ab367205d, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 0
-  m_EnableInstancingVariants: 0
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -55,6 +55,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -63,10 +67,17 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _HighlightOpacity: 1
+    - _HighlightThreshold: 0.748
+    - _LowlightThreshold: 0.398
     - _Metallic: 0
+    - _MidlightOpacity: 0.8
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Opacity: 0.796
     - _Parallax: 0.02
+    - _ShadowOpacity: 0.6
+    - _Shininess: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -74,6 +85,10 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive: {r: 0.50848955, g: 0, b: 0, a: 0.50848955}
+    - _Highlight: {r: 0.77882355, g: 0.73333335, b: 0.827451, a: 1}
+    - _MainColor: {r: 0.3921569, g: 0.3921569, b: 0.3921569, a: 1}
+    - _Midlight: {r: 0.74267983, g: 0.6156863, b: 0.8784314, a: 1}
+    - _Shadow: {r: 0.6233334, g: 0.56078434, b: 0.6901961, a: 1}
+    - _SpecularColor: {r: 0.3921569, g: 0.3921569, b: 0.3921569, a: 1}
