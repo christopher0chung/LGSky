@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Controller_Respawn : SCG_Controller
 {
     Model_Play playModel;
+    Model_Input inputModel;
     Transform player;
 
     SCG_FSM<Controller_Respawn> _fsm;
@@ -19,10 +20,9 @@ public class Controller_Respawn : SCG_Controller
     public Material gameOverTextMat;
     void Start()
     {
-        _fsm = new SCG_FSM<Controller_Respawn>(this);
-        _fsm.TransitionTo<Alive>();
 
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+        inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
         player = ServiceLocator.instance.Player;
 
         priority = 10;
@@ -30,8 +30,11 @@ public class Controller_Respawn : SCG_Controller
 
         renderers = player.GetComponentsInChildren<MeshRenderer>();
 
-        playModel.lives = 1;
+        playModel.lives = 3;
         gameOver.SetActive(false);
+
+        _fsm = new SCG_FSM<Controller_Respawn>(this);
+        _fsm.TransitionTo<Alive>();
     }
 
     // Update is called once per frame
@@ -55,6 +58,20 @@ public class Controller_Respawn : SCG_Controller
         public override void OnExit()
         {
             
+        }
+    }
+
+    public class Starting : State_Base
+    {
+        public override void OnEnter()
+        {
+            Context.playModel.lives = 3;
+            Context.gameOver.SetActive(false);
+            Time.timeScale = 1;
+        }
+        public override void Update()
+        {
+            TransitionTo<Respawning>();
         }
     }
 
@@ -172,19 +189,28 @@ public class Controller_Respawn : SCG_Controller
 
         private float intensity;
 
+        private float restartTimer;
+
         public override void Update()
         {
             base.Update();
             Time.timeScale = Mathf.Lerp(Time.timeScale, .09f, 6 * Time.deltaTime);
             intensity = Mathf.Lerp(intensity, 1.8f, .5f * Time.deltaTime);
             Context.gameOverTextMat.SetColor("_Emissive", Color.red * intensity);
-            Debug.Log(Time.timeScale);
+            //Debug.Log(Time.timeScale);
+
+            restartTimer += Time.unscaledDeltaTime;
+            if (restartTimer >= 3)
+            {
+                if (Context.inputModel.L_Action_OnDown || Context.inputModel.R_Action_OnDown)
+                    TransitionTo<Starting>();
+            }
         }
 
         public override void GoToRespawn()
         {
-            if (timer >= dyingDuration)
-                TransitionTo<State_Base>();   
+            //if (timer >= dyingDuration)
+            //    TransitionTo<State_Base>();   
         }
     }
 

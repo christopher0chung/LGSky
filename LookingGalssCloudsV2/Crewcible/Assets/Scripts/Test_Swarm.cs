@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Test_Swarm : MonoBehaviour
 {
-    public int numberInSwarm;
+    Manager_GameAssets assetManager;
+
+    //public int numberInSwarm;
     public float speed;
     public float interpolateFactor;
 
-    public List<GameObject> _swarm;
+    private List<GameObject> _swarm;
     private List<BoidDirs> _dirs;
     private List<bool> _attackMode;
 
@@ -28,14 +30,17 @@ public class Test_Swarm : MonoBehaviour
     [Range(0, 1)] public float attackConeScalar;
     [Range(0, 1)] public float attackPercentage;
 
+    public GameObject swarmer;
     public GameObject bullet;
 
     float attackTimer;
 
-    void Start()
+    public void Initialize(int num)
     {
+        assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
-        Debug.Log("Start Stuff");
+        //Debug.Log("Start Stuff");
 
         target = ServiceLocator.instance.Player;
 
@@ -43,19 +48,16 @@ public class Test_Swarm : MonoBehaviour
         _dirs = new List<BoidDirs>();
         _attackMode = new List<bool>();
 
-        GameObject first = transform.GetChild(0).gameObject;
+        GameObject first = swarmer;
         _swarm.Add(first);
-        for (int i = 0; i < numberInSwarm - 1; i++)
+        _dirs.Add(new BoidDirs());
+        _attackMode.Add(false);
+
+        for (int i = 0; i < num; i++)
         {
             _swarm.Add(Instantiate(first, transform.position, Quaternion.LookRotation(Random.insideUnitSphere), transform));
             _dirs.Add(new BoidDirs());
             _attackMode.Add(false);
-
-            if (i == 0)
-            {
-                _dirs.Add(new BoidDirs());
-                _attackMode.Add(false);
-            }
         }
 
         foreach (GameObject g in _swarm)
@@ -93,9 +95,29 @@ public class Test_Swarm : MonoBehaviour
                 _attackMode[Random.Range(0, _swarm.Count)] = true;
             }
         }
+
+        Cleanup();
     }
 
     #region Major Functions
+
+    private float cleanupTimer;
+    private void Cleanup()
+    {
+        if (_swarm.Count <= 5)
+            cleanupTimer += Time.deltaTime;
+
+        Debug.Log(cleanupTimer);
+
+        if (cleanupTimer >= 15)
+        {
+            for (int i = _swarm.Count - 1; i >= 0; i--)
+            {
+                assetManager.Make(MyGameAsset.BulletExplosion, _swarm[i].transform.position);
+            }
+            Destroy(this.gameObject);
+        }
+    }
     private void InitializeDirections(BoidDirs d)
     {
         d.cohesion = Vector3.zero;

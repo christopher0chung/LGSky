@@ -38,7 +38,7 @@ public class Behavior_ExplosionBall : MonoBehaviour
         if (other.gameObject.tag != "Enemy")
             return;
 
-        Debug.Log("enemy in radius");
+        //Debug.Log("enemy in radius");
 
         Enemy_Base e = other.GetComponent<Enemy_Base>();
 

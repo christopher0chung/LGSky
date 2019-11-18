@@ -12,9 +12,15 @@ public class Test_Strafer : MonoBehaviour
 
     private float shootTimer;
     public GameObject bullet;
+
+    Enemy_Base myE;
+
     void Start()
     {
         target = ServiceLocator.instance.Player;
+        SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
+        myE = GetComponent<Enemy_Base>();
+        myE.SetHitPoint(15);
     }
 
     void Update()
@@ -25,7 +31,7 @@ public class Test_Strafer : MonoBehaviour
         transform.position += (transform.forward * 37 + Vector3.forward * -30) * Time.deltaTime;
 
         shootTimer += Time.deltaTime;
-        if (shootTimer >= 2)
+        if (shootTimer >= .75f)
         {
             shootTimer = 0;
             if (turret.position.z > target.position.z + 12 && turret.position.z < 100)
@@ -34,5 +40,17 @@ public class Test_Strafer : MonoBehaviour
 
         if (transform.position.z >= 270)
             Destroy(this.gameObject);
+    }
+
+    public void EnemyDeathEventHandler(SCG_Event e)
+    {
+        Event_EnemyDeath eD = e as Event_EnemyDeath;
+
+        if (eD != null)
+        {
+            if (eD.enemyToBeDestroyed != myE)
+                return;
+            Destroy(this.gameObject);
+        }
     }
 }

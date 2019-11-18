@@ -13,9 +13,11 @@ public class Behavior_Bullet : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Enemy")
-            return;
-        else
+        if (other.tag == "Blocker")
+        {
+            SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(null, 0, transform.position, this));
+        }
+        else if (other.tag == "Enemy")
         {
             Enemy_Base e = other.gameObject.GetComponent<Enemy_Base>();
             if (e != null)

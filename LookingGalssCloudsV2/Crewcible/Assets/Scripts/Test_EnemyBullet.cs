@@ -58,6 +58,7 @@ public class Test_EnemyBullet : MonoBehaviour
             }
             else
             {
+                SCG_EventManager.instance.Fire(new Event_PlayerShieldBlock());
                 ServiceLocator.instance.SFX.pitch = Random.Range(.95f, 1.05f);
                 ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_Shield_Block);
                 Destroy(this.gameObject);

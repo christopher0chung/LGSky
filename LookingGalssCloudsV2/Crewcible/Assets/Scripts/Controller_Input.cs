@@ -86,8 +86,8 @@ public class Controller_Input : SCG_Controller {
         inputModel.L_Action_OnUp = inputDevice.LeftTrigger.WasReleased;
 
         inputModel.L_SwapUp_OnDown = inputDevice.LeftBumper.WasPressed;
-        if (inputDevice.LeftBumper.WasPressed)
-            Debug.Log("LB was pressed");
+        //if (inputDevice.LeftBumper.WasPressed)
+        //    Debug.Log("LB was pressed");
 
         inputModel.R_X = inputDevice.RightStickX;
         inputModel.R_Y = inputDevice.RightStickY;
@@ -129,7 +129,7 @@ public class Controller_Input : SCG_Controller {
         inputModel.R_Mag = Mathf.Sqrt((inputModel.R_X * inputModel.R_X) + (inputModel.R_Y * inputModel.R_Y)) * 90;
         if (inputModel.R_Mag == 0)
             inputModel.R_Brg = 0;
-        else;
+        else
             inputModel.R_Brg = (Mathf.Atan2(inputModel.R_Y, inputModel.R_X) * Mathf.Rad2Deg + 630) % 360;
 
         inputModel.R_Action_OnDown = (device1.LeftTrigger.WasPressed || device1.RightTrigger.WasPressed || device1.Action1.WasPressed);

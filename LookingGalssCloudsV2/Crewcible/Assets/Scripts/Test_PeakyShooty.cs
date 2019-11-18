@@ -26,15 +26,19 @@ public class Test_PeakyShooty : MonoBehaviour
     private float lastApproachTimer;
     private float approachTimer;
 
+    Enemy_Base myE;
+
     // Start is called before the first frame update
     void Start()
     {
+        myE = GetComponent<Enemy_Base>();
         target = ServiceLocator.instance.Player;
         oldPos = transform.position;
         newPos = target.position + Vector3.forward * Random.Range(7, 40) + Vector3.right * Random.Range(-33, 33) + Vector3.up * Random.Range(5, 33);
         _tOffset = Random.Range(0.00f, 10.00f);
         timer = -_tOffset;
         shield = transform.GetChild(1);
+        SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathHandler);
     }
 
     // Update is called once per frame
@@ -50,6 +54,16 @@ public class Test_PeakyShooty : MonoBehaviour
             Approach();
         else
             OnStation();
+    }
+
+    public void EnemyDeathHandler(SCG_Event e)
+    {
+        Event_EnemyDeath ed = e as Event_EnemyDeath;
+        if (ed != null)
+        {
+            if (ed.enemyToBeDestroyed == myE)
+                Destroy(this.gameObject);
+        }
     }
 
     private void Approach()

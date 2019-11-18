@@ -65,6 +65,8 @@ public class Event_PlayerRocketHit : SCG_Event
     }
 }
 
+public class Event_PlayerShieldBlock : SCG_Event { }
+
 public class Event_ExplosionBallHit : SCG_Event
 {
     public Enemy_Base enemyHit;

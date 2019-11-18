@@ -45,6 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloudPrefab: {fileID: 2450357409995878557, guid: d4992ca8625750243abf8ac7dca9e897,
     type: 3}
-  max: 35
-  minZ: -250
-  maxZ: 250
+  max: 100
+  minZ: -300
+  maxZ: 300

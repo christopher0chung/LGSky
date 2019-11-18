@@ -118,13 +118,13 @@ public class Controller_Thrusters : SCG_Controller
         {
             heatModel.active_Thrusters = true;
             flyRet.enabled = true;
-            Debug.Log("Thruster input.");
+            //Debug.Log("Thruster input.");
         }
         else
         {
             heatModel.active_Thrusters = false;
             flyRet.enabled = false;
-            Debug.Log("No thruster input.");
+            //Debug.Log("No thruster input.");
         }
 
         if (player.position.x <= -xBoundCalc && Vector3.Dot(inputDirNorm, leftInVector) > 0)
