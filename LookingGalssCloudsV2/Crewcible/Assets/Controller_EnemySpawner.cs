@@ -23,6 +23,7 @@ public class Controller_EnemySpawner : MonoBehaviour
     void Update()
     {
         sadModel.difficulty = 1 + (float)sadModel.score / 22000;
+        sadModel.difficulty_Log = Mathf.Log(sadModel.difficulty) * 2;
         _fsm.Update();
     }
 
@@ -127,22 +128,42 @@ public class Controller_EnemySpawner : MonoBehaviour
 
     public class PeakySpawn : State_Base
     {
-        float timer;
+        float delayTimer;
+
+        float spawnIntervalTimer;
+
+        int counter;
+
+        int max;
+
+        float spawnInterval = .8f;
 
         public override void OnEnter()
         {
-            timer = 0;
+            delayTimer = 0;
+            spawnIntervalTimer = 0;
+            counter = 0;
+            max = 2 + 1 * Mathf.FloorToInt(Context.sadModel.difficulty);
         }
 
         public override void Update()
         {
-            timer += Time.deltaTime;
+            delayTimer += Time.deltaTime;
 
-            if (timer >= 5)
+            if (delayTimer >= 5)
             {
-                Context.Peaky(2 + 1 * Mathf.FloorToInt(Context.sadModel.difficulty));
-                TransitionTo<Wait>();
+                spawnIntervalTimer += Time.deltaTime;
+
+                if (spawnIntervalTimer > spawnInterval)
+                {
+                    spawnIntervalTimer -= spawnInterval;
+                    Context.Peaky(1);
+                    counter++;
+                }
             }
+
+            if (counter >= max)
+                TransitionTo<Wait>();
         }
     }
 

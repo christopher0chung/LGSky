@@ -114,3 +114,13 @@ public class Event_EnemyMissileHit : SCG_Event
         location = where;
     }
 }
+
+public class Event_BonusPoints : SCG_Event
+{
+    public int score;
+
+    public Event_BonusPoints(int bonus)
+    {
+        score = bonus;
+    }
+}

@@ -13503,6 +13503,7 @@ MonoBehaviour:
   sfx_Gun_Shot: {fileID: 8300000, guid: 8a7782ff107db3240a9ef411943a328c, type: 3}
   sfx_EnemyLittleExplosion: {fileID: 8300000, guid: c528dad3fe8287a4fb75321c077ca2b4,
     type: 3}
+  sfx_EnemyBulletHit: {fileID: 8300000, guid: ca3c5b5dab4449344926646d17670330, type: 3}
   c_Shield_Inside: {r: 0, g: 0, b: 0, a: 0}
   c_Shield_Outside: {r: 0, g: 0, b: 0, a: 0}
   f_Shield_HDRIntensity_Base: 0
@@ -13514,7 +13515,7 @@ MonoBehaviour:
   s_Shield_HitFlashNormalize: 0
   t_Guns_SpinUpTime: 0.15
   t_Guns_TimeBetweenShots: 0.06
-  d_Guns_Damage: 2
+  d_Guns_Damage: 3
   s_Guns_TurnSpeed_Activated: 50
   s_Guns_TurnSpeed_Inactivated: 200
   f_Guns_BulletDispersion: 3
@@ -13523,7 +13524,7 @@ MonoBehaviour:
   t_Rockets_FireRate: 0.07
   t_Rockets_Reload: 3
   d_Rockets_Damage: 15
-  d_Rockets_ExplosionBallDamage: 3
+  d_Rockets_ExplosionBallDamage: 10
   f_Rockets_ExplosionBallSize: 10
   t_Rockets_ExplosionBallLifetime: 1.8
   i_Rockets_RocketCountMax: 30
@@ -13536,7 +13537,7 @@ MonoBehaviour:
   s_Thrusters_Speed: 10
   f_Thrusters_DashDistance: 10
   t_Thrusters_DashCooldown: 2
-  d_Lance_Damage: 7
+  d_Lance_Damage: 8
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
   s_Lance_ExtendSpeed: 30
@@ -13669,6 +13670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   difficulty: 0
+  difficulty_Log: 0
 --- !u!1 &1331436088 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5847076846368988302, guid: 2af6c75028dedf042b85b18ddc3efda2,

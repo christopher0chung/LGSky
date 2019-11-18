@@ -6,4 +6,5 @@ public class Model_ScoreAndDifficulty : MonoBehaviour
 {
     public int score;
     public float difficulty;
+    public float difficulty_Log;
 }

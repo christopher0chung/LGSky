@@ -18,42 +18,50 @@ public class Test_PeakyShooty : MonoBehaviour
     Transform shield;
 
     [Range(0, 1)] public float shieldFraction;
-    float _oldShieldT;
 
     public GameObject bullet;
 
-    private float timer;
-    private float lastApproachTimer;
-    private float approachTimer;
-
     Enemy_Base myE;
+
+    ParticleSystem damageInd;
+
+    SCG_FSM<Test_PeakyShooty> _fsm;
+
+    float effectsTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         myE = GetComponent<Enemy_Base>();
         target = ServiceLocator.instance.Player;
+
         oldPos = transform.position;
-        newPos = target.position + Vector3.forward * Random.Range(7, 40) + Vector3.right * Random.Range(-33, 33) + Vector3.up * Random.Range(5, 33);
+        newPos = target.position + 
+            Vector3.forward * Random.Range(7, 40) + 
+            Vector3.right * Random.Range(-33, 33) + 
+            Vector3.up * Random.Range(5, 33);
+
         _tOffset = Random.Range(0.00f, 10.00f);
-        timer = -_tOffset;
-        shield = transform.GetChild(1);
+
+        shield = transform.Find("PeakyShield");
+
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathHandler);
+
+        damageInd = GetComponentInChildren<ParticleSystem>();
+
+        _fsm = new SCG_FSM<Test_PeakyShooty>(this);
+        _fsm.TransitionTo<Approach>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        approachTimer += Time.deltaTime;
+        effectsTimer += Time.deltaTime;
 
-        if (lastApproachTimer <= 7 && approachTimer > 7)
-            Tick();
-        lastApproachTimer = approachTimer;
+        _fsm.Update();
 
-        if (approachTimer <= 7)
-            Approach();
-        else
-            OnStation();
+        var rate = damageInd.emission;
+        rate.rateOverTime = 50 * ((myE.hitpoints_Max - myE.hitpoints_Current) / myE.hitpoints_Max);
     }
 
     public void EnemyDeathHandler(SCG_Event e)
@@ -61,48 +69,117 @@ public class Test_PeakyShooty : MonoBehaviour
         Event_EnemyDeath ed = e as Event_EnemyDeath;
         if (ed != null)
         {
+            SCG_EventManager.instance.Fire(new Event_BonusPoints(559));
+
             if (ed.enemyToBeDestroyed == myE)
                 Destroy(this.gameObject);
         }
     }
 
-    private void Approach()
+    public class State_Base : SCG_FSM<Test_PeakyShooty>.State
     {
-        transform.position = Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseIn(approachTimer / 7));
-        transform.LookAt(target.position);
+
     }
 
-    private void OnStation()
+    public class Approach : State_Base
     {
-        timer += Time.deltaTime;
-        float t = ((timer + _tOffset) / interval) % 1;
-
-        if (Mathf.Abs(_lastTime - t) > .5f)
-            Tick();
-
-        transform.position = Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseInOut(t)) + Vector3.up * 1.3f * Mathf.Sin(timer * bobRate + _tOffset);
-
-        if (t >= shieldFraction)
+        float timer;
+        Vector3 oldPos;
+        Vector3 newPos;
+        public override void OnEnter()
         {
-            float shieldT = (t - shieldFraction) / (1 - shieldFraction);
-            shield.localPosition = Vector3.right * 4 * Mathf.Sin(shieldT * Mathf.PI);
-
-            for (int i = 0; i < 2; i++)
-            {
-                if (_oldShieldT < .5f + (i * .1f) && shieldT >= .5f + (i * .1f))
-                    Instantiate(bullet, transform.position + transform.right * -2.65f + transform.forward * 3.07f, Quaternion.LookRotation(transform.forward));
-            }
-            _oldShieldT = shieldT;
+            timer = 0;
+            oldPos = Context.transform.position;
+            newPos = Context.target.position +
+                Vector3.forward * Random.Range(7, 40) +
+                Vector3.right * Random.Range(-33, 33) +
+                Vector3.up * Random.Range(5, 33);
         }
 
-        transform.LookAt(target.position);
+        public override void Update()
+        {
+            timer += Time.deltaTime;
 
-        _lastTime = t;
+            Context.transform.position = Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseIn(timer / 7)) + 
+                Vector3.up * 1.3f * Mathf.Sin(Context.effectsTimer * Context.bobRate + Context._tOffset);
+            Context.transform.LookAt(Context.target.position);
+            Context.shield.localPosition = new Vector3(0, 0, 1.16f);
+            Context.shield.localRotation = Quaternion.identity;
+
+            if (timer >= 7)
+                TransitionTo<OnStation>();
+        }
+
+        public override void OnExit()
+        {
+            
+        }
     }
-    private void Tick()
+
+    public class OnStation : State_Base
     {
-        oldPos = newPos;
-        newPos = target.position + Vector3.forward * Random.Range(7, 40) + Vector3.right * Random.Range(-33, 33) + Vector3.up * Random.Range(5, 33);
-        newPos.y = Mathf.Abs(newPos.y);
+        public Vector3 oldPos;
+        Vector3 newPos;
+
+        float timer;
+
+        int counter;
+
+        float oldT;
+        public override void OnEnter()
+        {
+            if (counter == 0)
+                oldPos = Context.transform.position;
+            else
+                oldPos = newPos;
+            newPos = Context.target.position + Vector3.forward * Random.Range(7, 40) + Vector3.right * Random.Range(-33, 33) + Vector3.up * Random.Range(5, 33);
+
+            timer = 0;
+
+            counter++;
+        }
+
+        public override void Update()
+        {
+            timer += Time.deltaTime / Context.interval;
+
+            Context.transform.position = 
+                Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseInOut(timer)) + 
+                Vector3.up * 1.3f * Mathf.Sin(Context.effectsTimer * Context.bobRate + Context._tOffset);
+
+            if (timer <= Context.shieldFraction)
+            {
+                float shieldT = timer  / Context.shieldFraction;
+
+                Context.shield.localPosition = Vector3.right * 4 * Mathf.Sin(shieldT * Mathf.PI) + Vector3.forward * 1.16f;
+                Context.shield.localRotation = Quaternion.identity;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    if (shieldT >= .3f + .07f * i && oldT < .3f + .07f * i)
+                    Instantiate(Context.bullet, Context.transform.position + Context.transform.right * -2.67f + Context.transform.forward * 3.45f, Quaternion.LookRotation(Context.transform.forward));
+                }
+
+                oldT = shieldT;   
+            }
+
+            Context.transform.LookAt(Context.target.position);
+
+            if (timer >= 1)
+                TransitionTo<Rebound>();
+        }
+
+        public override void OnExit()
+        {
+            
+        }
+    }
+
+    class Rebound : State_Base
+    {
+        public override void Update()
+        {
+            TransitionTo<OnStation>();
+        }
     }
 }

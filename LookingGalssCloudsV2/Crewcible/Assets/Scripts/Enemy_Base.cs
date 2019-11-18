@@ -40,6 +40,7 @@ public class Enemy_Base : MonoBehaviour {
         {
             Rigidbody r = gameObject.AddComponent<Rigidbody>();
             r.isKinematic = true;
+            r.useGravity = false;
         }
     }
 

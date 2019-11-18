@@ -15,10 +15,19 @@ public class Controller_Score : MonoBehaviour
         SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerShieldBlock>(EventHandler);
+        SCG_EventManager.instance.Register<Event_BonusPoints>(EventHandler);
     }
 
     public void EventHandler (SCG_Event e)
     {
+        Event_BonusPoints bp = e as Event_BonusPoints;
+
+        if (bp != null)
+        {
+            sadModel.score += bp.score;
+            return;
+        }
+
         Event_PlayerBulletHit bh = e as Event_PlayerBulletHit;
 
         if (bh != null)
