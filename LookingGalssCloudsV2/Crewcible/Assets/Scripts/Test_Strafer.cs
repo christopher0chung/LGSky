@@ -15,12 +15,14 @@ public class Test_Strafer : MonoBehaviour
 
     Enemy_Base myE;
 
+    ParticleSystem damageInd;
+
     void Start()
     {
         target = ServiceLocator.instance.Player;
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
         myE = GetComponent<Enemy_Base>();
-        myE.SetHitPoint(15);
+        damageInd = GetComponentInChildren<ParticleSystem>();
     }
 
     void Update()
@@ -40,6 +42,9 @@ public class Test_Strafer : MonoBehaviour
 
         if (transform.position.z >= 270)
             Destroy(this.gameObject);
+
+        var rate = damageInd.emission;
+        rate.rateOverTime = 50 * (myE.hitpoints_Max - myE.hitpoints_Current) / myE.hitpoints_Max;
     }
 
     public void EnemyDeathEventHandler(SCG_Event e)
@@ -50,6 +55,8 @@ public class Test_Strafer : MonoBehaviour
         {
             if (eD.enemyToBeDestroyed != myE)
                 return;
+
+            SCG_EventManager.instance.Fire(new Event_BonusPoints(1203));
             Destroy(this.gameObject);
         }
     }

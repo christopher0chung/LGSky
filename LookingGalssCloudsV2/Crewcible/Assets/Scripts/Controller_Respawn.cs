@@ -212,6 +212,14 @@ public class Controller_Respawn : SCG_Controller
             //if (timer >= dyingDuration)
             //    TransitionTo<State_Base>();   
         }
+
+        public override void OnExit()
+        {
+            SCG_EventManager.instance.Fire(new Event_Restart());
+            Context.preExplosion.Stop();
+            Context.explosion.transform.position = Context.player.position;
+            Context.explosion.Emit(250);
+        }
     }
 
     public class LevelVictory : State_Base

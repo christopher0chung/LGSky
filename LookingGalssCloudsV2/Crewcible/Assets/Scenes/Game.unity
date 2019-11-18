@@ -13516,7 +13516,7 @@ MonoBehaviour:
   t_Guns_SpinUpTime: 0.15
   t_Guns_TimeBetweenShots: 0.06
   d_Guns_Damage: 3
-  s_Guns_TurnSpeed_Activated: 50
+  s_Guns_TurnSpeed_Activated: 115
   s_Guns_TurnSpeed_Inactivated: 200
   f_Guns_BulletDispersion: 3
   t_Guns_BulletLifetime: 4
@@ -13534,9 +13534,9 @@ MonoBehaviour:
   t_Rockets_Lifetime: 5
   t_Rockets_InputDelayTime: 1
   f_Rockets_InputError: 0.1
-  s_Thrusters_Speed: 10
-  f_Thrusters_DashDistance: 10
-  t_Thrusters_DashCooldown: 2
+  s_Thrusters_Speed: 12
+  f_Thrusters_DashDistance: 15
+  t_Thrusters_DashCooldown: 2.3
   d_Lance_Damage: 8
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5

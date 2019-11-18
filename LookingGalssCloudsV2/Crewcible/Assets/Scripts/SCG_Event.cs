@@ -124,3 +124,8 @@ public class Event_BonusPoints : SCG_Event
         score = bonus;
     }
 }
+
+public class Event_Restart : SCG_Event
+{
+    public Event_Restart() { }
+}

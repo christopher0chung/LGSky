@@ -13,11 +13,17 @@ public class Controller_EnemySpawner : MonoBehaviour
 
     Model_ScoreAndDifficulty sadModel;
 
+    GameObject baddieParent;
+
     void Start()
     {
         sadModel = ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>();
         _fsm = new SCG_FSM<Controller_EnemySpawner>(this);
-        _fsm.TransitionTo<PeakySpawn>();
+        TransitionToRandomState();
+        baddieParent = new GameObject("BaddieParent");
+        baddieParent.transform.SetParent(ServiceLocator.instance.Controller);
+
+        SCG_EventManager.instance.Register<Event_Restart>(EventHandler);
     }
 
     void Update()
@@ -30,12 +36,25 @@ public class Controller_EnemySpawner : MonoBehaviour
     #region Internal
     void Strafer(int num)
     {
-
+        float angle = Random.Range(-20, 20);
+        Quaternion rot = Quaternion.Euler(0, angle, 0);
+        Vector3 moveDir = Vector3.Normalize(rot * Vector3.forward * 37 - Vector3.forward * 30);
+        for (int i = 0; i < num; i++)
+        {
+            GameObject g = Instantiate(StraferPrefab, 
+                ServiceLocator.instance.Player.position - 
+                    (70 + 15 * i) * moveDir + 
+                    Vector3.up * Random.Range(20, 30)
+                    + Vector3.right * Random.Range(-5, 5), 
+                rot,
+                baddieParent.transform);
+            g.GetComponent<Enemy_Base>().SetHitPoint(101);
+        }
     }
 
     void Swarm(int num)
     {
-        GameObject g = Instantiate(SwarmPrefab, new Vector3(Random.Range(-150, 150), 20, 260), Quaternion.identity, transform);
+        GameObject g = Instantiate(SwarmPrefab, new Vector3(Random.Range(-150, 150), 20, 260), Quaternion.identity, baddieParent.transform);
         g.GetComponent<Test_Swarm>().Initialize(num);
     }
 
@@ -43,7 +62,7 @@ public class Controller_EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < num; i++)
         {
-            GameObject g = Instantiate(PeakyPrefab, new Vector3(0, 0, 260), Quaternion.identity, transform);
+            GameObject g = Instantiate(PeakyPrefab, new Vector3(0, 0, 260), Quaternion.identity, baddieParent.transform);
             g.GetComponent<Enemy_Base>().SetHitPoint(15);
         }
     }
@@ -52,11 +71,38 @@ public class Controller_EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < num; i++)
         {
-            GameObject g = Instantiate(SwooperPrefab, new Vector3(Random.Range(-50, 50), 0, 260), Quaternion.identity, transform);
+            GameObject g = Instantiate(SwooperPrefab, new Vector3(Random.Range(-50, 50), 0, 260), Quaternion.identity, baddieParent.transform);
             g.GetComponent<Enemy_Base>().SetHitPoint(1);
         }
     }
     #endregion
+
+    void TransitionToRandomState()
+    {
+        int i = Random.Range(0, 4);
+
+        if (i == 0)
+            _fsm.TransitionTo<SwooperSpawn>();
+        else if (i == 1)
+            _fsm.TransitionTo<SwarmSpawn>();
+        else if (i == 2)
+            _fsm.TransitionTo<PeakySpawn>();
+        else if (i == 3)
+            _fsm.TransitionTo<StraferSpawn>();
+    }
+
+    public void EventHandler(SCG_Event e)
+    {
+        Event_Restart r = e as Event_Restart;
+        if (r != null)
+        {
+            Destroy(baddieParent);
+            baddieParent = new GameObject("BaddieParent");
+            baddieParent.transform.SetParent(ServiceLocator.instance.Controller);
+            sadModel.score = 0;
+            _fsm.TransitionTo<Wait>();
+        }
+    }
 
     #region States
     public class State_Base : SCG_FSM<Controller_EnemySpawner>.State
@@ -85,13 +131,32 @@ public class Controller_EnemySpawner : MonoBehaviour
             //Debug.Log(timer);
 
             if (timer >= delay)
-                TransitionTo<PeakySpawn>();
+                Context.TransitionToRandomState();
         }
     }
 
     public class StraferSpawn : State_Base
     {
+        float timer;
+        public override void OnEnter()
+        {
+            timer = 0;
+        }
 
+        public override void Update()
+        {
+            timer += Time.deltaTime;
+            if (timer > 2)
+            {
+                Context.Strafer(Mathf.FloorToInt(Context.sadModel.difficulty_Log) + 2);
+                TransitionTo<Wait>();
+            }
+        }
+
+        public override void OnExit()
+        {
+            
+        }
     }
 
     public class SwarmSpawn : State_Base
