@@ -7,6 +7,7 @@ public class Controller_Respawn : SCG_Controller
 {
     Model_Play playModel;
     Model_Input inputModel;
+    Model_Game gameModel;
     Transform player;
 
     SCG_FSM<Controller_Respawn> _fsm;
@@ -18,11 +19,17 @@ public class Controller_Respawn : SCG_Controller
 
     public GameObject gameOver;
     public Material gameOverTextMat;
+
+    public ParticleSystem charge;
+    public ParticleSystem jump1;
+    public ParticleSystem jump2;
     void Start()
     {
 
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
         inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+
         player = ServiceLocator.instance.Player;
 
         priority = 10;
@@ -35,6 +42,10 @@ public class Controller_Respawn : SCG_Controller
 
         _fsm = new SCG_FSM<Controller_Respawn>(this);
         _fsm.TransitionTo<Alive>();
+
+        charge.Stop();
+        jump1.Stop();
+        jump2.Stop();
     }
 
     // Update is called once per frame
@@ -94,6 +105,10 @@ public class Controller_Respawn : SCG_Controller
                     TransitionTo<Dead>();
                 else
                     TransitionTo<GameOver>();
+            }
+            else if (Context.playModel.jumpTotal == 100)
+            {
+                TransitionTo<LevelVictory>();
             }
         }
     }
@@ -222,6 +237,84 @@ public class Controller_Respawn : SCG_Controller
 
     public class LevelVictory : State_Base
     {
+        //LevelVictory
 
+        float chargeMax = 600;
+        float chargeDuration = 6.3f;
+
+        float currentChargeRate;
+        float timer;
+        public override void OnEnter()
+        {
+            currentChargeRate = 0;
+            Context.charge.Play();
+            Context.playModel.currentPlayerState = PlayerState.LevelVictory;
+        }
+
+        public override void Update()
+        {
+            timer += Time.unscaledDeltaTime / chargeDuration;
+
+            var rate = Context.charge.emission;
+            rate.rateOverTime = chargeMax * timer;
+
+            if (timer >= 1)
+                TransitionTo<Dash>();
+        }
+
+        public override void OnExit()
+        {
+            var rate = Context.charge.emission;
+            rate.rateOverTime = 0;
+        }
+    }
+
+    public class Dash : State_Base
+    {
+        public override void OnEnter()
+        {
+            Context.jump1.Emit(350);
+            Context.jump2.Emit(1000);
+            timer = 0;
+            Renderer[] rs = ServiceLocator.instance.Player.GetComponentsInChildren<MeshRenderer>();
+            foreach (Renderer r in rs)
+            {
+                r.enabled = false;
+            }
+
+        }
+
+        float timer;
+
+        public override void Update()
+        {
+            timer += Time.unscaledDeltaTime;
+            if (timer >= 10)
+                TransitionTo<FastForward>();
+        }
+    }
+
+    public class FastForward : State_Base
+    {
+        float timer;
+        float duration = 10;
+        public override void OnEnter()
+        {
+            timer = 0;
+            Context.playModel.currentPlayerState = PlayerState.Alive;
+        }
+
+        public override void Update()
+        {
+            timer += Time.deltaTime;
+            Context.gameModel.worldSpeed_fwd = 30 + 180 * timer;
+            if (timer >= duration)
+                TransitionTo<State_Base>();
+        }
+
+        public override void OnExit()
+        {
+            Context.gameModel.worldSpeed_fwd = 30;
+        }
     }
 }

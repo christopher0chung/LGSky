@@ -245,7 +245,7 @@ public class Controller_EnemySpawner : MonoBehaviour
         {
             timer = 0;
             counter = 0;
-            max = 8 + Mathf.FloorToInt(Context.sadModel.difficulty) * 1;
+            max = 8 + Mathf.FloorToInt(Context.sadModel.difficulty) * 2;
         }
 
         public override void Update()
@@ -256,7 +256,7 @@ public class Controller_EnemySpawner : MonoBehaviour
             {
                 timer -= duration / max;
                 counter++;
-                Context.Swooper(Mathf.FloorToInt(Context.sadModel.difficulty));
+                Context.Swooper(1);
             }
 
             if (counter >= max)
