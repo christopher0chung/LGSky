@@ -113,7 +113,7 @@ public class Test_Swarm : Behavior_BaddyBase
         if (_swarm.Count <= 5)
             cleanupTimer += Time.deltaTime;
 
-        Debug.Log(cleanupTimer);
+        //Debug.Log(cleanupTimer);
 
         if (cleanupTimer >= 15)
         {

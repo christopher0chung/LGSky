@@ -18,6 +18,9 @@ public class Controller_EnemySpawner : MonoBehaviour
     void Start()
     {
         sadModel = ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>();
+        sadModel.score = 0;
+        sadModel.level = 1;
+
         _fsm = new SCG_FSM<Controller_EnemySpawner>(this);
         TransitionToRandomState();
         baddieParent = new GameObject("BaddieParent");
@@ -28,7 +31,7 @@ public class Controller_EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        sadModel.difficulty = 1 + (float)sadModel.score / 22000;
+        sadModel.difficulty = sadModel.level + (float)sadModel.score / 22000;
         sadModel.difficulty_Log = Mathf.Log(sadModel.difficulty) * 2;
         _fsm.Update();
     }
@@ -101,6 +104,7 @@ public class Controller_EnemySpawner : MonoBehaviour
             baddieParent = new GameObject("BaddieParent");
             baddieParent.transform.SetParent(ServiceLocator.instance.Controller);
             sadModel.score = 0;
+            sadModel.level = 1;
             _fsm.TransitionTo<Wait>();
         }
     }
@@ -116,7 +120,7 @@ public class Controller_EnemySpawner : MonoBehaviour
         float timer;
         float delay;
 
-        float standard = 45;
+        float standard = 38;
         float subtractor = 1;
 
         public override void OnEnter()
@@ -184,7 +188,7 @@ public class Controller_EnemySpawner : MonoBehaviour
                 for (int i = 0; i < Mathf.FloorToInt(Context.sadModel.difficulty_Log / 3) + 1; i++)
                 {
                     Context.Swarm(Mathf.FloorToInt(30 + Context.sadModel.difficulty * 5));
-                    Debug.Log("New swarm of " + Mathf.FloorToInt(30 / (1 + Context.sadModel.difficulty_Log) + Context.sadModel.difficulty * 10));
+                    //Debug.Log("New swarm of " + Mathf.FloorToInt(30 / (1 + Context.sadModel.difficulty_Log) + Context.sadModel.difficulty * 10));
                 }
 
                 TransitionTo<Wait>();

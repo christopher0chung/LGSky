@@ -16,6 +16,6 @@ public class View_Score : MonoBehaviour
 
     void Update()
     {
-        score.text = sadModel.score.ToString();
+        score.text = sadModel.level.ToString() + " | LEVEL\n" + sadModel.score.ToString() + " | SCORE";
     }
 }

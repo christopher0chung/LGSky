@@ -10,6 +10,7 @@ public class Model_Game : SCG_Model {
     public Color c_Cool;
     public Color c_Warm;
     public Color c_Hot;
+    public Color c_UI_Base;
     #endregion
     [Header("Ship SFX")]
     #region Ship

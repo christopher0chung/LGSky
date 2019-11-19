@@ -24,11 +24,15 @@ public class View_MainUI : MonoBehaviour
     public RectTransform rightNeedle;
     public RectTransform centerNeedle;
 
+    public RectTransform chargeSpinner;
+    Image cSImage;
+
     public Image leftHeat;
     public Image rightHeat;
     public Image totalHeat;
 
     public RectTransform jumpProgressBar;
+    Image jPBImage;
 
     [Range(0, 100)]
     public float warmBreakpoint;
@@ -40,6 +44,11 @@ public class View_MainUI : MonoBehaviour
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
 
         InitializeAssets();
+
+        SCG_EventManager.instance.Register<Event_EnemyBulletHit>(EventHandler);
+
+        jPBImage = jumpProgressBar.GetComponent<Image>();
+        cSImage = chargeSpinner.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -50,6 +59,7 @@ public class View_MainUI : MonoBehaviour
         UpdateTotalHeat();
         UpdateJumpProgress();
         UpdateColor();
+        ChargeSpinner();
     }
 
     void InitializeAssets()
@@ -59,6 +69,15 @@ public class View_MainUI : MonoBehaviour
         rocketsIcon = Resources.Load<Sprite>("Icons/" + "Rockets");
         lanceIcon = Resources.Load<Sprite>("Icons/" + "Lance");
         thrustersIcon = Resources.Load<Sprite>("Icons/" + "Thursters");
+    }
+
+    public void EventHandler(SCG_Event e)
+    {
+        Event_EnemyBulletHit eBH = e as Event_EnemyBulletHit;
+        if (eBH != null)
+        {
+            jPBImage.color = gameModel.c_Hot;
+        }
     }
 
     void UpdateIcons()
@@ -180,6 +199,7 @@ public class View_MainUI : MonoBehaviour
     }
 
     float _lastJumpProgress;
+    Color scratchColor;
     void UpdateColor()
     {
         #region Left
@@ -310,9 +330,13 @@ public class View_MainUI : MonoBehaviour
 
         #region Total
         if (heatModel.heat_Total < warmBreakpoint)
-            totalHeat.color = centerNeedle.GetComponent<Image>().color = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Total / warmBreakpoint));
+            scratchColor = Color.Lerp(gameModel.c_Cool, gameModel.c_Warm, Easings.QuarticEaseInOut(heatModel.heat_Total / warmBreakpoint));
         else
-            totalHeat.color = centerNeedle.GetComponent<Image>().color = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Total - warmBreakpoint) / (150 - warmBreakpoint)));
+            scratchColor = Color.Lerp(gameModel.c_Warm, gameModel.c_Hot, Easings.QuarticEaseInOut((heatModel.heat_Total - warmBreakpoint) / (150 - warmBreakpoint)));
+
+        totalHeat.color = centerNeedle.GetComponent<Image>().color = scratchColor;
+        scratchColor.a = .5f * scratchColor.a;
+        cSImage.color = scratchColor;
         #endregion
 
         #region Jump
@@ -321,7 +345,18 @@ public class View_MainUI : MonoBehaviour
         else
             jumpIcon.color = new Color(1, 1, 1, .5f);
 
+        jPBImage.color = Color.Lerp(jPBImage.color, gameModel.c_UI_Base, Time.deltaTime);
+
         _lastJumpProgress = playModel.jumpTotal;
         #endregion
+    }
+
+    public float spinSpeedBase;
+    Vector3 euler;
+    void ChargeSpinner()
+    {
+        Debug.Log(spinSpeedBase * heatModel.heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime);
+        euler.z += spinSpeedBase * heatModel.heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime;
+        chargeSpinner.localRotation = Quaternion.Euler(euler);
     }
 }

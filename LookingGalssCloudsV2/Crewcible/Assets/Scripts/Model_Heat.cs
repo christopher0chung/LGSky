@@ -60,4 +60,6 @@ public class Model_Heat : SCG_Model
     public float rebootThreshold_Rockets;
 
     public float max_HeatTotal;
+
+    public AnimationCurve heatToChargeConversionFactor;
 }

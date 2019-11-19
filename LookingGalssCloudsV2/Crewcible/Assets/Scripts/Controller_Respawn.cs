@@ -10,6 +10,7 @@ public class Controller_Respawn : SCG_Controller
     Model_Game gameModel;
     Transform player;
 
+
     SCG_FSM<Controller_Respawn> _fsm;
 
     public ParticleSystem preExplosion;
@@ -297,6 +298,7 @@ public class Controller_Respawn : SCG_Controller
         public override void OnExit()
         {
             Context.gameModel.worldSpeed_fwd = 30;
+            ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>().level++;
         }
     }
 }
