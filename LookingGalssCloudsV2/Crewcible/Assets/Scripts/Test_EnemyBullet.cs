@@ -33,7 +33,7 @@ public class Test_EnemyBullet : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(target.position - transform.position), 11 * Time.fixedDeltaTime);
 
         if (timer <= 6)
-            rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
+            rb.MovePosition(transform.position + (transform.forward * speed + Vector3.forward * (-gameModel.worldSpeed_fwd + 30)) * Time.fixedDeltaTime);
         else
             Destroy(this.gameObject);
     }

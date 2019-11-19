@@ -15,7 +15,7 @@ public class Controller_Respawn : SCG_Controller
     public ParticleSystem preExplosion;
     public ParticleSystem explosion;
 
-    MeshRenderer[] renderers;
+    //MeshRenderer[] renderers;
 
     public GameObject gameOver;
     public Material gameOverTextMat;
@@ -34,8 +34,6 @@ public class Controller_Respawn : SCG_Controller
 
         priority = 10;
         Schedule(this);
-
-        renderers = player.GetComponentsInChildren<MeshRenderer>();
 
         playModel.lives = 3;
         gameOver.SetActive(false);
@@ -90,9 +88,7 @@ public class Controller_Respawn : SCG_Controller
         public override void OnEnter()
         {
             Context.playModel.currentPlayerState = PlayerState.Alive;
-            //Context.player.gameObject.SetActive(true);
-            foreach (MeshRenderer m in Context.renderers)
-                m.enabled = true;
+
             Context.playModel.jumpTotal = 15;
         }
 
@@ -121,9 +117,7 @@ public class Controller_Respawn : SCG_Controller
         {
             timer = 0;
             Context.playModel.currentPlayerState = PlayerState.Dead;
-            //Context.player.gameObject.SetActive(false);
-            foreach (MeshRenderer m in Context.renderers)
-                m.enabled = false;
+
             Context.preExplosion.transform.position = Context.player.position;
             Context.preExplosion.Play();
         }
@@ -169,22 +163,6 @@ public class Controller_Respawn : SCG_Controller
         public override void Update()
         {
             timer += Time.deltaTime;
-
-            if (timer <= goneTime)
-                //Context.player.gameObject.SetActive(false);
-                foreach (MeshRenderer m in Context.renderers)
-                    m.enabled = false;
-            else
-            {
-                if (timer % intervalCycle < intervalCycle / 2)
-                    //Context.player.gameObject.SetActive(false);
-                    foreach (MeshRenderer m in Context.renderers)
-                        m.enabled = false;
-                else
-                    //Context.player.gameObject.SetActive(true);
-                    foreach (MeshRenderer m in Context.renderers)
-                        m.enabled = true;
-            }
 
             if (timer >= respawnDuration)
                 TransitionTo<Alive>();
@@ -246,9 +224,11 @@ public class Controller_Respawn : SCG_Controller
         float timer;
         public override void OnEnter()
         {
+            timer = 0;
             currentChargeRate = 0;
             Context.charge.Play();
             Context.playModel.currentPlayerState = PlayerState.LevelVictory;
+            Context.charge.transform.position = Context.player.position;
         }
 
         public override void Update()
@@ -273,15 +253,17 @@ public class Controller_Respawn : SCG_Controller
     {
         public override void OnEnter()
         {
-            Context.jump1.Emit(350);
+            Context.jump1.transform.position = Context.player.position - Vector3.forward * 25;
+            Context.jump2.transform.position = Context.player.position - Vector3.forward * 80;
+            Context.jump1.Emit(550);
             Context.jump2.Emit(1000);
             timer = 0;
-            Renderer[] rs = ServiceLocator.instance.Player.GetComponentsInChildren<MeshRenderer>();
-            foreach (Renderer r in rs)
-            {
-                r.enabled = false;
-            }
-
+            //Renderer[] rs = ServiceLocator.instance.Player.GetComponentsInChildren<MeshRenderer>();
+            //foreach (Renderer r in rs)
+            //{
+            //    r.enabled = false;
+            //}
+            Context.playModel.currentPlayerState = PlayerState.Dash;
         }
 
         float timer;
@@ -301,7 +283,7 @@ public class Controller_Respawn : SCG_Controller
         public override void OnEnter()
         {
             timer = 0;
-            Context.playModel.currentPlayerState = PlayerState.Alive;
+            Context.playModel.currentPlayerState = PlayerState.Flyby;
         }
 
         public override void Update()
@@ -309,7 +291,7 @@ public class Controller_Respawn : SCG_Controller
             timer += Time.deltaTime;
             Context.gameModel.worldSpeed_fwd = 30 + 180 * timer;
             if (timer >= duration)
-                TransitionTo<State_Base>();
+                TransitionTo<Alive>();
         }
 
         public override void OnExit()

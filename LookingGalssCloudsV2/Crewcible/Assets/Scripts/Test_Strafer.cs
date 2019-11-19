@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_Strafer : MonoBehaviour
+public class Test_Strafer : Behavior_BaddyBase
 {
     public Transform turret;
 
@@ -19,6 +19,7 @@ public class Test_Strafer : MonoBehaviour
 
     void Start()
     {
+        GrabStdRefs();
         target = ServiceLocator.instance.Player;
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
         SCG_EventManager.instance.Register<Event_DumpReg>(EnemyDeathEventHandler);
@@ -31,7 +32,7 @@ public class Test_Strafer : MonoBehaviour
         projection = target.position;
         projection.y = turret.position.y;
         turret.rotation = Quaternion.LookRotation(projection - turret.position, transform.up);
-        transform.position += (transform.forward * 37 + Vector3.forward * -30) * Time.deltaTime;
+        transform.position += (transform.forward * 37 + Vector3.forward * -30) * Time.deltaTime + WorldEffectOffset();
 
         shootTimer += Time.deltaTime;
         if (shootTimer >= .75f)
@@ -41,11 +42,21 @@ public class Test_Strafer : MonoBehaviour
                 Instantiate(bullet, turret.position + turret.forward * 1.1f, Quaternion.LookRotation(target.position - turret.position, transform.up));
         }
 
-        if (transform.position.z >= 270)
+        if (transform.position.z >= 270 || transform.position.z <= -150)
+        {
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
             Destroy(this.gameObject);
+        }
 
         var rate = damageInd.emission;
         rate.rateOverTime = 50 * (myE.hitpoints_Max - myE.hitpoints_Current) / myE.hitpoints_Max;
+
+        if (transform.position.z <= -200)
+        {
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
+            SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathEventHandler);
+            Destroy(this.gameObject);
+        }
     }
 
     public void EnemyDeathEventHandler(SCG_Event e)
@@ -57,7 +68,8 @@ public class Test_Strafer : MonoBehaviour
             if (eD.enemyToBeDestroyed != myE)
                 return;
 
-            SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
+            SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathEventHandler);
             SCG_EventManager.instance.Fire(new Event_BonusPoints(1203));
             Destroy(this.gameObject);
         }

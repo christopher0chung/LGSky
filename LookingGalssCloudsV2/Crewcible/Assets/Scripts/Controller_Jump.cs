@@ -32,7 +32,7 @@ public class Controller_Jump : SCG_Controller
         if (Mathf.Abs(heatModel.heat_Total - heatModel.max_HeatTotal) < 1)
             playModel.jumpTotal -= playModel.jumpOverheatPenaltyRate * Time.deltaTime;
         else
-            playModel.jumpTotal += playModel.jumpRateMax * heatToChargeConversionFactor.Evaluate(heatModel.heat_Total) * Time.deltaTime;
+            playModel.jumpTotal += playModel.jumpRateMax * heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime;
 
         playModel.jumpTotal = Mathf.Clamp(playModel.jumpTotal, 0, 100);
     }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_PeakyShooty : MonoBehaviour
+public class Test_PeakyShooty : Behavior_BaddyBase
 {
+
     Transform target;
 
     Vector3 oldPos;
@@ -32,6 +33,8 @@ public class Test_PeakyShooty : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GrabStdRefs();
+
         myE = GetComponent<Enemy_Base>();
         target = ServiceLocator.instance.Player;
 
@@ -74,6 +77,7 @@ public class Test_PeakyShooty : MonoBehaviour
             if (ed.enemyToBeDestroyed == myE)
             {
                 SCG_EventManager.instance.Fire(new Event_BonusPoints(559));
+                SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathHandler);
                 SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathHandler);
                 Destroy(this.gameObject);
             }
@@ -111,14 +115,23 @@ public class Test_PeakyShooty : MonoBehaviour
         {
             timer += Time.deltaTime;
 
+            oldPos += Context.WorldEffectOffset();
+            newPos += Context.WorldEffectOffset();
+
             Context.transform.position = Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseIn(timer / 7)) + 
                 Vector3.up * 1.3f * Mathf.Sin(Context.effectsTimer * Context.bobRate + Context._tOffset);
             Context.transform.LookAt(Context.target.position);
             Context.shield.localPosition = new Vector3(0, 0, 1.16f);
             Context.shield.localRotation = Quaternion.identity;
 
-            if (timer >= 7)
+            if (timer >= 7 && Context.playModel.currentPlayerState != PlayerState.LevelVictory)
                 TransitionTo<OnStation>();
+            if (Context.transform.position.z <= -100)
+            {
+                SCG_EventManager.instance.Unregister<Event_DumpReg>(Context.EnemyDeathHandler);
+                SCG_EventManager.instance.Unregister<Event_EnemyDeath>(Context.EnemyDeathHandler);
+                Destroy(Context.gameObject);
+            }
         }
 
         public override void OnExit()
@@ -154,6 +167,9 @@ public class Test_PeakyShooty : MonoBehaviour
         {
             timer += Time.deltaTime / Context.interval;
 
+            oldPos += Context.WorldEffectOffset();
+            newPos += Context.WorldEffectOffset();
+
             Context.transform.position = 
                 Vector3.Lerp(oldPos, newPos, Easings.QuinticEaseInOut(timer)) + 
                 Vector3.up * 1.3f * Mathf.Sin(Context.effectsTimer * Context.bobRate + Context._tOffset);
@@ -176,8 +192,14 @@ public class Test_PeakyShooty : MonoBehaviour
 
             Context.transform.LookAt(Context.target.position);
 
-            if (timer >= 1)
+            if (timer >= 1 && Context.playModel.currentPlayerState != PlayerState.LevelVictory)
                 TransitionTo<Rebound>();
+            if (Context.transform.position.z <= -100)
+            {
+                SCG_EventManager.instance.Unregister<Event_DumpReg>(Context.EnemyDeathHandler);
+                SCG_EventManager.instance.Unregister<Event_EnemyDeath>(Context.EnemyDeathHandler);
+                Destroy(Context.gameObject);
+            }
         }
 
         public override void OnExit()

@@ -15,10 +15,17 @@ public class Controller_Time : MonoBehaviour
 
     void Update()
     {
-        if (playModel.currentPlayerState == PlayerState.GameOver || playModel.currentPlayerState == PlayerState.LevelVictory)
+        if (playModel.currentPlayerState == PlayerState.GameOver || 
+            playModel.currentPlayerState == PlayerState.LevelVictory)
         {
             playModel.isPaused = false;
             Time.timeScale = Mathf.Lerp(Time.timeScale, .09f, 2 * Time.unscaledDeltaTime);
+        }
+        else if (playModel.currentPlayerState == PlayerState.Dash ||
+            playModel.currentPlayerState == PlayerState.Flyby)
+        {
+            playModel.isPaused = false;
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 1, 2 * Time.unscaledDeltaTime);
         }
         else
         {

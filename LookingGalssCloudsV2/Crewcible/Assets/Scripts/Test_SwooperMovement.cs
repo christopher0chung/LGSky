@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_SwooperMovement : MonoBehaviour
+public class Test_SwooperMovement : Behavior_BaddyBase
 {
     Transform target;
     public float turnSpeed;
@@ -29,6 +29,8 @@ public class Test_SwooperMovement : MonoBehaviour
 
     void Start()
     {
+        GrabStdRefs();
+
         target = ServiceLocator.instance.Player;
         offset = Random.insideUnitSphere * 10;
 
@@ -52,7 +54,7 @@ public class Test_SwooperMovement : MonoBehaviour
     void Update()
     {
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(target.position - transform.position + offset + Vector3.up * 7, newUp), turnSpeed * Time.deltaTime);
-        transform.position += transform.forward * moveSpeed * Time.deltaTime + Vector3.back * 30 * Time.deltaTime;
+        transform.position += transform.forward * moveSpeed * Time.deltaTime + Vector3.back * 30 * Time.deltaTime + WorldEffectOffset();
 
         if (Vector3.Distance(target.position, transform.position) < 15)
         {
@@ -95,6 +97,14 @@ public class Test_SwooperMovement : MonoBehaviour
             fired = true;
             GameObject bullet = Instantiate(newBullet, transform.position, Quaternion.LookRotation(target.position - transform.position));
         }
+
+        if (transform.position.z <= -350)
+        {
+            SCG_EventManager.instance.Unregister<Event_DumpReg>(EventHandler);
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EventHandler);
+            Destroy(this.gameObject);
+        }
+
     }
 
     public void EventHandler(SCG_Event e)
@@ -105,6 +115,7 @@ public class Test_SwooperMovement : MonoBehaviour
             if (myE == eD.enemyToBeDestroyed)
             {
                 SCG_EventManager.instance.Fire(new Event_BonusPoints(161));
+                SCG_EventManager.instance.Unregister<Event_DumpReg>(EventHandler);
                 SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EventHandler);
                 Destroy(this.gameObject);
             }

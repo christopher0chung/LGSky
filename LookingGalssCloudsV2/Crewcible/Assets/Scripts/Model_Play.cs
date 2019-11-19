@@ -36,4 +36,4 @@ public class Model_Play : SCG_Model
     [Header("General")]
     public bool isPaused;
 }
-public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory }
+public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory, Dash, Flyby }

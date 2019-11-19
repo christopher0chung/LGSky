@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_Swarm : MonoBehaviour
+public class Test_Swarm : Behavior_BaddyBase
 {
     Manager_GameAssets assetManager;
 
@@ -38,6 +38,7 @@ public class Test_Swarm : MonoBehaviour
     public void Initialize(int num)
     {
         assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+        GrabStdRefs();
 
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
         SCG_EventManager.instance.Register<Event_DumpReg>(EnemyDeathEventHandler);
@@ -97,13 +98,17 @@ public class Test_Swarm : MonoBehaviour
             }
         }
 
-        Cleanup();
+        CheckCleanup();
+
+        transform.position += WorldEffectOffset();
+        if (transform.position.z <= -100)
+            ForceCleanup();
     }
 
     #region Major Functions
 
     private float cleanupTimer;
-    private void Cleanup()
+    private void CheckCleanup()
     {
         if (_swarm.Count <= 5)
             cleanupTimer += Time.deltaTime;
@@ -112,13 +117,19 @@ public class Test_Swarm : MonoBehaviour
 
         if (cleanupTimer >= 15)
         {
-            for (int i = _swarm.Count - 1; i >= 0; i--)
-            {
-                assetManager.Make(MyGameAsset.BulletExplosion, _swarm[i].transform.position);
-            }
-            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
-            Destroy(this.gameObject);
+            ForceCleanup();
         }
+    }
+
+    private void ForceCleanup()
+    {
+        for (int i = _swarm.Count - 1; i >= 0; i--)
+        {
+            assetManager.Make(MyGameAsset.BulletExplosion, _swarm[i].transform.position);
+        }
+        SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
+        SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathEventHandler);
+        Destroy(this.gameObject);
     }
     private void InitializeDirections(BoidDirs d)
     {
@@ -238,7 +249,7 @@ public class Test_Swarm : MonoBehaviour
                 _swarm[i].transform.rotation,
                 Quaternion.LookRotation(_dirs[i].nextDir),
                 interpolateFactor * Time.deltaTime);
-        _swarm[i].transform.position += _swarm[i].transform.forward * speed * Time.deltaTime;
+        _swarm[i].transform.position += _swarm[i].transform.forward * speed * Time.deltaTime + WorldEffectOffset();
     }
     #endregion
 }
