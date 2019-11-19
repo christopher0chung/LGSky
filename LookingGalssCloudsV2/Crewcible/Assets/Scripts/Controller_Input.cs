@@ -103,6 +103,8 @@ public class Controller_Input : SCG_Controller {
         inputModel.R_Action_OnUp = inputDevice.RightTrigger.WasReleased;
 
         inputModel.R_SwapUp_OnDown = inputDevice.RightBumper.WasPressed;
+
+        inputModel.startPause = inputDevice.CommandWasPressed;
     }
 
     void ReadForCoop()

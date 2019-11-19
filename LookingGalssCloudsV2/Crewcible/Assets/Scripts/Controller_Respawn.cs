@@ -67,7 +67,6 @@ public class Controller_Respawn : SCG_Controller
         {
             Context.playModel.lives = 3;
             Context.gameOver.SetActive(false);
-            Time.timeScale = 1;
         }
         public override void Update()
         {
@@ -182,6 +181,7 @@ public class Controller_Respawn : SCG_Controller
         public override void OnEnter()
         {
             base.OnEnter();
+            Context.playModel.currentPlayerState = PlayerState.GameOver;
             Context.gameOverTextMat.SetColor("_Emissive", Color.red * intensity);
             Context.gameOver.SetActive(true);
             intensity = 0;
@@ -194,10 +194,8 @@ public class Controller_Respawn : SCG_Controller
         public override void Update()
         {
             base.Update();
-            Time.timeScale = Mathf.Lerp(Time.timeScale, .09f, 6 * Time.deltaTime);
             intensity = Mathf.Lerp(intensity, 1.8f, .5f * Time.deltaTime);
             Context.gameOverTextMat.SetColor("_Emissive", Color.red * intensity);
-            //Debug.Log(Time.timeScale);
 
             restartTimer += Time.unscaledDeltaTime;
             if (restartTimer >= 3)

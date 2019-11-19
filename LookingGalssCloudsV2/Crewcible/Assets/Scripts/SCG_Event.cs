@@ -129,3 +129,8 @@ public class Event_Restart : SCG_Event
 {
     public Event_Restart() { }
 }
+
+public class Event_DumpReg : SCG_Event
+{
+
+}

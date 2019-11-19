@@ -96,6 +96,7 @@ public class Controller_EnemySpawner : MonoBehaviour
         Event_Restart r = e as Event_Restart;
         if (r != null)
         {
+            SCG_EventManager.instance.Fire(new Event_DumpReg());
             Destroy(baddieParent);
             baddieParent = new GameObject("BaddieParent");
             baddieParent.transform.SetParent(ServiceLocator.instance.Controller);
@@ -180,10 +181,10 @@ public class Controller_EnemySpawner : MonoBehaviour
             {
                 // number of swarms goes up for every other point of difficulty
                 // swarm count goes up by 5 for every point of difficulty
-                for (int i = 0; i <= Mathf.FloorToInt(Context.sadModel.difficulty / 2); i++)
+                for (int i = 0; i < Mathf.FloorToInt(Context.sadModel.difficulty_Log / 3) + 1; i++)
                 {
                     Context.Swarm(Mathf.FloorToInt(30 + Context.sadModel.difficulty * 5));
-                    Debug.Log("New swarm of " + Mathf.FloorToInt(30 + Context.sadModel.difficulty * 10));
+                    Debug.Log("New swarm of " + Mathf.FloorToInt(30 / (1 + Context.sadModel.difficulty_Log) + Context.sadModel.difficulty * 10));
                 }
 
                 TransitionTo<Wait>();

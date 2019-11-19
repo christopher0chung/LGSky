@@ -22,7 +22,21 @@ public class Behavior_ThermalLance : MonoBehaviour
         {
             Enemy_Base e = other.GetComponent<Enemy_Base>();
 
+            SCG_EventManager.instance.Fire(new Event_BonusPoints(7));
             SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, gameModel.d_Lance_Damage, other.transform.position));
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (playModel.unaccessedStations.Contains(Stations.Lance))
+            return;
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            Enemy_Base e = other.GetComponent<Enemy_Base>();
+
+            SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, gameModel.d_Lance_Damage_Sustained * Time.deltaTime, other.transform.position));
         }
     }
 }

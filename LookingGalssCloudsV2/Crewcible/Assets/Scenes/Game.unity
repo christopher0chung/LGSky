@@ -1567,6 +1567,7 @@ GameObject:
   - component: {fileID: 513998433}
   - component: {fileID: 513998435}
   - component: {fileID: 513998434}
+  - component: {fileID: 513998436}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -1815,6 +1816,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 851d24e6925ae6e41b2548c71b8dd6d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &513998436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513998420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ec534f138f1cd41ac9d441d0061c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &538823852
@@ -13478,6 +13491,7 @@ MonoBehaviour:
   R_Action_OnUp: 0
   R_SwapUp_OnDown: 0
   R_SwapDown_OnDown: 0
+  startPause: 0
 --- !u!114 &1305984636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13513,14 +13527,14 @@ MonoBehaviour:
   s_Shield_Grow: 0
   s_Shield_Contract: 0
   s_Shield_HitFlashNormalize: 0
-  t_Guns_SpinUpTime: 0.15
+  t_Guns_SpinUpTime: 0.1
   t_Guns_TimeBetweenShots: 0.06
   d_Guns_Damage: 3
   s_Guns_TurnSpeed_Activated: 115
   s_Guns_TurnSpeed_Inactivated: 200
-  f_Guns_BulletDispersion: 3
+  f_Guns_BulletDispersion: 5
   t_Guns_BulletLifetime: 4
-  s_Guns_BulletSpeed: 75
+  s_Guns_BulletSpeed: 70
   t_Rockets_FireRate: 0.07
   t_Rockets_Reload: 3
   d_Rockets_Damage: 15
@@ -13538,6 +13552,7 @@ MonoBehaviour:
   f_Thrusters_DashDistance: 15
   t_Thrusters_DashCooldown: 2.3
   d_Lance_Damage: 8
+  d_Lance_Damage_Sustained: 10
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
   s_Lance_ExtendSpeed: 30
@@ -13656,6 +13671,7 @@ MonoBehaviour:
   jumpRateMax: 0.65
   jumpOverheatPenaltyRate: 5
   lives: 0
+  isPaused: 0
 --- !u!114 &1305984639
 MonoBehaviour:
   m_ObjectHideFlags: 0

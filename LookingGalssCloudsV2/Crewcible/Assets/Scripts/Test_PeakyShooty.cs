@@ -46,7 +46,8 @@ public class Test_PeakyShooty : MonoBehaviour
         shield = transform.Find("PeakyShield");
 
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathHandler);
-
+        SCG_EventManager.instance.Register<Event_DumpReg>(EnemyDeathHandler);
+        
         damageInd = GetComponentInChildren<ParticleSystem>();
 
         _fsm = new SCG_FSM<Test_PeakyShooty>(this);
@@ -69,10 +70,20 @@ public class Test_PeakyShooty : MonoBehaviour
         Event_EnemyDeath ed = e as Event_EnemyDeath;
         if (ed != null)
         {
-            SCG_EventManager.instance.Fire(new Event_BonusPoints(559));
 
             if (ed.enemyToBeDestroyed == myE)
+            {
+                SCG_EventManager.instance.Fire(new Event_BonusPoints(559));
+                SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathHandler);
                 Destroy(this.gameObject);
+            }
+        }
+
+        Event_DumpReg d = e as Event_DumpReg;
+        if (d != null)
+        {
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathHandler);
+            SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathHandler);
         }
     }
 

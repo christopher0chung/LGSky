@@ -5,10 +5,16 @@ using UnityEngine;
 public class Scheduler : MonoBehaviour
 {
     public List<SCG_Controller> scheduledControllers;
+    Model_Play playModel;
 
     private void Awake()
     {
         scheduledControllers = new List<SCG_Controller>();
+    }
+
+    private void Start()
+    {
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
     }
 
     public void Register(SCG_Controller controller)
@@ -40,15 +46,19 @@ public class Scheduler : MonoBehaviour
     {
         for (int i = 0; i < scheduledControllers.Count; i++)
         {
-            scheduledControllers[i].ScheduledUpdate();
+            if (!playModel.isPaused || i == 0)
+                scheduledControllers[i].ScheduledUpdate();
         }
     }
 
     void FixedUpdate()
     {
-        for (int i = 0; i < scheduledControllers.Count; i++)
+        if (!playModel.isPaused)
         {
-            scheduledControllers[i].ScheduledFixedUpdate();
+            for (int i = 0; i < scheduledControllers.Count; i++)
+            {
+                scheduledControllers[i].ScheduledFixedUpdate();
+            }
         }
     }
 }

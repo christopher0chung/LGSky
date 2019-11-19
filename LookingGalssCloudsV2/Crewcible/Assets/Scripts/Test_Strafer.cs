@@ -21,6 +21,7 @@ public class Test_Strafer : MonoBehaviour
     {
         target = ServiceLocator.instance.Player;
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
+        SCG_EventManager.instance.Register<Event_DumpReg>(EnemyDeathEventHandler);
         myE = GetComponent<Enemy_Base>();
         damageInd = GetComponentInChildren<ParticleSystem>();
     }
@@ -56,8 +57,16 @@ public class Test_Strafer : MonoBehaviour
             if (eD.enemyToBeDestroyed != myE)
                 return;
 
+            SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
             SCG_EventManager.instance.Fire(new Event_BonusPoints(1203));
             Destroy(this.gameObject);
+        }
+
+        Event_DumpReg d = e as Event_DumpReg;
+        if (d != null)
+        {
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
+            SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathEventHandler);
         }
     }
 }

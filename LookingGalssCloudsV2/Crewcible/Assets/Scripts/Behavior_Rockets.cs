@@ -5,7 +5,7 @@ using UnityEngine;
 public class Behavior_Rockets : MonoBehaviour
 {
     private Manager_GameAssets assetManager;
-    public Model_Game gameModel;
+    private Model_Game gameModel;
     private Model_Play playModel;
     private Model_Input inputModel;
     private Transform rocketChild;
@@ -104,6 +104,7 @@ public class Behavior_Rockets : MonoBehaviour
         if (e != null)
         {
             //Debug.Log("Rocket trigger entered");
+            SCG_EventManager.instance.Fire(new Event_BonusPoints(103));
             SCG_EventManager.instance.Fire(new Event_PlayerRocketHit(e, gameModel.d_Rockets_Damage, transform.position, this));
         }
     }

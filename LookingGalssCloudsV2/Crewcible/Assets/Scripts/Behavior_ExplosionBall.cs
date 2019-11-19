@@ -43,6 +43,9 @@ public class Behavior_ExplosionBall : MonoBehaviour
         Enemy_Base e = other.GetComponent<Enemy_Base>();
 
         if (e != null)
+        {
+            SCG_EventManager.instance.Fire(new Event_BonusPoints(12));
             SCG_EventManager.instance.Fire(new Event_ExplosionBallHit(e, gameModel.d_Rockets_ExplosionBallDamage, other.transform.position));
+        }
     }
 }

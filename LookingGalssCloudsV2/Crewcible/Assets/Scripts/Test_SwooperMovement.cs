@@ -25,6 +25,8 @@ public class Test_SwooperMovement : MonoBehaviour
 
     public float fireDist;
 
+    Enemy_Base myE;
+
     void Start()
     {
         target = ServiceLocator.instance.Player;
@@ -41,6 +43,10 @@ public class Test_SwooperMovement : MonoBehaviour
 
         transform.position = transform.position + Random.insideUnitSphere * 20;
         transform.rotation = Quaternion.LookRotation(Random.insideUnitSphere);
+
+        myE = GetComponent<Enemy_Base>();
+        SCG_EventManager.instance.Register<Event_EnemyDeath>(EventHandler);
+        SCG_EventManager.instance.Register<Event_DumpReg>(EventHandler);
     }
 
     void Update()
@@ -88,6 +94,27 @@ public class Test_SwooperMovement : MonoBehaviour
             readyToFire = false;
             fired = true;
             GameObject bullet = Instantiate(newBullet, transform.position, Quaternion.LookRotation(target.position - transform.position));
+        }
+    }
+
+    public void EventHandler(SCG_Event e)
+    {
+        Event_EnemyDeath eD = e as Event_EnemyDeath;
+        if (eD != null)
+        {
+            if (myE == eD.enemyToBeDestroyed)
+            {
+                SCG_EventManager.instance.Fire(new Event_BonusPoints(161));
+                SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EventHandler);
+                Destroy(this.gameObject);
+            }
+        }
+
+        Event_DumpReg d = e as Event_DumpReg;
+        if (d != null)
+        {
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EventHandler);
+            SCG_EventManager.instance.Unregister<Event_DumpReg>(EventHandler);
         }
     }
 }

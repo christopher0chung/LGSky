@@ -40,6 +40,7 @@ public class Test_Swarm : MonoBehaviour
         assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
 
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EnemyDeathEventHandler);
+        SCG_EventManager.instance.Register<Event_DumpReg>(EnemyDeathEventHandler);
         //Debug.Log("Start Stuff");
 
         target = ServiceLocator.instance.Player;
@@ -115,6 +116,7 @@ public class Test_Swarm : MonoBehaviour
             {
                 assetManager.Make(MyGameAsset.BulletExplosion, _swarm[i].transform.position);
             }
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
             Destroy(this.gameObject);
         }
     }
@@ -175,6 +177,13 @@ public class Test_Swarm : MonoBehaviour
                 _attackMode.RemoveAt(indexToRemove);
                 Destroy(d.enemyToBeDestroyed.gameObject);
             }
+        }
+
+        Event_DumpReg dr = e as Event_DumpReg;
+        if (dr != null)
+        {
+            SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
+            SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathEventHandler);
         }
     }
     #endregion

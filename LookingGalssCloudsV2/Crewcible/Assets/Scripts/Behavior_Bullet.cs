@@ -20,6 +20,7 @@ public class Behavior_Bullet : MonoBehaviour {
             GameObject g = assets.Make(MyGameAsset.SFX, transform.position);
             g.GetComponent<AudioSource>().PlayOneShot(gameModel.sfx_EnemyBulletHit);
 
+            SCG_EventManager.instance.Fire(new Event_BonusPoints(1));
             SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(null, 0, transform.position, this));
         }
         else if (other.tag == "Enemy")
@@ -31,6 +32,7 @@ public class Behavior_Bullet : MonoBehaviour {
             if (e != null)
             {
                 //Debug.Log("Hit!");
+                SCG_EventManager.instance.Fire(new Event_BonusPoints(2));
                 SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, gameModel.d_Guns_Damage, transform.position, this));
             }
         }

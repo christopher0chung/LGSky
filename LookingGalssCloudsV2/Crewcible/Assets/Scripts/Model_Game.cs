@@ -76,6 +76,7 @@ public class Model_Game : SCG_Model {
     [Header("Lance")]
     #region Sword
     public float d_Lance_Damage;
+    public float d_Lance_Damage_Sustained;
     public float f_Lance_MinRange;
     public float f_Lance_MaxRange;
     public float s_Lance_ExtendSpeed;
