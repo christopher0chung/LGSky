@@ -66,7 +66,7 @@ public class Controller_EnemySpawner : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             GameObject g = Instantiate(PeakyPrefab, new Vector3(0, 0, 260), Quaternion.identity, baddieParent.transform);
-            g.GetComponent<Enemy_Base>().SetHitPoint(15);
+            g.GetComponent<Enemy_Base>().SetHitPoint(10);
         }
     }
 
