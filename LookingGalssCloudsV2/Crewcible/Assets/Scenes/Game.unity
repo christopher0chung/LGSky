@@ -12881,7 +12881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &948445495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23652,7 +23652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4eba5aac497e447a2fb98dd0a0ba96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldSpeed_fwd: 30
+  worldSpeed_min: 30
+  worldSpeed_max: 180
   c_Cool: {r: 0.62044317, g: 0.7786033, b: 0.81960785, a: 0.5019608}
   c_Warm: {r: 0.99607843, g: 0.8020393, b: 0.4392706, a: 0.5019608}
   c_Hot: {r: 0.8862746, g: 0.19607845, b: 0.003921569, a: 0.5019608}
@@ -23845,6 +23846,7 @@ MonoBehaviour:
   jumpOverheatPenaltyRate: 5
   lives: 0
   isPaused: 0
+  worldSpeed_Current: 30
 --- !u!114 &1305984639
 MonoBehaviour:
   m_ObjectHideFlags: 0

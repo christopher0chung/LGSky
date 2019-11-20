@@ -18,7 +18,7 @@ public class Behavior_BaddyBase : MonoBehaviour
     protected virtual Vector3 WorldEffectOffset()
     {
         Debug.Assert(_o != Vector3.right, "Attempting to use AdditionalWorldOffset without GrabStdRefs called first.");
-        _o = -Vector3.forward * (gameModel.worldSpeed_fwd - 30) * Time.deltaTime;
+        _o = -Vector3.forward * (playModel.worldSpeed_Current - gameModel.worldSpeed_min) * Time.deltaTime;
         return _o;
     }
 }

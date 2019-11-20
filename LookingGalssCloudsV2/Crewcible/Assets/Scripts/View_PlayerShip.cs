@@ -103,7 +103,7 @@ public class View_PlayerShip : MonoBehaviour
         else if (playModel.currentPlayerState == PlayerState.Flyby)
         {
             var vel = worldParticles.velocityOverLifetime;
-            vel.z = gameModel.worldSpeed_fwd - 30;
+            vel.z = playModel.worldSpeed_Current - gameModel.worldSpeed_min;
         }
 
         lastState = playModel.currentPlayerState;

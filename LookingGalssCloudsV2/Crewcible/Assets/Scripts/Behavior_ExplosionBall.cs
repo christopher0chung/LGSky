@@ -5,6 +5,7 @@ using UnityEngine;
 public class Behavior_ExplosionBall : MonoBehaviour
 {
     Model_Game gameModel;
+    Model_Play playModel;
     private float timer;
 
     private float quarterLife;
@@ -12,12 +13,13 @@ public class Behavior_ExplosionBall : MonoBehaviour
     private void Awake()
     {
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
 
         quarterLife = gameModel.t_Rockets_ExplosionBallLifetime * .25f;
     }
     void Update()
     {
-        transform.position -= Vector3.forward * Time.deltaTime * gameModel.worldSpeed_fwd;
+        transform.position -= Vector3.forward * Time.deltaTime * playModel.worldSpeed_Current;
 
         timer += Time.deltaTime;
         if (timer <= quarterLife)

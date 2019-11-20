@@ -95,7 +95,7 @@ public class Behavior_Rockets : MonoBehaviour
 
         rocketChild.localRotation = Quaternion.Euler(xAng, yAng, 0);
 
-        transform.position += (rocketChild.forward * gameModel.s_Rockets_FlySpeed - Vector3.forward * gameModel.worldSpeed_fwd) * Time.deltaTime;
+        transform.position += (rocketChild.forward * gameModel.s_Rockets_FlySpeed - Vector3.forward * playModel.worldSpeed_Current) * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)

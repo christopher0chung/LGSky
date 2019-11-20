@@ -290,14 +290,14 @@ public class Controller_Respawn : SCG_Controller
         public override void Update()
         {
             timer += Time.deltaTime;
-            Context.gameModel.worldSpeed_fwd = 30 + 180 * timer;
+            Context.playModel.worldSpeed_Current = Context.gameModel.worldSpeed_min + Context.gameModel.worldSpeed_max * timer;
             if (timer >= duration)
                 TransitionTo<Alive>();
         }
 
         public override void OnExit()
         {
-            Context.gameModel.worldSpeed_fwd = 30;
+            Context.playModel.worldSpeed_Current = Context.gameModel.worldSpeed_min;
             ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>().level++;
         }
     }

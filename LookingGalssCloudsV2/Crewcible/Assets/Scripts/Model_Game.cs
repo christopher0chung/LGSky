@@ -6,7 +6,8 @@ public class Model_Game : SCG_Model {
 
     [Header("Global")]
     #region Global
-    public float worldSpeed_fwd;
+    public float worldSpeed_min;
+    public float worldSpeed_max;
     public Color c_Cool;
     public Color c_Warm;
     public Color c_Hot;

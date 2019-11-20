@@ -14,6 +14,7 @@ public class CloudTreadmill : MonoBehaviour
     private float delZ;
 
     Model_Game gameModel;
+    Model_Play playModel;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class CloudTreadmill : MonoBehaviour
         }
 
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
     }
 
     Vector3 hold;
@@ -34,7 +36,7 @@ public class CloudTreadmill : MonoBehaviour
     {
         foreach(Transform t in clouds)
         {
-            t.position += -Vector3.forward * gameModel.worldSpeed_fwd * Time.deltaTime;
+            t.position += -Vector3.forward * playModel.worldSpeed_Current * Time.deltaTime;
             if (t.position.z <= minZ)
             {
                 t.position += Vector3.forward * delZ;
