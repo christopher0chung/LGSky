@@ -74,6 +74,10 @@ public class Model_Game : SCG_Model {
     public float s_Thrusters_Speed;
     public float f_Thrusters_DashDistance;
     public float t_Thrusters_DashCooldown;
+    public float f_xBoundClose;
+    public float f_xBoundFar;
+    public float f_zBoundClose;
+    public float f_zBoundFar;
     #endregion
     [Header("Lance")]
     #region Sword

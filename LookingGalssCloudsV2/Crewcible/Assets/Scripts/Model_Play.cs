@@ -36,5 +36,6 @@ public class Model_Play : SCG_Model
     [Header("General")]
     public bool isPaused;
     public float worldSpeed_Current;
+    public bool deathExplosionTrigger;
 }
 public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory, Dash, Flyby }

@@ -146,6 +146,7 @@ public class Controller_Respawn : SCG_Controller
             Context.preExplosion.Stop();
             Context.explosion.transform.position = Context.player.position;
             Context.explosion.Emit(150);
+            Context.playModel.deathExplosionTrigger = true;
         }
     }
 
@@ -211,6 +212,7 @@ public class Controller_Respawn : SCG_Controller
             Context.preExplosion.Stop();
             Context.explosion.transform.position = Context.player.position;
             Context.explosion.Emit(250);
+            Context.playModel.deathExplosionTrigger = true;
         }
     }
 
@@ -290,7 +292,7 @@ public class Controller_Respawn : SCG_Controller
         public override void Update()
         {
             timer += Time.deltaTime;
-            Context.playModel.worldSpeed_Current = Context.gameModel.worldSpeed_min + Context.gameModel.worldSpeed_max * timer;
+            Context.playModel.worldSpeed_Current = Context.gameModel.worldSpeed_min + Context.gameModel.worldSpeed_max * timer / duration;
             if (timer >= duration)
                 TransitionTo<Alive>();
         }

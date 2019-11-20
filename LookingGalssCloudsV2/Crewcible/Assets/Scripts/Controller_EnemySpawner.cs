@@ -33,6 +33,10 @@ public class Controller_EnemySpawner : MonoBehaviour
     {
         sadModel.difficulty = sadModel.level + (float)sadModel.score / 22000;
         sadModel.difficulty_Log = Mathf.Log(sadModel.difficulty) * 1.25f;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            TransitionToRandomState();
+
         _fsm.Update();
     }
 

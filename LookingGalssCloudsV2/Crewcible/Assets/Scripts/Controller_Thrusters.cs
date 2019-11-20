@@ -22,10 +22,10 @@ public class Controller_Thrusters : SCG_Controller
     private MeshRenderer flyRet;
     private MeshRenderer dashRet;
 
-    public float xBoundClose;
-    public float xBoundFar;
-    public float zBoundClose;
-    public float zBoundFar;
+    //public float xBoundClose;
+    //public float xBoundFar;
+    //public float zBoundClose;
+    //public float zBoundFar;
 
     private Vector3 leftBoundVector;
     private Vector3 rightBoundVector;
@@ -52,10 +52,10 @@ public class Controller_Thrusters : SCG_Controller
     {
 
         _myEngineAS = MakeEngineAS();
-        leftBoundVector = Vector3.Normalize(new Vector3(-xBoundFar - -xBoundClose, 0, zBoundFar - zBoundClose));
+        leftBoundVector = Vector3.Normalize(new Vector3(-gameModel.f_xBoundFar - -gameModel.f_xBoundClose, 0, gameModel.f_zBoundFar - gameModel.f_zBoundClose));
         leftInVector = Vector3.Cross(leftBoundVector, Vector3.up);
 
-        rightBoundVector = Vector3.Normalize(new Vector3(xBoundFar - xBoundClose, 0, zBoundFar - zBoundClose));
+        rightBoundVector = Vector3.Normalize(new Vector3(gameModel.f_xBoundFar - gameModel.f_xBoundClose, 0, gameModel.f_zBoundFar - gameModel.f_zBoundClose));
         rightInVector = Vector3.Cross(rightBoundVector, Vector3.down);
 
         //jumpReticleParent.SetActive(false);
@@ -107,7 +107,7 @@ public class Controller_Thrusters : SCG_Controller
 
     private void _Pilot(float inputX, float inputY, bool jump)
     {
-        xBoundCalc = Mathf.Lerp(xBoundClose, xBoundFar, (player.position.z - zBoundClose) / (zBoundFar - zBoundClose));
+        xBoundCalc = Mathf.Lerp(gameModel.f_xBoundClose, gameModel.f_xBoundFar, (player.position.z - gameModel.f_zBoundClose) / (gameModel.f_zBoundFar - gameModel.f_zBoundClose));
 
         inputDirRaw.x = inputX;
         inputDirRaw.z = inputY;
@@ -132,9 +132,9 @@ public class Controller_Thrusters : SCG_Controller
         else if (player.position.x <= -xBoundCalc && Vector3.Dot(inputDirNorm, rightInVector) > 0)
             moveDir = inputDirRaw;
 
-        else if (player.position.z <= zBoundClose && Vector3.Dot(inputDirNorm, Vector3.forward) > 0)
+        else if (player.position.z <= gameModel.f_zBoundClose && Vector3.Dot(inputDirNorm, Vector3.forward) > 0)
             moveDir = inputDirRaw;
-        else if (player.position.z >= zBoundFar && Vector3.Dot(inputDirNorm, Vector3.back) > 0)
+        else if (player.position.z >= gameModel.f_zBoundFar && Vector3.Dot(inputDirNorm, Vector3.back) > 0)
             moveDir = inputDirRaw;
 
         else moveDir = inputDirRaw;
@@ -199,10 +199,10 @@ public class Controller_Thrusters : SCG_Controller
             limitPos.x = -xBoundCalc;
         if (player.position.x > xBoundCalc)
             limitPos.x = xBoundCalc;
-        if (player.position.z < zBoundClose)
-            limitPos.z = zBoundClose;
-        if (player.position.z > zBoundFar)
-            limitPos.z = zBoundFar;
+        if (player.position.z < gameModel.f_zBoundClose)
+            limitPos.z = gameModel.f_zBoundClose;
+        if (player.position.z > gameModel.f_zBoundFar)
+            limitPos.z = gameModel.f_zBoundFar;
     }
     #endregion
 
