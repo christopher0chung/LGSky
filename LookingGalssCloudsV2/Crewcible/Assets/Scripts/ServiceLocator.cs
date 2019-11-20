@@ -83,6 +83,30 @@ public class ServiceLocator
             return _sfx;
         }
     }
+
+    private Transform _iC;
+
+    public Transform inControl
+    {
+        get
+        {
+            if (_iC == null)
+                _iC = GameObject.FindGameObjectWithTag("InControl").transform;
+            return _iC;
+        }
+    }
+
+    private Model_ControllerRefs _r;
+
+    public Model_ControllerRefs controllerRefs
+    {
+        get
+        {
+            if (_r == null)
+                _r = inControl.GetComponent<Model_ControllerRefs>();
+            return _r;
+        }
+    }
 }
 
 public class SCG_Model : MonoBehaviour { }

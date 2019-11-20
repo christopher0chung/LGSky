@@ -355,7 +355,7 @@ public class View_MainUI : MonoBehaviour
     Vector3 euler;
     void ChargeSpinner()
     {
-        Debug.Log(spinSpeedBase * heatModel.heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime);
+        //Debug.Log(spinSpeedBase * heatModel.heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime);
         euler.z += spinSpeedBase * heatModel.heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime;
         chargeSpinner.localRotation = Quaternion.Euler(euler);
     }
