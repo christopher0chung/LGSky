@@ -13,11 +13,15 @@ public class Test_SceneConfigurator : MonoBehaviour
     public GameObject happyClouds;
 
     public Camera[] miniCams;
+
+    public GameObject[] objToDisable;
     
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        Time.timeScale = 1;
+
         if (isNormal)
         {
             hP.background = normal;
@@ -36,9 +40,22 @@ public class Test_SceneConfigurator : MonoBehaviour
             Instantiate(happyClouds, Vector3.zero, Quaternion.identity, ServiceLocator.instance.View);
             foreach (Camera c in miniCams)
             {
-                if (c!= null)
+                if (c != null)
                     c.backgroundColor = happy;
             }
+            foreach (GameObject g in objToDisable)
+            {
+                if (g != null)
+                    g.SetActive(false);
+            }
+            if (ServiceLocator.instance.View.GetComponent<View_Lives>() != null)
+                ServiceLocator.instance.View.GetComponent<View_Lives>().enabled = false;
+            if (ServiceLocator.instance.View.GetComponent<View_Score>() != null)
+                ServiceLocator.instance.View.GetComponent<View_Score>().enabled = false;
+            if (ServiceLocator.instance.Controller.GetComponent<Controller_EnemySpawner>() != null)
+                ServiceLocator.instance.Controller.GetComponent<Controller_EnemySpawner>().enabled = false;
+            if (ServiceLocator.instance.Controller.GetComponent<Controller_Respawn>() != null)
+                ServiceLocator.instance.Controller.GetComponent<Controller_Respawn>().enabled = false;
         }
     }
 }

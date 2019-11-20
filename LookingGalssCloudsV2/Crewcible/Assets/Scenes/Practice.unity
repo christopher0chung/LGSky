@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ee4e08c9af5634287fbf7d09f2a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNormal: 1
+  isNormal: 0
   normal: {r: 0.25882354, g: 0.06666667, b: 0.050980393, a: 1}
   happy: {r: 0.43137255, g: 0.36862746, b: 0.49411765, a: 1}
   hP: {fileID: 210584124}

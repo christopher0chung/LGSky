@@ -75,4 +75,13 @@ public class SCG_EventManager
             handlers(e);
         }
     }
+
+    //---------------------
+    // Clear out
+    //---------------------
+
+    public void Clear()
+    {
+        registeredHandlers.Clear();
+    }
 }

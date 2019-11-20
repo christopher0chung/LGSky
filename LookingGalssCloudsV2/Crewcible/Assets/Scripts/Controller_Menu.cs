@@ -19,6 +19,7 @@ public class Controller_Menu : SCG_Controller
     public Image up;
     public Image down;
     public Image aButton;
+    public Image rightTrigger;
 
     int choices;
     float threshold = .25f;
@@ -39,7 +40,7 @@ public class Controller_Menu : SCG_Controller
     public override void ScheduledUpdate()
     {
         buttonColor.a = .5f * Mathf.Sin(7 * Time.time) + .5f;
-        aButton.color = buttonColor;
+        aButton.color = rightTrigger.color = buttonColor;
 
         if (input.device0 != null)
             p1.text = "p1";
@@ -80,6 +81,17 @@ public class Controller_Menu : SCG_Controller
             c.text = "controls";
 
         if ((inputModel.L_Action_OnDown || inputModel.R_Action_OnDown) && (ServiceLocator.instance.controllerRefs.device0 != null || ServiceLocator.instance.controllerRefs.device1 != null))
-            SceneManager.LoadScene(1);
+        {
+            if (choices == 0)
+            {
+                SCG_EventManager.instance.Clear();
+                SceneManager.LoadScene(1);
+            }
+            else if (choices == 1)
+            {
+                SCG_EventManager.instance.Clear();
+                SceneManager.LoadScene(2);
+            }
+        }
     }
 }

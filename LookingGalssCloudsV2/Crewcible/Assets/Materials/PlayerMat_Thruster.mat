@@ -74,7 +74,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _F_Bias: 0
-    - _F_Power: 0.25
+    - _F_Power: 0.09
     - _F_Scale: 1
     - _GlossMapScale: 1
     - _Gloss_BP: 0
@@ -102,7 +102,7 @@ Material:
     - _CoreColor: {r: 0, g: 0, b: 0, a: 0}
     - _EdgeColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LanceInner: {r: 2.828427, g: 2.828427, b: 2.828427, a: 1}
+    - _LanceInner: {r: 5.992157, g: 5.992157, b: 5.992157, a: 1}
     - _LanceOutter: {r: 0, g: 0.5765667, b: 0.46957496, a: 1}
     - _NoiseMapPannerSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseMapSize: {r: 512, g: 512, b: 0, a: 0}

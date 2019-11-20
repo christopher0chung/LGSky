@@ -32,7 +32,7 @@ public class Controller_EnemySpawner : MonoBehaviour
     void Update()
     {
         sadModel.difficulty = sadModel.level + (float)sadModel.score / 22000;
-        sadModel.difficulty_Log = Mathf.Log(sadModel.difficulty) * 2;
+        sadModel.difficulty_Log = Mathf.Log(sadModel.difficulty) * 1.25f;
         _fsm.Update();
     }
 
@@ -82,16 +82,24 @@ public class Controller_EnemySpawner : MonoBehaviour
 
     void TransitionToRandomState()
     {
-        int i = Random.Range(0, 4);
+        int max;
+
+        if (sadModel.level < 4)
+            max = sadModel.level;
+        else
+            max = 3;
+
+        int i = Random.Range(0, max);
 
         if (i == 0)
-            _fsm.TransitionTo<SwooperSpawn>();
+            _fsm.TransitionTo<SwarmSpawn>();       
         else if (i == 1)
-            _fsm.TransitionTo<SwarmSpawn>();
+            _fsm.TransitionTo<StraferSpawn>();       
         else if (i == 2)
-            _fsm.TransitionTo<PeakySpawn>();
+            _fsm.TransitionTo<SwooperSpawn>();       
         else if (i == 3)
-            _fsm.TransitionTo<StraferSpawn>();
+            _fsm.TransitionTo<PeakySpawn>();
+
     }
 
     public void EventHandler(SCG_Event e)
@@ -126,7 +134,7 @@ public class Controller_EnemySpawner : MonoBehaviour
         public override void OnEnter()
         {
             timer = 0;
-            delay = standard - 5 * Context.sadModel.difficulty;
+            delay = standard - 2 * Context.sadModel.difficulty;
         }
 
         public override void Update()
