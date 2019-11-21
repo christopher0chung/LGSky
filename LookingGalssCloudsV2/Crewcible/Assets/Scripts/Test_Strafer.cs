@@ -12,6 +12,7 @@ public class Test_Strafer : Behavior_BaddyBase
 
     private float shootTimer;
     public GameObject bullet;
+    public GameObject flameOut;
 
     Enemy_Base myE;
 
@@ -71,6 +72,7 @@ public class Test_Strafer : Behavior_BaddyBase
             SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
             SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathEventHandler);
             SCG_EventManager.instance.Fire(new Event_BonusPoints(1203));
+            Instantiate(flameOut, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
 

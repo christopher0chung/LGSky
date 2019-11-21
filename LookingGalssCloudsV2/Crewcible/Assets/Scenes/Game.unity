@@ -12877,7 +12877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &948445495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23675,7 +23675,7 @@ MonoBehaviour:
   s_Shield_HitFlashNormalize: 0
   t_Guns_SpinUpTime: 0.1
   t_Guns_TimeBetweenShots: 0.06
-  d_Guns_Damage: 3
+  d_Guns_Damage: 5
   s_Guns_TurnSpeed_Activated: 115
   s_Guns_TurnSpeed_Inactivated: 200
   f_Guns_BulletDispersion: 6
@@ -23683,7 +23683,7 @@ MonoBehaviour:
   s_Guns_BulletSpeed: 70
   t_Rockets_FireRate: 0.07
   t_Rockets_Reload: 3
-  d_Rockets_Damage: 15
+  d_Rockets_Damage: 200
   d_Rockets_ExplosionBallDamage: 10
   f_Rockets_ExplosionBallSize: 10
   t_Rockets_ExplosionBallLifetime: 1.8
@@ -23701,11 +23701,11 @@ MonoBehaviour:
   f_xBoundFar: 35
   f_zBoundClose: 0
   f_zBoundFar: 40
-  d_Lance_Damage: 8
-  d_Lance_Damage_Sustained: 10
+  d_Lance_Damage: 1
+  d_Lance_Damage_Sustained: 8
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
-  s_Lance_ExtendSpeed: 30
+  s_Lance_ExtendSpeed: 45
   e_Reactor_Base: 0
   e_Reactor_Upgrade: 0
   e_ShutdownThreshold: 0

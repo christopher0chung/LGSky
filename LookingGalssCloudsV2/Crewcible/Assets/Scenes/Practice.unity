@@ -6860,10 +6860,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 1000
-  xBoundClose: 28
-  xBoundFar: 35
-  zBoundClose: 0
-  zBoundFar: 40
 --- !u!114 &513998431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12881,7 +12877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &948445495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23653,7 +23649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldSpeed_min: 30
-  worldSpeed_max: 180
+  worldSpeed_max: 1800
   c_Cool: {r: 0.62044317, g: 0.7786033, b: 0.81960785, a: 0.5019608}
   c_Warm: {r: 0.99607843, g: 0.8020393, b: 0.4392706, a: 0.5019608}
   c_Hot: {r: 0.8862746, g: 0.19607845, b: 0.003921569, a: 0.5019608}
@@ -23679,7 +23675,7 @@ MonoBehaviour:
   s_Shield_HitFlashNormalize: 0
   t_Guns_SpinUpTime: 0.1
   t_Guns_TimeBetweenShots: 0.06
-  d_Guns_Damage: 3
+  d_Guns_Damage: 5
   s_Guns_TurnSpeed_Activated: 115
   s_Guns_TurnSpeed_Inactivated: 200
   f_Guns_BulletDispersion: 6
@@ -23687,7 +23683,7 @@ MonoBehaviour:
   s_Guns_BulletSpeed: 70
   t_Rockets_FireRate: 0.07
   t_Rockets_Reload: 3
-  d_Rockets_Damage: 15
+  d_Rockets_Damage: 200
   d_Rockets_ExplosionBallDamage: 10
   f_Rockets_ExplosionBallSize: 10
   t_Rockets_ExplosionBallLifetime: 1.8
@@ -23701,8 +23697,12 @@ MonoBehaviour:
   s_Thrusters_Speed: 12
   f_Thrusters_DashDistance: 15
   t_Thrusters_DashCooldown: 2.3
-  d_Lance_Damage: 8
-  d_Lance_Damage_Sustained: 10
+  f_xBoundClose: 28
+  f_xBoundFar: 35
+  f_zBoundClose: 0
+  f_zBoundFar: 40
+  d_Lance_Damage: 1
+  d_Lance_Damage_Sustained: 20
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
   s_Lance_ExtendSpeed: 30
@@ -23847,6 +23847,7 @@ MonoBehaviour:
   lives: 0
   isPaused: 0
   worldSpeed_Current: 30
+  deathExplosionTrigger: 0
 --- !u!114 &1305984639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23897,6 +23898,7 @@ GameObject:
   - component: {fileID: 1337798021}
   - component: {fileID: 1337798022}
   - component: {fileID: 1337798023}
+  - component: {fileID: 1337798024}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -24026,6 +24028,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipModel: {fileID: 1849080787}
   worldParticles: {fileID: 1683482231}
+--- !u!114 &1337798024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337798016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f12716c6b0b4a54eb80e414eb3cd5b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holoPlay: {fileID: 1109755642}
+  pitchMax: -24
+  panScalar: 0.25
+  popMagnitudeMax: 3
+  shakeMagnitudeMax: 20
 --- !u!1 &1352596498
 GameObject:
   m_ObjectHideFlags: 0

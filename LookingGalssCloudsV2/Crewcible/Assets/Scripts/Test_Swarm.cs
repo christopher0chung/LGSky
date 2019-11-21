@@ -64,7 +64,7 @@ public class Test_Swarm : Behavior_BaddyBase
 
         foreach (GameObject g in _swarm)
         {
-            g.GetComponent<Enemy_Base>().SetHitPoint(1);
+            g.GetComponent<Enemy_Base>().SetHitPoint(5);
         }
     }
 

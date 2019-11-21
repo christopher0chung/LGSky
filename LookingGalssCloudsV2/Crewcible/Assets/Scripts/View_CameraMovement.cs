@@ -47,7 +47,7 @@ public class View_CameraMovement : MonoBehaviour
         ExplosionShakeObserve();
 
         rotToApply.x = euler_Initial.x + pitchMax * ((playModel.worldSpeed_Current - gameModel.worldSpeed_min) / (gameModel.worldSpeed_max - gameModel.worldSpeed_min));
-        Debug.Log(((playModel.worldSpeed_Current - gameModel.worldSpeed_min) / (gameModel.worldSpeed_max - gameModel.worldSpeed_min)));
+        //Debug.Log(((playModel.worldSpeed_Current - gameModel.worldSpeed_min) / (gameModel.worldSpeed_max - gameModel.worldSpeed_min)));
         rotToApply.y = euler_Initial.y + panScalar * player.transform.position.x;
 
         holoPlay.rotation = Quaternion.Slerp(holoPlay.rotation, Quaternion.Euler(rotToApply), 8 * Time.unscaledDeltaTime);

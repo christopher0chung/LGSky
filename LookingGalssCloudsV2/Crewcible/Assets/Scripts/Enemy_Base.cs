@@ -29,6 +29,8 @@ public class Enemy_Base : MonoBehaviour {
     }
     public float hitpoints_Max;
 
+    public float CurrentHP;
+
     void Awake()
     {
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EventHandler);
@@ -42,6 +44,8 @@ public class Enemy_Base : MonoBehaviour {
             r.isKinematic = true;
             r.useGravity = false;
         }
+
+        CurrentHP = hitpoints_Current;
     }
 
     public void SetHitPoint(float max)
@@ -59,6 +63,7 @@ public class Enemy_Base : MonoBehaviour {
             if (p.enemyHit == this)
             {
                 hitpoints_Current -= p.enemyDamageTaken;
+                CurrentHP = hitpoints_Current;
             }
         }
 
@@ -69,7 +74,8 @@ public class Enemy_Base : MonoBehaviour {
             if (s.enemyHit == this)
             {
                 hitpoints_Current -= s.enemyDamageTaken;
-                Debug.Log("I've been hit. My Life is now at " + hitpoints_Current);
+                CurrentHP = hitpoints_Current;
+                //Debug.Log("I've been hit. My Life is now at " + hitpoints_Current);
             }
         }
 
@@ -80,6 +86,7 @@ public class Enemy_Base : MonoBehaviour {
             if (x.enemyHit == this)
             {
                 hitpoints_Current -= x.enemyDamageTaken;
+                CurrentHP = hitpoints_Current;
             }
         }
 
@@ -90,12 +97,13 @@ public class Enemy_Base : MonoBehaviour {
             if (r.enemyHit == this)
             {
                 hitpoints_Current -= r.damageTaken;
+                CurrentHP = hitpoints_Current;
             }
         }
     }
 
-    public void FireDestructionEvent()
-    {
-        hitpoints_Current = 0;
-    }
+    //public void FireDestructionEvent()
+    //{
+    //    hitpoints_Current = 0;
+    //}
 }

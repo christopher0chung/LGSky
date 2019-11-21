@@ -53,6 +53,8 @@ MonoBehaviour:
   bobRate: 4
   shieldFraction: 0.7
   bullet: {fileID: 2918915019362142458, guid: 449c96b3a68e07347a74ee96510ef126, type: 3}
+  flameout: {fileID: 9141658366025178914, guid: 65780fe6a88d774478a00f9eb3b157c5,
+    type: 3}
 --- !u!114 &-2311723618791048119
 MonoBehaviour:
   m_ObjectHideFlags: 0

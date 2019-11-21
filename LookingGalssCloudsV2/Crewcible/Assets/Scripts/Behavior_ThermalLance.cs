@@ -35,7 +35,7 @@ public class Behavior_ThermalLance : MonoBehaviour
             {
                 Enemy_Base e = other.GetComponent<Enemy_Base>();
 
-                SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, gameModel.d_Lance_Damage_Sustained * Time.deltaTime, other.transform.position));
+                SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, gameModel.d_Lance_Damage_Sustained * Time.fixedDeltaTime, other.transform.position));
             }
         }
     }

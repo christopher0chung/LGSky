@@ -21,6 +21,7 @@ public class Test_PeakyShooty : Behavior_BaddyBase
     [Range(0, 1)] public float shieldFraction;
 
     public GameObject bullet;
+    public GameObject flameout;
 
     Enemy_Base myE;
 
@@ -79,6 +80,7 @@ public class Test_PeakyShooty : Behavior_BaddyBase
                 SCG_EventManager.instance.Fire(new Event_BonusPoints(559));
                 SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathHandler);
                 SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathHandler);
+                Instantiate(flameout, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
             }
         }

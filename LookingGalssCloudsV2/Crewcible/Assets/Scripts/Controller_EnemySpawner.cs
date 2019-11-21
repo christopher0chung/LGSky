@@ -55,7 +55,7 @@ public class Controller_EnemySpawner : MonoBehaviour
                     + Vector3.right * Random.Range(-5, 5), 
                 rot,
                 baddieParent.transform);
-            g.GetComponent<Enemy_Base>().SetHitPoint(101);
+            g.GetComponent<Enemy_Base>().SetHitPoint(180);
         }
     }
 
@@ -70,7 +70,7 @@ public class Controller_EnemySpawner : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             GameObject g = Instantiate(PeakyPrefab, new Vector3(0, 0, 260), Quaternion.identity, baddieParent.transform);
-            g.GetComponent<Enemy_Base>().SetHitPoint(10);
+            g.GetComponent<Enemy_Base>().SetHitPoint(30);
         }
     }
 
@@ -184,11 +184,17 @@ public class Controller_EnemySpawner : MonoBehaviour
         float min = .25f;
         float max = 3;
 
+        int diffLogPlus1;
+
         public override void OnEnter()
         {
             // Announce SFX
             delay = Mathf.Lerp(min, max, 1 / Context.sadModel.difficulty);
             timer = 0;
+
+            diffLogPlus1 = Mathf.FloorToInt(Context.sadModel.difficulty_Log) + 1;
+
+            Debug.Log("Making " + diffLogPlus1 + " swarm(s) of " + (40 + Context.sadModel.difficulty * 12 / diffLogPlus1) + " swarmers");
         }
         public override void Update()
         {
@@ -197,10 +203,9 @@ public class Controller_EnemySpawner : MonoBehaviour
             {
                 // number of swarms goes up for every other point of difficulty
                 // swarm count goes up by 5 for every point of difficulty
-                for (int i = 0; i < Mathf.FloorToInt(Context.sadModel.difficulty_Log / 3) + 1; i++)
+                for (int i = 0; i < diffLogPlus1; i++)
                 {
-                    Context.Swarm(Mathf.FloorToInt(30 + Context.sadModel.difficulty * 5));
-                    //Debug.Log("New swarm of " + Mathf.FloorToInt(30 / (1 + Context.sadModel.difficulty_Log) + Context.sadModel.difficulty * 10));
+                    Context.Swarm(Mathf.FloorToInt(20 + Context.sadModel.difficulty * 5 / diffLogPlus1));
                 }
 
                 TransitionTo<Wait>();
