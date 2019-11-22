@@ -13,7 +13,7 @@ public class Controller_Score : MonoBehaviour
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EventHandler);
-        SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EventHandler);
+        SCG_EventManager.instance.Register<Event_LanceHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerShieldBlock>(EventHandler);
         SCG_EventManager.instance.Register<Event_BonusPoints>(EventHandler);
     }
@@ -60,7 +60,7 @@ public class Controller_Score : MonoBehaviour
             return;
         }
 
-        Event_PlayerSwordHit sh = e as Event_PlayerSwordHit;
+        Event_LanceHit sh = e as Event_LanceHit;
 
         if (sh != null)
         {

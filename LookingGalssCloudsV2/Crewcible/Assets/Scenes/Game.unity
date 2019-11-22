@@ -17641,7 +17641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &948445495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28466,7 +28466,7 @@ MonoBehaviour:
   f_zBoundClose: 0
   f_zBoundFar: 40
   d_Lance_Damage: 1
-  d_Lance_Damage_Sustained: 8
+  d_Lance_Damage_Sustained: 15
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
   s_Lance_ExtendSpeed: 45

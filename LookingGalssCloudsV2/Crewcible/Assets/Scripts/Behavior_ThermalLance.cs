@@ -22,12 +22,12 @@ public class Behavior_ThermalLance : MonoBehaviour
                 Enemy_Base e = other.GetComponent<Enemy_Base>();
 
                 SCG_EventManager.instance.Fire(new Event_BonusPoints(7));
-                SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, gameModel.d_Lance_Damage, other.transform.position));
+                SCG_EventManager.instance.Fire(new Event_LanceHit(e, other.transform.position, true));
             }
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (!playModel.unaccessedStations.Contains(Stations.Lance) && (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.Respawning))
         {
@@ -35,7 +35,7 @@ public class Behavior_ThermalLance : MonoBehaviour
             {
                 Enemy_Base e = other.GetComponent<Enemy_Base>();
 
-                SCG_EventManager.instance.Fire(new Event_PlayerSwordHit(e, gameModel.d_Lance_Damage_Sustained * Time.fixedDeltaTime, other.transform.position));
+                SCG_EventManager.instance.Fire(new Event_LanceHit(e, other.transform.position, false));
             }
         }
     }

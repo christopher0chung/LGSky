@@ -43,7 +43,7 @@ public class Manager_GameAssets : SCG_Controller {
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EffectsEventHandler);
-        SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EffectsEventHandler);
+        SCG_EventManager.instance.Register<Event_LanceHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_ExplosionBallHit>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_EnemyDeath>(EffectsEventHandler);
         SCG_EventManager.instance.Register<Event_EnemyMineHit>(EffectsEventHandler);
@@ -211,7 +211,7 @@ public class Manager_GameAssets : SCG_Controller {
             }
         }
 
-        Event_PlayerSwordHit sH = e as Event_PlayerSwordHit;
+        Event_LanceHit sH = e as Event_LanceHit;
 
         if (sH != null)
         {

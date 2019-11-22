@@ -88,10 +88,10 @@ public class Controller_EnemySpawner : MonoBehaviour
     {
         int max;
 
-        if (sadModel.level < 4)
+        if (sadModel.level <= 4)
             max = sadModel.level;
         else
-            max = 3;
+            max = 4;
 
         int i = Random.Range(0, max);
 
@@ -230,7 +230,7 @@ public class Controller_EnemySpawner : MonoBehaviour
             delayTimer = 0;
             spawnIntervalTimer = 0;
             counter = 0;
-            max = 2 + 1 * Mathf.FloorToInt(Context.sadModel.difficulty);
+            max = 1 + Mathf.FloorToInt(Context.sadModel.difficulty_Log) + Mathf.FloorToInt(Context.sadModel.difficulty / 3);
         }
 
         public override void Update()

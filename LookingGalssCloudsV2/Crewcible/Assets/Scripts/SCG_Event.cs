@@ -23,17 +23,17 @@ public class Event_PlayerBulletHit : SCG_Event
     }
 }
 
-public class Event_PlayerSwordHit : SCG_Event
+public class Event_LanceHit : SCG_Event
 {
     public Enemy_Base enemyHit;
-    public float enemyDamageTaken;
     public Vector3 location;
+    public bool trueEnterFalseExit;
 
-    public Event_PlayerSwordHit(Enemy_Base enemyHit, float damage, Vector3 where)
+    public Event_LanceHit(Enemy_Base enemyHit, Vector3 where, bool tEFE)
     {
         this.enemyHit = enemyHit;
-        enemyDamageTaken = damage;
         location = where;
+        trueEnterFalseExit = tEFE;
     }
 }
 
@@ -70,14 +70,14 @@ public class Event_PlayerShieldBlock : SCG_Event { }
 public class Event_ExplosionBallHit : SCG_Event
 {
     public Enemy_Base enemyHit;
-    public float enemyDamageTaken;
     public Vector3 location;
+    public bool trueEnterFalseExit;
 
-    public Event_ExplosionBallHit(Enemy_Base enemyHit, float damage, Vector3 where)
+    public Event_ExplosionBallHit(Enemy_Base enemyHit, Vector3 where, bool tEFE)
     {
         this.enemyHit = enemyHit;
-        enemyDamageTaken = damage;
         location = where;
+        trueEnterFalseExit = tEFE;
     }
 }
 

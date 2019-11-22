@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy_Base : MonoBehaviour {
 
+    Model_Game gameModel;
+
     private float _h = 1;
     public float hitpoints_Current
     {
@@ -33,8 +35,10 @@ public class Enemy_Base : MonoBehaviour {
 
     void Awake()
     {
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
+
         SCG_EventManager.instance.Register<Event_PlayerBulletHit>(EventHandler);
-        SCG_EventManager.instance.Register<Event_PlayerSwordHit>(EventHandler);
+        SCG_EventManager.instance.Register<Event_LanceHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_ExplosionBallHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerRocketHit>(EventHandler);
         this.tag = "Enemy";
@@ -67,15 +71,15 @@ public class Enemy_Base : MonoBehaviour {
             }
         }
 
-        Event_PlayerSwordHit s = e as Event_PlayerSwordHit;
+        Event_LanceHit s = e as Event_LanceHit;
 
         if (s != null)
         {
             if (s.enemyHit == this)
             {
-                hitpoints_Current -= s.enemyDamageTaken;
-                CurrentHP = hitpoints_Current;
-                //Debug.Log("I've been hit. My Life is now at " + hitpoints_Current);
+                if (s.trueEnterFalseExit)
+                    hitpoints_Current -= gameModel.d_Lance_Damage;
+                isInLance = s.trueEnterFalseExit;
             }
         }
 
@@ -85,8 +89,7 @@ public class Enemy_Base : MonoBehaviour {
         {
             if (x.enemyHit == this)
             {
-                hitpoints_Current -= x.enemyDamageTaken;
-                CurrentHP = hitpoints_Current;
+                isInExplosionBall = x.trueEnterFalseExit;
             }
         }
 
@@ -100,6 +103,18 @@ public class Enemy_Base : MonoBehaviour {
                 CurrentHP = hitpoints_Current;
             }
         }
+    }
+
+    bool isInLance;
+    bool isInExplosionBall;
+
+    public void Update()
+    {
+        if (isInLance)
+            hitpoints_Current -= gameModel.d_Lance_Damage_Sustained * Time.deltaTime;
+        if (isInExplosionBall)
+            hitpoints_Current -= gameModel.d_Rockets_ExplosionBallDamage * Time.deltaTime;
+        CurrentHP = hitpoints_Current;
     }
 
     //public void FireDestructionEvent()
