@@ -21,7 +21,8 @@ public class Controller_Respawn : SCG_Controller
     public GameObject gameOver;
     public Material gameOverTextMat;
 
-    public ParticleSystem charge;
+    public ParticleSystem charge1;
+    public ParticleSystem charge2;
     public ParticleSystem jump1;
     public ParticleSystem jump2;
     void Start()
@@ -42,7 +43,8 @@ public class Controller_Respawn : SCG_Controller
         _fsm = new SCG_FSM<Controller_Respawn>(this);
         _fsm.TransitionTo<Alive>();
 
-        charge.Stop();
+        charge1.Stop();
+        charge2.Stop();
         jump1.Stop();
         jump2.Stop();
     }
@@ -229,16 +231,19 @@ public class Controller_Respawn : SCG_Controller
         {
             timer = 0;
             currentChargeRate = 0;
-            Context.charge.Play();
+            Context.charge1.Play();
+            Context.charge2.gameObject.SetActive(true);
+            Context.charge2.Play();
             Context.playModel.currentPlayerState = PlayerState.LevelVictory;
-            Context.charge.transform.position = Context.player.position;
+            Context.charge1.transform.position = Context.player.position;
+            Context.charge2.transform.position = Context.player.position;
         }
 
         public override void Update()
         {
             timer += Time.unscaledDeltaTime / chargeDuration;
 
-            var rate = Context.charge.emission;
+            var rate = Context.charge1.emission;
             rate.rateOverTime = chargeMax * timer;
 
             if (timer >= 1)
@@ -247,8 +252,12 @@ public class Controller_Respawn : SCG_Controller
 
         public override void OnExit()
         {
-            var rate = Context.charge.emission;
+            var rate = Context.charge1.emission;
             rate.rateOverTime = 0;
+
+            Context.charge2.Stop();
+            Context.charge2.Clear();
+            Context.charge2.gameObject.SetActive(false);
         }
     }
 
