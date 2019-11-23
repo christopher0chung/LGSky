@@ -594,16 +594,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNormal: 1
-  normal: {r: 0.25882354, g: 0.06666667, b: 0.050980393, a: 1}
-  happy: {r: 0.43137255, g: 0.36862746, b: 0.49411765, a: 1}
-  hP: {fileID: 210584124}
   normalClouds: {fileID: 3599120348577443651, guid: b7104c4a15633df4581348d2c075b193,
     type: 3}
   happyClouds: {fileID: 3599120348577443651, guid: 1af1b2cb10d531743b6a124a20312c96,
     type: 3}
-  miniCams:
-  - {fileID: 1058302568}
-  - {fileID: 431156712}
   objToDisable:
   - {fileID: 676244329}
   - {fileID: 1148129388}
@@ -17641,7 +17635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &948445495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28606,7 +28600,7 @@ MonoBehaviour:
   rocketReloadProgress: 0
   dashReloadProgress: 0
   jumpTotal: 0
-  jumpRateMax: 0.95
+  jumpRateMax: 0.82
   jumpOverheatPenaltyRate: 5
   lives: 0
   isPaused: 0
@@ -28663,6 +28657,7 @@ GameObject:
   - component: {fileID: 1337798022}
   - component: {fileID: 1337798023}
   - component: {fileID: 1337798024}
+  - component: {fileID: 1337798025}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -28809,6 +28804,29 @@ MonoBehaviour:
   panScalar: 0.25
   popMagnitudeMax: 3
   shakeMagnitudeMax: 20
+--- !u!114 &1337798025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337798016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f96bd2b53a8df478750c08b26f4cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorNormal: {r: 0.25882354, g: 0.06666667, b: 0.050980393, a: 1}
+  colorHappy: {r: 0.43137255, g: 0.36862746, b: 0.49411765, a: 1}
+  clouds: {fileID: 2100000, guid: cb370319f532ce8448484efd3f8fe0f1, type: 2}
+  enemyBody: {fileID: 2100000, guid: 551d6bd550ebd244d813fe7c41856d31, type: 2}
+  enemyAccent: {fileID: 2100000, guid: 37c2ba9975828954e8390eeec38f53d9, type: 2}
+  enemyBullet: {fileID: 2100000, guid: 26a957f86c70a2f4d89b3d1359452018, type: 2}
+  enemyExplosion: {fileID: 2100000, guid: 16179a37609d2bd4bbd7baa70832821f, type: 2}
+  cameras:
+  - {fileID: 1058302568}
+  - {fileID: 431156712}
+  holoplay: {fileID: 210584124}
 --- !u!1 &1352596498
 GameObject:
   m_ObjectHideFlags: 0

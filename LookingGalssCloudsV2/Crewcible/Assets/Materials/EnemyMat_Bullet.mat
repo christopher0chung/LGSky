@@ -95,8 +95,8 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LanceInner: {r: 0, g: 0, b: 0, a: 0}
-    - _LanceOutter: {r: 80.62054, g: 5.4872613, b: 8.019844, a: 0}
+    - _LanceInner: {r: 0, g: 0, b: 0, a: 1}
+    - _LanceOutter: {r: 142.5, g: 9.974999, b: 25.436266, a: 1}
     - _NoiseMapPannerSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseMapSize: {r: 512, g: 512, b: 0, a: 0}
     - _NormalMask: {r: 1, g: 1, b: 1, a: 0}

@@ -310,6 +310,7 @@ public class Controller_Respawn : SCG_Controller
         {
             Context.playModel.worldSpeed_Current = Context.gameModel.worldSpeed_min;
             ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>().level++;
+            ServiceLocator.instance.View.GetComponent<View_ColorConfigurator>().SetColors(AestheticMode.Shift);
         }
     }
 }

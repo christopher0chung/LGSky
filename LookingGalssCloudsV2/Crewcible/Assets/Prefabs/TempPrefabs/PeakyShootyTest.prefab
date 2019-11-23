@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitpoints_Max: 0
+  CurrentHP: 0
 --- !u!135 &4519466950781114863
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4895,7 +4896,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 26a957f86c70a2f4d89b3d1359452018, type: 2}
+  - {fileID: 2100000, guid: 16179a37609d2bd4bbd7baa70832821f, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

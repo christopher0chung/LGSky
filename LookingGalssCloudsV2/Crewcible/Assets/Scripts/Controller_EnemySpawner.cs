@@ -43,7 +43,7 @@ public class Controller_EnemySpawner : MonoBehaviour
     #region Internal
     void Strafer(int num)
     {
-        float angle = Random.Range(-20, 20);
+        float angle = Random.Range(-12, 12);
         Quaternion rot = Quaternion.Euler(0, angle, 0);
         Vector3 moveDir = Vector3.Normalize(rot * Vector3.forward * 37 - Vector3.forward * 30);
         for (int i = 0; i < num; i++)

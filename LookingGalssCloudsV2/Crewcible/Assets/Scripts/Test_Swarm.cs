@@ -18,6 +18,8 @@ public class Test_Swarm : Behavior_BaddyBase
 
     private Transform target;
 
+    private float hp_Initial = 5;
+
     [Header("Tuning Weights")]
     [Range(0, 1)] public float w_Cohesion;
     [Range(0, 1)] public float w_Alignment;
@@ -64,7 +66,7 @@ public class Test_Swarm : Behavior_BaddyBase
 
         foreach (GameObject g in _swarm)
         {
-            g.GetComponent<Enemy_Base>().SetHitPoint(5);
+            g.GetComponent<Enemy_Base>().SetHitPoint(hp_Initial);
         }
     }
 

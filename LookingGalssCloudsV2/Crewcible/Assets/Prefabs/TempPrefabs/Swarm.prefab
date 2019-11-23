@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   interpolateFactor: 2
-  w_Cohesion: 0.95
-  w_Alignment: 1
-  w_Random: 0.85
+  w_Cohesion: 0.78
+  w_Alignment: 0.85
+  w_Random: 1
   w_Target: 0.177
   maskingRange: 20
   rangeToTargetWeightFactor: 18
