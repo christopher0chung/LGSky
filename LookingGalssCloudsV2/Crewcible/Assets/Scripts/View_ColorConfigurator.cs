@@ -99,9 +99,9 @@ public class View_ColorConfigurator : MonoBehaviour
                 {
                     c.backgroundColor = Color.HSVToRGB(hue, sv_SkyNormal.x / 100, sv_SkyNormal.y / 100);
                 }
-                RenderSettings.fogColor = c.backgroundColor;
             }
         }
+        RenderSettings.fogColor = holoplay.background;
     }
 }
 
