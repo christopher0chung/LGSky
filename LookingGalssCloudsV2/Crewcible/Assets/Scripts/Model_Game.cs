@@ -127,6 +127,27 @@ public class Model_Game : SCG_Model {
     public GameObject missileExplosionPrefab;
     public GameObject sfxPlayerPrefab;
     #endregion
+    [Header("Dialog")]
+    #region Dialog
+    AudioClip Welcome;
+    AudioClip Warning_Guns;
+    AudioClip Warning_Lance;
+    AudioClip Warning_Rockets;
+    AudioClip Warning_Shields;
+    AudioClip Warning_Thrusters;
+    AudioClip Warning_System;
+    AudioClip[] Online_Guns;
+    AudioClip[] Online_Lance;
+    AudioClip[] Online_Rockets;
+    AudioClip[] Online_Shields;
+    AudioClip[] Online_Thrusters;
+    AudioClip[] LD_Port;
+    AudioClip[] LD_Stbd;
+    AudioClip Danger_JC;
+    AudioClip[] CriticalError;
+    AudioClip Contact_General;
+    AudioClip Contact_Rear;
+    #endregion
 }
 
 public enum Stations { Thrusters, Guns, Rockets, Shield, Lance }
