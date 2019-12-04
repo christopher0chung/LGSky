@@ -47,6 +47,13 @@ public class Controller_Respawn : SCG_Controller
         charge2.Stop();
         jump1.Stop();
         jump2.Stop();
+
+        Invoke("StartAudio", .5f);
+    }
+
+    private void StartAudio()
+    {
+        SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.Welcome));
     }
 
     // Update is called once per frame
@@ -79,6 +86,7 @@ public class Controller_Respawn : SCG_Controller
         {
             Context.playModel.lives = 3;
             Context.gameOver.SetActive(false);
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.Welcome));
         }
         public override void Update()
         {
@@ -163,6 +171,7 @@ public class Controller_Respawn : SCG_Controller
         {
             timer = 0;
             Context.playModel.currentPlayerState = PlayerState.Respawning;
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.CriticalError));
         }
         public override void Update()
         {

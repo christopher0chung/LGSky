@@ -6494,7 +6494,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400350881}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -6877,6 +6877,7 @@ GameObject:
   - component: {fileID: 513998434}
   - component: {fileID: 513998436}
   - component: {fileID: 513998437}
+  - component: {fileID: 513998438}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -7131,6 +7132,18 @@ MonoBehaviour:
   returnToMenu: {fileID: 477314587}
   controls: {fileID: 111184722}
   selector: {fileID: 243539159}
+--- !u!114 &513998438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513998420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba32cf17038fc564b8f0ee5c47b2526b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &538823852
 GameObject:
   m_ObjectHideFlags: 0
@@ -12983,7 +12996,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
 --- !u!224 &895251377
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28723,6 +28736,44 @@ MonoBehaviour:
     type: 3}
   sfxPlayerPrefab: {fileID: 3836617428671862743, guid: 306fe61de24c7ce479f183ec34eb8a1b,
     type: 3}
+  Welcome: {fileID: 8300000, guid: da482af3b741bac489d94c7f3bfeb1ca, type: 3}
+  Warning_Guns: {fileID: 8300000, guid: 73b887c53f3c833449f940bc8cfdd709, type: 3}
+  Warning_Lance: {fileID: 8300000, guid: 72cdb1422c54a3541bf6149c28e89aee, type: 3}
+  Warning_Rockets: {fileID: 8300000, guid: 523cd626d3a19744d96d321ae0f6669b, type: 3}
+  Warning_Shields: {fileID: 8300000, guid: 65656c04ef02eb04a9ed822352bc192e, type: 3}
+  Warning_Thrusters: {fileID: 8300000, guid: 91af7c155bbeaf04fbc365fb247d1b31, type: 3}
+  Warning_System: {fileID: 8300000, guid: 7ae78acd9f520a44e9810f982f29dbb3, type: 3}
+  Online_Guns:
+  - {fileID: 8300000, guid: 170bfc562bc603841939b546afe318bf, type: 3}
+  - {fileID: 8300000, guid: ede4ce5824542c74cbab636148633eef, type: 3}
+  Online_Lance:
+  - {fileID: 8300000, guid: 7d21219fb4ee3f544ae1ae5f1005047f, type: 3}
+  - {fileID: 8300000, guid: e53bb0c34ce75c644b77e7fc5f2f0504, type: 3}
+  Online_Rockets:
+  - {fileID: 8300000, guid: 2462e70fd65c278428f31e5c63a8683b, type: 3}
+  - {fileID: 8300000, guid: a5388d7951a7d744e93875dad11f2705, type: 3}
+  Online_Shields:
+  - {fileID: 8300000, guid: cc3a267cee397af4082c5aeeda72c174, type: 3}
+  - {fileID: 8300000, guid: 55fab8dd1ceaa28418234281ee8e293a, type: 3}
+  Online_Thrusters:
+  - {fileID: 8300000, guid: 19188da33569d274da0c880a042b73ad, type: 3}
+  - {fileID: 8300000, guid: 4ac50e5f3935af245a00f8dee1e96895, type: 3}
+  LD_Port:
+  - {fileID: 8300000, guid: 2bd99ff50ebb3fc4a984d8850307ffe0, type: 3}
+  - {fileID: 8300000, guid: 5b6035b6f81c7ce4cbb08b661f4cd779, type: 3}
+  - {fileID: 8300000, guid: beee9d40696ec604b9f0c2a8a62e62b7, type: 3}
+  LD_Stbd:
+  - {fileID: 8300000, guid: 4452da7f06b870a499ef98c08e10f364, type: 3}
+  - {fileID: 8300000, guid: 1882cb0100c8dec40a7e1af992749ca4, type: 3}
+  - {fileID: 8300000, guid: 5a6b405cce652744d9f4d7191b52f393, type: 3}
+  Danger_JC: {fileID: 8300000, guid: a090779e02c92d6468ab228a183083a0, type: 3}
+  CriticalError:
+  - {fileID: 8300000, guid: 7044498705ad3f1459f7df4ad2fb2cd8, type: 3}
+  - {fileID: 8300000, guid: a84ae40f043afa8468dd6c42ecfe6327, type: 3}
+  - {fileID: 8300000, guid: 9f3278adc00fca94aa2887bb6ce6773f, type: 3}
+  - {fileID: 8300000, guid: 9decb791ff0a94e4e95e2b71e699a8f3, type: 3}
+  Contact_General: {fileID: 8300000, guid: ed5b2a598e28c7d4c8fd8e59d093248e, type: 3}
+  Contact_Rear: {fileID: 8300000, guid: e66116f5b25aa1645a42079995cd5230, type: 3}
 --- !u!114 &1305984637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28759,12 +28810,12 @@ MonoBehaviour:
   overheated_Thrusters: 0
   overheated_Rockets: 0
   activationHeat_Guns: 2
-  activationHeat_Lance: 15
+  activationHeat_Lance: 25
   activationHeat_Shield: 5
-  activationHeat_Thrusters: 15
+  activationHeat_Thrusters: 10
   activationHeat_Rockets: 40
   sustainedHeatRate_Guns: 6
-  sustainedHeatRate_Lance: 40
+  sustainedHeatRate_Lance: 18
   sustainedHeatRate_Shield: 17
   sustainedHeatRate_Thrusters: 18
   sustainedHeatRate_Rockets: 10
@@ -28775,7 +28826,7 @@ MonoBehaviour:
   cooldownRate_Rockets: 5
   rebootThreshold_Guns: 30
   rebootThreshold_Lance: 10
-  rebootThreshold_Shield: 70
+  rebootThreshold_Shield: 35
   rebootThreshold_Thrusters: 45
   rebootThreshold_Rockets: 10
   max_HeatTotal: 150

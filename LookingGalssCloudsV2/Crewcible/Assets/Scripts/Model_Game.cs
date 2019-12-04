@@ -129,24 +129,24 @@ public class Model_Game : SCG_Model {
     #endregion
     [Header("Dialog")]
     #region Dialog
-    AudioClip Welcome;
-    AudioClip Warning_Guns;
-    AudioClip Warning_Lance;
-    AudioClip Warning_Rockets;
-    AudioClip Warning_Shields;
-    AudioClip Warning_Thrusters;
-    AudioClip Warning_System;
-    AudioClip[] Online_Guns;
-    AudioClip[] Online_Lance;
-    AudioClip[] Online_Rockets;
-    AudioClip[] Online_Shields;
-    AudioClip[] Online_Thrusters;
-    AudioClip[] LD_Port;
-    AudioClip[] LD_Stbd;
-    AudioClip Danger_JC;
-    AudioClip[] CriticalError;
-    AudioClip Contact_General;
-    AudioClip Contact_Rear;
+    public AudioClip Welcome;
+    public AudioClip Warning_Guns;
+    public AudioClip Warning_Lance;
+    public AudioClip Warning_Rockets;
+    public AudioClip Warning_Shields;
+    public AudioClip Warning_Thrusters;
+    public AudioClip Warning_System;
+    public AudioClip[] Online_Guns;
+    public AudioClip[] Online_Lance;
+    public AudioClip[] Online_Rockets;
+    public AudioClip[] Online_Shields;
+    public AudioClip[] Online_Thrusters;
+    public AudioClip[] LD_Port;
+    public AudioClip[] LD_Stbd;
+    public AudioClip Danger_JC;
+    public AudioClip[] CriticalError;
+    public AudioClip Contact_General;
+    public AudioClip Contact_Rear;
     #endregion
 }
 

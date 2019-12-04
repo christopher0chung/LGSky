@@ -19,7 +19,7 @@ public class Controller_Heat : SCG_Controller
     private void Start()
     {
         //_otherStations = new List<Stations>();
-        _lastStatesUpdate();
+        _LastStatesUpdate();
 
         priority = 6;
         Schedule(this);
@@ -50,7 +50,9 @@ public class Controller_Heat : SCG_Controller
         _HeatCalc_Thrusters();
         _HeatCalc_Total();
 
-        _lastStatesUpdate();
+        _LastStatesUpdate();
+
+        _AudioPrompts();
     }
 
     private void _ApparentToActual()
@@ -346,13 +348,74 @@ public class Controller_Heat : SCG_Controller
         heatModel.heat_Total = Mathf.Clamp(heatModel.heat_Total, 0, heatModel.max_HeatTotal);
     }
 
-    private void _lastStatesUpdate()
+    private void _LastStatesUpdate()
     {
         _last_Guns = heatModel.active_Guns;
         _last_Lance = heatModel.active_Lance;
         _last_Rockets = heatModel.active_Rockets;
         _last_Shield = heatModel.active_Shield;
         _last_Thrusters = heatModel.active_Shield;
+    }
+
+
+    bool OH_GunsLast;
+    bool OH_LanceLast;
+    bool OH_RocketsLast;
+    bool OH_ShieldLast;
+    bool OH_ThrusterLast;
+
+    bool LD_Port;
+    bool LD_Stbd;
+
+    float GunsLast;
+    float LanceLast;
+    float RocketsLast;
+    float ShieldLast;
+    float ThrusterLast;
+    private void _AudioPrompts()
+    {
+        if (!heatModel.overheated_Guns && OH_GunsLast)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Guns));
+        if (!heatModel.overheated_Lance && OH_LanceLast)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Lance));
+        if (!heatModel.overheated_Rockets && OH_RocketsLast)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Rockets));
+        if (!heatModel.overheated_Shield && OH_ShieldLast)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Shield));
+        if (!heatModel.overheated_Thrusters && OH_ThrusterLast)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Thrusters));
+
+        if (playModel.leftStationLocked && !LD_Port)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.LD_Port));
+        if (playModel.rightStationLocked && !LD_Stbd)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.LD_Stbd));
+
+        if (heatModel.heat_Guns > 70 && GunsLast <= 70)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.W_Guns));
+        if (heatModel.heat_Lance > 70 && LanceLast <= 70)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.W_Lance));
+        if (heatModel.heat_Rockets > 70 && RocketsLast <= 70)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.W_Rockets));
+        if (heatModel.heat_Shield > 70 && ShieldLast <= 70)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.W_Shield));
+        if (heatModel.heat_Thrusters > 70 && ThrusterLast <= 70)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.W_Thrusters));
+
+        OH_GunsLast = heatModel.overheated_Guns;
+        OH_LanceLast = heatModel.overheated_Lance;
+        OH_RocketsLast = heatModel.overheated_Rockets;
+        OH_ShieldLast = heatModel.overheated_Shield;
+        OH_ThrusterLast = heatModel.overheated_Thrusters;
+
+        LD_Port = playModel.leftStationLocked;
+        LD_Stbd = playModel.rightStationLocked;
+
+        GunsLast = heatModel.heat_Guns;
+        LanceLast = heatModel.heat_Lance;
+        RocketsLast = heatModel.heat_Rockets;
+        ShieldLast = heatModel.heat_Shield;
+        ThrusterLast = heatModel.heat_Thrusters;
+
     }
     #endregion
 }

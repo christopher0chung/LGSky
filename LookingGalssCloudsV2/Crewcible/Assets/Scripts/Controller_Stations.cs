@@ -85,6 +85,7 @@ public class Controller_Stations : SCG_Controller {
                     if (playModel.unaccessedStations.Contains((Stations)next))
                         playModel.leftStation = (Stations)next;
                 }
+                _AudioReport((Stations)next);
             }
             else if (right && !playModel.rightStationLocked)
             {
@@ -102,6 +103,7 @@ public class Controller_Stations : SCG_Controller {
                     if (playModel.unaccessedStations.Contains((Stations)next))
                         playModel.rightStation = (Stations)next;
                 }
+                _AudioReport((Stations)next);
             }
             else if (altLeft && !playModel.leftStationLocked)
             {
@@ -119,6 +121,7 @@ public class Controller_Stations : SCG_Controller {
                     if (playModel.unaccessedStations.Contains((Stations)prev))
                         playModel.leftStation = (Stations)prev;
                 }
+                _AudioReport((Stations)prev);
             }
             else if (altRight && !playModel.rightStationLocked)
             {
@@ -136,6 +139,7 @@ public class Controller_Stations : SCG_Controller {
                     if (playModel.unaccessedStations.Contains((Stations)prev))
                         playModel.rightStation = (Stations)prev;
                 }
+                _AudioReport((Stations)prev);
             }
         }
     }
@@ -147,6 +151,20 @@ public class Controller_Stations : SCG_Controller {
 
         playModel.unaccessedStations.Remove(playModel.leftStation);
         playModel.unaccessedStations.Remove(playModel.rightStation);
+    }
+
+    private void _AudioReport(Stations stn)
+    {
+        if (stn == Stations.Guns)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Guns));
+        if (stn == Stations.Lance)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Lance));
+        if (stn == Stations.Rockets)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Rockets));
+        if (stn == Stations.Shield)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Shield));
+        if (stn == Stations.Thrusters)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.O_Thrusters));
     }
     #endregion
 }

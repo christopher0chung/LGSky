@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
+//[RequireComponent(typeof(AudioSource))]
 public class Controller_Thrusters : SCG_Controller
 {
 
     //Pilot is the only station controller that can write to the energy model
 
-    private AudioSource _myEngineAS;
+    //private AudioSource _myEngineAS;
 
     private Model_Game gameModel;
     //private Model_Energy energyModel;
@@ -51,7 +51,7 @@ public class Controller_Thrusters : SCG_Controller
     void Start()
     {
 
-        _myEngineAS = MakeEngineAS();
+        //_myEngineAS = MakeEngineAS();
         leftBoundVector = Vector3.Normalize(new Vector3(-gameModel.f_xBoundFar - -gameModel.f_xBoundClose, 0, gameModel.f_zBoundFar - gameModel.f_zBoundClose));
         leftInVector = Vector3.Cross(leftBoundVector, Vector3.up);
 
@@ -93,9 +93,9 @@ public class Controller_Thrusters : SCG_Controller
             flyRet.enabled = false;
             dashRet.enabled = false;
             thrusterVolume = 0;
-            _myEngineAS.volume = 0;
+            //_myEngineAS.volume = 0;
         }
-        _myEngineAS.volume = Mathf.Lerp(_myEngineAS.volume, thrusterVolume, .1f);
+       // _myEngineAS.volume = Mathf.Lerp(_myEngineAS.volume, thrusterVolume, .1f);
     }
 
     #region Pilot

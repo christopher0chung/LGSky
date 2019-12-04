@@ -25,12 +25,25 @@ public class Controller_Jump : SCG_Controller
         Schedule(this);
     }
 
+    bool penalty;
+    bool lastPenalty;
+
     public override void ScheduledUpdate()
     {
         if (Mathf.Abs(heatModel.heat_Total - heatModel.max_HeatTotal) < 1)
+        {
+            penalty = true;
             playModel.jumpTotal -= playModel.jumpOverheatPenaltyRate * Time.deltaTime;
+        }
         else
+        {
+            penalty = false;
             playModel.jumpTotal += playModel.jumpRateMax * heatModel.heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime;
+        }
+
+        if (penalty && !lastPenalty)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.Danger));
+        lastPenalty = penalty;
 
         playModel.jumpTotal = Mathf.Clamp(playModel.jumpTotal, 0, 100);
     }
@@ -38,8 +51,14 @@ public class Controller_Jump : SCG_Controller
     public void DamageEventHandler(SCG_Event e)
     {
         Event_EnemyBulletHit bH = e as Event_EnemyBulletHit;
+
+        float prev = playModel.jumpTotal;
+
         if (bH != null)
             playModel.jumpTotal -= gameModel.m_EnemyBulletDamage;
+
+        if (playModel.jumpTotal <= 15 && prev > 15)
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.W_System));
 
         playModel.jumpTotal = Mathf.Clamp(playModel.jumpTotal, 0, 100);
     }

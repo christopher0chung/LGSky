@@ -22,7 +22,8 @@ public class Controller_EnemySpawner : MonoBehaviour
         sadModel.level = 1;
 
         _fsm = new SCG_FSM<Controller_EnemySpawner>(this);
-        TransitionToRandomState();
+        _fsm.TransitionTo<FirstWait>();
+
         baddieParent = new GameObject("BaddieParent");
         baddieParent.transform.SetParent(ServiceLocator.instance.Controller);
 
@@ -104,6 +105,8 @@ public class Controller_EnemySpawner : MonoBehaviour
         else if (i == 3)
             _fsm.TransitionTo<PeakySpawn>();
 
+        SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.Contact));
+
     }
 
     public void EventHandler(SCG_Event e)
@@ -125,6 +128,27 @@ public class Controller_EnemySpawner : MonoBehaviour
     public class State_Base : SCG_FSM<Controller_EnemySpawner>.State
     {
 
+    }
+
+    public class FirstWait : State_Base
+    {
+        float timer;
+        float delay = 12;
+
+        public override void OnEnter()
+        {
+            timer = 0;
+        }
+
+        public override void Update()
+        {
+            timer += Time.deltaTime;
+
+            //Debug.Log(timer);
+
+            if (timer >= delay)
+                Context.TransitionToRandomState();
+        }
     }
 
     public class Wait : State_Base

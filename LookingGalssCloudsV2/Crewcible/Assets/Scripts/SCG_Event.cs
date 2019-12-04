@@ -134,3 +134,13 @@ public class Event_DumpReg : SCG_Event
 {
 
 }
+
+public class Event_Audio : SCG_Event
+{
+    public AudioEvent type;
+
+    public Event_Audio (AudioEvent eventType)
+    {
+        type = eventType;
+    }
+}
