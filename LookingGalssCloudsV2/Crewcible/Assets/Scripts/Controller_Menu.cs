@@ -43,12 +43,12 @@ public class Controller_Menu : SCG_Controller
         aButton.color = rightTrigger.color = buttonColor;
 
         if (input.device0 != null)
-            p1.text = "p1";
+            p1.text = "P1";
         else
             p1.text = "";
 
         if (input.device1 != null) 
-            p2.text = "p2";
+            p2.text = "P2";
         else
             p2.text = "";
 
@@ -74,11 +74,11 @@ public class Controller_Menu : SCG_Controller
         oldR = inputModel.R_Y;
 
         if (choices == 0)
-            c.text = "play";
+            c.text = "PLAY";
         else if (choices == 1)
-            c.text = "practice";
+            c.text = "PRACTICE";
         else if (choices == 2)
-            c.text = "controls";
+            c.text = "CONTROLS";
 
         if ((inputModel.L_Action_OnDown || inputModel.R_Action_OnDown) && (ServiceLocator.instance.controllerRefs.device0 != null || ServiceLocator.instance.controllerRefs.device1 != null))
         {

@@ -68,7 +68,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HighlightOpacity: 1
-    - _HighlightThreshold: 0.553
+    - _HighlightThreshold: 0.69
     - _LowlightThreshold: 0.41
     - _Metallic: 0
     - _MidlightOpacity: 0.8
@@ -87,8 +87,8 @@ Material:
     m_Colors:
     - _Color: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Highlight: {r: 0.5727, g: 0.38061428, b: 0.747, a: 1}
+    - _Highlight: {r: 0.7868536, g: 0.686691, b: 0.877, a: 1}
     - _MainColor: {r: 0.3921569, g: 0.3921569, b: 0.3921569, a: 1}
-    - _Midlight: {r: 0.5433237, g: 0.416416, b: 0.676, a: 1}
+    - _Midlight: {r: 0.62728095, g: 0.548562, b: 0.706, a: 1}
     - _Shadow: {r: 0.5199825, g: 0.42496502, b: 0.615, a: 1}
     - _SpecularColor: {r: 0.3921569, g: 0.3921569, b: 0.3921569, a: 1}

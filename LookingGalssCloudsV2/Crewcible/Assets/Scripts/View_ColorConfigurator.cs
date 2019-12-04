@@ -38,7 +38,7 @@ public class View_ColorConfigurator : MonoBehaviour
     private Vector2 sv_Accent = new Vector2(100, 87);
     private Vector2 sv_BulletOutter = new Vector2(93, 75); //6.75HDR
     private Vector2 sv_BulletInner = new Vector2(0, 0);
-    private Vector2 sv_ExplosionOutter = new Vector2(100, 100);
+    private Vector2 sv_ExplosionOutter = new Vector2(100, 44);
     private Vector2 sv_ExplosionInner = new Vector2(0, 100);
 
     public void Awake()
