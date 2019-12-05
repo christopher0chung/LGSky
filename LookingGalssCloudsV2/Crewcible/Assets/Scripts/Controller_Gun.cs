@@ -85,6 +85,7 @@ public class Controller_Gun : SCG_Controller {
             pitcher.gameObject.SetActive(false);
             gunPointer.gameObject.SetActive(false);
             inputReticle.gameObject.SetActive(false);
+            heatModel.active_Guns = false;
         }
     }
 

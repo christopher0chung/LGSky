@@ -16,6 +16,8 @@ public class Controller_Score : MonoBehaviour
         SCG_EventManager.instance.Register<Event_LanceHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerShieldBlock>(EventHandler);
         SCG_EventManager.instance.Register<Event_BonusPoints>(EventHandler);
+
+        SCG_EventManager.instance.Register<Event_LevelClear>(EventHandler);
     }
 
     public void EventHandler (SCG_Event e)
@@ -66,5 +68,13 @@ public class Controller_Score : MonoBehaviour
         {
             sadModel.score += 3;
         }
-    }
+
+        Event_LevelClear lc = e as Event_LevelClear;
+
+        if (lc != null)
+        {
+            sadModel.lastScore = sadModel.endScore;
+            sadModel.endScore = sadModel.score;
+        }
+    } 
 }

@@ -61,6 +61,7 @@ public class Controller_Shield : SCG_Controller {
             shieldMat.SetFloat("_Cutoff", 1.1f);
 
             shieldLinesRenderer.enabled = false;
+            heatModel.active_Shield = false;
         }
     }
 

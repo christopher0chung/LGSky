@@ -804,6 +804,89 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111184720}
   m_CullTransparentMesh: 0
+--- !u!1 &111843122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111843125}
+  - component: {fileID: 111843124}
+  - component: {fileID: 111843123}
+  m_Layer: 5
+  m_Name: Score_Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &111843123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111843122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: a167ba6291766714e9d5b5b0314a7bc9, type: 3}
+    m_FontSize: 63
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 95
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'CURRENT SCORE:
+
+
+    POINTS EARNED:
+
+
+    TOTAL:'
+--- !u!222 &111843124
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111843122}
+  m_CullTransparentMesh: 0
+--- !u!224 &111843125
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111843122}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 895251377}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -91.89}
+  m_SizeDelta: {x: 1446.37, y: 619}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &121196549
 GameObject:
   m_ObjectHideFlags: 0
@@ -6864,8 +6947,8 @@ GameObject:
   - component: {fileID: 513998424}
   - component: {fileID: 513998422}
   - component: {fileID: 513998423}
-  - component: {fileID: 513998425}
   - component: {fileID: 513998426}
+  - component: {fileID: 513998425}
   - component: {fileID: 513998428}
   - component: {fileID: 513998427}
   - component: {fileID: 513998429}
@@ -13029,6 +13112,8 @@ RectTransform:
   - {fileID: 477314586}
   - {fileID: 111184721}
   - {fileID: 243539159}
+  - {fileID: 111843125}
+  - {fileID: 1010428993}
   m_Father: {fileID: 1337798017}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -27829,6 +27914,89 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009742505}
   m_CullTransparentMesh: 0
+--- !u!1 &1010428990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1010428993}
+  - component: {fileID: 1010428992}
+  - component: {fileID: 1010428991}
+  m_Layer: 5
+  m_Name: Score_Values
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1010428991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010428990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: a167ba6291766714e9d5b5b0314a7bc9, type: 3}
+    m_FontSize: 63
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 95
+    m_Alignment: 2
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '95126219595
+
+
+    26161651
+
+
+    615951951951951'
+--- !u!222 &1010428992
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010428990}
+  m_CullTransparentMesh: 0
+--- !u!224 &1010428993
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010428990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 895251377}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -91.89}
+  m_SizeDelta: {x: 1446.37, y: 619}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1029734665
 GameObject:
   m_ObjectHideFlags: 0
@@ -28577,9 +28745,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1305984634}
   - component: {fileID: 1305984636}
+  - component: {fileID: 1305984637}
   - component: {fileID: 1305984635}
   - component: {fileID: 1305984638}
-  - component: {fileID: 1305984637}
   - component: {fileID: 1305984639}
   m_Layer: 0
   m_Name: Model
@@ -28689,7 +28857,7 @@ MonoBehaviour:
   s_Rockets_TurnRate: 270
   f_Rockets_Spread: 5
   t_Rockets_Lifetime: 5
-  t_Rockets_InputDelayTime: 1
+  t_Rockets_InputDelayTime: 0.4
   f_Rockets_InputError: 0.1
   s_Thrusters_Speed: 12
   f_Thrusters_DashDistance: 15
@@ -28810,22 +28978,22 @@ MonoBehaviour:
   overheated_Thrusters: 0
   overheated_Rockets: 0
   activationHeat_Guns: 2
-  activationHeat_Lance: 25
+  activationHeat_Lance: 22
   activationHeat_Shield: 5
   activationHeat_Thrusters: 10
   activationHeat_Rockets: 40
   sustainedHeatRate_Guns: 6
-  sustainedHeatRate_Lance: 18
+  sustainedHeatRate_Lance: 15
   sustainedHeatRate_Shield: 17
   sustainedHeatRate_Thrusters: 18
   sustainedHeatRate_Rockets: 10
   cooldownRate_Guns: 25
-  cooldownRate_Lance: 45
+  cooldownRate_Lance: 16
   cooldownRate_Shield: 35
   cooldownRate_Thrusters: 15
-  cooldownRate_Rockets: 5
+  cooldownRate_Rockets: 10
   rebootThreshold_Guns: 30
-  rebootThreshold_Lance: 10
+  rebootThreshold_Lance: 5
   rebootThreshold_Shield: 35
   rebootThreshold_Thrusters: 45
   rebootThreshold_Rockets: 10
@@ -28877,7 +29045,7 @@ MonoBehaviour:
   rocketReloadProgress: 0
   dashReloadProgress: 0
   jumpTotal: 0
-  jumpRateMax: 0.82
+  jumpRateMax: 0.8
   jumpOverheatPenaltyRate: 5
   lives: 0
   isPaused: 0
@@ -28899,6 +29067,8 @@ MonoBehaviour:
   level: 0
   difficulty: 0
   difficulty_Log: 0
+  endScore: 0
+  lastScore: 0
 --- !u!1 &1331436088 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5847076846368988302, guid: 2af6c75028dedf042b85b18ddc3efda2,
@@ -28935,6 +29105,7 @@ GameObject:
   - component: {fileID: 1337798023}
   - component: {fileID: 1337798024}
   - component: {fileID: 1337798025}
+  - component: {fileID: 1337798026}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -29106,6 +29277,20 @@ MonoBehaviour:
   - {fileID: 431156712}
   - {fileID: 400350885}
   holoplay: {fileID: 210584124}
+--- !u!114 &1337798026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337798016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a611f1798361544ca844baacfe8171d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 111843123}
+  values: {fileID: 1010428991}
 --- !u!1 &1352596498
 GameObject:
   m_ObjectHideFlags: 0

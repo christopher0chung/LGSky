@@ -12,12 +12,15 @@ public class Controller_EnemySpawner : MonoBehaviour
     SCG_FSM<Controller_EnemySpawner> _fsm;
 
     Model_ScoreAndDifficulty sadModel;
+    Model_Play playModel;
 
     GameObject baddieParent;
 
     void Start()
     {
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
         sadModel = ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>();
+
         sadModel.score = 0;
         sadModel.level = 1;
 
@@ -133,7 +136,7 @@ public class Controller_EnemySpawner : MonoBehaviour
     public class FirstWait : State_Base
     {
         float timer;
-        float delay = 12;
+        float delay = 10;
 
         public override void OnEnter()
         {
@@ -142,7 +145,8 @@ public class Controller_EnemySpawner : MonoBehaviour
 
         public override void Update()
         {
-            timer += Time.deltaTime;
+            if (Context.playModel.currentPlayerState == PlayerState.Alive)
+                timer += Time.deltaTime;
 
             //Debug.Log(timer);
 
@@ -167,6 +171,14 @@ public class Controller_EnemySpawner : MonoBehaviour
 
         public override void Update()
         {
+            if (Context.playModel.currentPlayerState == PlayerState.Flyby ||
+                Context.playModel.currentPlayerState == PlayerState.Dash)
+                timer = 0;
+
+            if (Context.playModel.currentPlayerState == PlayerState.LevelVictory)
+                TransitionTo<FirstWait>();
+
+            if (Context.playModel.currentPlayerState == PlayerState.Alive)
             timer += Time.deltaTime;
 
             //Debug.Log(timer);

@@ -29,8 +29,16 @@ public class Controller_Time : MonoBehaviour
         }
         else
         {
-            if (inputModel.startPause)
+            if (inputModel.startPause && (
+                playModel.currentPlayerState == PlayerState.Alive ||
+                playModel.currentPlayerState == PlayerState.Dead ||
+                playModel.currentPlayerState == PlayerState.Respawning))
                 playModel.isPaused = !playModel.isPaused;
+            else if (playModel.currentPlayerState == PlayerState.Dash ||
+                playModel.currentPlayerState == PlayerState.Flyby ||
+                playModel.currentPlayerState == PlayerState.GameOver ||
+                playModel.currentPlayerState == PlayerState.LevelVictory)
+                playModel.isPaused = false;
 
             if (playModel.isPaused)
                 Time.timeScale = 0;

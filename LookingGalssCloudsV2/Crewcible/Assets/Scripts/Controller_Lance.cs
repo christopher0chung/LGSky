@@ -60,6 +60,7 @@ public class Controller_Lance : SCG_Controller
             lanceCollider.enabled = false;
             if (lanceBloom.isPlaying)
                 lanceBloom.Stop();
+            heatModel.active_Lance = false;
         }
     }
 

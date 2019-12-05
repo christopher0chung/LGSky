@@ -39,8 +39,8 @@ public class Test_SceneConfigurator : MonoBehaviour
                 ServiceLocator.instance.View.GetComponent<View_Score>().enabled = false;
             if (ServiceLocator.instance.Controller.GetComponent<Controller_EnemySpawner>() != null)
                 ServiceLocator.instance.Controller.GetComponent<Controller_EnemySpawner>().enabled = false;
-            if (ServiceLocator.instance.Controller.GetComponent<Controller_Respawn>() != null)
-                ServiceLocator.instance.Controller.GetComponent<Controller_Respawn>().enabled = false;
+            if (ServiceLocator.instance.Controller.GetComponent<Controller_GameState>() != null)
+                ServiceLocator.instance.Controller.GetComponent<Controller_GameState>().enabled = false;
         }
     }
 

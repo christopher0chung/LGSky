@@ -144,3 +144,8 @@ public class Event_Audio : SCG_Event
         type = eventType;
     }
 }
+
+public class Event_LevelClear : SCG_Event
+{
+
+}

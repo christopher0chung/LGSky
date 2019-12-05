@@ -49,6 +49,10 @@ public class Controller_Rockets : SCG_Controller {
             }
         _RocketFiring();
         }
+        else
+        {
+            heatModel.active_Rockets = false;
+        }
     }
 
     #region Rockets

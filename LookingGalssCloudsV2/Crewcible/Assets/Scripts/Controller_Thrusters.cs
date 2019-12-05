@@ -93,9 +93,10 @@ public class Controller_Thrusters : SCG_Controller
             flyRet.enabled = false;
             dashRet.enabled = false;
             thrusterVolume = 0;
+            heatModel.active_Thrusters = false;
             //_myEngineAS.volume = 0;
         }
-       // _myEngineAS.volume = Mathf.Lerp(_myEngineAS.volume, thrusterVolume, .1f);
+        // _myEngineAS.volume = Mathf.Lerp(_myEngineAS.volume, thrusterVolume, .1f);
     }
 
     #region Pilot

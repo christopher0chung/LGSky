@@ -42,7 +42,6 @@ public class Controller_PauseMenu : MonoBehaviour
         selector.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (playModel.isPaused && !lastPause)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Controller_Respawn : SCG_Controller
+public class Controller_GameState : SCG_Controller
 {
     Model_Play playModel;
     Model_Input inputModel;
@@ -11,7 +11,7 @@ public class Controller_Respawn : SCG_Controller
     Transform player;
 
 
-    SCG_FSM<Controller_Respawn> _fsm;
+    SCG_FSM<Controller_GameState> _fsm;
 
     public ParticleSystem preExplosion;
     public ParticleSystem explosion;
@@ -40,7 +40,7 @@ public class Controller_Respawn : SCG_Controller
         playModel.lives = 3;
         gameOver.SetActive(false);
 
-        _fsm = new SCG_FSM<Controller_Respawn>(this);
+        _fsm = new SCG_FSM<Controller_GameState>(this);
         _fsm.TransitionTo<Alive>();
 
         charge1.Stop();
@@ -62,7 +62,7 @@ public class Controller_Respawn : SCG_Controller
         _fsm.Update();
     }
 
-    public class State_Base : SCG_FSM<Controller_Respawn>.State
+    public class State_Base : SCG_FSM<Controller_GameState>.State
     {
         public override void OnEnter()
         {
@@ -246,6 +246,8 @@ public class Controller_Respawn : SCG_Controller
             Context.playModel.currentPlayerState = PlayerState.LevelVictory;
             Context.charge1.transform.position = Context.player.position;
             Context.charge2.transform.position = Context.player.position;
+
+            SCG_EventManager.instance.Fire(new Event_LevelClear());
         }
 
         public override void Update()

@@ -8,4 +8,7 @@ public class Model_ScoreAndDifficulty : MonoBehaviour
     public int level;
     public float difficulty;
     public float difficulty_Log;
+
+    public int endScore;
+    public int lastScore;
 }

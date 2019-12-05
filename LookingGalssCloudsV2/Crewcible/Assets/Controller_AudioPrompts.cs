@@ -21,8 +21,8 @@ public class Controller_AudioPrompts : MonoBehaviour
         right = g.AddComponent<AudioSource>();
         both = g.AddComponent<AudioSource>();
 
-        left.panStereo = -1;
-        right.panStereo = 1;
+        left.panStereo = -.65f;
+        right.panStereo = .65f;
 
         left.loop = right.loop = both.loop = false;
         left.playOnAwake = right.playOnAwake = both.playOnAwake = false;
