@@ -123,7 +123,7 @@ public class Controller_GameState : SCG_Controller
     public class Dead : State_Base
     {
         protected float timer;
-        protected float dyingDuration = 2.9f;
+        protected float dyingDuration = 3.9f;
         public override void OnEnter()
         {
             timer = 0;
@@ -157,21 +157,19 @@ public class Controller_GameState : SCG_Controller
             Context.explosion.transform.position = Context.player.position;
             Context.explosion.Emit(150);
             Context.playModel.deathExplosionTrigger = true;
+            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.CriticalError));
         }
     }
 
     public class Respawning : State_Base
     {
         private float timer;
-        private float intervalCycle = .15f;
-        private float respawnDuration = 5;
-        private float goneTime = 2;
+        private float respawnDuration = 4;
 
         public override void OnEnter()
         {
             timer = 0;
             Context.playModel.currentPlayerState = PlayerState.Respawning;
-            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.CriticalError));
         }
         public override void Update()
         {
@@ -206,7 +204,7 @@ public class Controller_GameState : SCG_Controller
             restartTimer += Time.unscaledDeltaTime;
             if (restartTimer >= 3)
             {
-                if (Context.inputModel.L_Action_OnDown || Context.inputModel.R_Action_OnDown)
+                if (Context.inputModel.startPause)
                     TransitionTo<Starting>();
             }
         }

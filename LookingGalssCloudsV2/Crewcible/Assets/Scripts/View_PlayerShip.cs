@@ -14,7 +14,7 @@ public class View_PlayerShip : MonoBehaviour
 
     private float timer;
     private float intervalCycle = .15f;
-    private float goneTime = 2;
+    private float goneTime = .6f;
 
     public ParticleSystem worldParticles;
 

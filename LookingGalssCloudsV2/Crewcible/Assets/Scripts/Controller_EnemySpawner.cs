@@ -123,7 +123,7 @@ public class Controller_EnemySpawner : MonoBehaviour
             baddieParent.transform.SetParent(ServiceLocator.instance.Controller);
             sadModel.score = 0;
             sadModel.level = 1;
-            _fsm.TransitionTo<Wait>();
+            _fsm.TransitionTo<FirstWait>();
         }
     }
 
