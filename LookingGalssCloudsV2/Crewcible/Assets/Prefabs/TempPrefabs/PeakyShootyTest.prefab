@@ -68,7 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitpoints_Max: 0
-  CurrentHP: 0
+  myDeathExplosion: {fileID: 8014113916467204211, guid: 25a23eb3e1d7ebb439becf01e7ed8816,
+    type: 3}
 --- !u!135 &4519466950781114863
 SphereCollider:
   m_ObjectHideFlags: 0

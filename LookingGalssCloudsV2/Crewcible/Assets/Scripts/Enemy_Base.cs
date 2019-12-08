@@ -22,6 +22,12 @@ public class Enemy_Base : MonoBehaviour {
                 {
                     if (hitpoints_Current <= 0)
                     {
+                        if (myDeathExplosion != null)
+                        {
+                            GameObject e = Instantiate(myDeathExplosion, transform.position, Quaternion.identity);
+                            e.GetComponent<Behavior_EffectWorldScroll>().Fire(transform.forward);
+                        }
+
                         SCG_EventManager.instance.Fire(new Event_EnemyDeath(this, transform.position));
                         //Debug.Log("I should be dead");
                     }
@@ -29,9 +35,10 @@ public class Enemy_Base : MonoBehaviour {
             }
         }
     }
+
     public float hitpoints_Max;
 
-    public float CurrentHP;
+    public GameObject myDeathExplosion;
 
     void Awake()
     {
@@ -48,14 +55,12 @@ public class Enemy_Base : MonoBehaviour {
             r.isKinematic = true;
             r.useGravity = false;
         }
-
-        CurrentHP = hitpoints_Current;
     }
 
     public void SetHitPoint(float max)
     {
         hitpoints_Max = max;
-        hitpoints_Current = hitpoints_Max;
+        hitpoints_Current = max;
     }
 
     private void EventHandler(SCG_Event e)
@@ -67,7 +72,6 @@ public class Enemy_Base : MonoBehaviour {
             if (p.enemyHit == this)
             {
                 hitpoints_Current -= p.enemyDamageTaken;
-                CurrentHP = hitpoints_Current;
             }
         }
 
@@ -100,7 +104,6 @@ public class Enemy_Base : MonoBehaviour {
             if (r.enemyHit == this)
             {
                 hitpoints_Current -= r.damageTaken;
-                CurrentHP = hitpoints_Current;
             }
         }
     }
@@ -114,7 +117,6 @@ public class Enemy_Base : MonoBehaviour {
             hitpoints_Current -= gameModel.d_Lance_Damage_Sustained * Time.deltaTime;
         if (isInExplosionBall)
             hitpoints_Current -= gameModel.d_Rockets_ExplosionBallDamage * Time.deltaTime;
-        CurrentHP = hitpoints_Current;
     }
 
     //public void FireDestructionEvent()

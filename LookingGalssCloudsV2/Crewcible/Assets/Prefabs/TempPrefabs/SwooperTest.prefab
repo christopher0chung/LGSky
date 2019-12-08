@@ -4892,6 +4892,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitpoints_Max: 0
   CurrentHP: 0
+  myDeathExplosion: {fileID: 1073386118071640630, guid: 17e1020e62ff1cf4b8a1a3d71489d44f,
+    type: 3}
 --- !u!114 &8933144503189372016
 MonoBehaviour:
   m_ObjectHideFlags: 0

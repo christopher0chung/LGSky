@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Test_PeakyShooty : Behavior_BaddyBase
 {
-
     Transform target;
 
     Vector3 oldPos;
@@ -186,7 +185,8 @@ public class Test_PeakyShooty : Behavior_BaddyBase
                 for (int i = 0; i < 2; i++)
                 {
                     if (shieldT >= .3f + .07f * i && oldT < .3f + .07f * i)
-                    Instantiate(Context.bullet, Context.transform.position + Context.transform.right * -2.67f + Context.transform.forward * 3.45f, Quaternion.LookRotation(Context.transform.forward));
+                        if (Context.playModel.currentPlayerState == PlayerState.Alive || Context.playModel.currentPlayerState == PlayerState.Dash)
+                            Instantiate(Context.bullet, Context.transform.position + Context.transform.right * -2.67f + Context.transform.forward * 3.45f, Quaternion.LookRotation(Context.transform.forward));
                 }
 
                 oldT = shieldT;   

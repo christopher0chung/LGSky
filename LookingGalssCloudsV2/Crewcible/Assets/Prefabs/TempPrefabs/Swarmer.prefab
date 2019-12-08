@@ -28,8 +28,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60830845063642129}
-  m_LocalRotation: {x: 0.03738989, y: -0.03580937, z: -0.035488717, w: -0.99802816}
-  m_LocalPosition: {x: -33.252556, y: 0.03872607, z: 36.80645}
+  m_LocalRotation: {x: -0.02017017, y: -0.82995504, z: -0.026475843, w: 0.5568364}
+  m_LocalPosition: {x: -0.56485796, y: 1.580474, z: 55.383293}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3636016485707799693}
@@ -111,7 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitpoints_Max: 5
-  CurrentHP: 0
+  myDeathExplosion: {fileID: 1073386118071640630, guid: 17e1020e62ff1cf4b8a1a3d71489d44f,
+    type: 3}
 --- !u!114 &3624464732858747274
 MonoBehaviour:
   m_ObjectHideFlags: 0

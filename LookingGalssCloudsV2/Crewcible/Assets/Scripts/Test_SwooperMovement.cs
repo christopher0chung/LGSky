@@ -93,9 +93,12 @@ public class Test_SwooperMovement : Behavior_BaddyBase
             Vector3.Dot(transform.forward, Vector3.forward) > 0 &&
             transform.position.y > target.transform.position.y + 1)
         {
-            readyToFire = false;
-            fired = true;
-            GameObject bullet = Instantiate(newBullet, transform.position, Quaternion.LookRotation(target.position - transform.position));
+            if (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.Dash)
+            {
+                readyToFire = false;
+                fired = true;
+                GameObject bullet = Instantiate(newBullet, transform.position, Quaternion.LookRotation(target.position - transform.position));
+            }
         }
 
         if (transform.position.z <= -350)

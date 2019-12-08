@@ -237,7 +237,8 @@ public class Test_Swarm : Behavior_BaddyBase
         if (Vector3.Dot(_swarm[i].transform.forward, targetBrg) >= attackConeScalar)
         {
             if (Random.Range(0.00f, 1.00f) <= attackPercentage * Time.deltaTime)
-                Instantiate(bullet, _swarm[i].transform.position, Quaternion.LookRotation(targetBrg));
+                if (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.Dash)
+                    Instantiate(bullet, _swarm[i].transform.position, Quaternion.LookRotation(targetBrg));
         }
 
         if (Vector3.Distance(target.position, _swarm[i].transform.position) <= attackPulloutRange)
