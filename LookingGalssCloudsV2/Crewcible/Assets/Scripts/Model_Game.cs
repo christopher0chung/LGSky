@@ -35,6 +35,7 @@ public class Model_Game : SCG_Model {
     public Color c_Shield_Outside;
     public float f_Shield_HDRIntensity_Base;
     public float f_Shield_HDRIntensity_Boost;
+    public float f_Shield_ActiveBlockPenalty;
     public float f_Shield_Cutoff_Min;
     public float f_Shield_Cutoff_Max;
     //public Vector4 shieldForwardDirection;
@@ -74,6 +75,7 @@ public class Model_Game : SCG_Model {
     [Header("Thrusters")]
     #region Pilot
     public float s_Thrusters_Speed;
+    public float s_Thrusters_Accel;
     public float f_Thrusters_DashDistance;
     public float t_Thrusters_DashCooldown;
     public float f_xBoundClose;

@@ -32,7 +32,10 @@ public class Controller_Thrusters : SCG_Controller
     private Vector3 leftInVector;
     private Vector3 rightInVector;
 
-    private float thrusterVolume;
+    private Vector3 thrusterVel;
+    private Vector3 thrusterAcc;
+
+    //private float thrusterVolume;
 
     void Awake()
     {
@@ -74,29 +77,37 @@ public class Controller_Thrusters : SCG_Controller
             if (playModel.leftStation == Stations.Thrusters)
             {
                 _Pilot(inputModel.L_X, inputModel.L_Y, inputModel.L_Action_OnDown);
+                MoveAndClampVel(inputDirRaw);
             }
             else if (playModel.rightStation == Stations.Thrusters)
             {
                 _Pilot(inputModel.R_X, inputModel.R_Y, inputModel.R_Action_OnDown);
+                MoveAndClampVel(inputDirRaw);
             }
             else
             {
                 //jumpReticleParent.SetActive(false);
                 flyRet.enabled = false;
                 dashRet.enabled = false;
-                thrusterVolume = 0;
+                //thrusterVolume = 0;
+
+                MoveAndClampVel(Vector3.zero);
             }
+
         }
         else
         {
             //jumpReticleParent.SetActive(false);
             flyRet.enabled = false;
             dashRet.enabled = false;
-            thrusterVolume = 0;
+            //thrusterVolume = 0;
             heatModel.active_Thrusters = false;
             //_myEngineAS.volume = 0;
+
+            MoveAndClampVel(Vector3.zero);
         }
         // _myEngineAS.volume = Mathf.Lerp(_myEngineAS.volume, thrusterVolume, .1f);
+
     }
 
     #region Pilot
@@ -142,10 +153,7 @@ public class Controller_Thrusters : SCG_Controller
 
         float moveMag = Vector3.Magnitude(moveDir);
 
-        if (!heatModel.overheated_Thrusters)
-        {
-            player.position += moveDir * Time.deltaTime * gameModel.s_Thrusters_Speed;
-        }
+
 
         float rot = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
         flyRet.transform.rotation = Quaternion.Euler(-90, rot, 0);
@@ -155,10 +163,6 @@ public class Controller_Thrusters : SCG_Controller
         JumpReticleManage();
         JumpTimerManage();
         JumpCheck(jump);
-
-        BoundarySet();
-
-        player.position = limitPos;
     }
 
     void JumpReticleManage()
@@ -204,6 +208,27 @@ public class Controller_Thrusters : SCG_Controller
             limitPos.z = gameModel.f_zBoundClose;
         if (player.position.z > gameModel.f_zBoundFar)
             limitPos.z = gameModel.f_zBoundFar;
+    }
+
+    void MoveAndClampVel(Vector3 rawInputDirection)
+    {
+        if (!heatModel.overheated_Thrusters)
+            thrusterAcc = rawInputDirection * gameModel.s_Thrusters_Accel;
+        else
+            thrusterAcc = Vector3.zero;
+
+        if (Vector3.Magnitude(thrusterAcc) >= .05f)
+            thrusterVel = Vector3.Lerp(thrusterVel, thrusterAcc, 2 * Time.deltaTime);
+        else
+            thrusterVel = Vector3.Lerp(thrusterVel, thrusterAcc, 5 * Time.deltaTime);
+
+        thrusterVel = Vector3.ClampMagnitude(thrusterVel, gameModel.s_Thrusters_Speed);
+
+        player.position += thrusterVel * Time.deltaTime;
+
+        BoundarySet();
+
+        player.position = limitPos;
     }
     #endregion
 

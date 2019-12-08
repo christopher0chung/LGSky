@@ -6,6 +6,7 @@ public class Controller_Heat : SCG_Controller
 {
     Model_Heat heatModel;
     Model_Play playModel;
+    Model_Game gameModel;
 
     //private List<Stations> _otherStations;
     private bool _last_Guns, _last_Lance, _last_Shield, _last_Thrusters, _last_Rockets;
@@ -14,12 +15,15 @@ public class Controller_Heat : SCG_Controller
     {
         heatModel = ServiceLocator.instance.Model.GetComponent<Model_Heat>();
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+        gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
     }
 
     private void Start()
     {
         //_otherStations = new List<Stations>();
         _LastStatesUpdate();
+
+        SCG_EventManager.instance.Register<Event_PlayerShieldBlock>(EventHandler);
 
         priority = 6;
         Schedule(this);
@@ -355,6 +359,17 @@ public class Controller_Heat : SCG_Controller
         _last_Rockets = heatModel.active_Rockets;
         _last_Shield = heatModel.active_Shield;
         _last_Thrusters = heatModel.active_Shield;
+    }
+
+    public void EventHandler(SCG_Event e)
+    {
+        Event_PlayerShieldBlock psb = e as Event_PlayerShieldBlock;
+        
+        if (psb != null)
+        {
+            if (heatModel.active_Shield)
+                heatModel.heat_Shield += gameModel.f_Shield_ActiveBlockPenalty;
+        }
     }
 
 

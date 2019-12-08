@@ -28833,6 +28833,7 @@ MonoBehaviour:
   c_Shield_Outside: {r: 0, g: 0, b: 0, a: 0}
   f_Shield_HDRIntensity_Base: 0
   f_Shield_HDRIntensity_Boost: 0
+  f_Shield_ActiveBlockPenalty: 3
   f_Shield_Cutoff_Min: 0.9
   f_Shield_Cutoff_Max: 0.6
   s_Shield_Grow: 0
@@ -28861,8 +28862,9 @@ MonoBehaviour:
   t_Rockets_Lifetime: 5
   t_Rockets_InputDelayTime: 0.4
   f_Rockets_InputError: 0.1
-  s_Thrusters_Speed: 12
-  f_Thrusters_DashDistance: 15
+  s_Thrusters_Speed: 20
+  s_Thrusters_Accel: 15
+  f_Thrusters_DashDistance: 10
   t_Thrusters_DashCooldown: 2.3
   f_xBoundClose: 28
   f_xBoundFar: 35
