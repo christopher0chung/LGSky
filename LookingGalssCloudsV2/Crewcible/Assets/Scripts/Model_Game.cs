@@ -45,11 +45,13 @@ public class Model_Game : SCG_Model {
     [Header("Gun")]
     #region Gun
     public float t_Guns_SpinUpTime;
-    public float t_Guns_TimeBetweenShots;
+    public float t_Guns_TimeBetweenShots_Max;
+    public float t_Guns_TimeBetweenShots_Min;
     public float d_Guns_Damage;
     public float s_Guns_TurnSpeed_Activated;
     public float s_Guns_TurnSpeed_Inactivated;
-    public float f_Guns_BulletDispersion;
+    public float f_Guns_BulletDispersion_Max;
+    public float f_Guns_BulletDispersion_Min;
     public float t_Guns_BulletLifetime;
     public float s_Guns_BulletSpeed;
     #endregion

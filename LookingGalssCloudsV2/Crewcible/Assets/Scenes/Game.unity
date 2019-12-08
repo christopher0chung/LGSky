@@ -28838,14 +28838,16 @@ MonoBehaviour:
   s_Shield_Grow: 0
   s_Shield_Contract: 0
   s_Shield_HitFlashNormalize: 0
-  t_Guns_SpinUpTime: 0.1
-  t_Guns_TimeBetweenShots: 0.06
+  t_Guns_SpinUpTime: 0.05
+  t_Guns_TimeBetweenShots_Max: 0.02
+  t_Guns_TimeBetweenShots_Min: 0.15
   d_Guns_Damage: 4
   s_Guns_TurnSpeed_Activated: 115
   s_Guns_TurnSpeed_Inactivated: 200
-  f_Guns_BulletDispersion: 6
+  f_Guns_BulletDispersion_Max: 10
+  f_Guns_BulletDispersion_Min: 2
   t_Guns_BulletLifetime: 4
-  s_Guns_BulletSpeed: 70
+  s_Guns_BulletSpeed: 75
   t_Rockets_FireRate: 0.07
   t_Rockets_Reload: 3
   d_Rockets_Damage: 200

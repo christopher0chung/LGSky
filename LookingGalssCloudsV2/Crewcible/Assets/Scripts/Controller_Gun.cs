@@ -122,12 +122,14 @@ public class Controller_Gun : SCG_Controller {
             if (shoot)
             {
                 shootTimer += Time.deltaTime;
-                if (shootTimer - gameModel.t_Guns_SpinUpTime >= gameModel.t_Guns_TimeBetweenShots)
+                float lerpedTime = Mathf.Lerp(gameModel.t_Guns_TimeBetweenShots_Min, gameModel.t_Guns_TimeBetweenShots_Max, heatModel.heat_Guns / 100);
+                float lerpedSpread = Mathf.Lerp(gameModel.f_Guns_BulletDispersion_Min, gameModel.f_Guns_BulletDispersion_Max, heatModel.heat_Guns / 100);
+                if (shootTimer - gameModel.t_Guns_SpinUpTime >= lerpedTime)
                 {
-                    shootTimer -= gameModel.t_Guns_TimeBetweenShots;
+                    shootTimer -= lerpedTime;
                     GameObject bullet;
 
-                    Vector3 rando = Random.insideUnitCircle * gameModel.f_Guns_BulletDispersion;
+                    Vector3 rando = Random.insideUnitCircle * lerpedSpread;
 
 
                     if (leftRightBarrel)
