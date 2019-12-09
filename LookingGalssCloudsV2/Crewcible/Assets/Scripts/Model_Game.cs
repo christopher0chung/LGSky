@@ -89,6 +89,7 @@ public class Model_Game : SCG_Model {
     public float d_Lance_Damage_Sustained;
     public float f_Lance_MinRange;
     public float f_Lance_MaxRange;
+    public float f_Lance_OvermaxRange;
     public float s_Lance_ExtendSpeed;
     #endregion
     [Header("Reactor")]
@@ -130,6 +131,7 @@ public class Model_Game : SCG_Model {
     public GameObject mineExplosionPrefab;
     public GameObject missileExplosionPrefab;
     public GameObject sfxPlayerPrefab;
+    public GameObject lanceHitPrefab;
     #endregion
     [Header("Dialog")]
     #region Dialog

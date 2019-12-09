@@ -34,6 +34,10 @@ public class Manager_GameAssets : SCG_Controller {
     List<GameObject> mslExplosion_Inactive;
     List<float> mslExplosion_Times;
 
+    List<GameObject> lanceHit_Active;
+    List<GameObject> lanceHit_Inactive;
+    List<float> lanceHit_Times;
+
     List<GameObject> SFX_Active;
     List<GameObject> SFX_Inactive;
     List<float> SFX_Times;
@@ -86,6 +90,11 @@ public class Manager_GameAssets : SCG_Controller {
         mslExplosion_Inactive = new List<GameObject>();
         mslExplosion_Times = new List<float>();
         _PrepInactive(gameModel.missileExplosionPrefab, mslExplosion_Inactive, 15);
+
+        lanceHit_Active = new List<GameObject>();
+        lanceHit_Inactive = new List<GameObject>();
+        lanceHit_Times = new List<float>();
+        _PrepInactive(gameModel.lanceHitPrefab, lanceHit_Inactive, 50);
 
         SFX_Active = new List<GameObject>();
         SFX_Inactive = new List<GameObject>();
@@ -168,6 +177,16 @@ public class Manager_GameAssets : SCG_Controller {
             }
         }
 
+        if (lanceHit_Times.Count > 0)
+        {
+            int numOverLimit = _UpdateAndCheckForOverTime(lanceHit_Times, .1f);
+            for (int i = 0; i < numOverLimit; i++)
+            {
+                Debug.Assert(lanceHit_Active.Count == lanceHit_Times.Count, "Active element and tracking mismatch: lanceHit");
+                _StowActiveNonPhysicsManagedGO(lanceHit_Active, lanceHit_Times, lanceHit_Inactive, 0);
+            }
+        }
+
         if (SFX_Times.Count > 0)
         {
             int numOverLimit = _UpdateAndCheckForOverTime(SFX_Times, 1.0f);
@@ -211,11 +230,11 @@ public class Manager_GameAssets : SCG_Controller {
             }
         }
 
-        Event_LanceHit sH = e as Event_LanceHit;
+        Event_LanceHit lH = e as Event_LanceHit;
 
-        if (sH != null)
+        if (lH != null)
         {
-            Make(MyGameAsset.BulletExplosion, sH.location);
+            Make(MyGameAsset.LanceHit, lH.location);
             return;
         }
 
@@ -350,6 +369,20 @@ public class Manager_GameAssets : SCG_Controller {
             _mslExplosion.GetComponent<ParticleSystem>().Play();
             return _mslExplosion;
         }
+        else if (type == MyGameAsset.LanceHit)
+        {
+            GameObject _lanceHit;
+            if (lanceHit_Inactive.Count >= 1)
+            {
+                _lanceHit = _Make_GenericActivate(lanceHit_Inactive, lanceHit_Active, lanceHit_Times, where);
+            }
+            else
+            {
+                _lanceHit = _Make_GenericNewObj(gameModel.lanceHitPrefab, lanceHit_Active, lanceHit_Times, where);
+            }
+            _lanceHit.GetComponent<ParticleSystem>().Play();
+            return _lanceHit;
+        }
         else if (type == MyGameAsset.SFX)
         {
             GameObject _sfx;
@@ -448,4 +481,4 @@ public class Manager_GameAssets : SCG_Controller {
     #endregion
 }
 
-public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion, MissileExplosion, SFX }
+public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion, MissileExplosion, SFX, LanceHit }

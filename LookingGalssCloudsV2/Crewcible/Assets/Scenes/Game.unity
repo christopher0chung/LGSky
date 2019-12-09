@@ -28874,7 +28874,8 @@ MonoBehaviour:
   d_Lance_Damage_Sustained: 15
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
-  s_Lance_ExtendSpeed: 45
+  f_Lance_OvermaxRange: 4
+  s_Lance_ExtendSpeed: 20
   e_Reactor_Base: 0
   e_Reactor_Upgrade: 0
   e_ShutdownThreshold: 0
@@ -28907,6 +28908,8 @@ MonoBehaviour:
   missileExplosionPrefab: {fileID: 5498060485610712103, guid: 9a97d66a3b41eaf4d97b0becadb5659e,
     type: 3}
   sfxPlayerPrefab: {fileID: 3836617428671862743, guid: 306fe61de24c7ce479f183ec34eb8a1b,
+    type: 3}
+  lanceHitPrefab: {fileID: 3394899800228423859, guid: 2564aab005023a04c85bbd096b94cc9b,
     type: 3}
   Welcome: {fileID: 8300000, guid: da482af3b741bac489d94c7f3bfeb1ca, type: 3}
   Warning_Guns: {fileID: 8300000, guid: 73b887c53f3c833449f940bc8cfdd709, type: 3}

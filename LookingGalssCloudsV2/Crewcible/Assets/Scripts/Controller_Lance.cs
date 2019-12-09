@@ -17,6 +17,8 @@ public class Controller_Lance : SCG_Controller
 
     private Vector3 currentSize;
     private Vector3 targetSize;
+
+    private bool lastExtend;
     private void Awake()
     {
         heatModel = ServiceLocator.instance.Model.GetComponent<Model_Heat>();
@@ -73,7 +75,12 @@ public class Controller_Lance : SCG_Controller
         lanceSwivel.eulerAngles = new Vector3(0, -brg, 0);
         lancePitcher.localEulerAngles = new Vector3(dec, 0, 0);
 
-        if (extend && !heatModel.overheated_Lance)
+        if (extend && !lastExtend && !heatModel.overheated_Lance)
+        {
+            Debug.Log("FirstExtned");
+            currentSize = new Vector3(3 * gameModel.f_Lance_OvermaxRange, 3 * gameModel.f_Lance_OvermaxRange, gameModel.f_Lance_OvermaxRange);
+        }
+        else if (extend && !heatModel.overheated_Lance)
         {
             targetSize.x = targetSize.z = gameModel.f_Lance_MinRange;
             targetSize.y = gameModel.f_Lance_MaxRange;
@@ -89,6 +96,8 @@ public class Controller_Lance : SCG_Controller
         lanceCollider.enabled = true;
         if (!lanceBloom.isPlaying)
             lanceBloom.Play();
+
+        lastExtend = extend;
     }
     #endregion
 }
