@@ -516,7 +516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &60622466
 RectTransform:
   m_ObjectHideFlags: 0
@@ -886,7 +886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &329205220
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1104,7 +1104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &371218884
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1255,7 +1255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &384214757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1673,7 +1673,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &661089460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2194,7 +2194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &827996356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2413,7 +2413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &950682319
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2728,7 +2728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1098276144
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2960,17 +2960,20 @@ MonoBehaviour:
   c_Shield_Outside: {r: 0, g: 0, b: 0, a: 0}
   f_Shield_HDRIntensity_Base: 0
   f_Shield_HDRIntensity_Boost: 0
+  f_Shield_ActiveBlockPenalty: 0
   f_Shield_Cutoff_Min: 0.9
   f_Shield_Cutoff_Max: 0.6
   s_Shield_Grow: 0
   s_Shield_Contract: 0
   s_Shield_HitFlashNormalize: 0
   t_Guns_SpinUpTime: 0.15
-  t_Guns_TimeBetweenShots: 0.06
+  t_Guns_TimeBetweenShots_Max: 0
+  t_Guns_TimeBetweenShots_Min: 0
   d_Guns_Damage: 1
   s_Guns_TurnSpeed_Activated: 50
   s_Guns_TurnSpeed_Inactivated: 200
-  f_Guns_BulletDispersion: 3
+  f_Guns_BulletDispersion_Max: 0
+  f_Guns_BulletDispersion_Min: 0
   t_Guns_BulletLifetime: 4
   s_Guns_BulletSpeed: 75
   t_Rockets_FireRate: 0.07
@@ -2982,11 +2985,9 @@ MonoBehaviour:
   i_Rockets_RocketCountMax: 30
   s_Rockets_FlySpeed: 60
   s_Rockets_TurnRate: 270
-  f_Rockets_Spread: 5
   t_Rockets_Lifetime: 5
-  t_Rockets_InputDelayTime: 1
-  f_Rockets_InputError: 0.1
   s_Thrusters_Speed: 10
+  s_Thrusters_Accel: 0
   f_Thrusters_DashDistance: 10
   t_Thrusters_DashCooldown: 2
   f_xBoundClose: 0
@@ -2997,6 +2998,7 @@ MonoBehaviour:
   d_Lance_Damage_Sustained: 0
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
+  f_Lance_OvermaxRange: 0
   s_Lance_ExtendSpeed: 30
   e_Reactor_Base: 0
   e_Reactor_Upgrade: 0
@@ -3031,6 +3033,25 @@ MonoBehaviour:
     type: 3}
   sfxPlayerPrefab: {fileID: 3836617428671862743, guid: 306fe61de24c7ce479f183ec34eb8a1b,
     type: 3}
+  lanceHitPrefab: {fileID: 0}
+  Welcome: {fileID: 0}
+  Warning_Guns: {fileID: 0}
+  Warning_Lance: {fileID: 0}
+  Warning_Rockets: {fileID: 0}
+  Warning_Shields: {fileID: 0}
+  Warning_Thrusters: {fileID: 0}
+  Warning_System: {fileID: 0}
+  Online_Guns: []
+  Online_Lance: []
+  Online_Rockets: []
+  Online_Shields: []
+  Online_Thrusters: []
+  LD_Port: []
+  LD_Stbd: []
+  Danger_JC: {fileID: 0}
+  CriticalError: []
+  Contact_General: {fileID: 0}
+  Contact_Rear: {fileID: 0}
 --- !u!114 &1305984637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3139,7 +3160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1309695773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3293,7 +3314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1338491997
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3522,7 +3543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1370304509
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3662,7 +3683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1412842828
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3859,7 +3880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1431524102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3932,7 +3953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1509345136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4005,7 +4026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1542942649
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4084,7 +4105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1612094971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9043,7 +9064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1862325023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9116,7 +9137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1964385898
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9195,7 +9216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1981426572
 RectTransform:
   m_ObjectHideFlags: 0

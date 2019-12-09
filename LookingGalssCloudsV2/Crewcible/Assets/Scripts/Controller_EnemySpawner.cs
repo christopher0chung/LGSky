@@ -47,7 +47,7 @@ public class Controller_EnemySpawner : MonoBehaviour
     #region Internal
     void Strafer(int num)
     {
-        float angle = Random.Range(-12, 12);
+        float angle = Random.Range(-7, 7);
         Quaternion rot = Quaternion.Euler(0, angle, 0);
         Vector3 moveDir = Vector3.Normalize(rot * Vector3.forward * 37 - Vector3.forward * 30);
         for (int i = 0; i < num; i++)
@@ -65,7 +65,7 @@ public class Controller_EnemySpawner : MonoBehaviour
 
     void Swarm(int num)
     {
-        GameObject g = Instantiate(SwarmPrefab, new Vector3(Random.Range(-150, 150), 20, 260), Quaternion.identity, baddieParent.transform);
+        GameObject g = Instantiate(SwarmPrefab, new Vector3(Random.Range(-200, 200), 20, 260), Quaternion.identity, baddieParent.transform);
         g.GetComponent<Test_Swarm>().Initialize(num);
     }
 
@@ -229,8 +229,6 @@ public class Controller_EnemySpawner : MonoBehaviour
             timer = 0;
 
             diffLogPlus1 = Mathf.FloorToInt(Context.sadModel.difficulty_Log) + 1;
-
-            Debug.Log("Making " + diffLogPlus1 + " swarm(s) of " + (40 + Context.sadModel.difficulty * 12 / diffLogPlus1) + " swarmers");
         }
         public override void Update()
         {
@@ -239,9 +237,13 @@ public class Controller_EnemySpawner : MonoBehaviour
             {
                 // number of swarms goes up for every other point of difficulty
                 // swarm count goes up by 5 for every point of difficulty
+
+                int total = Mathf.FloorToInt(20 + 15 * (Context.sadModel.difficulty / diffLogPlus1));
+                int swarmSize = Mathf.FloorToInt(total / diffLogPlus1);
+
                 for (int i = 0; i < diffLogPlus1; i++)
                 {
-                    Context.Swarm(Mathf.FloorToInt(20 + Context.sadModel.difficulty * 5 / diffLogPlus1));
+                    Context.Swarm(swarmSize);
                 }
 
                 TransitionTo<Wait>();

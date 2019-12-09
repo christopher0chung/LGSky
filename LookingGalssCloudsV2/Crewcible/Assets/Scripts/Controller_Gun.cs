@@ -123,7 +123,7 @@ public class Controller_Gun : SCG_Controller {
             {
                 shootTimer += Time.deltaTime;
                 float lerpedTime = Mathf.Lerp(gameModel.t_Guns_TimeBetweenShots_Min, gameModel.t_Guns_TimeBetweenShots_Max, heatModel.heat_Guns / 100);
-                float lerpedSpread = Mathf.Lerp(gameModel.f_Guns_BulletDispersion_Min, gameModel.f_Guns_BulletDispersion_Max, heatModel.heat_Guns / 100);
+                float lerpedSpread = Mathf.Lerp(gameModel.f_Guns_BulletDispersion_Max, gameModel.f_Guns_BulletDispersion_Min, heatModel.heat_Guns / 100);
                 if (shootTimer - gameModel.t_Guns_SpinUpTime >= lerpedTime)
                 {
                     shootTimer -= lerpedTime;
