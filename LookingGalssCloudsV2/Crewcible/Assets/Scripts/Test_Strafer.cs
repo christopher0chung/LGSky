@@ -72,7 +72,7 @@ public class Test_Strafer : Behavior_BaddyBase
 
             SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathEventHandler);
             SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathEventHandler);
-            SCG_EventManager.instance.Fire(new Event_BonusPoints(1203));
+            SCG_EventManager.instance.Fire(new Event_BonusPoints(174));
             Instantiate(flameOut, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }

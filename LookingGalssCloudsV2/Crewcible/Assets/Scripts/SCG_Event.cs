@@ -55,6 +55,7 @@ public class Event_PlayerRocketHit : SCG_Event
     public float damageTaken;
     public Vector3 location;
     public Behavior_Rockets rocket;
+    public Behavior_RocketsAlt altRocket;
 
     public Event_PlayerRocketHit(Enemy_Base enemyHit, float damage, Vector3 where, Behavior_Rockets rocket)
     {
@@ -62,6 +63,14 @@ public class Event_PlayerRocketHit : SCG_Event
         damageTaken = damage;
         location = where;
         this.rocket = rocket;
+    }
+
+    public Event_PlayerRocketHit(Enemy_Base enemyHit, float damage, Vector3 where, Behavior_RocketsAlt rocket)
+    {
+        this.enemyHit = enemyHit;
+        damageTaken = damage;
+        location = where;
+        this.altRocket = rocket;
     }
 }
 

@@ -218,13 +218,13 @@ public class Manager_GameAssets : SCG_Controller {
 
         if (rH != null)
         {
-            if (_IsGOActiveCheck(rH.rocket.gameObject, rockets_Active))
+            if (_IsGOActiveCheck(rH.altRocket.gameObject, rockets_Active))
             {
                 //Debug.Log("Rocket hit registered by GAManager");
 
                 Make(MyGameAsset.RocketExplosion, rH.location);
 
-                int indexOfRocket = rockets_Active.IndexOf(rH.rocket.gameObject);
+                int indexOfRocket = rockets_Active.IndexOf(rH.altRocket.gameObject);
                 _StowActiveNonPhysicsManagedGO(rockets_Active, rockets_Times, rockets_Inactive, indexOfRocket);
                 return;
             }

@@ -76,7 +76,7 @@ public class Test_PeakyShooty : Behavior_BaddyBase
 
             if (ed.enemyToBeDestroyed == myE)
             {
-                SCG_EventManager.instance.Fire(new Event_BonusPoints(559));
+                SCG_EventManager.instance.Fire(new Event_BonusPoints(161));
                 SCG_EventManager.instance.Unregister<Event_DumpReg>(EnemyDeathHandler);
                 SCG_EventManager.instance.Unregister<Event_EnemyDeath>(EnemyDeathHandler);
                 Instantiate(flameout, transform.position, Quaternion.identity);

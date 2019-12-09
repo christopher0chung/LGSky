@@ -67,10 +67,7 @@ public class Model_Game : SCG_Model {
     public int i_Rockets_RocketCountMax;
     public float s_Rockets_FlySpeed;
     public float s_Rockets_TurnRate;
-    public float f_Rockets_Spread;
     public float t_Rockets_Lifetime;
-    public float t_Rockets_InputDelayTime;
-    public float f_Rockets_InputError;
     #endregion
     [Header("Thrusters")]
     #region Pilot
