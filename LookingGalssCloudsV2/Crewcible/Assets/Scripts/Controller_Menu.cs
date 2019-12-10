@@ -80,7 +80,7 @@ public class Controller_Menu : SCG_Controller
         else if (choices == 2)
             c.text = "CONTROLS";
 
-        if ((inputModel.L_Action_OnDown || inputModel.R_Action_OnDown) && (ServiceLocator.instance.controllerRefs.device0 != null || ServiceLocator.instance.controllerRefs.device1 != null))
+        if ((inputModel.startPause) && (ServiceLocator.instance.controllerRefs.device0 != null || ServiceLocator.instance.controllerRefs.device1 != null))
         {
             if (choices == 0)
             {
