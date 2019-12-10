@@ -774,6 +774,19 @@ namespace AmplifyShaderEditor
 		//	}
 		//}
 
+		public string GenerateInstanced(PrecisionType precisionType, WirePortDataType dataType,string propertyName )
+		{
+			if( IsSRP )
+			{
+				return string.Format( IOUtils.LWSRPInstancedPropertiesElement, UIUtils.PrecisionWirePortToCgType( precisionType, dataType ), propertyName );
+			}
+			else
+			{
+				return string.Format( IOUtils.InstancedPropertiesElement, UIUtils.PrecisionWirePortToCgType( precisionType, dataType ), propertyName );
+			}
+		}
+
+
 		public void SoftRegisterUniform( TemplateShaderPropertyData data )
 		{
 
@@ -784,6 +797,19 @@ namespace AmplifyShaderEditor
 			{
 				m_uniformsDict.Add( uniformName, new PropertyDataCollector( -1, uniformName ) );
 			}
+
+			string instancedUniform = GenerateInstanced( PrecisionType.Float, data.PropertyDataType, data.PropertyName );
+			if( !m_uniformsDict.ContainsKey( instancedUniform ) )
+			{
+				m_uniformsDict.Add( instancedUniform, new PropertyDataCollector( -1, instancedUniform ) );
+			}
+
+			instancedUniform = GenerateInstanced( PrecisionType.Half, data.PropertyDataType, data.PropertyName );
+			if( !m_uniformsDict.ContainsKey( instancedUniform ) )
+			{
+				m_uniformsDict.Add( instancedUniform, new PropertyDataCollector( -1, instancedUniform ) );
+			}
+
 		}
 
 		public void AddToUniforms( int nodeId, string dataType, string dataName, bool checkSRPBatch = false )

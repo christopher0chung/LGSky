@@ -70,10 +70,11 @@ namespace AmplifyShaderEditor
 		// WORLD POSITION
 		static public string GenerateWorldPosition( ref MasterNodeDataCollector dataCollector, int uniqueId )
 		{
+			PrecisionType precision = PrecisionType.Float;
 			if( dataCollector.IsTemplate )
 				return dataCollector.TemplateDataCollectorInstance.GetWorldPos();
 
-			dataCollector.AddToInput( -1, SurfaceInputs.WORLD_POS );
+			dataCollector.AddToInput( -1, SurfaceInputs.WORLD_POS, precision );
 
 			string result = Constants.InputVarStr + ".worldPos";
 
@@ -81,7 +82,7 @@ namespace AmplifyShaderEditor
 				result = "mul( unity_ObjectToWorld, " + Constants.VertexShaderInputStr + ".vertex )";
 
 			//dataCollector.AddToLocalVariables( dataCollector.PortCategory, uniqueId, string.Format( Float3Format, WorldPositionStr, result ) );
-			dataCollector.AddLocalVariable(  uniqueId, UIUtils.CurrentWindow.CurrentGraph.CurrentPrecision,WirePortDataType.FLOAT3, WorldPositionStr, result );
+			dataCollector.AddLocalVariable(  uniqueId, precision, WirePortDataType.FLOAT3, WorldPositionStr, result );
 			
 			return WorldPositionStr;
 		}

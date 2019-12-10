@@ -538,7 +538,7 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		static AmplifyShaderEditorWindow OpenWindow( string title = null, Texture icon = null )
+		public static AmplifyShaderEditorWindow OpenWindow( string title = null, Texture icon = null )
 		{
 			AmplifyShaderEditorWindow currentWindow = (AmplifyShaderEditorWindow)AmplifyShaderEditorWindow.GetWindow( typeof( AmplifyShaderEditorWindow ), false );
 			currentWindow.minSize = new Vector2( ( Constants.MINIMIZE_WINDOW_LOCK_SIZE - 150 ), 270 );
@@ -550,7 +550,7 @@ namespace AmplifyShaderEditor
 			return currentWindow;
 		}
 
-		static AmplifyShaderEditorWindow CreateTab( string title = null, Texture icon = null )
+		public static AmplifyShaderEditorWindow CreateTab( string title = null, Texture icon = null )
 		{
 			AmplifyShaderEditorWindow currentWindow = EditorWindow.CreateInstance<AmplifyShaderEditorWindow>();
 			currentWindow.minSize = new Vector2( ( Constants.MINIMIZE_WINDOW_LOCK_SIZE - 150 ), 270 );
@@ -1125,33 +1125,61 @@ namespace AmplifyShaderEditor
 
 		[MenuItem( "Assets/Create/Amplify Shader/Surface", false, 84 )]
 		[MenuItem( "Assets/Create/Shader/Amplify Surface Shader" )]
-		static void CreateNewShader()
+		static void CreateConfirmationStandardShader()
+		{
+			string path = AssetDatabase.GetAssetPath( Selection.activeObject );
+			if( path == "" )
+			{
+				path = "Assets";
+			}
+			else if( System.IO.Path.GetExtension( path ) != "" )
+			{
+				path = path.Replace( System.IO.Path.GetFileName( AssetDatabase.GetAssetPath( Selection.activeObject ) ), "" );
+			}
+
+			string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath( path + "/New Amplify Shader.shader" );
+			var endNameEditAction = ScriptableObject.CreateInstance<DoCreateStandardShader>();
+			ProjectWindowUtil.StartNameEditingIfProjectWindowExists( 0, endNameEditAction, assetPathAndName, AssetPreview.GetMiniTypeThumbnail( typeof( Shader ) ), null );
+		}
+		//static void CreateNewShader(  )
+		//{
+		//	CreateNewShader( null, null );
+		//}
+
+		static void CreateNewShader( string customPath , string customShaderName )
 		{
 
 			string path = string.Empty;
-			if( Selection.activeObject != null )
+			if( string.IsNullOrEmpty( customPath ) )
 			{
-				path = ( IOUtils.dataPath + AssetDatabase.GetAssetPath( Selection.activeObject ) );
-			}
-			else
-			{
-				UnityEngine.Object[] selection = Selection.GetFiltered( typeof( UnityEngine.Object ), SelectionMode.DeepAssets );
-				if( selection.Length > 0 && selection[ 0 ] != null )
+				if( Selection.activeObject != null )
 				{
-					path = ( IOUtils.dataPath + AssetDatabase.GetAssetPath( selection[ 0 ] ) );
+					path = ( IOUtils.dataPath + AssetDatabase.GetAssetPath( Selection.activeObject ) );
 				}
 				else
 				{
-					path = Application.dataPath;
+					UnityEngine.Object[] selection = Selection.GetFiltered( typeof( UnityEngine.Object ), SelectionMode.DeepAssets );
+					if( selection.Length > 0 && selection[ 0 ] != null )
+					{
+						path = ( IOUtils.dataPath + AssetDatabase.GetAssetPath( selection[ 0 ] ) );
+					}
+					else
+					{
+						path = Application.dataPath;
+					}
+
 				}
 
+				if( path.IndexOf( '.' ) > -1 )
+				{
+					path = path.Substring( 0, path.LastIndexOf( '/' ) );
+				}
+				path += "/";
 			}
-
-			if( path.IndexOf( '.' ) > -1 )
+			else
 			{
-				path = path.Substring( 0, path.LastIndexOf( '/' ) );
+				path = customPath;
 			}
-			path += "/";
 
 			if( IOUtils.AllOpenedWindows.Count > 0 )
 			{
@@ -1159,48 +1187,73 @@ namespace AmplifyShaderEditor
 				AmplifyShaderEditorWindow currentWindow = CreateTab();
 				WindowHelper.AddTab( openedWindow, currentWindow );
 				UIUtils.CurrentWindow = currentWindow;
-				Shader shader = UIUtils.CreateNewEmpty( path );
+				Shader shader = UIUtils.CreateNewEmpty( path, customShaderName );
 				Selection.activeObject = shader;
 			}
 			else
 			{
 				AmplifyShaderEditorWindow currentWindow = OpenWindow();
 				UIUtils.CurrentWindow = currentWindow;
-				Shader shader = UIUtils.CreateNewEmpty( path );
+				Shader shader = UIUtils.CreateNewEmpty( path, customShaderName );
 				Selection.activeObject = shader;
 			}
 			//Selection.objects = new UnityEngine.Object[] { shader };
 		}
 
-
-
-		public static void CreateNewTemplateShader( string templateGUID )
+		public static void CreateConfirmationTemplateShader( string templateGuid )
 		{
-			string path = Selection.activeObject == null ? Application.dataPath : ( IOUtils.dataPath + AssetDatabase.GetAssetPath( Selection.activeObject ) );
-			if( path.IndexOf( '.' ) > -1 )
+			UIUtils.NewTemplateGUID = templateGuid;
+			string path = AssetDatabase.GetAssetPath( Selection.activeObject );
+			if( path == "" )
 			{
-				path = path.Substring( 0, path.LastIndexOf( '/' ) );
+				path = "Assets";
 			}
-			path += "/";
+			else if( System.IO.Path.GetExtension( path ) != "" )
+			{
+				path = path.Replace( System.IO.Path.GetFileName( AssetDatabase.GetAssetPath( Selection.activeObject ) ), "" );
+			}
 
+			string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath( path + "/New Amplify Shader.shader" );
+			var endNameEditAction = ScriptableObject.CreateInstance<DoCreateTemplateShader>();
+			ProjectWindowUtil.StartNameEditingIfProjectWindowExists( 0, endNameEditAction, assetPathAndName, AssetPreview.GetMiniTypeThumbnail( typeof( Shader ) ), null );
+		}
+
+		public static Shader CreateNewTemplateShader( string templateGUID , string customPath = null, string customShaderName = null )
+		{
+			string path = string.Empty;
+			if( string.IsNullOrEmpty( customPath ) )
+			{
+				path = Selection.activeObject == null ? Application.dataPath : ( IOUtils.dataPath + AssetDatabase.GetAssetPath( Selection.activeObject ) );
+				if( path.IndexOf( '.' ) > -1 )
+				{
+					path = path.Substring( 0, path.LastIndexOf( '/' ) );
+				}
+				path += "/";
+			}
+			else
+			{
+				path = customPath;
+			}
+			Shader shader = null;
 			if( IOUtils.AllOpenedWindows.Count > 0 )
 			{
 				EditorWindow openedWindow = AmplifyShaderEditorWindow.GetWindow<AmplifyShaderEditorWindow>();
 				AmplifyShaderEditorWindow currentWindow = CreateTab();
 				WindowHelper.AddTab( openedWindow, currentWindow );
 				UIUtils.CurrentWindow = currentWindow;
-				Shader shader = UIUtils.CreateNewEmptyTemplate( templateGUID, path );
+				shader = UIUtils.CreateNewEmptyTemplate( templateGUID, path, customShaderName );
 				Selection.activeObject = shader;
 			}
 			else
 			{
 				AmplifyShaderEditorWindow currentWindow = OpenWindow();
 				UIUtils.CurrentWindow = currentWindow;
-				Shader shader = UIUtils.CreateNewEmptyTemplate( templateGUID, path );
+				shader = UIUtils.CreateNewEmptyTemplate( templateGUID, path, customShaderName );
 				Selection.activeObject = shader;
 			}
 
 			//Selection.objects = new UnityEngine.Object[] { shader };
+			return shader;
 		}
 
 		[MenuItem( "Assets/Create/Amplify Shader Function", false, 84 )]
@@ -1577,6 +1630,7 @@ namespace AmplifyShaderEditor
 
 				AssetDatabase.SaveAssets();
 				AssetDatabase.Refresh();
+				m_mainGraphInstance.CurrentShaderFunction.AdditionalDirectives.UpdateDirectivesFromSaveItems();
 				IOUtils.FunctionNodeChanged = true;
 				m_lastpath = AssetDatabase.GetAssetPath( m_mainGraphInstance.CurrentShaderFunction );
 				System.Threading.Thread.CurrentThread.CurrentCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
@@ -1901,6 +1955,15 @@ namespace AmplifyShaderEditor
 				minPos.x += m_paletteWindow.RealWidth * 0.5f * zoom;
 
 			FocusOnPoint( minPos + centroid * 0.5f, zoom, smooth );
+		}
+
+		public void FocusOnNode( int nodeId, float zoom, bool selectNode, bool late = false )
+		{
+			ParentNode node = m_mainGraphInstance.GetNode( nodeId );
+			if( node != null )
+			{
+				FocusOnNode( node, zoom, selectNode, late );
+			}
 		}
 
 		public void FocusOnNode( ParentNode node, float zoom, bool selectNode, bool late = false )
@@ -4437,10 +4500,15 @@ namespace AmplifyShaderEditor
 
 		public void ShowMessage( string message, MessageSeverity severity = MessageSeverity.Normal, bool registerTimestamp = true, bool consoleLog = false )
 		{
+			ShowMessage( -1, message, severity, registerTimestamp, consoleLog );
+		}
+		
+		public void ShowMessage( int messageOwner, string message, MessageSeverity severity = MessageSeverity.Normal, bool registerTimestamp = true, bool consoleLog = false )
+		{
 			if( UIUtils.InhibitMessages || m_genericMessageUI == null )
 				return;
 
-			m_consoleLogWindow.AddMessage( severity, message );
+			m_consoleLogWindow.AddMessage( severity, message , messageOwner);
 
 			MarkToRepaint();
 			

@@ -2552,7 +2552,7 @@ namespace AmplifyShaderEditor
 			{
 				if( dataCollector.TesselationActive )
 				{
-					UIUtils.ShowMessage( "Unable to use Vertex to Frag when Tessellation is active" );
+					UIUtils.ShowMessage( UniqueId, "Unable to use Vertex to Frag when Tessellation is active" );
 					return m_outputPorts[ 0 ].ErrorValue;
 				}
 
@@ -2619,7 +2619,7 @@ namespace AmplifyShaderEditor
 			{
 				if( dataCollector.TesselationActive )
 				{
-					UIUtils.ShowMessage( "Unable to use Vertex to Frag when Tessellation is active" );
+					UIUtils.ShowMessage( UniqueId, "Unable to use Vertex to Frag when Tessellation is active" );
 					return m_outputPorts[ 0 ].ErrorValue;
 				}
 
@@ -3109,7 +3109,7 @@ namespace AmplifyShaderEditor
 				return nodeParams[ m_currentReadParamIdx++ ];
 			}
 
-			UIUtils.ShowMessage( "Invalid params number in node " + m_uniqueId + " of type " + GetType(), MessageSeverity.Error );
+			UIUtils.ShowMessage( UniqueId, "Invalid params number in node " + m_uniqueId + " of type " + GetType(), MessageSeverity.Error );
 			return string.Empty;
 		}
 
@@ -3120,7 +3120,7 @@ namespace AmplifyShaderEditor
 				return nodeParams[ index ];
 			}
 
-			UIUtils.ShowMessage( "Invalid params number in node " + m_uniqueId + " of type " + GetType(), MessageSeverity.Error );
+			UIUtils.ShowMessage( UniqueId, "Invalid params number in node " + m_uniqueId + " of type " + GetType(), MessageSeverity.Error );
 			return string.Empty;
 		}
 
@@ -3376,19 +3376,24 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public bool RecursivePreviewUpdate()
+		public virtual bool RecursivePreviewUpdate( Dictionary<int,bool> duplicatesDict = null )
 		{
+			if( duplicatesDict == null )
+			{
+				duplicatesDict = ContainerGraph.ParentWindow.VisitedChanged;
+			}
+
 			for( int i = 0; i < InputPorts.Count; i++ )
 			{
 				ParentNode outNode = InputPorts[ i ].GetOutputNode();
 				if( outNode != null )
 				{
-					if( !ContainerGraph.ParentWindow.VisitedChanged.ContainsKey( outNode.UniqueId ) )
+					if( !duplicatesDict.ContainsKey( outNode.UniqueId ) )
 					{
 						bool result = outNode.RecursivePreviewUpdate();
 						if( result )
 							PreviewIsDirty = true;
-					} else if( ContainerGraph.ParentWindow.VisitedChanged[ outNode.UniqueId ] )
+					} else if( duplicatesDict[ outNode.UniqueId ] )
 					{
 						PreviewIsDirty = true;
 					}
@@ -3397,8 +3402,8 @@ namespace AmplifyShaderEditor
 			
 			bool needsUpdate = PreviewIsDirty;
 			RenderNodePreview();
-			if( !ContainerGraph.ParentWindow.VisitedChanged.ContainsKey( UniqueId ) )
-				ContainerGraph.ParentWindow.VisitedChanged.Add( UniqueId, needsUpdate );
+			if( !duplicatesDict.ContainsKey( UniqueId ) )
+				duplicatesDict.Add( UniqueId, needsUpdate );
 			return needsUpdate;
 		}
 
@@ -3712,6 +3717,12 @@ namespace AmplifyShaderEditor
 		public virtual WirePortDataType GetOutputPortVisualDataTypeById( int portId )
 		{
 			return GetOutputPortByUniqueId( portId ).DataType;
+		}
+
+
+		public virtual bool CheckFindText( string text )
+		{
+			return TitleContent.text.IndexOf( text, StringComparison.CurrentCultureIgnoreCase ) >= 0;
 		}
 
 		public virtual float HeightEstimate

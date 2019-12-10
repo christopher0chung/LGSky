@@ -455,7 +455,7 @@ namespace AmplifyShaderEditor
 				m_previewMaterialPassId = 0;
 				if( DebugConsoleWindow.DeveloperMode )
 				{
-					UIUtils.ShowMessage( "Could not find pass ID for append" , MessageSeverity.Error );
+					UIUtils.ShowMessage( UniqueId, "Could not find pass ID for append" , MessageSeverity.Error );
 				}
 			}
 		}

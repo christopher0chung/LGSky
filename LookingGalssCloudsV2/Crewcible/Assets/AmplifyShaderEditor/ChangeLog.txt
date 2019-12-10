@@ -1,4 +1,148 @@
 Release Notes:
+v1.7.4 rev 00:
+* Fixes:
+    * Fixed critical error where users could not create a surface shader if no ASE window was opened
+
+v1.7.3 rev 00:
+* Fixes:
+    * Fixed preview issues on multiple nodes
+    * Fixed incorrect template reload when multiple shaders using the same template are opened
+    * Fixed Ignore Rotation issues on 'Billboard' node over Lightweight RP
+    * Fixed issue on not importing latest SRP templates when an unregistered version is detected
+    * HDRP templates no longer throw console errors on Unity 2019.3
+    * Fixed Alpha Clip issue on deprecated HDRPLit template
+    * Fixed issue on incorrectly resetting port internal data on load with matrices types
+
+* Improvement:
+    * Minor renaming on 'Baked GI' node name to 'SRP Baked GI'
+    * Updated URP templates to include a Baked GI port similarly to HDRP
+
+v1.7.2 rev 03:
+* Fixes:
+    * Fixed issue on templates not capturing properties with certain attributes
+    * Fixed issue on templates inline properties not being properly set on modules if main master node wasn't the first pass
+
+* Improvements:
+    * Added Builtin Fog toggle option into Lightweight PBR template
+
+v1.7.2 rev 02:
+* Fixes:
+    * Fixed issue on 'Toggle Switch' node
+    * Fixed abnormal behavior when reading template with more interpolators than the ones allowed by its Shader Model (API)
+
+* Improvements:
+    * Template can now read Shader Model from area outside SubShader (API)
+
+v1.7.2 rev 01:
+* Fixes:
+    * Fixed issues on generating incorrect precision inputs on both 'Screen Position' and 'World Position' node
+    * Fixed issue on multi-pass master nodes not setting correct given shader name when created from file
+    * Fixed issue on WaterSample shader
+    * Fixed issue on 'Custom Expression' node not generating correct function code without a return statement
+
+* Improvements:
+    * Users can, like on Shader Functions, immediately name shader when creating it
+    * Adding Instanced option into 'Texture Transform' node
+        * Determines if the _ST texture transform variable is created as an instanced property
+
+v1.7.2 rev 00:
+* Improvements:
+    * 'Toggle Switch' node now uses a ternary operator to prevent incorrect results on NaN inputs
+
+v1.7.1 rev 13:
+* Fixes:
+    * Fixed issue duplicating certain nodes
+
+v1.7.1 rev 12:
+* Fixes:
+    * Fixed issue when using more than one Octave on 'Voronoi' node
+    * Fixed issue on Motion Vectors pass over HD templates
+    * Fixed issue on generating incorrect keyword value on 'Static Switch' node using Reference Mode
+
+v1.7.1 rev 11:
+* Fixes:
+    * Fixed issue on registering/unregistering internal template generated nodes over the reorder node event
+    * Fixed multiple issues on 'Custom Expression' node
+    * Fixed issue on using 'Voronoi' node over shader functions
+
+v1.7.1 rev 09/10:
+* New Node:
+    * HD Emission
+
+* Fixes:
+    * Fixed issue when reading shader with missing shader function
+    * Fixed issue when duplicating property nodes on Fetch mode would reset property name
+    * Fixed issue on 'Parallax Occlusion Mapping' node incorrectly generating instanced _ST vars outside the CBuffer
+    * Fixed alpha cutoff issues on HD Lit templates v5.7.2 and v5.16.1
+    * Fixed issue on not declaring both BakedGI and BakedBackGI on Lit template
+    * Fixed issue on not setting some ports with graph data over templates
+
+* Improvements:
+    * Listing on nodes is now alphabetically ordered
+        * Get Local Var
+        * Grab Screen Color
+        * Static Switch
+        * Texture Array
+        * Texture Sample
+    * Node search bar text now takes property name and inspector name into account
+
+v1.7.1 rev 08:
+* Fixes:
+    * Fixed issue on 'Register Local Var' not allowing to reset name to loaded one
+    * Fixed Console Log issues with Personal Skin
+    * Fixed issue on overwriting Render Type custom values over a template(API)
+    * Fixed issue on local variables generation over the 'Unpack Scale Normal' node 
+    * Fixed issue with setting special tags over template options (API)
+
+* Improvements:
+    * Added more flexibility to 'Static Switch' node
+        * Can have empty property names when Material Toggle is toggled off
+        * It no longer modifies keywords ( setting to upper, adding _ON, etc ) if Material Toggle is toggled off
+        * Tweaked visible options when on Fetch mode
+    * Added hot-fix to 2019.2 Lit template in order to generate shaders without errors when used on HDRP v7.x.x
+
+v1.7.1 rev 07:
+* New Shader Functions:
+    * Derive Tangent Basis
+    * Height-based Blending
+
+* Improvements:
+    * Clicking on node specific messages over ASE log now jumps to which node generated it
+    * Changing ports types to matrix now sets the identity matrix into its internal data
+        * Relevant on nodes like 'Custom Expression'
+
+* Fixes:
+    * Fixed issue on incorrectly adding 0 to W channel when creating position vectors
+    * Fixed issue on not auto-importing templates correctly over Unity 2019
+    * Fixed multiple issues regarding shader function previews
+    * Fixed compilation issue when using unreferenced 'Get Local Var' nodes
+    * Fixed issue on changing 'Static Switch' name not being reflected on referenced list
+    * Fixed issues with 'Texture Coordinates' and 'Texture Sampler' nodes with 'Relay' or 'Wire' nodes on Tex port
+
+v1.7.1 rev 06:
+* Fixes:
+    * Fixed new and old shader templates for HDRP 6.9.X so the diffusion profile value is passed around correctly
+    * Fixed issue on 'Texture Coordinates' node not correctly swizzling data on template vertex functions
+    * Prevented Additional Directives reference lost when saving certain shader functions
+
+v1.7.1 rev 05:
+* Fixes:
+    * Fixed issue on getting incorrect inline properties on templates
+
+v1.7.1 rev 04:
+* Fixes:
+    * Fixed 'Diffusion Profile' node issues on SRP v6.9.X
+    * Fixed multiple issues regarding shader functions Additional Directives usage
+
+v1.7.1 rev 02/03:
+* Fixes:
+    * Fixed issue both on creating duplicate texture ST constants and being declared out of the cbuffer
+    * Fixed possible issues on 'Texture Transform' node over SRP
+    * Fixed baked lighmap issues over Lightweight/Universal PBR templates
+    * Fixed SimpleTerrain sample water shader which was broken due to recent 'Screen Depth' node changes
+    * Fixed compilation errors on 'Voronoi' node
+    * Fixed issue on registering duplicate instanced variables which are already on template as non-instanced
+
 v1.7.1 rev 01:
 * Fixes:
     * Removed unused variable warning

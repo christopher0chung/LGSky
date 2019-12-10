@@ -79,11 +79,11 @@ namespace AmplifyShaderEditor
 		{
 			if( dataCollector.IsFragmentCategory )
 			{
-				UIUtils.ShowMessage( ErrorMessage );
-				return "0";
+				UIUtils.ShowMessage( UniqueId, ErrorMessage,MessageSeverity.Error );
+				return m_outputPorts[0].ErrorValue;
 			}
 			if( m_outputPorts[ 0 ].IsLocalValue( dataCollector.PortCategory ) )
-				return "0";
+				return m_outputPorts[ 0 ].ErrorValue;
 
 			m_outputPorts[ 0 ].SetLocalValue( "0", dataCollector.PortCategory );
 			string vertexPosValue = dataCollector.IsTemplate ? dataCollector.TemplateDataCollectorInstance.GetVertexPosition( WirePortDataType.OBJECT, CurrentPrecisionType ) : "v.vertex";

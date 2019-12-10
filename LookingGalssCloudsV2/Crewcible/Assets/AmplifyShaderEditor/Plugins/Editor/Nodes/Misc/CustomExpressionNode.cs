@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 
 namespace AmplifyShaderEditor
 {
-
 	public enum CustomExpressionMode
 	{
 		Create,
@@ -209,7 +208,6 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		private List<CustomExpressionDependency> m_dependencies = new List<CustomExpressionDependency>();
 
-		private int m_markedToDelete = -1;
 		private const float ButtonLayoutWidth = 15;
 
 		private bool m_repopulateNameDictionary = true;
@@ -499,7 +497,7 @@ namespace AmplifyShaderEditor
 			if( EditorGUI.EndChangeCheck() )
 			{
 				if( CheckCallMode() )
-					UIUtils.ShowMessage( "Call Mode cannot have return over is code.\nFalling back to Create Mode" );
+					UIUtils.ShowMessage( UniqueId, "Call Mode cannot have return over is code.\nFalling back to Create Mode" );
 				SetupCallMode();
 				RecalculateInOutOutputPorts();
 			}
@@ -777,13 +775,13 @@ namespace AmplifyShaderEditor
 											oldOutputPortId = originalOutputPortId;
 										}
 
-										m_outputPortsDict[ oldOutputPortId ].ChangePortId( CreateOutputId( m_inputPorts[ portIdx ].PortId ));
+										m_outputPortsDict[ oldOutputPortId ].ChangePortId( CreateOutputId( m_inputPorts[ portIdx ].PortId ) );
 									}
 								}
 							}
 							else
 							{
-								for( int i = list.index ; i <= m_lastIndex; i++ )
+								for( int i = list.index; i <= m_lastIndex; i++ )
 								{
 									if( m_items[ i ].Qualifier != VariableQualifiers.In )
 									{
@@ -855,7 +853,8 @@ namespace AmplifyShaderEditor
 									}
 									else if( oldQualifier == VariableQualifiers.In )
 									{
-										AddOutputPort( m_inputPorts[ portIdx ].DataType, m_inputPorts[ portIdx ].Name, CreateOutputId( m_inputPorts[ portIdx ].PortId ) );
+										int outputId = CreateOutputId( m_inputPorts[ portIdx ].PortId );
+										AddOutputPort( m_inputPorts[ portIdx ].DataType, m_inputPorts[ portIdx ].Name, outputId );
 									}
 									m_inputPorts[ portIdx ].Visible = newQualifier != VariableQualifiers.Out;
 									m_sizeIsDirty = true;
@@ -876,6 +875,11 @@ namespace AmplifyShaderEditor
 								if( EditorGUI.EndChangeCheck() )
 								{
 									m_inputPorts[ portIdx ].ChangeType( AvailableWireTypes[ typeIdx ], false );
+									if( typeIdx == 5 || typeIdx == 6 )
+									{
+										m_inputPorts[ portIdx ].Matrix4x4InternalData = Matrix4x4.identity;
+									}
+
 									if( m_items[ index ].Qualifier != VariableQualifiers.In )
 									{
 										OutputPort currOutPort = GetOutputPortByUniqueId( CreateOutputId( m_inputPorts[ portIdx ].PortId ) );
@@ -1017,117 +1021,6 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-
-		void DrawInputs()
-		{
-			int count = m_inputPorts.Count - m_firstAvailablePort;
-			for( int i = 0; i < count; i++ )
-			{
-				int portIdx = i + m_firstAvailablePort;
-				m_items[ i ].FoldoutFlag = EditorGUILayoutFoldout( m_items[ i ].FoldoutFlag, /*m_items[ i ].FoldoutLabel + " - " +*/ m_inputPorts[ portIdx ].Name );
-
-				if( m_items[ i ].FoldoutFlag )
-				{
-					EditorGUI.indentLevel += 1;
-
-					//Qualifier
-					VariableQualifiers newQualifier = (VariableQualifiers)EditorGUILayoutPopup( InputQualifierStr, (int)m_items[ i ].Qualifier, QualifiersStr );
-					if( newQualifier != m_items[ i ].Qualifier )
-					{
-						VariableQualifiers oldQualifier = m_items[ i ].Qualifier;
-						m_items[ i ].Qualifier = newQualifier;
-						if( newQualifier == VariableQualifiers.In )
-						{
-							RemoveOutputPort( CreateOutputId( m_inputPorts[ portIdx ].PortId ), false );
-						}
-						else if( oldQualifier == VariableQualifiers.In )
-						{
-							AddOutputPort( m_inputPorts[ portIdx ].DataType, m_inputPorts[ portIdx ].Name, CreateOutputId( m_inputPorts[ portIdx ].PortId ) );
-						}
-						RecalculateInOutOutputPorts();
-					}
-
-					// Type
-					int typeIdx = WireToIdx[ m_inputPorts[ portIdx ].DataType ];
-					EditorGUI.BeginChangeCheck();
-					{
-						typeIdx = EditorGUILayoutPopup( InputTypeStr, typeIdx, AvailableWireTypesStr );
-					}
-
-					if( EditorGUI.EndChangeCheck() )
-					{
-						m_inputPorts[ portIdx ].ChangeType( AvailableWireTypes[ typeIdx ], false );
-						if( m_items[ i ].Qualifier != VariableQualifiers.In )
-						{
-							OutputPort currOutPort = GetOutputPortByUniqueId( CreateOutputId( m_inputPorts[ portIdx ].PortId ) );
-							currOutPort.ChangeType( AvailableWireTypes[ typeIdx ], false );
-						}
-					}
-
-					if( AvailableWireTypes[ typeIdx ] == WirePortDataType.OBJECT )
-					{
-						EditorGUI.indentLevel += 1;
-						m_items[ i ].CustomType = EditorGUILayoutTextField( CustomTypeStr, m_items[ i ].CustomType );
-						EditorGUI.indentLevel -= 1;
-					}
-
-					//Name
-					EditorGUI.BeginChangeCheck();
-					{
-						m_inputPorts[ portIdx ].Name = EditorGUILayoutTextField( InputNameStr, m_inputPorts[ portIdx ].Name );
-					}
-					if( EditorGUI.EndChangeCheck() )
-					{
-						m_nameModified = true;
-						m_lastTimeNameModified = EditorApplication.timeSinceStartup;
-						m_inputPorts[ portIdx ].Name = UIUtils.RemoveInvalidCharacters( m_inputPorts[ portIdx ].Name );
-						if( string.IsNullOrEmpty( m_inputPorts[ portIdx ].Name ) )
-						{
-							m_inputPorts[ portIdx ].Name = DefaultInputNameStr + i;
-						}
-						if( m_items[ i ].Qualifier != VariableQualifiers.In )
-						{
-							OutputPort currOutPort = GetOutputPortByUniqueId( CreateOutputId( m_inputPorts[ portIdx ].PortId ) );
-							currOutPort.Name = m_inputPorts[ portIdx ].Name;
-						}
-					}
-
-					// Port Data
-					if( !m_inputPorts[ portIdx ].IsConnected )
-					{
-						m_inputPorts[ portIdx ].ShowInternalData( this, true, InputValueStr );
-					}
-
-					EditorGUILayout.BeginHorizontal();
-					{
-						GUILayout.Label( " " );
-						// Add new port
-						if( GUILayoutButton( string.Empty, UIUtils.PlusStyle, GUILayout.Width( ButtonLayoutWidth ) ) )
-						{
-							AddPortAt( portIdx );
-							EditorGUI.FocusTextInControl( null );
-						}
-
-						//Remove port
-						if( GUILayoutButton( string.Empty, UIUtils.MinusStyle, GUILayout.Width( ButtonLayoutWidth ) ) )
-						{
-							m_markedToDelete = portIdx;
-						}
-					}
-					EditorGUILayout.EndHorizontal();
-
-					EditorGUI.indentLevel -= 1;
-				}
-			}
-
-			if( m_markedToDelete > -1 )
-			{
-				RemovePortAt( m_markedToDelete );
-				m_markedToDelete = -1;
-				EditorGUI.FocusTextInControl( null );
-			}
-		}
-
 		void RecalculateInOutOutputPorts()
 		{
 			m_outputPorts.Sort( ( x, y ) => x.PortId.CompareTo( y.PortId ) );
@@ -1158,27 +1051,26 @@ namespace AmplifyShaderEditor
 			AddInputPortAt( idx, WirePortDataType.FLOAT, false, GetFirstAvailableName() );
 			m_items.Insert( idx - m_firstAvailablePort, new CustomExpressionInputItem( PrecisionType.Float, VariableQualifiers.In, string.Empty, false, true, string.Empty/* "[" + idx + "]"*/ ) );
 			m_repopulateNameDictionary = true;
+			RecalculateInOutOutputPorts();
 		}
 
 		void RemovePortAt( int idx )
 		{
 			if( m_inputPorts.Count > m_firstAvailablePort )
 			{
-				bool recalculateOutputs = false;
 				int varIdx = idx - m_firstAvailablePort;
 				if( m_items[ varIdx ].Qualifier != VariableQualifiers.In )
 				{
 					int id = CreateOutputId( m_inputPorts[ idx ].PortId );
 					RemoveOutputPort( id, false );
-					recalculateOutputs = true;
 				}
 
 				DeleteInputPortByArrayIdx( idx );
 				m_items.RemoveAt( varIdx );
 
 				m_repopulateNameDictionary = true;
-				if( recalculateOutputs )
-					RecalculateInOutOutputPorts();
+				
+				RecalculateInOutOutputPorts();
 			}
 		}
 
@@ -1192,7 +1084,7 @@ namespace AmplifyShaderEditor
 		{
 			if( string.IsNullOrEmpty( m_code ) )
 			{
-				UIUtils.ShowMessage( "Custom Expression need to have code associated", MessageSeverity.Warning );
+				UIUtils.ShowMessage( UniqueId, "Custom Expression need to have code associated", MessageSeverity.Warning );
 				return "0";
 			}
 
@@ -1291,7 +1183,7 @@ namespace AmplifyShaderEditor
 				}
 				else
 				{
-					
+
 					string localCode = m_code;
 					if( m_mode == CustomExpressionMode.Call || m_voidMode )
 					{
@@ -1305,7 +1197,7 @@ namespace AmplifyShaderEditor
 							{
 								string inputPortLocalVar = m_inputPorts[ i ].Name + OutputId;
 								string nameToReplaceRegex = string.Format( VarRegexReplacer, m_inputPorts[ i ].Name );
-								localCode = Regex.Replace( localCode, nameToReplaceRegex, inputPortLocalVar ,RegexOptions.Multiline );
+								localCode = Regex.Replace( localCode, nameToReplaceRegex, inputPortLocalVar, RegexOptions.Multiline );
 								//localCode = localCode.Replace( m_inputPorts[ i ].Name, inputPortLocalVar );
 
 								if( m_inputPorts[ i ].IsConnected )
@@ -1313,7 +1205,7 @@ namespace AmplifyShaderEditor
 									string result = m_inputPorts[ i ].GenerateShaderForOutput( ref dataCollector, m_inputPorts[ i ].DataType, true, true );
 									if( m_inputPorts[ i ].DataType == WirePortDataType.OBJECT )
 									{
-										dataCollector.AddLocalVariable( UniqueId, m_items[ idx ].CustomType+" "+inputPortLocalVar, result+";" );
+										dataCollector.AddLocalVariable( UniqueId, m_items[ idx ].CustomType + " " + inputPortLocalVar, result + ";" );
 									}
 									else
 									{
@@ -1419,7 +1311,8 @@ namespace AmplifyShaderEditor
 				if( m_items[ i ].Qualifier != VariableQualifiers.In )
 				{
 					int portIdx = i + m_firstAvailablePort;
-					AddOutputPort( m_inputPorts[ portIdx ].DataType, m_inputPorts[ portIdx ].Name, CreateOutputId( m_inputPorts[ portIdx ].PortId ) );
+					int outputPortId = CreateOutputId( m_inputPorts[ portIdx ].PortId );
+					AddOutputPort( m_inputPorts[ portIdx ].DataType, m_inputPorts[ portIdx ].Name, outputPortId );
 				}
 			}
 		}
@@ -1434,7 +1327,7 @@ namespace AmplifyShaderEditor
 			m_outputTypeIdx = Convert.ToInt32( GetCurrentParam( ref nodeParams ) );
 			if( m_outputTypeIdx >= AvailableWireTypes.Length )
 			{
-				UIUtils.ShowMessage( "Sampler types were removed as a valid output custom expression type" );
+				UIUtils.ShowMessage( UniqueId, "Sampler types were removed as a valid output custom expression type" );
 				m_outputTypeIdx = 1;
 			}
 			UpdateVoidMode();

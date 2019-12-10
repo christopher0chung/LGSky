@@ -62,6 +62,18 @@ namespace AmplifyShaderEditor
 		public string GUIDValue = string.Empty;
 		public AdditionalContainerOrigin Origin = AdditionalContainerOrigin.Custom;
 		public TextAsset LibObject = null;
+		public string OwnerId = string.Empty;
+
+		public void Init( string ownerId, AdditionalDirectiveContainer item )
+		{
+			 LineType = item.LineType;
+			 LineValue = item.LineValue;
+			 GUIDToggle = item.GUIDToggle;
+			 GUIDValue = item.GUIDValue;
+			 Origin = item.Origin;
+			 LibObject = item.LibObject;
+			 OwnerId = ownerId;
+		}
 
 		public void Init( AdditionalDirectiveContainerSaveItem item )
 		{
@@ -196,18 +208,40 @@ namespace AmplifyShaderEditor
 		//	}
 		//}
 
-		public void AddShaderFunctionItems( List<AdditionalDirectiveContainer> functionList )
+		public void AddShaderFunctionItems( string ownerOutputId, List<AdditionalDirectiveContainer> functionList )
 		{
+			RemoveShaderFunctionItems( ownerOutputId );
 			if( functionList.Count > 0 )
-				m_shaderFunctionDirectives.AddRange( functionList );
+			{
+				for( int i = 0; i < functionList.Count; i++ )
+				{
+					AdditionalDirectiveContainer item = ScriptableObject.CreateInstance<AdditionalDirectiveContainer>();
+					item.Init( ownerOutputId, functionList[ i ] );
+					m_shaderFunctionDirectives.Add( item );
+				}
+			}
+			//if( functionList.Count > 0 )
+			//{
+
+			//	m_shaderFunctionDirectives.AddRange( functionList );
+			//}
 		}
 
-		public void RemoveShaderFunctionItems( List<AdditionalDirectiveContainer> functionList )
+		public void RemoveShaderFunctionItems( string ownerOutputId/*, List<AdditionalDirectiveContainer> functionList */)
 		{
-			for( int i = 0; i < functionList.Count; i++ )
+			List<AdditionalDirectiveContainer>  list = m_shaderFunctionDirectives.FindAll( ( x ) => x.OwnerId.Equals( ownerOutputId ));
+			for( int i = 0; i < list.Count; i++ )
 			{
-				m_shaderFunctionDirectives.Remove( functionList[ i ] );
+				m_shaderFunctionDirectives.Remove( list[ i ] );
+				ScriptableObject.DestroyImmediate( list[ i ] );
 			}
+			list.Clear();
+			list = null;
+
+			//for( int i = 0; i < functionList.Count; i++ )
+			//{
+			//	m_shaderFunctionDirectives.Remove( functionList[ i ] );
+			//}
 		}
 
 		//public void RemoveShaderFunctionItem( AdditionalLineType type, string item )
@@ -785,6 +819,15 @@ namespace AmplifyShaderEditor
 
 			m_additionalDirectives.Clear();
 			m_additionalDirectives = null;
+
+			for( int i = 0; i < m_shaderFunctionDirectives.Count; i++ )
+			{
+				ScriptableObject.DestroyImmediate( m_shaderFunctionDirectives[ i ] );
+			}
+
+			m_shaderFunctionDirectives.Clear();
+			m_shaderFunctionDirectives = null;
+
 
 			m_propertyAdjustment = null;
 			m_reordableList = null;

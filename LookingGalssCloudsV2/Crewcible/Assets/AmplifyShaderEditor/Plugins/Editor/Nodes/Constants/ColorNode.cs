@@ -426,6 +426,7 @@ namespace AmplifyShaderEditor
 			if( UIUtils.IsProperty( m_currentParameterType ) && material.HasProperty( m_propertyName ) )
 			{
 				MaterialValue = material.GetColor( m_propertyName );
+				PreviewIsDirty = true;
 			}
 		}
 
