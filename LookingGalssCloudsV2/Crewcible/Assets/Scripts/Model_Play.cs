@@ -25,6 +25,9 @@ public class Model_Play : SCG_Model
     public float dashReloadProgress;
     #endregion
 
+    [Header("Thrusters")]
+    public float thrusterVelPerc;
+
     [Header("Jump")]
     public float jumpTotal;
     public float jumpRateMax;

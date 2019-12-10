@@ -60,13 +60,13 @@ public class Test_EnemyBullet : MonoBehaviour
             {
                 SCG_EventManager.instance.Fire(new Event_PlayerShieldBlock());
                 ServiceLocator.instance.SFX.pitch = Random.Range(.95f, 1.05f);
-                ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_Shield_Block);
+                //ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_Shield_Block);
                 Destroy(this.gameObject);
             }
         }
         else if (other.gameObject.name == "Pods")
         {
-            ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_Gun_Shot);
+            //ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_ShipHit);
             SCG_EventManager.instance.Fire(new Event_EnemyBulletHit());
         }
     }

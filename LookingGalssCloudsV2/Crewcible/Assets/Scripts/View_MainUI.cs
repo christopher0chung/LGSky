@@ -20,6 +20,9 @@ public class View_MainUI : MonoBehaviour
     public Image rightIcon;
     public Image jumpIcon;
 
+    public Image leftIconBig;
+    public Image rightIconBig;
+
     public RectTransform leftNeedle;
     public RectTransform rightNeedle;
     public RectTransform centerNeedle;
@@ -69,6 +72,9 @@ public class View_MainUI : MonoBehaviour
         rocketsIcon = Resources.Load<Sprite>("Icons/" + "Rockets");
         lanceIcon = Resources.Load<Sprite>("Icons/" + "Lance");
         thrustersIcon = Resources.Load<Sprite>("Icons/" + "Thursters");
+
+        leftIconBig.color = gone;
+        rightIconBig.color = gone;
     }
 
     public void EventHandler(SCG_Event e)
@@ -105,6 +111,9 @@ public class View_MainUI : MonoBehaviour
             toAssign.sprite = lanceIcon;
         else if (playModel.rightStation == Stations.Thrusters)
             toAssign.sprite = thrustersIcon;
+
+        leftIconBig.sprite = leftIcon.sprite;
+        rightIconBig.sprite = rightIcon.sprite;
     }
 
     private float _needleAng;
@@ -200,6 +209,11 @@ public class View_MainUI : MonoBehaviour
 
     float _lastJumpProgress;
     Color scratchColor;
+
+    Stations leftLast;
+    Stations rightLast;
+    Color bigSplash = new Color(1, 1, 1, .35f);
+    Color gone = new Color(1, 1, 1, 0);
     void UpdateColor()
     {
         #region Left
@@ -348,6 +362,20 @@ public class View_MainUI : MonoBehaviour
         jPBImage.color = Color.Lerp(jPBImage.color, gameModel.c_UI_Base, Time.deltaTime);
 
         _lastJumpProgress = playModel.jumpTotal;
+        #endregion
+
+        #region BigIcons
+
+        if (playModel.leftStation != leftLast)
+            leftIconBig.color = bigSplash;
+        if (playModel.rightStation != rightLast)
+            rightIconBig.color = bigSplash;
+
+        leftLast = playModel.leftStation;
+        rightLast = playModel.rightStation;
+
+        leftIconBig.color = Color.Lerp(leftIconBig.color, gone, 4*Time.deltaTime);
+        rightIconBig.color = Color.Lerp(rightIconBig.color, gone, 4*Time.deltaTime);
         #endregion
     }
 

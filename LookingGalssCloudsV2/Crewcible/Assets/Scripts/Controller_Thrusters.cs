@@ -189,7 +189,7 @@ public class Controller_Thrusters : SCG_Controller
 
             player.position += moveDir * gameModel.f_Thrusters_DashDistance;
             playModel.dashReloadProgress = gameModel.t_Thrusters_DashCooldown;
-            ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_Thrusters_Dash);
+            //ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_Thrusters_Dash);
 
             heatModel.active_Dash = true;
         }
@@ -223,6 +223,7 @@ public class Controller_Thrusters : SCG_Controller
             thrusterVel = Vector3.Lerp(thrusterVel, thrusterAcc, 5 * Time.deltaTime);
 
         thrusterVel = Vector3.ClampMagnitude(thrusterVel, gameModel.s_Thrusters_Speed);
+        playModel.thrusterVelPerc = Vector3.Magnitude(thrusterVel) / gameModel.s_Thrusters_Speed;
 
         player.position += thrusterVel * Time.deltaTime;
 
@@ -231,17 +232,5 @@ public class Controller_Thrusters : SCG_Controller
         player.position = limitPos;
     }
     #endregion
-
-    private AudioSource MakeEngineAS()
-    {
-        GameObject audioChild = new GameObject("AudioChild");
-        audioChild.transform.SetParent(transform);
-        AudioSource aSource = audioChild.AddComponent<AudioSource>();
-        //aSource.clip = gameModel.pilotThruster;
-        aSource.volume = 0;
-        aSource.Play();
-        aSource.loop = true;
-        return aSource;
-    }
 }
 

@@ -22,6 +22,7 @@ public class Model_Game : SCG_Model {
     public AudioClip sfx_Shield_Block;
     public AudioClip sfx_Shield_Activate;
     public AudioClip sfx_Gun_Shot;
+    public AudioClip sfx_ShipHit;
     #endregion
     [Header("Enemy SFX")]
     #region Enemy

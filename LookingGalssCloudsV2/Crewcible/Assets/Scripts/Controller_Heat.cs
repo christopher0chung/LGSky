@@ -308,7 +308,7 @@ public class Controller_Heat : SCG_Controller
             {
                 if (heatModel.active_Thrusters)
                 {
-                    heatModel.heat_Thrusters += heatModel.sustainedHeatRate_Thrusters * Time.deltaTime;
+                    heatModel.heat_Thrusters += heatModel.sustainedHeatRate_Thrusters * Time.deltaTime * playModel.thrusterVelPerc;
 
                     //if (heatModel.active_Thrusters && !_last_Thrusters)
                     //    heatModel.heat_Thrusters += heatModel.activationHeat_Thrusters;
