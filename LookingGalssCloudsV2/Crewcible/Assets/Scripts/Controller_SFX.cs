@@ -66,7 +66,7 @@ public class Controller_SFX : MonoBehaviour
 
         lastGunsActive = heatModel.active_Guns;
 
-        Debug.Log(heatModel.active_Guns + " " + lastGunsActive);
+        //Debug.Log(heatModel.active_Guns + " " + lastGunsActive);
     }
 
     float maxVolume = .5f;
