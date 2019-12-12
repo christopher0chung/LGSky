@@ -68,6 +68,7 @@ public class Test_EnemyBullet : MonoBehaviour
         {
             //ServiceLocator.instance.SFX.PlayOneShot(gameModel.sfx_ShipHit);
             SCG_EventManager.instance.Fire(new Event_EnemyBulletHit());
+            Destroy(this.gameObject);
         }
     }
 }

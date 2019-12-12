@@ -32,8 +32,8 @@ public class Model_Game : SCG_Model {
     [Header("Shield")]
     #region Shield
     //public bool shieldOn;
-    public Color c_Shield_Inside;
-    public Color c_Shield_Outside;
+    [ColorUsage(true, true)] public Color c_Shield_Inside;
+    [ColorUsage(true, true)] public Color c_Shield_Outside;
     public float f_Shield_HDRIntensity_Base;
     public float f_Shield_HDRIntensity_Boost;
     public float f_Shield_ActiveBlockPenalty;

@@ -8,10 +8,13 @@ public class Controller_Shield : SCG_Controller {
     private Model_Heat heatModel;
     private Model_Input inputModel;
     private Model_Play playModel;
+    private Manager_GameAssets assetManager;
 
-    public Material shieldMat;
+    //public Material shieldMat;
 
     private MeshRenderer shieldLinesRenderer;
+
+    private float bouncePerc = .6f;
 
     void Awake()
     {
@@ -20,6 +23,8 @@ public class Controller_Shield : SCG_Controller {
         inputModel = ServiceLocator.instance.Model.GetComponent<Model_Input>();
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
 
+        assetManager = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
+
         shieldLinesRenderer = ServiceLocator.instance.Player.Find("ShipParent").Find("PlayerShip").Find("ShieldEdges").GetComponent<MeshRenderer>();
     }
 
@@ -27,6 +32,8 @@ public class Controller_Shield : SCG_Controller {
     {
         priority = 4;
         Schedule(this);
+
+        SCG_EventManager.instance.Register<Event_PlayerShieldBlock>(EventHandler);
     }
 
     public override void ScheduledUpdate () {
@@ -50,18 +57,32 @@ public class Controller_Shield : SCG_Controller {
             else
             {
                 playModel.shieldSize = 1.1f;
-                shieldMat.SetFloat("_Cutoff", 1.1f);
-
                 shieldLinesRenderer.enabled = false;
             }
         }
         else
         {
             playModel.shieldSize = 1.1f;
-            shieldMat.SetFloat("_Cutoff", 1.1f);
 
             shieldLinesRenderer.enabled = false;
             heatModel.active_Shield = false;
+        }
+    }
+
+    public void EventHandler(SCG_Event e)
+    {
+        if (playModel.shieldSize == gameModel.f_Shield_Cutoff_Min)
+        {
+            Event_PlayerShieldBlock psb = e as Event_PlayerShieldBlock;
+            if (psb != null)
+            {
+                float outCome = Random.Range(0.000f, 1.0000f);
+                if (outCome <= bouncePerc)
+                {
+                    GameObject bullet = assetManager.Make(MyGameAsset.Bullet, ServiceLocator.instance.Player.position + (Vector3)playModel.shieldDirection);
+                    bullet.GetComponent<Rigidbody>().AddForce((Vector3)playModel.shieldDirection * gameModel.s_Guns_BulletSpeed, ForceMode.Impulse);
+                }
+            }
         }
     }
 
@@ -71,7 +92,6 @@ public class Controller_Shield : SCG_Controller {
         playModel.shieldDirection.x = inputX;
         playModel.shieldDirection.z = inputY;
         playModel.shieldDirection.y = 1 - (Mathf.Sqrt(inputX * inputX + inputY * inputY));
-        shieldMat.SetVector("_Forward", playModel.shieldDirection);
     }
 
     private void _ShieldSize(bool on)
@@ -84,14 +104,10 @@ public class Controller_Shield : SCG_Controller {
                 playModel.shieldSize = gameModel.f_Shield_Cutoff_Max;
             else
                 playModel.shieldSize = gameModel.f_Shield_Cutoff_Min;
-
-            shieldMat.SetFloat("_Cutoff", playModel.shieldSize);
         }
         else
         {
             playModel.shieldSize = gameModel.f_Shield_Cutoff_Min;
-
-            shieldMat.SetFloat("_Cutoff", playModel.shieldSize);
         }
     }
     #endregion

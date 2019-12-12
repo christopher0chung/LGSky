@@ -162,6 +162,8 @@ public class Controller_Input : SCG_Controller {
 
         inputModel.R_SwapUp_OnDown = ServiceLocator.instance.controllerRefs.device1.LeftBumper.WasPressed;
         inputModel.R_SwapDown_OnDown = ServiceLocator.instance.controllerRefs.device1.RightBumper.WasPressed;
+
+        inputModel.startPause = (ServiceLocator.instance.controllerRefs.device0.CommandWasPressed || ServiceLocator.instance.controllerRefs.device1.CommandWasPressed);
     }
 
     bool JoinButtonWasPressedOnDevice(InputDevice inputDevice)

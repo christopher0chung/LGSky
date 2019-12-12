@@ -6,6 +6,7 @@ using LookingGlass;
 public class View_ColorConfigurator : MonoBehaviour
 {
     private Model_ScoreAndDifficulty sadModel;
+    private Model_Play playModel;
 
     [ColorUsage(false, true)]
     public Color colorNormal;
@@ -44,6 +45,7 @@ public class View_ColorConfigurator : MonoBehaviour
     public void Awake()
     {
         sadModel = ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>();
+        playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
     }
 
     public void SetColors(AestheticMode mode)
@@ -77,31 +79,34 @@ public class View_ColorConfigurator : MonoBehaviour
         enemyBody.SetColor("_Shadow", Color.HSVToRGB(hue, sv_BodyShadow.x / 100, sv_BodyShadow.y / 100));
 
         Vector4 hdr = (Vector4) Color.HSVToRGB(hue, sv_BulletOutter.x / 100, 190 * sv_BulletOutter.y / 100);
+        playModel.appliedBulletColor = hdr;
         enemyBullet.SetColor("_LanceOutter", hdr);
         enemyBullet.SetColor("_LanceInner", Color.HSVToRGB(hue, sv_BulletInner.x / 100, sv_BulletInner.y / 100));
 
         enemyExplosion.SetColor("_LanceOutter", Color.HSVToRGB(hue, sv_ExplosionOutter.x / 100, sv_ExplosionOutter.y / 100));
         enemyExplosion.SetColor("_LanceInner", Color.HSVToRGB(hue, sv_ExplosionInner.x / 100, sv_ExplosionInner.y / 100));
 
+        if (mode == AestheticMode.Normal)
+        {
+            playModel.appliedWorldColor = colorNormal;
+        }
+        else if (mode == AestheticMode.Happy)
+        {
+            playModel.appliedWorldColor = colorHappy;
+        }
+        else
+        {
+            playModel.appliedWorldColor = Color.HSVToRGB(hue, sv_SkyNormal.x / 100, sv_SkyNormal.y / 100);
+        }
+
         foreach (Camera c in cameras)
         {
             if (c!= null)
             {
-                if (mode == AestheticMode.Normal)
-                {
-                    c.backgroundColor = colorNormal;
-                }
-                else if (mode == AestheticMode.Happy)
-                {
-                    c.backgroundColor = colorHappy;
-                }
-                else
-                {
-                    c.backgroundColor = Color.HSVToRGB(hue, sv_SkyNormal.x / 100, sv_SkyNormal.y / 100);
-                }
+                c.backgroundColor = playModel.appliedWorldColor;
             }
         }
-        RenderSettings.fogColor = holoplay.background;
+        RenderSettings.fogColor = playModel.appliedWorldColor;
     }
 }
 
