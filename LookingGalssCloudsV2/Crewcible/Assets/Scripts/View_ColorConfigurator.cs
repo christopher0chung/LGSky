@@ -46,6 +46,8 @@ public class View_ColorConfigurator : MonoBehaviour
     {
         sadModel = ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>();
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
+
+        SCG_EventManager.instance.Register<Event_Restart>(EventHandler);
     }
 
     public void SetColors(AestheticMode mode)
@@ -107,6 +109,14 @@ public class View_ColorConfigurator : MonoBehaviour
             }
         }
         RenderSettings.fogColor = playModel.appliedWorldColor;
+    }
+
+    public void EventHandler(SCG_Event e)
+    {
+        Event_Restart r = e as Event_Restart;
+
+        if (r != null)
+            SetColors(AestheticMode.Normal);
     }
 }
 
