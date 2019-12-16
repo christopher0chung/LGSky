@@ -33335,6 +33335,7 @@ MonoBehaviour:
   R_SwapUp_OnDown: 0
   R_SwapDown_OnDown: 0
   startPause: 0
+  acknowledge: 0
 --- !u!114 &1305984636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33408,7 +33409,7 @@ MonoBehaviour:
   d_Lance_Damage_Sustained: 25
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
-  f_Lance_OvermaxRange: 4
+  f_Lance_OvermaxRange: 2.8
   s_Lance_ExtendSpeed: 20
   e_Reactor_Base: 0
   e_Reactor_Upgrade: 0
