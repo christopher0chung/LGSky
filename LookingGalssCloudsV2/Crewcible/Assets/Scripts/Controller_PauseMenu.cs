@@ -93,7 +93,7 @@ public class Controller_PauseMenu : MonoBehaviour
 
             selector.transform.position = Vector3.Lerp(selector.transform.position, newPos, 8 * Time.unscaledDeltaTime);
 
-            if (inputModel.L_Action_OnDown || inputModel.R_Action_OnDown)
+            if (inputModel.acknowledge)
             {
                 if (choices == 0)
                     playModel.isPaused = false;

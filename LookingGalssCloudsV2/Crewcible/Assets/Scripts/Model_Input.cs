@@ -25,4 +25,5 @@ public class Model_Input : MonoBehaviour {
     public bool R_SwapDown_OnDown;
 
     public bool startPause;
+    public bool acknowledge;
 }

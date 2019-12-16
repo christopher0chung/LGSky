@@ -127,6 +127,8 @@ public class Controller_Input : SCG_Controller {
         inputModel.R_SwapUp_OnDown = inputDevice.RightBumper.WasPressed;
 
         inputModel.startPause = inputDevice.CommandWasPressed;
+
+        inputModel.acknowledge = inputDevice.Action1.WasPressed;
     }
 
     void ReadForCoop()
@@ -164,11 +166,12 @@ public class Controller_Input : SCG_Controller {
         inputModel.R_SwapDown_OnDown = ServiceLocator.instance.controllerRefs.device1.RightBumper.WasPressed;
 
         inputModel.startPause = (ServiceLocator.instance.controllerRefs.device0.CommandWasPressed || ServiceLocator.instance.controllerRefs.device1.CommandWasPressed);
+        inputModel.acknowledge = (ServiceLocator.instance.controllerRefs.device0.Action1.WasPressed || ServiceLocator.instance.controllerRefs.device1.Action1.WasPressed);
     }
 
     bool JoinButtonWasPressedOnDevice(InputDevice inputDevice)
     {
-        return inputDevice.Action1.WasPressed || inputDevice.Action2.WasPressed || inputDevice.Action3.WasPressed || inputDevice.Action4.WasPressed;
+        return inputDevice.Action1.WasPressed || inputDevice.Action2.WasPressed || inputDevice.Action3.WasPressed || inputDevice.Action4.WasPressed || inputDevice.CommandWasPressed;
     }
 
     void OnDeviceDetached(InputDevice inputDevice)

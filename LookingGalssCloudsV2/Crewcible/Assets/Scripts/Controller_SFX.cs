@@ -105,7 +105,7 @@ public class Controller_SFX : MonoBehaviour
     {
         if (playModel.leftStation == Stations.Lance || playModel.rightStation == Stations.Lance)
         {
-            if (heatModel.active_Lance)
+            if (heatModel.active_Lance && !heatModel.overheated_Lance)
             {
                 lance_WorkingVolume = Mathf.Lerp(lance_WorkingVolume, lance_MaxVolume, Time.deltaTime * 5);
                 lance_WorkingPitch = Mathf.Lerp(lance_WorkingPitch, 1.1f, Time.deltaTime * 5);

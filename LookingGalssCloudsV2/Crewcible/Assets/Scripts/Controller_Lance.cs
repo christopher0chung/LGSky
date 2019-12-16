@@ -77,8 +77,8 @@ public class Controller_Lance : SCG_Controller
 
         if (extend && !lastExtend && !heatModel.overheated_Lance)
         {
-            Debug.Log("FirstExtned");
-            currentSize = new Vector3(3 * gameModel.f_Lance_OvermaxRange, 3 * gameModel.f_Lance_OvermaxRange, gameModel.f_Lance_OvermaxRange);
+            //First Extend
+            currentSize = new Vector3 (gameModel.f_Lance_OvermaxRange * 3, gameModel.f_Lance_OvermaxRange, gameModel.f_Lance_OvermaxRange * 3);
         }
         else if (extend && !heatModel.overheated_Lance)
         {
