@@ -52,6 +52,7 @@ public class View_MainUI : MonoBehaviour
         InitializeAssets();
 
         SCG_EventManager.instance.Register<Event_EnemyBulletHit>(EventHandler);
+        SCG_EventManager.instance.Register<Event_LifeUpTick>(EventHandler);
 
         jPBImage = jumpProgressBar.GetComponent<Image>();
         cSImage = chargeSpinner.GetComponent<Image>();
@@ -87,6 +88,13 @@ public class View_MainUI : MonoBehaviour
         if (eBH != null)
         {
             jPBImage.color = gameModel.c_Hot;
+            hpFill.color = lifeHit;
+        }
+
+        Event_LifeUpTick lUT = e as Event_LifeUpTick;
+        if (lUT != null)
+        {
+            hpFill.color = lifeTick;
         }
     }
 
@@ -218,6 +226,10 @@ public class View_MainUI : MonoBehaviour
     Stations rightLast;
     Color bigSplash = new Color(1, 1, 1, .35f);
     Color gone = new Color(1, 1, 1, 0);
+
+    Color lifeNorm = new Color(1, 1, 1, .4f);
+    Color lifeHit = Color.red;
+    Color lifeTick = new Color(0, 1, .5f, 1);
     void UpdateColor()
     {
         #region Left
@@ -380,6 +392,10 @@ public class View_MainUI : MonoBehaviour
 
         leftIconBig.color = Color.Lerp(leftIconBig.color, gone, 4*Time.deltaTime);
         rightIconBig.color = Color.Lerp(rightIconBig.color, gone, 4*Time.deltaTime);
+        #endregion
+
+        #region Life
+        hpFill.color = Color.Lerp(hpFill.color, lifeNorm, Time.deltaTime * 1.6f);
         #endregion
     }
 

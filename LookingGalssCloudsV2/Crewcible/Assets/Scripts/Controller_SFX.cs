@@ -94,7 +94,7 @@ public class Controller_SFX : MonoBehaviour
     }
     #endregion
     #region Lance
-    float lance_MaxVolume = .5f;
+    float lance_MaxVolume = .3f;
     float lance_WorkingVolume = 0;
     float lance_WorkingPitch = 1;
     bool lance_LastActive;
@@ -143,7 +143,7 @@ public class Controller_SFX : MonoBehaviour
     #endregion
     #region Shield
 
-    float shield_MaxVolume = .25f;
+    float shield_MaxVolume = .18f;
     float shield_WorkingVolume = 0;
     float shield_WorkingPitch = 1;
     void ShieldSounds()

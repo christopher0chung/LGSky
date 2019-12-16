@@ -18,6 +18,8 @@ public class Controller_HP : MonoBehaviour
         SCG_EventManager.instance.Register<Event_Restart>(EventHandler);
     }
 
+    float currentDec;
+    float lastDec;
     void Update()
     {
         timer += Time.deltaTime;
@@ -26,7 +28,18 @@ public class Controller_HP : MonoBehaviour
             playModel.playerHP += Time.deltaTime / 20;
             playModel.playerHP = Mathf.Clamp(playModel.playerHP, 0, 5);
         }
+
+        currentDec = playModel.playerHP - Mathf.Floor(playModel.playerHP);
+
+        if (currentDec >= .5f && lastDec < .5f)
+            SCG_EventManager.instance.Fire(new Event_LifeUpTick());
+        if (currentDec < .1f && lastDec > .9f)
+            SCG_EventManager.instance.Fire(new Event_LifeUpTick());
+
+        lastDec = currentDec;
     }
+
+
 
     public void EventHandler(SCG_Event e)
     {

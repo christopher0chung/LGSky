@@ -159,3 +159,5 @@ public class Event_LevelClear : SCG_Event
 public class Event_Respawn : SCG_Event { }
 
 public class Event_PlayerExplode : SCG_Event { }
+
+public class Event_LifeUpTick : SCG_Event { }
