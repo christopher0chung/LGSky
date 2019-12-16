@@ -30,6 +30,7 @@ public class Controller_SFX : MonoBehaviour
 
         SCG_EventManager.instance.Register<Event_PlayerShieldBlock>(EventHandler);
         SCG_EventManager.instance.Register<Event_EnemyBulletHit>(EventHandler);
+        SCG_EventManager.instance.Register<Event_PlayerExplode>(EventHandler);
     }
 
     void Update()
@@ -49,6 +50,10 @@ public class Controller_SFX : MonoBehaviour
         Event_PlayerShieldBlock sB = e as Event_PlayerShieldBlock;
         if (sB != null)
             oneShotSource.PlayOneShot(gameModel.sfx_Shield_Block);
+
+        Event_PlayerExplode pE = e as Event_PlayerExplode;
+        if (pE != null)
+            oneShotSource.PlayOneShot(gameModel.sfx_ShipExplode);
     }
 
     #region Guns

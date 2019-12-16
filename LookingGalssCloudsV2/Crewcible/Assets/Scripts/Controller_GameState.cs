@@ -158,6 +158,7 @@ public class Controller_GameState : SCG_Controller
             Context.explosion.Emit(150);
             Context.playModel.deathExplosionTrigger = true;
             SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.CriticalError));
+            SCG_EventManager.instance.Fire(new Event_PlayerExplode());
         }
     }
 
