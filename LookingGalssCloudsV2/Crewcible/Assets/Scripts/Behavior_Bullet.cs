@@ -7,6 +7,8 @@ public class Behavior_Bullet : MonoBehaviour {
     Model_Game gameModel;
     Manager_GameAssets assets;
 
+    public bool bounced;
+
     void Awake()
     {
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
@@ -33,7 +35,11 @@ public class Behavior_Bullet : MonoBehaviour {
             {
                 //Debug.Log("Hit!");
                 SCG_EventManager.instance.Fire(new Event_BonusPoints(2));
-                SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, gameModel.d_Guns_Damage, transform.position, this));
+                if (bounced)
+                    SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, gameModel.d_Guns_Damage * 3, transform.position, this));
+                else
+                    SCG_EventManager.instance.Fire(new Event_PlayerBulletHit(e, gameModel.d_Guns_Damage, transform.position, this));
+
             }
         }
     }

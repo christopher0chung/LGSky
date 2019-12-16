@@ -103,7 +103,7 @@ public class Controller_RocketsAlt : SCG_Controller
                 rocketIncrementor++;
             }
 
-            if (rocketIncrementor >= gameModel.i_Rockets_RocketCountMax)
+            if (rocketIncrementor >= gameModel.i_Rockets_RocketCountMax || (playModel.leftStation != Stations.Rockets && playModel.rightStation != Stations.Rockets))
                 rocketIncrementor = 0;
         }
         else if (heatModel.overheated_Rockets || playModel.currentPlayerState == PlayerState.Dead)

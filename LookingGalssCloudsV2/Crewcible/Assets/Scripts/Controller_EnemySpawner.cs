@@ -21,9 +21,6 @@ public class Controller_EnemySpawner : MonoBehaviour
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
         sadModel = ServiceLocator.instance.Model.GetComponent<Model_ScoreAndDifficulty>();
 
-        sadModel.score = 0;
-        sadModel.level = 1;
-
         _fsm = new SCG_FSM<Controller_EnemySpawner>(this);
         _fsm.TransitionTo<FirstWait>();
 

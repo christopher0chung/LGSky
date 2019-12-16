@@ -24,7 +24,9 @@ public class Controller_Heat : SCG_Controller
         _LastStatesUpdate();
 
         SCG_EventManager.instance.Register<Event_PlayerShieldBlock>(EventHandler);
-
+        SCG_EventManager.instance.Register<Event_Restart>(EventHandler);
+        SCG_EventManager.instance.Register<Event_Respawn>(EventHandler);
+        
         priority = 6;
         Schedule(this);
     }
@@ -369,6 +371,18 @@ public class Controller_Heat : SCG_Controller
         {
             if (heatModel.active_Shield)
                 heatModel.heat_Shield += gameModel.f_Shield_ActiveBlockPenalty;
+        }
+
+        Event_Restart restart = e as Event_Restart;
+        Event_Respawn respawn = e as Event_Respawn;
+
+        if (restart != null || respawn != null)
+        {
+            heatModel.heat_Guns = 0;
+            heatModel.heat_Lance = 0;
+            heatModel.heat_Rockets = 0;
+            heatModel.heat_Shield = 0;
+            heatModel.heat_Thrusters = 0;
         }
     }
 

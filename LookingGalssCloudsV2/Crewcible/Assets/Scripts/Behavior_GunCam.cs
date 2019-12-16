@@ -8,6 +8,8 @@ public class Behavior_GunCam : MonoBehaviour
     public Transform gunPointer;
     Model_Play playModel;
 
+    Vector3 scratch;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,13 @@ public class Behavior_GunCam : MonoBehaviour
         {
             outputQuad.SetActive(true);
             transform.rotation = Quaternion.LookRotation(gunPointer.forward);
+
+            scratch = outputQuad.transform.localPosition;
+            if (playModel.leftStation == Stations.Guns)
+                scratch.x = -31;
+            else
+                scratch.x = 31;
+            outputQuad.transform.localPosition = scratch;
         }
     }
 }

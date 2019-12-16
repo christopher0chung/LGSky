@@ -285,7 +285,8 @@ public class Manager_GameAssets : SCG_Controller {
             {
                 _bullet = _Make_GenericNewObj(gameModel.bulletPrefab, bullets_Active, bullets_Times, where);
             }
-            //Debug.Log(_bullet.name);
+            _bullet.transform.localScale = Vector3.one * .5f;
+            _bullet.GetComponent<Behavior_Bullet>().bounced = false;
             return _bullet;
         }
         else if (type == MyGameAsset.BulletExplosion)
@@ -481,4 +482,4 @@ public class Manager_GameAssets : SCG_Controller {
     #endregion
 }
 
-public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion, MissileExplosion, SFX, LanceHit }
+public enum MyGameAsset { Bullet, BulletExplosion, Rocket, RocketExplosion, DeathExplosion, MineExplosion, MissileExplosion, SFX, LanceHit, BounceBullet }

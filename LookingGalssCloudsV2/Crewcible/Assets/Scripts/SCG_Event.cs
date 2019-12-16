@@ -134,16 +134,6 @@ public class Event_BonusPoints : SCG_Event
     }
 }
 
-public class Event_Restart : SCG_Event
-{
-    public Event_Restart() { }
-}
-
-public class Event_DumpReg : SCG_Event
-{
-
-}
-
 public class Event_Audio : SCG_Event
 {
     public AudioEvent type;
@@ -154,7 +144,16 @@ public class Event_Audio : SCG_Event
     }
 }
 
+public class Event_DumpReg : SCG_Event
+{
+
+}
+
+public class Event_Restart : SCG_Event { }
+
 public class Event_LevelClear : SCG_Event
 {
 
 }
+
+public class Event_Respawn : SCG_Event { }

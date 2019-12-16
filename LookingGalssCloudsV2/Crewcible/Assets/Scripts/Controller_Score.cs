@@ -18,6 +18,8 @@ public class Controller_Score : MonoBehaviour
         SCG_EventManager.instance.Register<Event_BonusPoints>(EventHandler);
 
         SCG_EventManager.instance.Register<Event_LevelClear>(EventHandler);
+
+        SCG_EventManager.instance.Register<Event_Restart>(EventHandler);
     }
 
     public void EventHandler (SCG_Event e)
@@ -75,6 +77,17 @@ public class Controller_Score : MonoBehaviour
         {
             sadModel.lastScore = sadModel.endScore;
             sadModel.endScore = sadModel.score;
+        }
+
+        Event_Restart r = e as Event_Restart;
+
+        if (r != null)
+        {
+            sadModel.lastScore = 0;
+            sadModel.endScore = 0;
+            sadModel.score = 0;
+            sadModel.difficulty = 0;
+            sadModel.level = 1;
         }
     } 
 }

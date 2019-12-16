@@ -80,7 +80,9 @@ public class Controller_Shield : SCG_Controller {
                 if (outCome <= bouncePerc)
                 {
                     GameObject bullet = assetManager.Make(MyGameAsset.Bullet, ServiceLocator.instance.Player.position + (Vector3)playModel.shieldDirection);
-                    bullet.GetComponent<Rigidbody>().AddForce((Vector3)playModel.shieldDirection * gameModel.s_Guns_BulletSpeed, ForceMode.Impulse);
+                    bullet.transform.localScale = Vector3.one * 5;
+                    bullet.GetComponent<Behavior_Bullet>().bounced = true;
+                    bullet.GetComponent<Rigidbody>().AddForce((Vector3)playModel.shieldDirection * gameModel.s_Guns_BulletSpeed * 2.8f, ForceMode.Impulse);
                 }
             }
         }

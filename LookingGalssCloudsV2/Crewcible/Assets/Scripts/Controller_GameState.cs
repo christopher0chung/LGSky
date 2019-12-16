@@ -41,14 +41,12 @@ public class Controller_GameState : SCG_Controller
         gameOver.SetActive(false);
 
         _fsm = new SCG_FSM<Controller_GameState>(this);
-        _fsm.TransitionTo<Alive>();
+        _fsm.TransitionTo<Starting>();
 
         charge1.Stop();
         charge2.Stop();
         jump1.Stop();
         jump2.Stop();
-
-        Invoke("StartAudio", .5f);
     }
 
     private void StartAudio()
@@ -86,7 +84,7 @@ public class Controller_GameState : SCG_Controller
         {
             Context.playModel.lives = 3;
             Context.gameOver.SetActive(false);
-            SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.Welcome));
+            Context.Invoke("StartAudio", .5f);
         }
         public override void Update()
         {
@@ -177,6 +175,11 @@ public class Controller_GameState : SCG_Controller
 
             if (timer >= respawnDuration)
                 TransitionTo<Alive>();
+        }
+
+        public override void OnExit()
+        {
+            SCG_EventManager.instance.Fire(new Event_Respawn());
         }
     }
 

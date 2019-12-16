@@ -7,6 +7,8 @@ public class Behavior_ShieldCam : MonoBehaviour
 
     Model_Play playModel;
 
+    Vector3 scratch;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,12 @@ public class Behavior_ShieldCam : MonoBehaviour
         {
             outputQuad.SetActive(true);
             transform.rotation = Quaternion.LookRotation((Vector3)playModel.shieldDirection);
+            scratch = outputQuad.transform.localPosition;
+            if (playModel.leftStation == Stations.Shield)
+                scratch.x = -31;
+            else
+                scratch.x = 31;
+            outputQuad.transform.localPosition = scratch;
         }
     }
 }
