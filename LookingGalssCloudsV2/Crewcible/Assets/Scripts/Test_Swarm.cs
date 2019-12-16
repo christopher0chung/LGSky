@@ -237,7 +237,7 @@ public class Test_Swarm : Behavior_BaddyBase
         if (Vector3.Dot(_swarm[i].transform.forward, targetBrg) >= attackConeScalar)
         {
             if (Random.Range(0.00f, 1.00f) <= attackPercentage * Time.deltaTime)
-                if (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.Dash)
+                if (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.LevelVictory)
                     Instantiate(bullet, _swarm[i].transform.position, Quaternion.LookRotation(targetBrg));
         }
 

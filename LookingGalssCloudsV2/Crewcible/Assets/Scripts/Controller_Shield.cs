@@ -14,7 +14,7 @@ public class Controller_Shield : SCG_Controller {
 
     private MeshRenderer shieldLinesRenderer;
 
-    private float bouncePerc = .6f;
+    private float bouncePerc = .7f;
 
     void Awake()
     {
