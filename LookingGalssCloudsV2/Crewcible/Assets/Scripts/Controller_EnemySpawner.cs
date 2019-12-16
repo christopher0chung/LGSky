@@ -118,8 +118,6 @@ public class Controller_EnemySpawner : MonoBehaviour
             Destroy(baddieParent);
             baddieParent = new GameObject("BaddieParent");
             baddieParent.transform.SetParent(ServiceLocator.instance.Controller);
-            sadModel.score = 0;
-            sadModel.level = 1;
             _fsm.TransitionTo<FirstWait>();
         }
     }
