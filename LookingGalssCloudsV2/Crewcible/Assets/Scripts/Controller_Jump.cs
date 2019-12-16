@@ -8,10 +8,6 @@ public class Controller_Jump : SCG_Controller
     Model_Play playModel;
     Model_Game gameModel;
 
-    private void Awake()
-    {
-       SCG_EventManager.instance.Register<Event_EnemyBulletHit>(DamageEventHandler);
-    }
     void Start()
     {
         heatModel = ServiceLocator.instance.Model.GetComponent<Model_Heat>();
@@ -27,6 +23,7 @@ public class Controller_Jump : SCG_Controller
 
     bool penalty;
     bool lastPenalty;
+    float prev;
 
     public override void ScheduledUpdate()
     {
@@ -46,20 +43,10 @@ public class Controller_Jump : SCG_Controller
         lastPenalty = penalty;
 
         playModel.jumpTotal = Mathf.Clamp(playModel.jumpTotal, 0, 100);
-    }
-
-    public void DamageEventHandler(SCG_Event e)
-    {
-        Event_EnemyBulletHit bH = e as Event_EnemyBulletHit;
-
-        float prev = playModel.jumpTotal;
-
-        if (bH != null)
-            playModel.jumpTotal -= gameModel.m_EnemyBulletDamage;
 
         if (playModel.jumpTotal <= 15 && prev > 15)
             SCG_EventManager.instance.Fire(new Event_Audio(AudioEvent.W_System));
 
-        playModel.jumpTotal = Mathf.Clamp(playModel.jumpTotal, 0, 100);
+        prev = playModel.jumpTotal;
     }
 }

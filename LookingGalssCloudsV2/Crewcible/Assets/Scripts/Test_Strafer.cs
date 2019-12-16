@@ -40,7 +40,7 @@ public class Test_Strafer : Behavior_BaddyBase
         {
             shootTimer = 0;
             if (turret.position.z > target.position.z + 12 && turret.position.z < 100)
-                if (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.Dash)
+                if (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.LevelVictory)
                     Instantiate(bullet, turret.position + turret.forward * 1.1f, Quaternion.LookRotation(target.position - turret.position, transform.up));
         }
 

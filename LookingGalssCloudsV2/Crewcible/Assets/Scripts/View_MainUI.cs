@@ -40,6 +40,9 @@ public class View_MainUI : MonoBehaviour
     [Range(0, 100)]
     public float warmBreakpoint;
 
+    public Image hpBorder;
+    public Image hpFill;
+
     void Start()
     {
         heatModel = ServiceLocator.instance.Model.GetComponent<Model_Heat>();
@@ -63,6 +66,7 @@ public class View_MainUI : MonoBehaviour
         UpdateJumpProgress();
         UpdateColor();
         ChargeSpinner();
+        HPUpdate();
     }
 
     void InitializeAssets()
@@ -386,5 +390,10 @@ public class View_MainUI : MonoBehaviour
         //Debug.Log(spinSpeedBase * heatModel.heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime);
         euler.z += spinSpeedBase * heatModel.heatToChargeConversionFactor.Evaluate(heatModel.heat_Total / heatModel.max_HeatTotal) * Time.deltaTime;
         chargeSpinner.localRotation = Quaternion.Euler(euler);
+    }
+
+    void HPUpdate()
+    {
+        hpFill.fillAmount = (playModel.playerHP / 5) * .42f + .29f;
     }
 }

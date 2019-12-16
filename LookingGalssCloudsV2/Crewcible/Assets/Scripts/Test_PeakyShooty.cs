@@ -185,7 +185,7 @@ public class Test_PeakyShooty : Behavior_BaddyBase
                 for (int i = 0; i < 2; i++)
                 {
                     if (shieldT >= .3f + .07f * i && oldT < .3f + .07f * i)
-                        if (Context.playModel.currentPlayerState == PlayerState.Alive || Context.playModel.currentPlayerState == PlayerState.Dash)
+                        if (Context.playModel.currentPlayerState == PlayerState.Alive || Context.playModel.currentPlayerState == PlayerState.LevelVictory)
                             Instantiate(Context.bullet, Context.transform.position + Context.transform.right * -2.67f + Context.transform.forward * 3.45f, Quaternion.LookRotation(Context.transform.forward));
                 }
 

@@ -103,15 +103,17 @@ public class Controller_GameState : SCG_Controller
 
         public override void Update()
         {
-            if (Context.playModel.jumpTotal <= 0.5f)
+            if (Context.playModel.playerHP == 0)
             {
                 Context.playModel.lives--;
                 if (Context.playModel.lives > 0)
                     TransitionTo<Dead>();
                 else
                     TransitionTo<GameOver>();
+                return;
             }
-            else if (Context.playModel.jumpTotal == 100)
+
+            if (Context.playModel.jumpTotal == 100)
             {
                 TransitionTo<LevelVictory>();
             }

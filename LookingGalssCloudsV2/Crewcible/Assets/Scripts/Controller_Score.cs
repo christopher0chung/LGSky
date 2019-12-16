@@ -20,6 +20,8 @@ public class Controller_Score : MonoBehaviour
         SCG_EventManager.instance.Register<Event_LevelClear>(EventHandler);
 
         SCG_EventManager.instance.Register<Event_Restart>(EventHandler);
+
+        sadModel.level = 1;
     }
 
     public void EventHandler (SCG_Event e)

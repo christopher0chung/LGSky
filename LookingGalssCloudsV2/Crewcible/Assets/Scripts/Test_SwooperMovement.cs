@@ -93,7 +93,7 @@ public class Test_SwooperMovement : Behavior_BaddyBase
             Vector3.Dot(transform.forward, Vector3.forward) > 0 &&
             transform.position.y > target.transform.position.y + 1)
         {
-            if (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.Dash)
+            if (playModel.currentPlayerState == PlayerState.Alive || playModel.currentPlayerState == PlayerState.LevelVictory)
             {
                 readyToFire = false;
                 fired = true;

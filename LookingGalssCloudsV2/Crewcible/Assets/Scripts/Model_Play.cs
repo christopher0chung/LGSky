@@ -42,5 +42,6 @@ public class Model_Play : SCG_Model
     public bool deathExplosionTrigger;
     [ColorUsage(true, true)] public Color appliedWorldColor;
     [ColorUsage(true, true)] public Color appliedBulletColor;
+    public float playerHP;
 }
 public enum PlayerState { Alive, Dead, Respawning, GameOver, LevelVictory, Dash, Flyby }
