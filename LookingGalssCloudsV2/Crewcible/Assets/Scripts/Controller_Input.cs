@@ -171,7 +171,8 @@ public class Controller_Input : SCG_Controller {
 
     bool JoinButtonWasPressedOnDevice(InputDevice inputDevice)
     {
-        return inputDevice.Action1.WasPressed || inputDevice.Action2.WasPressed || inputDevice.Action3.WasPressed || inputDevice.Action4.WasPressed || inputDevice.CommandWasPressed;
+        //return inputDevice.Action1.WasPressed || inputDevice.Action2.WasPressed || inputDevice.Action3.WasPressed || inputDevice.Action4.WasPressed || inputDevice.CommandWasPressed;
+        return inputDevice.CommandWasPressed;
     }
 
     void OnDeviceDetached(InputDevice inputDevice)

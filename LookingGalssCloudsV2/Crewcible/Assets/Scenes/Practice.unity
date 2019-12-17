@@ -5371,6 +5371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNormal: 0
+  isTutorial: 0
   normalClouds: {fileID: 3599120348577443651, guid: b7104c4a15633df4581348d2c075b193,
     type: 3}
   happyClouds: {fileID: 3599120348577443651, guid: 1af1b2cb10d531743b6a124a20312c96,
@@ -5381,6 +5382,8 @@ MonoBehaviour:
   - {fileID: 2106290460}
   - {fileID: 856946066}
   - {fileID: 813390703}
+  tutorialPrefab: {fileID: 3470479061932823628, guid: bd85e86f73c37e740ac19abba45ee5c2,
+    type: 3}
 --- !u!1 &49041384
 GameObject:
   m_ObjectHideFlags: 0
@@ -33409,7 +33412,7 @@ MonoBehaviour:
   d_Lance_Damage_Sustained: 25
   f_Lance_MinRange: 0.3
   f_Lance_MaxRange: 1.5
-  f_Lance_OvermaxRange: 4
+  f_Lance_OvermaxRange: 2.8
   s_Lance_ExtendSpeed: 20
   e_Reactor_Base: 0
   e_Reactor_Upgrade: 0

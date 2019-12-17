@@ -285,7 +285,7 @@ PrefabInstance:
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
       propertyPath: field of view
-      value: 106.3
+      value: 111.3
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda,
         type: 3}
@@ -499,11 +499,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNormal: 0
+  isTutorial: 0
   normalClouds: {fileID: 3599120348577443651, guid: b7104c4a15633df4581348d2c075b193,
     type: 3}
   happyClouds: {fileID: 3599120348577443651, guid: 1af1b2cb10d531743b6a124a20312c96,
     type: 3}
   objToDisable: []
+  tutorialPrefab: {fileID: 3470479061932823628, guid: bd85e86f73c37e740ac19abba45ee5c2,
+    type: 3}
 --- !u!1 &60622465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,7 +1676,7 @@ GameObject:
   - component: {fileID: 661089462}
   - component: {fileID: 661089461}
   m_Layer: 5
-  m_Name: AButton
+  m_Name: Button_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1695,7 +1698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -919, y: -123}
+  m_AnchoredPosition: {x: -925, y: -123}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &661089461
@@ -1716,7 +1719,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bf0c00fa23677994ba821a9b17190237, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e5a7260c7d0b5d94db9072dc9f79e0a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2933,6 +2936,7 @@ MonoBehaviour:
   R_SwapUp_OnDown: 0
   R_SwapDown_OnDown: 0
   startPause: 0
+  acknowledge: 0
 --- !u!114 &1305984636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2959,6 +2963,8 @@ MonoBehaviour:
   sfx_Shield_Activate: {fileID: 8300000, guid: 8a7782ff107db3240a9ef411943a328c, type: 3}
   sfx_Gun_Shot: {fileID: 8300000, guid: 8a7782ff107db3240a9ef411943a328c, type: 3}
   sfx_ShipHit: {fileID: 0}
+  sfx_LanceHit: {fileID: 0}
+  sfx_LanceLit: {fileID: 0}
   sfx_EnemyLittleExplosion: {fileID: 8300000, guid: c528dad3fe8287a4fb75321c077ca2b4,
     type: 3}
   sfx_EnemyBulletHit: {fileID: 0}
@@ -3150,6 +3156,9 @@ MonoBehaviour:
   isPaused: 0
   worldSpeed_Current: 0
   deathExplosionTrigger: 0
+  appliedWorldColor: {r: 0, g: 0, b: 0, a: 0}
+  appliedBulletColor: {r: 0, g: 0, b: 0, a: 0}
+  playerHP: 0
 --- !u!1 &1309695772
 GameObject:
   m_ObjectHideFlags: 0
@@ -3955,7 +3964,7 @@ GameObject:
   - component: {fileID: 1509345138}
   - component: {fileID: 1509345137}
   m_Layer: 5
-  m_Name: AButton (1)
+  m_Name: Button_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3977,7 +3986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -919, y: -248}
+  m_AnchoredPosition: {x: -925, y: -248}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1509345137
@@ -3998,7 +4007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e5a7260c7d0b5d94db9072dc9f79e0a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf0c00fa23677994ba821a9b17190237, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

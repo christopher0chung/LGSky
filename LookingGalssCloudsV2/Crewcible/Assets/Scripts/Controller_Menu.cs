@@ -76,11 +76,11 @@ public class Controller_Menu : SCG_Controller
         if (choices == 0)
             c.text = "PLAY";
         else if (choices == 1)
-            c.text = "PRACTICE";
+            c.text = "INTRO";
         else if (choices == 2)
-            c.text = "CONTROLS";
+            c.text = "PRACTICE";
 
-        if ((inputModel.startPause) && (ServiceLocator.instance.controllerRefs.device0 != null || ServiceLocator.instance.controllerRefs.device1 != null))
+        if ((inputModel.acknowledge) && (ServiceLocator.instance.controllerRefs.device0 != null || ServiceLocator.instance.controllerRefs.device1 != null))
         {
             if (choices == 0)
             {
@@ -91,6 +91,11 @@ public class Controller_Menu : SCG_Controller
             {
                 SCG_EventManager.instance.Clear();
                 SceneManager.LoadScene(2);
+            }
+            else if (choices == 2)
+            {
+                SCG_EventManager.instance.Clear();
+                SceneManager.LoadScene(3);
             }
         }
     }
