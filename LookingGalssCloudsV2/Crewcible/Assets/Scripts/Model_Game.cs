@@ -25,6 +25,7 @@ public class Model_Game : SCG_Model {
     public AudioClip sfx_ShipHit;
     public AudioClip sfx_LanceHit;
     public AudioClip sfx_LanceLit;
+    public AudioClip sfx_RocketLaunch;
     #endregion
     [Header("Enemy SFX")]
     #region Enemy

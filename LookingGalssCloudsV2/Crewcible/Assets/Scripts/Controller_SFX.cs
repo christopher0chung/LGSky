@@ -17,6 +17,7 @@ public class Controller_SFX : MonoBehaviour
     Model_Play playModel;
     Model_Game gameModel;
     Model_Heat heatModel;
+    Manager_GameAssets gameAssets;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class Controller_SFX : MonoBehaviour
         playModel = ServiceLocator.instance.Model.GetComponent<Model_Play>();
         gameModel = ServiceLocator.instance.Model.GetComponent<Model_Game>();
         heatModel = ServiceLocator.instance.Model.GetComponent<Model_Heat>();
+        gameAssets = ServiceLocator.instance.Controller.GetComponent<Manager_GameAssets>();
 
         _MakeAndRefAudioSources();
         _SetClipsToAudioSources();
@@ -31,6 +33,7 @@ public class Controller_SFX : MonoBehaviour
         SCG_EventManager.instance.Register<Event_PlayerShieldBlock>(EventHandler);
         SCG_EventManager.instance.Register<Event_EnemyBulletHit>(EventHandler);
         SCG_EventManager.instance.Register<Event_PlayerExplode>(EventHandler);
+        SCG_EventManager.instance.Register<Event_LanceHit>(EventHandler);
     }
 
     void Update()
@@ -54,6 +57,13 @@ public class Controller_SFX : MonoBehaviour
         Event_PlayerExplode pE = e as Event_PlayerExplode;
         if (pE != null)
             oneShotSource.PlayOneShot(gameModel.sfx_ShipExplode);
+
+        Event_LanceHit lH = e as Event_LanceHit;
+        if (lH != null)
+        {
+            GameObject g = gameAssets.Make(MyGameAsset.SFX, lH.location);
+            g.GetComponent<AudioSource>().PlayOneShot(gameModel.sfx_LanceHit);
+        }
     }
 
     #region Guns
@@ -167,7 +177,6 @@ public class Controller_SFX : MonoBehaviour
         shieldHumSource.transform.position = ServiceLocator.instance.Player.position + (Vector3)playModel.shieldDirection;
     }
     #endregion
-
     #region Setup
     void _MakeAndRefAudioSources()
     {

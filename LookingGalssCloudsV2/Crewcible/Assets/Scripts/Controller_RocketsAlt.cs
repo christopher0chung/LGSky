@@ -96,8 +96,10 @@ public class Controller_RocketsAlt : SCG_Controller
                 Vector3 newRocketDir = Vector3.Normalize(Random.insideUnitSphere);
                 Vector3 newRocketPos = player.position + newRocketDir;
 
-                GameObject g = assetManager.Make(MyGameAsset.Rocket, newRocketPos);
+                GameObject g = assetManager.Make(MyGameAsset.SFX, newRocketPos);
+                g.GetComponent<AudioSource>().PlayOneShot(gameModel.sfx_RocketLaunch);
 
+                g = assetManager.Make(MyGameAsset.Rocket, newRocketPos);
                 g.GetComponent<Behavior_RocketsAlt>().Restart(newRocketPos, newRocketDir);
                 //g.GetComponent<Behavior_Rocket>().ultimatePath = rocketPitch.up;
                 rocketIncrementor++;

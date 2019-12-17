@@ -33365,8 +33365,9 @@ MonoBehaviour:
   sfx_Shield_Activate: {fileID: 8300000, guid: 8a7782ff107db3240a9ef411943a328c, type: 3}
   sfx_Gun_Shot: {fileID: 8300000, guid: e5093cbcd1d3c6842a6f45a862118db6, type: 3}
   sfx_ShipHit: {fileID: 8300000, guid: 1f2b57f7bc1c28b489674aaa33ffb1d7, type: 3}
-  sfx_LanceHit: {fileID: 8300000, guid: f4d61cf9b177b644bb1e18577a2bcdba, type: 3}
+  sfx_LanceHit: {fileID: 8300000, guid: 72a81358d96eb584fa8e0c38cd3ef97a, type: 3}
   sfx_LanceLit: {fileID: 8300000, guid: 13fe11af1b7d5544e8fc10797cbfac85, type: 3}
+  sfx_RocketLaunch: {fileID: 8300000, guid: 1905f103c91e34343b490c7d04f12938, type: 3}
   sfx_EnemyLittleExplosion: {fileID: 8300000, guid: 1f2b57f7bc1c28b489674aaa33ffb1d7,
     type: 3}
   sfx_EnemyBulletHit: {fileID: 8300000, guid: 1f2b57f7bc1c28b489674aaa33ffb1d7, type: 3}
@@ -33394,7 +33395,7 @@ MonoBehaviour:
   t_Rockets_Reload: 3
   d_Rockets_Damage: 8
   d_Rockets_ExplosionBallDamage: 15
-  f_Rockets_ExplosionBallSize: 13
+  f_Rockets_ExplosionBallSize: 8
   t_Rockets_ExplosionBallLifetime: 3.5
   i_Rockets_RocketCountMax: 30
   s_Rockets_FlySpeed: 60
