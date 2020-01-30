@@ -40,6 +40,8 @@ public class Controller_Input : SCG_Controller {
 
         //ManageBools();
 
+        ReadKeyboard();
+
         if (mode == PlayerMode.Single)
             ReadForSingle();
         else if (mode == PlayerMode.Coop)
@@ -167,6 +169,58 @@ public class Controller_Input : SCG_Controller {
 
         inputModel.startPause = (ServiceLocator.instance.controllerRefs.device0.CommandWasPressed || ServiceLocator.instance.controllerRefs.device1.CommandWasPressed);
         inputModel.acknowledge = (ServiceLocator.instance.controllerRefs.device0.Action1.WasPressed || ServiceLocator.instance.controllerRefs.device1.Action1.WasPressed);
+    }
+
+    void ReadKeyboard()
+    {
+        inputModel.L_Y = _PosNeg(KeyCode.W, KeyCode.S);
+        inputModel.L_X = _PosNeg(KeyCode.D, KeyCode.A);
+
+        inputModel.L_Mag = Mathf.Sqrt((inputModel.L_X * inputModel.L_X) + (inputModel.L_Y * inputModel.L_Y)) * 90;
+        if (inputModel.L_Mag == 0)
+            inputModel.L_Brg = 0;
+        else
+            inputModel.L_Brg = (Mathf.Atan2(inputModel.L_Y, inputModel.L_X) * Mathf.Rad2Deg + 630) % 360;
+
+        inputModel.R_Y = _PosNeg(KeyCode.O, KeyCode.L);
+        inputModel.R_X = _PosNeg(KeyCode.Semicolon, KeyCode.K);
+
+        inputModel.R_Mag = Mathf.Sqrt((inputModel.R_X * inputModel.R_X) + (inputModel.R_Y * inputModel.R_Y)) * 90;
+        if (inputModel.R_Mag == 0)
+            inputModel.R_Brg = 0;
+        else
+            inputModel.R_Brg = (Mathf.Atan2(inputModel.R_Y, inputModel.R_X) * Mathf.Rad2Deg + 630) % 360;
+
+        inputModel.L_Action_Down = Input.GetKey(KeyCode.LeftShift);
+        inputModel.L_Action_OnDown = Input.GetKeyDown(KeyCode.LeftShift);
+        inputModel.L_Action_OnUp = Input.GetKeyUp(KeyCode.LeftShift);
+
+        inputModel.R_Action_Down = Input.GetKey(KeyCode.RightShift);
+        inputModel.R_Action_OnDown = Input.GetKeyDown(KeyCode.RightShift);
+        inputModel.R_Action_OnUp = Input.GetKeyUp(KeyCode.RightShift);
+
+        inputModel.L_SwapUp_OnDown = Input.GetKeyDown(KeyCode.Q);
+        inputModel.L_SwapDown_OnDown = Input.GetKeyDown(KeyCode.E);
+
+        inputModel.R_SwapUp_OnDown = Input.GetKeyDown(KeyCode.I);
+        inputModel.R_SwapDown_OnDown = Input.GetKeyDown(KeyCode.P);
+
+        inputModel.startPause = Input.GetKeyDown(KeyCode.Space);       
+    }
+
+    private float _PosNeg(KeyCode pos, KeyCode neg)
+    {
+        if ((Input.GetKey(pos) || Input.GetKey(neg) && !(Input.GetKey(pos) && Input.GetKey(neg))))
+        {
+            if (Input.GetKey(pos))
+                return 1;
+            else if (Input.GetKey(neg))
+                return -1;
+            else
+                return 0;
+        }
+        else
+            return 0;
     }
 
     bool JoinButtonWasPressedOnDevice(InputDevice inputDevice)
